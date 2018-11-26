@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "564698928340",
+    "firebase_url": "https://holmal-9efde.firebaseio.com",
+    "project_id": "holmal-9efde",
+    "storage_bucket": "holmal-9efde.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564698928340:android:4ba63794f7c4e6f4",
+        "android_client_info": {
+          "package_name": "com.holmal.app.holmal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564698928340-89l85b74up3uulbruu28l8d201gc091t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.holmal.app.holmal",
+            "certificate_hash": "6574281642e4975a58c5825d9d9c73dbf255f047"
+          }
+        },
+        {
+          "client_id": "564698928340-2ejhd3s2j2dhcuar15gn3op2917jll1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDACQUUdRy9uIMTfA46CcC-N4NaZSdo3zE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "564698928340-2ejhd3s2j2dhcuar15gn3op2917jll1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
