@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <!-- Basic app colors -->
+    <color name="colorPrimary">#4cc1bb</color>
+    <color name="colorAccentColor">#940E3E</color>
+    <color name="colorAccentSilver">#D9DEDE</color>
+
+    <color name="colorBackground">#FFF9F0</color>
+    <color name="colorFont">#000028</color>
+
+    <!-- Person colors -->
+    <color name="colorPersonLightGreen">#C3f354</color>
+    <color name="colorPersonGreen">#6EBC75</color>
+    <color name="colorPersonBlue">#4e7cb2</color>
+    <color name="colorPersonLightBlue">#B2DBFC</color>
+    <color name="colorPersonOrange">#ffc04c</color>
+    <color name="colorPersonRed">#b53f45</color>
+    <color name="colorPersonPink">#FF81A3</color>
+    <color name="colorPersonPurple">#c7a2ff</color>
+
+
+    <!-- Somewhere used, but I don't knwo where-->
+    <!-- TODO delete when not used any more-->
+    <color name="colorPrimaryDark">#ffff00</color>
+    <color name="colorAccent">#ffff00</color>
 </resources>
