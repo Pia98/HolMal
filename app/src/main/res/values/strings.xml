@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Hol Mal</string>
+
+    <string name="createHousehold">neuen Haushalt erstellen</string> <!-- alrenativ: Haus bauen? -->
+    <string name="moveIn">in bestehenden Haushalt einziehen</string>
+
+    <string name="householdName">Name des Haushalts</string>
+    <string name="done">Fertig</string> <!-- alternativ: bei haushalt erstellen: bauen?-->
+
+    <string name="username">Benutzername</string>
+    <string name="color">Farbe</string>
+
+    <string name="myJobs">Meine Aufträge</string>
 </resources>

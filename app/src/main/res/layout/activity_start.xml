@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- when app opens the first time -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StartActivity">
+
+    <!-- corresponds to button 1 in paper prototype-->
+    <Button
+        android:id="@+id/createHousehold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/createHousehold"
+        app:layout_editor_absoluteX="28dp"
+        app:layout_editor_absoluteY="16dp" />
+
+    <!-- corresponds to button 2 in paper prototype-->
+    <Button
+        android:id="@+id/moveIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/moveIn"
+        app:layout_editor_absoluteX="28dp"
+        app:layout_editor_absoluteY="84dp" />
 
 </android.support.constraint.ConstraintLayout>
