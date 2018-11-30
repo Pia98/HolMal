@@ -5,10 +5,15 @@
     <string name="moveIn">in bestehenden Haushalt einziehen</string>
 
     <string name="householdName">Name des Haushalts</string>
-    <string name="done">Fertig</string> <!-- alternativ: bei haushalt erstellen: bauen?-->
+    <string name="done">Fertig</string> <!-- alternativ: bei haushalt erstellen: bauen?, bei beitreten: einziehen? -->
 
     <string name="username">Benutzername</string>
     <string name="color">Farbe</string>
 
     <string name="myJobs">Meine Aufträge</string>
+
+    <string name="moveInHouseholdAs">Folgendem Haushalt beitreten als:</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
