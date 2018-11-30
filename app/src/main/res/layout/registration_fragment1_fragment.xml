@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?><!-- registration fragment when creating a new household -->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registrationfragment1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.registrationfragment1.RegistrationFragment1">
+
+    <TextView
+        android:id="@+id/createHouseholdHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/createHousehold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_editor_absoluteX="0dp"
+        app:layout_editor_absoluteY="37dp">
+
+        <TextView
+            android:id="@+id/householdName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/householdName" />
+
+        <EditText
+            android:id="@+id/householdNameInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_editor_absoluteX="0dp"
+        app:layout_editor_absoluteY="170dp">
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/username" />
+
+        <EditText
+            android:id="@+id/userNameInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_editor_absoluteX="0dp"
+        app:layout_editor_absoluteY="292dp">
+
+        <TextView
+            android:id="@+id/color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/color" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="4"
+            android:rowCount="2">
+
+            <Button
+                android:id="@+id/color1"
+                android:background="@color/colorPersonLightGreen" />
+
+            <Button
+                android:id="@+id/color2"
+                android:background="@color/colorPersonGreen" />
+
+            <Button
+                android:id="@+id/color3"
+                android:background="@color/colorPersonBlue" />
+
+            <Button
+                android:id="@+id/color4"
+                android:background="@color/colorPersonLightBlue" />
+
+            <Button
+                android:id="@+id/color5"
+                android:background="@color/colorPersonOrange" />
+
+            <Button
+                android:id="@+id/color6"
+                android:background="@color/colorPersonRed" />
+
+            <Button
+                android:id="@+id/color7"
+                android:background="@color/colorPersonPink" />
+
+            <Button
+                android:id="@+id/color8"
+                android:background="@color/colorPersonPurple" />
+        </GridLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/createHouseholdDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/done"
+        app:layout_editor_absoluteX="239dp"
+        app:layout_editor_absoluteY="434dp" />
+
+</android.support.constraint.ConstraintLayout>
