@@ -34,14 +34,8 @@
         android:id="@+id/fragmentContainerMoveIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <!--<fragment-->
-    <!--android:name="com.holmal.app.holmal.PersonalInput"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:layout_constraintBottom_toTopOf="@id/moveInDone"-->
-    <!--app:layout_constraintStart_toEndOf="@id/leftMargin"-->
-    <!--app:layout_constraintTop_toBottomOf="@id/householdIDAsText" />-->
 
+    <!-- corresponds to button 5 in paper prototype-->
     <Button
         android:id="@+id/moveInDone"
         android:layout_width="wrap_content"

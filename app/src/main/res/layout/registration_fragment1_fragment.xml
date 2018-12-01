@@ -55,6 +55,7 @@
             app:layout_constraintStart_toEndOf="@id/generatedID"/>
     </android.support.constraint.ConstraintLayout>
 
+    <!-- corresponds to button 4 in paper prototype-->
     <Button
         android:id="@+id/invite"
         android:layout_width="wrap_content"
@@ -64,6 +65,7 @@
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"/>
 
+    <!-- corresponds to button 5 in paper prototype-->
     <Button
         android:id="@+id/registrationCreateDone"
         android:layout_width="wrap_content"
