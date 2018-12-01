@@ -22,14 +22,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         // maybe not the best solution
         int fragmentNumber = getIntent().getExtras().getInt("fragmentNumber");
-        switch (fragmentNumber){
-            case 1:
-                putRegistrationFragment1();
-                break;
-            case 2:
-                putRegistrationFragment2();
-                break;
-        }
+        chooseFragment(fragmentNumber);
 
 //        if (savedInstanceState == null) {
 //            getSupportFragmentManager().beginTransaction()
@@ -38,15 +31,26 @@ public class RegistrationActivity extends AppCompatActivity {
 //        }
     }
 
-    public void putRegistrationFragment1(){
-        fragmentHandling.putFragment(currentFragment,
-                RegistrationFragment1.newInstance(),
-                getSupportFragmentManager());
-    }
-
-    public void putRegistrationFragment2(){
-        fragmentHandling.putFragment(currentFragment,
-                RegistrationFragment2.newInstance(),
-                getSupportFragmentManager());
+    /**
+     * Places a fragment depending on the app context
+     *
+     * @param fragmentNumber The number that should be placed
+     */
+    private void chooseFragment(int fragmentNumber) {
+        switch (fragmentNumber) {
+            // RegistrationFragment1 because it's from context 'create'
+            case 1:
+                fragmentHandling.putFragment(currentFragment,
+                        RegistrationFragment1.newInstance(),
+                        getSupportFragmentManager());
+                break;
+            // RegistrationFragment2 because it's from context 'move in'
+            case 2:
+                fragmentHandling.putFragment(currentFragment,
+                        RegistrationFragment2.newInstance(),
+                        getSupportFragmentManager());
+                ;
+                break;
+        }
     }
 }
