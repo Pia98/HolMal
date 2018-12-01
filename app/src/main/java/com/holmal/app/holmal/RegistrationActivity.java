@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 public class RegistrationActivity extends AppCompatActivity {
 
     Fragment currentFragment;
+    FragmentHandling fragmentHandling = new FragmentHandling();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,25 +39,14 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     public void putRegistrationFragment1(){
-        putFragment(currentFragment, RegistrationFragment1.newInstance());
+        fragmentHandling.putFragment(currentFragment,
+                RegistrationFragment1.newInstance(),
+                getSupportFragmentManager());
     }
 
     public void putRegistrationFragment2(){
-        putFragment(currentFragment, RegistrationFragment2.newInstance());
-    }
-
-
-
-    private void putFragment(Fragment toBeRemoved, Fragment toBePlaced) {
-        removeFragment(toBeRemoved);
-        toBeRemoved = toBePlaced;
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragmentContainerRegistration, toBeRemoved).commit();
-    }
-
-    private void removeFragment(Fragment fragment){
-        if(fragment != null){
-            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-        }
+        fragmentHandling.putFragment(currentFragment,
+                RegistrationFragment2.newInstance(),
+                getSupportFragmentManager());
     }
 }
