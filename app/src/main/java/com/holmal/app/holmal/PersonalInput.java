@@ -12,12 +12,12 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link personalInput.OnFragmentInteractionListener} interface
+ * {@link PersonalInput.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link personalInput#newInstance} factory method to
+ * Use the {@link PersonalInput#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class personalInput extends Fragment {
+public class PersonalInput extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +29,7 @@ public class personalInput extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public personalInput() {
+    public PersonalInput() {
         // Required empty public constructor
     }
 
@@ -39,11 +39,11 @@ public class personalInput extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment personalInput.
+     * @return A new instance of fragment PersonalInput.
      */
     // TODO: Rename and change types and number of parameters
-    public static personalInput newInstance(String param1, String param2) {
-        personalInput fragment = new personalInput();
+    public static PersonalInput newInstance(String param1, String param2) {
+        PersonalInput fragment = new PersonalInput();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

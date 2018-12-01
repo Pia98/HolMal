@@ -1,149 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?><!-- registration fragment when 'moving into an existing household' (screen 6) -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".MoveInHousehold">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MoveInHousehold">
 
-<TextView
-    android:id="@+id/moveInHouseholdHeading"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/moveInHouseholdAs"
-    app:layout_constraintStart_toEndOf="@id/leftMargin"
-    app:layout_constraintTop_toBottomOf="@id/topMargin" />
+    <TextView
+        android:id="@+id/moveInHouseholdHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/moveInHouseholdAs"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/topMargin" />
 
-<TextView
-    android:id="@+id/householdNameFromIDAsText"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Maier"
-    app:layout_constraintStart_toEndOf="@id/leftMargin"
-    app:layout_constraintTop_toBottomOf="@+id/moveInHouseholdHeading" />
+    <TextView
+        android:id="@+id/householdNameFromIDAsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Maier"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/moveInHouseholdHeading" />
 
-<TextView
-    android:id="@+id/householdIDAsText"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="123456789"
-    app:layout_constraintStart_toEndOf="@id/leftMargin"
-    app:layout_constraintTop_toBottomOf="@+id/householdNameFromIDAsText" />
-<!-- fragment here -->
-<!--<fragment-->
-    <!--android:name="com.holmal.app.holmal.personalInput"-->
+    <TextView
+        android:id="@+id/householdIDAsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="123456789"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/householdNameFromIDAsText" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/fragmentContainerMoveIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <!--<fragment-->
+    <!--android:name="com.holmal.app.holmal.PersonalInput"-->
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"-->
     <!--app:layout_constraintBottom_toTopOf="@id/moveInDone"-->
     <!--app:layout_constraintStart_toEndOf="@id/leftMargin"-->
     <!--app:layout_constraintTop_toBottomOf="@id/householdIDAsText" />-->
 
-<Button
-    android:id="@+id/moveInDone"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/done"
-    app:layout_constraintBottom_toTopOf="@id/bottomMargin"
-    app:layout_constraintEnd_toStartOf="@id/rightMargin" />
+    <Button
+        android:id="@+id/moveInDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/done"
+        app:layout_constraintBottom_toTopOf="@id/bottomMargin"
+        app:layout_constraintEnd_toStartOf="@id/rightMargin" />
 
-<!-- Guidelines -->
+    <!-- Guidelines -->
 
-<android.support.constraint.Guideline
-    android:id="@+id/leftMargin"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintGuide_percent="0.03" />
+    <android.support.constraint.Guideline
+        android:id="@+id/leftMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.03" />
 
-<android.support.constraint.Guideline
-    android:id="@+id/topMargin"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.03" />
+    <android.support.constraint.Guideline
+        android:id="@+id/topMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.03" />
 
-<android.support.constraint.Guideline
-    android:id="@+id/rightMargin"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintGuide_percent="0.97" />
+    <android.support.constraint.Guideline
+        android:id="@+id/rightMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.97" />
 
-<android.support.constraint.Guideline
-    android:id="@+id/bottomMargin"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.97" />
+    <android.support.constraint.Guideline
+        android:id="@+id/bottomMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.97" />
 
-<android.support.constraint.Guideline
-    android:id="@+id/centerLineHorizontal"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.5" />
+    <android.support.constraint.Guideline
+        android:id="@+id/centerLineHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
-<android.support.constraint.Guideline
-    android:id="@+id/centerLineVertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintGuide_percent="0.5" />
+    <android.support.constraint.Guideline
+        android:id="@+id/centerLineVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
-<android.support.constraint.Guideline
-    android:id="@+id/quarterLineLeft"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintGuide_percent="0.25" />
+    <android.support.constraint.Guideline
+        android:id="@+id/quarterLineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
 
-<android.support.constraint.Guideline
-    android:id="@+id/quarterLineRigth"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintGuide_percent="0.75" />
+    <android.support.constraint.Guideline
+        android:id="@+id/quarterLineRigth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
 
-<android.support.constraint.Guideline
-    android:id="@+id/quarterLineTop"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.25" />
+    <android.support.constraint.Guideline
+        android:id="@+id/quarterLineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
 
-<android.support.constraint.Guideline
-    android:id="@+id/quarterLineBottom"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.75" />
+    <android.support.constraint.Guideline
+        android:id="@+id/quarterLineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
 
-<android.support.constraint.Guideline
-    android:id="@+id/thirdLineTop"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintGuide_percent="0.33333334" />
+    <android.support.constraint.Guideline
+        android:id="@+id/thirdLineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.33333334" />
 
-<android.support.constraint.Guideline
-    android:id="@+id/thirdLineBottom"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintGuide_percent="0.66666" />
+    <android.support.constraint.Guideline
+        android:id="@+id/thirdLineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.66666" />
 
-<android.support.constraint.Guideline
-    android:id="@+id/thirdLineLeft"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.33333" />
+    <android.support.constraint.Guideline
+        android:id="@+id/thirdLineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33333" />
 
-<android.support.constraint.Guideline
-    android:id="@+id/thirdLineRight"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.66666" />
+    <android.support.constraint.Guideline
+        android:id="@+id/thirdLineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.66666" />
 
 </android.support.constraint.ConstraintLayout>

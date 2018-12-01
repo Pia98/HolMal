@@ -1,6 +1,7 @@
 package com.holmal.app.holmal.ui.registrationfragment1;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,7 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.holmal.app.holmal.MoveInHousehold;
 import com.holmal.app.holmal.R;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class RegistrationFragment2 extends Fragment {
 
@@ -22,7 +27,9 @@ public class RegistrationFragment2 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.registration_fragment2_fragment, container, false);
+        View view = inflater.inflate(R.layout.registration_fragment2_fragment, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
@@ -32,4 +39,9 @@ public class RegistrationFragment2 extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    @OnClick(R.id.idInputDone)
+    public void idInputDoneClick(){
+        Intent intent = new Intent(getActivity(), MoveInHousehold.class);
+        startActivity(intent);
+    }
 }
