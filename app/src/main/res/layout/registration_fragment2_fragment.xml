@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!-- registration fragment when 'moving into an existing household' -->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- registration fragment when 'moving into an existing household' (screen 2) -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,44 +8,20 @@
     tools:context=".ui.registrationfragment1.RegistrationFragment2">
 
     <TextView
-        android:id="@+id/moveInHouseholdHeading"
+        android:id="@+id/moveInWithID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/moveInHouseholdAs"
+        android:text="@string/moveInWithID"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/topMargin" />
 
-    <TextView
-        android:id="@+id/householdNameFromIDAsText"
+    <EditText
+        android:id="@+id/idInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Maier"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@+id/moveInHouseholdHeading" />
+        app:layout_constraintTop_toBottomOf="@id/moveInWithID"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
 
-    <TextView
-        android:id="@+id/householdIDAsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="123456789"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@+id/householdNameFromIDAsText" />
-
-    <fragment
-        android:name="com.holmal.app.holmal.personalInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/moveInDone"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/householdIDAsText" />
-
-    <Button
-        android:id="@+id/moveInDone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/done"
-        app:layout_constraintBottom_toTopOf="@id/bottomMargin"
-        app:layout_constraintEnd_toStartOf="@id/rightMargin" />
 
     <!-- Guidelines -->
 

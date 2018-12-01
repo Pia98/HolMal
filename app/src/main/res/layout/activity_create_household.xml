@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?><!-- registration fragment when creating a new household (screen 1) -->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/registrationfragment1"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".CreateHousehold">
+
+<TextView
+    android:id="@+id/createHouseholdHeading"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/createHousehold"
+    app:layout_constraintStart_toStartOf="@+id/leftMargin" />
+
+<LinearLayout
+    android:id="@+id/linearLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintStart_toStartOf="@+id/leftMargin"
+    app:layout_constraintTop_toTopOf="@+id/topMargin">
+
+    <TextView
+        android:id="@+id/householdName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/householdName" />
+
+    <EditText
+        android:id="@+id/householdNameInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+
+    <!-- Fragment here -->
+<!--<fragment-->
+    <!--android:name="com.holmal.app.holmal.personalInput"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:layout_constraintBottom_toTopOf="@id/createHouseholdDone"-->
+    <!--app:layout_constraintStart_toEndOf="@id/leftMargin"-->
+    <!--app:layout_constraintTop_toBottomOf="@id/linearLayout" />-->
+
+<Button
+    android:id="@+id/createHouseholdDone"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/done"
+    app:layout_constraintBottom_toTopOf="@+id/bottomMargin"
+    app:layout_constraintEnd_toStartOf="@+id/rightMargin" />
+
+<!-- Guidelines -->
+
+<android.support.constraint.Guideline
+    android:id="@+id/leftMargin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_percent="0.03" />
+
+<android.support.constraint.Guideline
+    android:id="@+id/topMargin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.03" />
+
+<android.support.constraint.Guideline
+    android:id="@+id/rightMargin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_percent="0.97" />
+
+<android.support.constraint.Guideline
+    android:id="@+id/bottomMargin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.97" />
+
+<android.support.constraint.Guideline
+    android:id="@+id/centerLineHorizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.5" />
+
+<android.support.constraint.Guideline
+    android:id="@+id/centerLineVertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_percent="0.5" />
+
+<android.support.constraint.Guideline
+    android:id="@+id/quarterLineLeft"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_percent="0.25" />
+
+<android.support.constraint.Guideline
+    android:id="@+id/quarterLineRigth"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_percent="0.75" />
+
+<android.support.constraint.Guideline
+    android:id="@+id/quarterLineTop"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.25" />
+
+<android.support.constraint.Guideline
+    android:id="@+id/quarterLineBottom"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.75" />
+
+<android.support.constraint.Guideline
+    android:id="@+id/thirdLineTop"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_percent="0.33333334" />
+
+<android.support.constraint.Guideline
+    android:id="@+id/thirdLineBottom"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_percent="0.66666" />
+
+<android.support.constraint.Guideline
+    android:id="@+id/thirdLineLeft"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.33333" />
+
+<android.support.constraint.Guideline
+    android:id="@+id/thirdLineRight"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.66666" />
+
+
+</android.support.constraint.ConstraintLayout>

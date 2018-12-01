@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!-- registration fragment when creating a new household -->
+<?xml version="1.0" encoding="utf-8"?><!-- registration fragment when creating a new household (screen 3) -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,48 +7,63 @@
     android:layout_height="match_parent"
     tools:context=".ui.registrationfragment1.RegistrationFragment1">
 
-    <TextView
-        android:id="@+id/createHouseholdHeading"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraint1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/createHousehold"
-        app:layout_constraintStart_toStartOf="@+id/leftMargin" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="@+id/leftMargin"
-        app:layout_constraintTop_toTopOf="@+id/topMargin">
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/topMargin">
 
         <TextView
-            android:id="@+id/householdName"
+            android:id="@+id/householdnameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/householdName" />
+            android:text="@string/householdName"/>
 
-        <EditText
-            android:id="@+id/householdNameInput"
+        <TextView
+            android:id="@+id/householtNameFromInput"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/householdnameLabel"
+            android:text="Maier"/>
+    </android.support.constraint.ConstraintLayout>
 
-    <fragment
-        android:name="com.holmal.app.holmal.personalInput"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraint2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/createHouseholdDone"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@id/constraint1">
+
+        <TextView
+            android:id="@+id/ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/id"/>
+
+        <TextView
+            android:id="@+id/generatedID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/ID"
+            android:text="123456789"/>
+        <Button
+            android:id="@+id/copy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/copy"
+            app:layout_constraintStart_toEndOf="@id/generatedID"/>
+    </android.support.constraint.ConstraintLayout>
 
     <Button
-        android:id="@+id/createHouseholdDone"
+        android:id="@+id/invite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/done"
-        app:layout_constraintBottom_toTopOf="@+id/bottomMargin"
-        app:layout_constraintEnd_toStartOf="@+id/rightMargin" />
+        android:text="@string/invite"
+        app:layout_constraintTop_toBottomOf="@id/constraint2"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintEnd_toStartOf="@id/rightMargin"/>
+
 
     <!-- Guidelines -->
 
