@@ -19,6 +19,8 @@
     <color name="colorPersonPurple">#c7a2ff</color>
 
 
-    <color name="colorPrimaryDark">#000028</color>
-    <color name="colorAccent">#000028</color>
+    <color name="colorPrimaryDark">@color/colorFont</color>
+
+    <!-- Suggestion: this color for input fields (line and cursor) -->
+    <color name="colorAccent">@color/colorAccentColor</color>
 </resources>
