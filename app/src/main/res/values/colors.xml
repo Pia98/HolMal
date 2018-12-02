@@ -19,8 +19,6 @@
     <color name="colorPersonPurple">#c7a2ff</color>
 
 
-    <!-- Somewhere used, but I don't knwo where-->
-    <!-- TODO delete when not used any more-->
-    <color name="colorPrimaryDark">#ffff00</color>
-    <color name="colorAccent">#ffff00</color>
+    <color name="colorPrimaryDark">#000028</color>
+    <color name="colorAccent">#000028</color>
 </resources>
