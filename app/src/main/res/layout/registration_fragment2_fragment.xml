@@ -29,7 +29,8 @@
         android:layout_height="wrap_content"
         android:text="@string/done"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"
-        app:layout_constraintBottom_toTopOf="@id/bottomMargin"/>
+        app:layout_constraintBottom_toTopOf="@id/bottomMargin"
+        app:layout_constraintTop_toBottomOf="@id/idInput"/>
 
 
     <!-- Guidelines -->

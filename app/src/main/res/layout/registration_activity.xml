@@ -21,7 +21,10 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/fragmentContainerRegistration"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintEnd_toStartOf="@id/rightMargin"
+        app:layout_constraintTop_toBottomOf="@id/dummyLogo"/>
 
     <!-- Guidelines -->
 

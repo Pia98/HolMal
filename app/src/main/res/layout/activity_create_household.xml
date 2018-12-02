@@ -37,7 +37,10 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/fragmentContainerCreateHousehold"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintEnd_toStartOf="@id/rightMargin"/>
 
     <!-- corresponds to button 3 in paper prototype-->
     <Button
