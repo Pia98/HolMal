@@ -25,6 +25,7 @@
             android:id="@+id/myListText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/amatic_sc_bold"
             android:text="@string/myJobs"
             app:layout_constraintStart_toEndOf="@id/menu" />
     </android.support.constraint.ConstraintLayout>
