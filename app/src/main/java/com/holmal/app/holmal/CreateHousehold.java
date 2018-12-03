@@ -24,4 +24,5 @@ public class CreateHousehold extends AppCompatActivity {
         intent.putExtra("fragmentNumber", 1);
         startActivity(intent);
     }
+
 }
