@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -54,22 +54,21 @@ public class MoveInHousehold extends AppCompatActivity {
 
     public void checkColours(){
 
-        Button colour1 = (Button) findViewById(R.id.color1);
-        Button colour2 = (Button) findViewById(R.id.color2);
-        Button colour3 = (Button) findViewById(R.id.color3);
-        Button colour4 = (Button) findViewById(R.id.color4);
-        Button colour5 = (Button) findViewById(R.id.color5);
-        Button colour6 = (Button) findViewById(R.id.color6);
-        Button colour7 = (Button) findViewById(R.id.color7);
-        Button colour8 = (Button) findViewById(R.id.color8);
+        ToggleButton colour1 = findViewById(R.id.color1);
+        ToggleButton colour2 = findViewById(R.id.color2);
+        ToggleButton colour3 = findViewById(R.id.color3);
+        ToggleButton colour4 = findViewById(R.id.color4);
+        ToggleButton colour5 = findViewById(R.id.color5);
+        ToggleButton colour6 = findViewById(R.id.color6);
+        ToggleButton colour7 = findViewById(R.id.color7);
+        ToggleButton colour8 = findViewById(R.id.color8);
 
-        //TODO check if one! button was chosen (I'll do that later)
-        if (colour1.isActivated() || colour2.isActivated()){
-
+        //check if a button was chosen
+        if (colour1.isActivated() || colour2.isActivated() || colour3.isActivated() || colour4.isActivated()
+                || colour5.isActivated() || colour6.isActivated() || colour7.isActivated() || colour8.isActivated()){
         }
         else {
             Toast.makeText(this, "Wähle eine Farbe", Toast.LENGTH_SHORT).show();
         }
-
     }
 }
