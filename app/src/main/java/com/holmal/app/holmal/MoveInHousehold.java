@@ -2,12 +2,10 @@ package com.holmal.app.holmal;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -25,6 +23,7 @@ public class MoveInHousehold extends AppCompatActivity {
 
     @OnClick(R.id.moveInDone)
     public void moveInDoneClick() {
+        //if every input is valid go to next window
         validate();
         if (validationSuccessful == true) {
             Intent intent = new Intent(this, MainActivity.class); // decide if main (screen 11) or screen 5, then change here
@@ -32,26 +31,34 @@ public class MoveInHousehold extends AppCompatActivity {
         }
     }
 
+    /*
+    Method that checks whether the input is valid/there before proceeding to the next screen.
+     */
     public void validate(){
+        //start validation with assumption that validation will be successful. If it isn't this will change.
+        validationSuccessful=true;
+
         //TODO validate Button 5
         EditText userName = (EditText)findViewById(R.id.userNameInput);
-        if (userName.getText().toString() == ""){
-            //TODO text in variable
-            Toast.makeText(this, "Gib einen Namen ein", Toast.LENGTH_SHORT).show();
+        if (userName.getText().toString().isEmpty()){
+            Toast.makeText(this, R.string.ErrorEnterName, Toast.LENGTH_SHORT).show();
             validationSuccessful = false;
         }
-        else {validationSuccessful =true;}//TODO ans Ende wenn die anderen geschrieben sind
+
         //TODO check if name is not taken
         /*
         if (userName.getText.toString() is in List of Names in Household)
-         Toast.makeText(this, "Dieser Name ist schon vergeben", Toast.LENGTH_SHORT).show();
+         Toast.makeText(this, ErrorNameTaken, Toast.LENGTH_SHORT).show();
          validationSuccessful = false;
          */
-        //TODO check if a button has been chosen
         checkColours();
+
 
     }
 
+    /*
+    Method that checks if a colour button has been chosen. Users must choose a colour before entering a household.
+     */
     public void checkColours(){
 
         ToggleButton colour1 = findViewById(R.id.color1);
@@ -68,7 +75,8 @@ public class MoveInHousehold extends AppCompatActivity {
                 || colour5.isActivated() || colour6.isActivated() || colour7.isActivated() || colour8.isActivated()){
         }
         else {
-            Toast.makeText(this, "Wähle eine Farbe", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.ErrorChoseColor, Toast.LENGTH_SHORT).show();
+            validationSuccessful=false;
         }
     }
 }

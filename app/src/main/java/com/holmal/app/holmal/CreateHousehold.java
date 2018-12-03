@@ -21,18 +21,23 @@ public class CreateHousehold extends AppCompatActivity {
 
     @OnClick(R.id.createHouseholdDone)
     public void createHouseholdDoneClick() {
-        validate();
-        Intent intent = new Intent(this, RegistrationActivity.class);
-        // RegistrationFragment1 has to be drawn
-        intent.putExtra("fragmentNumber", 1);
-        startActivity(intent);
+        if (validate()) {
+            Intent intent = new Intent(this, RegistrationActivity.class);
+            // RegistrationFragment1 has to be drawn
+            intent.putExtra("fragmentNumber", 1);
+            startActivity(intent);
+        }
     }
 
     //checks to see if a household name was chosen
-    public void validate(){
+    public Boolean validate(){
         EditText householdName = (EditText) findViewById(R.id.householdNameInput);
         if (householdName.getText().toString()== ""){
-            Toast.makeText(this, "Wähle einen Namen für den Haushalt", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.ErrorEnterHouseholdName, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else{
+            return true;
         }
     }
 

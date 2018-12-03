@@ -18,6 +18,12 @@
 
     <string name="moveInHouseholdAs">Folgendem Haushalt beitreten als:</string>
 
+    <string name="ErrorEnterName">Gib einen Namen ein</string>
+    <string name="ErrorChoseColor">Wähle eine Farbe</string>
+    <string name="ErrorNameTaken">Dieser Name ist vergeben</string>
+    <string name="ErrorChooseHousehold">Wähle einen Haushalt</string>
+    <string name="ErrorEnterHouseholdName">Wähle einen Namen für den Haushalt</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

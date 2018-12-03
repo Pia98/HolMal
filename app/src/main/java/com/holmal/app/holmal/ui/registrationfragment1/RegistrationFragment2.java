@@ -43,15 +43,20 @@ public class RegistrationFragment2 extends Fragment {
 
     @OnClick(R.id.idInputDone)
     public void idInputDoneClick(){
-        validate();
-        Intent intent = new Intent(getActivity(), MoveInHousehold.class);
-        startActivity(intent);
+        if(validate()) {
+            Intent intent = new Intent(getActivity(), MoveInHousehold.class);
+            startActivity(intent);
+        }
     }
 
     //checks for input
-    public void validate() {
+    public Boolean validate() {
         EditText householdName = (EditText) getView().findViewById(R.id.idInput);
         if (householdName.getText().toString() == "") {
-            Toast.makeText(getActivity(), "Wähle einen Haushalt", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.ErrorChooseHousehold, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else{
+            return true;
         }
     }}
