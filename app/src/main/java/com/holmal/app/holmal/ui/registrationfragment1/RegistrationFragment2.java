@@ -9,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.holmal.app.holmal.MoveInHousehold;
 import com.holmal.app.holmal.R;
@@ -41,7 +43,15 @@ public class RegistrationFragment2 extends Fragment {
 
     @OnClick(R.id.idInputDone)
     public void idInputDoneClick(){
+        validate();
         Intent intent = new Intent(getActivity(), MoveInHousehold.class);
         startActivity(intent);
     }
-}
+
+    //checks for input
+    public void validate() {
+        EditText householdName = (EditText) getView().findViewById(R.id.idInput);
+        if (householdName.getText().toString() == "") {
+            Toast.makeText(getActivity(), "Wähle einen Haushalt", Toast.LENGTH_SHORT).show();
+        }
+    }}

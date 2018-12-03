@@ -80,6 +80,8 @@
                 android:id="@+id/color8"
                 android:background="@color/colorPersonPurple" />
         </GridLayout>
+
+
     </LinearLayout>
 
     <!-- Guidelines -->
