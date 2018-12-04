@@ -15,11 +15,11 @@ public class FragmentHandling {
      * @param toBePlaced The fragment that should be drawn
      * @param fragmentManager The {@link FragmentManager}
      */
-    public void putFragment(Fragment toBeRemoved, Fragment toBePlaced, FragmentManager fragmentManager) {
+    public void putFragment(Fragment toBeRemoved, Fragment toBePlaced, FragmentManager fragmentManager, int containerId) {
         removeFragment(toBeRemoved, fragmentManager);
         toBeRemoved = toBePlaced;
         fragmentManager.beginTransaction()
-                .add(R.id.fragmentContainerRegistration, toBeRemoved).commit();
+                .add(containerId, toBeRemoved).commit();
     }
 
     /**

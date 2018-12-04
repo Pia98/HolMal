@@ -42,13 +42,15 @@ public class RegistrationActivity extends AppCompatActivity {
             case 1:
                 fragmentHandling.putFragment(currentFragment,
                         RegistrationFragment1.newInstance(),
-                        getSupportFragmentManager());
+                        getSupportFragmentManager(),
+                        R.id.fragmentContainerRegistration);
                 break;
             // RegistrationFragment2 because it's from context 'move in'
             case 2:
                 fragmentHandling.putFragment(currentFragment,
                         RegistrationFragment2.newInstance(),
-                        getSupportFragmentManager());
+                        getSupportFragmentManager(),
+                        R.id.fragmentContainerRegistration);
                 ;
                 break;
         }
