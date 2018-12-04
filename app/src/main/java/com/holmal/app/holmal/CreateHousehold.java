@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -68,23 +69,14 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
      */
     public Boolean checkColours(){
 
-        ToggleButton colour1 = findViewById(R.id.color1);
-        ToggleButton colour2 = findViewById(R.id.color2);
-        ToggleButton colour3 = findViewById(R.id.color3);
-        ToggleButton colour4 = findViewById(R.id.color4);
-        ToggleButton colour5 = findViewById(R.id.color5);
-        ToggleButton colour6 = findViewById(R.id.color6);
-        ToggleButton colour7 = findViewById(R.id.color7);
-        ToggleButton colour8 = findViewById(R.id.color8);
-
+        RadioGroup colourChooser = findViewById(R.id.colorChoice);
         //check if a button was chosen
-        if (colour1.isActivated() || colour2.isActivated() || colour3.isActivated() || colour4.isActivated()
-                || colour5.isActivated() || colour6.isActivated() || colour7.isActivated() || colour8.isActivated()){
-            return true;
-        }
-        else {
+        if (colourChooser.getCheckedRadioButtonId()== -1) {
             Toast.makeText(this, R.string.ErrorChoseColor, Toast.LENGTH_SHORT).show();
             return false;
+            }
+        else {
+            return true;
         }
     }
 
