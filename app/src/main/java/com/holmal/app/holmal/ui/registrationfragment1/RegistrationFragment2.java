@@ -52,7 +52,7 @@ public class RegistrationFragment2 extends Fragment {
     //checks for input
     public Boolean validate() {
         EditText householdName = (EditText) getView().findViewById(R.id.idInput);
-        if (householdName.getText().toString() == "") {
+        if (householdName.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), R.string.ErrorChooseHousehold, Toast.LENGTH_SHORT).show();
             return false;
         }
