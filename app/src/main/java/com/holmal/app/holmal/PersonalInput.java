@@ -51,6 +51,12 @@ public class PersonalInput extends Fragment {
         return fragment;
     }
 
+
+    public static PersonalInput newInstance(){
+        return new PersonalInput();
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,6 +1,7 @@
 package com.holmal.app.holmal;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -11,13 +12,22 @@ import android.widget.ToggleButton;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CreateHousehold extends AppCompatActivity {
+public class CreateHousehold extends AppCompatActivity implements PersonalInput.OnFragmentInteractionListener {
+
+    Fragment currentFragment;
+    FragmentHandling fragmentHandling = new FragmentHandling();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_household);
         ButterKnife.bind(this);
+
+        fragmentHandling.putFragment(currentFragment,
+                PersonalInput.newInstance(),
+                getSupportFragmentManager(),
+                R.id.fragmentContainerCreateHousehold);
+
     }
 
     @OnClick(R.id.createHouseholdDone)
@@ -78,4 +88,8 @@ public class CreateHousehold extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

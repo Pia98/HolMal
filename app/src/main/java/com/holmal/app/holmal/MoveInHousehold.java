@@ -1,7 +1,9 @@
 package com.holmal.app.holmal;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -9,16 +11,25 @@ import android.widget.ToggleButton;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MoveInHousehold extends AppCompatActivity {
+public class MoveInHousehold extends AppCompatActivity implements PersonalInput.OnFragmentInteractionListener {
 
     //to check validation
     Boolean validationSuccessful =true;
+
+    Fragment currentFragment;
+    FragmentHandling fragmentHandling = new FragmentHandling();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_move_in_household);
         ButterKnife.bind(this);
+
+        fragmentHandling.putFragment(currentFragment,
+                PersonalInput.newInstance(),
+                getSupportFragmentManager(),
+                R.id.fragmentContainerMoveIn);
     }
 
     @OnClick(R.id.moveInDone)
@@ -78,5 +89,10 @@ public class MoveInHousehold extends AppCompatActivity {
             Toast.makeText(this, R.string.ErrorChoseColor, Toast.LENGTH_SHORT).show();
             validationSuccessful=false;
         }
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
