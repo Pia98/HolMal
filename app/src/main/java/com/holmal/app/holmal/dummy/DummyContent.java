@@ -1,17 +1,72 @@
 package com.holmal.app.holmal.dummy;
 
+import com.holmal.app.holmal.model.Haushalt;
+import com.holmal.app.holmal.model.Person;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
+ * Dummy Test Data
+ *
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
  * <p>
  * TODO: Replace all uses of this class before publishing your app.
  */
-public class DummyContent {
+public abstract class DummyContent {
+
+    public Haushalt dummyHaushalt;
+
+    public Haushalt getDummyHaushalt() {
+        dummyHaushalt = new Haushalt("dummyHaushalt", getLukas());
+        return dummyHaushalt;
+    }
+
+    public void setDummyHaushalt(Haushalt dummyHaushalt) {
+        this.dummyHaushalt = dummyHaushalt;
+    }
+
+    public Person getLukas() {
+        lukas = new Person("Lukas", "#4e7cb2", new ArrayList<Haushalt>());
+        lukas.addHaushalt(dummyHaushalt);
+        return lukas;
+    }
+
+    public static void setLukas(Person lukas) {
+        DummyContent.lukas = lukas;
+    }
+
+    public Person getMarie() {
+        return marie;
+    }
+
+    public static void setMarie(Person marie) {
+        DummyContent.marie = marie;
+    }
+
+    public Person getSusi() {
+        return susi;
+    }
+
+    public static void setSusi(Person susi) {
+        DummyContent.susi = susi;
+    }
+
+    public Person getTim() {
+        return tim;
+    }
+
+    public static void setTim(Person tim) {
+        DummyContent.tim = tim;
+    }
+
+    public static Person lukas;
+    public static Person marie;
+    public static Person susi;
+    public static Person tim;
 
     /**
      * An array of sample (dummy) items.
