@@ -21,7 +21,7 @@
         android:id="@+id/logo"
         android:layout_width="246dp"
         android:layout_height="190dp"
-        android:src="@drawable/LogoHolMal"
+        android:src="@drawable/logo_hol_mal"
         app:layout_constraintEnd_toStartOf="@+id/rightMargin"
         app:layout_constraintStart_toEndOf="@+id/leftMargin"
         app:layout_constraintTop_toTopOf="@+id/topMargin" />
