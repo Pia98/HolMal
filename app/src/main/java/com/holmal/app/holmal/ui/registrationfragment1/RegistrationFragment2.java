@@ -29,7 +29,7 @@ public class RegistrationFragment2 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.registration_fragment2_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_registration_fragment2, container, false);
         ButterKnife.bind(this, view);
         return view;
     }

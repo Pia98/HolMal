@@ -34,7 +34,7 @@ public class RegistrationFragment1 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.registration_fragment1_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_registration_fragment1, container, false);
         ButterKnife.bind(this, view);
 
         String userName = this.getArguments().getString("userName");
