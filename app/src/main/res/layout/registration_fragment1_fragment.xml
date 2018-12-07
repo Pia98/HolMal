@@ -24,8 +24,9 @@
             android:id="@+id/householtNameFromInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/householdnameLabel"
-            android:text="Maier"/>
+            android:layout_marginStart="8dp"
+            android:text="Maier"
+            app:layout_constraintStart_toEndOf="@id/householdnameLabel" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout

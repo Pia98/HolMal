@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -17,6 +18,8 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
 
     Fragment currentFragment;
     FragmentHandling fragmentHandling = new FragmentHandling();
+    String userNameString;
+    String houseHoldNameString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +40,24 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             Intent intent = new Intent(this, RegistrationActivity.class);
             // RegistrationFragment1 has to be drawn
             intent.putExtra("fragmentNumber", 1);
+            intent.putExtra("userName", userNameString);
+            intent.putExtra("householdName", houseHoldNameString);
+            intent.putExtra("householdName", houseHoldNameString);
             startActivity(intent);
         }
     }
 
     //checks to see if a household name was chosen, a name was chosen that is unique and if a colour was chosen
     public Boolean validate(){
+        EditText userName = (EditText) findViewById(R.id.userNameInput);
         EditText householdName = (EditText) findViewById(R.id.householdNameInput);
-        EditText userName = (EditText)findViewById(R.id.userNameInput);
-        if (householdName.getText().toString().isEmpty()){
+        userNameString = userName.getText().toString();
+        houseHoldNameString = householdName.getText().toString();
+        if (houseHoldNameString.isEmpty()){
             Toast.makeText(this, R.string.ErrorEnterHouseholdName, Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (userName.getText().toString().isEmpty()){
+        if (userNameString.isEmpty()){
             Toast.makeText(this, R.string.ErrorEnterName, Toast.LENGTH_SHORT).show();
             return false;
         }

@@ -1,5 +1,6 @@
 package com.holmal.app.holmal;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
@@ -18,6 +19,24 @@ public class FragmentHandling {
     public void putFragment(Fragment toBeRemoved, Fragment toBePlaced, FragmentManager fragmentManager, int containerId) {
         removeFragment(toBeRemoved, fragmentManager);
         toBeRemoved = toBePlaced;
+        fragmentManager.beginTransaction()
+                .add(containerId, toBeRemoved).commit();
+    }
+
+    /**
+     * Replaces the toBeRemoved fragment with that one that has to be placed
+     *
+     * @param toBeRemoved The fragment that should be replaced
+     * @param toBePlaced The fragment that should be drawn
+     * @param fragmentManager The {@link FragmentManager}
+     * @param extras Parameters that need to be passed to the Fragment
+     */
+    public void putFragmentwithExtras(Fragment toBeRemoved, Fragment toBePlaced, FragmentManager fragmentManager, int containerId, Bundle extras) {
+        removeFragment(toBeRemoved, fragmentManager);
+        toBeRemoved = toBePlaced;
+        if(!extras.isEmpty()){
+            toBePlaced.setArguments(extras);
+        }
         fragmentManager.beginTransaction()
                 .add(containerId, toBeRemoved).commit();
     }
