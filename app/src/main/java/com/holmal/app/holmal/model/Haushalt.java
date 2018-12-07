@@ -1,12 +1,20 @@
 package com.holmal.app.holmal.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Haushalt {
     private String haushaltName;
     private String id;
-    private Person[] personenImHaushalt;
+    private ArrayList<Person> personenImHaushalt = new ArrayList<Person>();
     private Einkaufsliste[] einkaufslisten;
 
-    public Haushalt(String haushaltName, String id, Person[] personenImHaushalt, Einkaufsliste[] einkaufslisten) {
+    public Haushalt(String haushaltName, Person ersteller){
+        this.haushaltName = haushaltName;
+        personenImHaushalt.add(ersteller);
+    }
+
+    public Haushalt(String haushaltName, String id, ArrayList<Person> personenImHaushalt, Einkaufsliste[] einkaufslisten) {
         this.haushaltName = haushaltName;
         this.id = id;
         this.personenImHaushalt = personenImHaushalt;
@@ -29,13 +37,11 @@ public class Haushalt {
         this.id = id;
     }
 
-    public Person[] getPersonenImHaushalt() {
+    public List<Person> getPersonenImHaushalt() {
+
         return personenImHaushalt;
     }
 
-    public void setPersonenImHaushalt(Person[] personenImHaushalt) {
-        this.personenImHaushalt = personenImHaushalt;
-    }
 
     public Einkaufsliste[] getEinkaufslisten() {
         return einkaufslisten;
@@ -43,5 +49,9 @@ public class Haushalt {
 
     public void setEinkaufslisten(Einkaufsliste[] einkaufslisten) {
         this.einkaufslisten = einkaufslisten;
+    }
+
+    public void addPerson(Person person){
+        personenImHaushalt.add(person);
     }
 }

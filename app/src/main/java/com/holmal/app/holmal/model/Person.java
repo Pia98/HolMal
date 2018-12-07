@@ -1,13 +1,15 @@
 package com.holmal.app.holmal.model;
 
+import java.util.ArrayList;
+
 public class Person {
     private String personName;
 
     /**@color */
     private String color;
-    private Haushalt[] haushalteEinerPerson;
+    private ArrayList<Haushalt> haushalteEinerPerson;
 
-    public Person(String personName, String color, Haushalt[] haushalteEinerPerson) {
+    public Person(String personName, String color, ArrayList<Haushalt> haushalteEinerPerson) {
         this.personName = personName;
         this.color = color;
         this.haushalteEinerPerson = haushalteEinerPerson;
@@ -29,11 +31,15 @@ public class Person {
         this.color = color;
     }
 
-    public Haushalt[] getHaushalteEinerPerson() {
+    public ArrayList<Haushalt> getHaushalteEinerPerson() {
         return haushalteEinerPerson;
     }
 
-    public void setHaushalteEinerPerson(Haushalt[] haushalteEinerPerson) {
+    public void setHaushalteEinerPerson(ArrayList<Haushalt> haushalteEinerPerson) {
         this.haushalteEinerPerson = haushalteEinerPerson;
+    }
+
+    public void addHaushalt(Haushalt haushalt){
+        haushalteEinerPerson.add(haushalt);
     }
 }
