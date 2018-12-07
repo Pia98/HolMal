@@ -7,14 +7,23 @@
     tools:context=".StartActivity">
 
     <!-- TODO Replace with Logo/App Name-->
+    <!--<ImageView-->
+        <!--android:id="@+id/dummyLogo"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/dummy_logo"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/thirdLineLeft"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/rightMargin"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/leftMargin"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/topMargin" />-->
+
     <ImageView
-        android:id="@+id/dummyLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/dummy_logo"
-        app:layout_constraintBottom_toTopOf="@+id/thirdLineLeft"
+        android:id="@+id/logo"
+        android:layout_width="246dp"
+        android:layout_height="190dp"
+        android:src="@drawable/logo_hol_mal"
         app:layout_constraintEnd_toStartOf="@+id/rightMargin"
-        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintStart_toEndOf="@+id/leftMargin"
         app:layout_constraintTop_toTopOf="@+id/topMargin" />
 
     <!-- corresponds to button 1 in paper prototype-->
@@ -23,8 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/createHousehold"
-        app:layout_constraintTop_toBottomOf="@id/dummyLogo"
-        app:layout_constraintStart_toEndOf="@+id/leftMargin"/>
+        app:layout_constraintStart_toEndOf="@+id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/logo" />
 
     <!-- corresponds to button 2 in paper prototype-->
     <Button
@@ -32,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/moveIn"
-        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintStart_toEndOf="@+id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/createHousehold" />
 
 
