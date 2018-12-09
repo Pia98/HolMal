@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Hol Mal</string>
 
+    <string name="login">login</string>
+    <string name="registration">registrieren</string>
+    <string name="email">E-Mail Adresse</string>
+    <string name="passwort">Passwort</string>
+
     <string name="createHousehold">neuen Haushalt erstellen</string> <!-- alrenativ: Haus bauen? -->
     <string name="moveIn">in bestehenden Haushalt einziehen</string>
 
@@ -17,7 +22,7 @@
     <string name="myJobs">Meine Aufträge</string>
 
     <string name="moveInHouseholdAs">Folgendem Haushalt beitreten als:</string>
-    
+
     <string name="createElementText">Neues Element auf die Liste schreiben</string>
     <string name="what">Was</string>
     <string name="fromFavorites">aus Favoriten</string>

@@ -6,23 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".StartActivity">
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="246dp"
+        android:layout_height="190dp"
+        android:src="@drawable/logo_hol_mal"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
+        app:layout_constraintStart_toEndOf="@+id/leftMargin"
+        app:layout_constraintTop_toTopOf="@+id/topMargin" />
+
+    <EditText
+        android:id="@+id/emailInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:inputType="textEmailAddress"
+        android:hint="@string/email"
+        app:layout_constraintEnd_toStartOf="@+id/quarterLineRigth"
+        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+    <EditText
+        android:id="@+id/passwortInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:inputType="text"
+        android:hint="@string/passwort"
+        app:layout_constraintEnd_toStartOf="@+id/quarterLineRigth"
+        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        app:layout_constraintTop_toBottomOf="@+id/emailInput" />
+
+
     <!-- corresponds to button 1 in paper prototype-->
     <Button
-        android:id="@+id/createHousehold"
-        android:layout_width="wrap_content"
+        android:id="@+id/loginButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/createHousehold"
-        app:layout_constraintStart_toEndOf="@+id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/logo" />
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorAccentColor"
+        android:text="@string/login"
+        app:layout_constraintEnd_toStartOf="@+id/quarterLineRigth"
+        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        app:layout_constraintTop_toBottomOf="@+id/passwortInput" />
 
     <!-- corresponds to button 2 in paper prototype-->
     <Button
-        android:id="@+id/moveIn"
-        android:layout_width="wrap_content"
+        android:id="@+id/registrationButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/moveIn"
-        app:layout_constraintStart_toEndOf="@+id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@+id/createHousehold" />
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/registration"
+        app:layout_constraintEnd_toStartOf="@+id/quarterLineRigth"
+        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
 
     <!-- Guidelines -->
@@ -64,7 +105,7 @@
 
     <android.support.constraint.Guideline
         android:id="@+id/centerLineVertical"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
