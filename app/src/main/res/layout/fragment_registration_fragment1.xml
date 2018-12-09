@@ -31,8 +31,9 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraint2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/constraint1">
 
@@ -40,31 +41,38 @@
             android:id="@+id/ID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/id"/>
+            android:text="@string/id" />
 
         <TextView
             android:id="@+id/generatedID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/ID"
-            android:text="123456789"/>
+            android:text="123456789"
+            app:layout_constraintStart_toEndOf="@id/ID" />
+
         <Button
             android:id="@+id/copy"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/copy"
-            app:layout_constraintStart_toEndOf="@id/generatedID"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/generatedID" />
     </android.support.constraint.ConstraintLayout>
 
     <!-- corresponds to button 4 in paper prototype-->
     <Button
         android:id="@+id/invite"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/invite"
-        app:layout_constraintTop_toBottomOf="@id/constraint2"
+        app:layout_constraintEnd_toStartOf="@id/rightMargin"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintEnd_toStartOf="@id/rightMargin"/>
+        app:layout_constraintTop_toBottomOf="@id/constraint2" />
 
     <!-- corresponds to button 5 in paper prototype-->
     <Button

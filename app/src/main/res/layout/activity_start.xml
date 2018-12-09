@@ -18,7 +18,7 @@
         android:text="@string/createHousehold"
         app:layout_constraintEnd_toStartOf="@+id/rightMargin"
         app:layout_constraintStart_toStartOf="@+id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/logo" />
+        app:layout_constraintTop_toTopOf="@+id/topMargin" />
 
     <!-- corresponds to button 2 in paper prototype-->
     <Button
@@ -33,6 +33,15 @@
         app:layout_constraintEnd_toStartOf="@+id/rightMargin"
         app:layout_constraintStart_toStartOf="@+id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/createHousehold" />
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        app:layout_constraintEnd_toStartOf="@id/rightMargin"
+        app:layout_constraintBottom_toTopOf="@id/bottomMargin"
+        app:layout_constraintTop_toBottomOf="@id/invite"/>
 
 
     <!-- Guidelines -->

@@ -9,6 +9,8 @@ import butterknife.OnClick;
 
 public class StartActivity extends AppCompatActivity {
 
+    LoginActivity login;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,4 +32,8 @@ public class StartActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @OnClick({R.id.logoutButton})
+    public void logoutStart(){
+        login.logout(login.getFireAuth());
+    }
 }

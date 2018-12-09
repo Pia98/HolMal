@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".PersonalInput">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
         app:layout_constraintStart_toStartOf="@+id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
@@ -18,15 +20,20 @@
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/username" />
+            android:text="@string/username"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/userNameInput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="8dp"
             android:inputType="text"
-            />
-    </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userName" />
+    </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -46,53 +53,55 @@
         <RadioGroup
             android:id="@+id/colorChoice"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
+
             <RadioButton
                 android:id="@+id/color1"
-                android:background="@color/colorPersonLightGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                android:background="@color/colorPersonLightGreen" />
+
             <RadioButton
                 android:id="@+id/color2"
-                android:background="@color/colorPersonGreen"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:background="@color/colorPersonGreen" />
 
             <RadioButton
                 android:id="@+id/color3"
-                android:background="@color/colorPersonBlue"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:background="@color/colorPersonBlue" />
 
             <RadioButton
                 android:id="@+id/color4"
-                android:background="@color/colorPersonLightBlue"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:background="@color/colorPersonLightBlue" />
+
             <RadioButton
                 android:id="@+id/color5"
-                android:background="@color/colorPersonOrange"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:background="@color/colorPersonOrange" />
 
             <RadioButton
                 android:id="@+id/color6"
-                android:background="@color/colorPersonRed"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:background="@color/colorPersonRed" />
 
             <RadioButton
                 android:id="@+id/color7"
-                android:background="@color/colorPersonPink"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:background="@color/colorPersonPink" />
+
             <RadioButton
                 android:id="@+id/color8"
-                android:background="@color/colorPersonPurple"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:background="@color/colorPersonPurple" />
 
         </RadioGroup>
 

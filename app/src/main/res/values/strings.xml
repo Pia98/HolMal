@@ -2,9 +2,11 @@
     <string name="app_name">Hol Mal</string>
 
     <string name="login">login</string>
+    <string name="logout">logout</string>
     <string name="registration">registrieren</string>
     <string name="email">E-Mail Adresse</string>
     <string name="passwort">Passwort</string>
+    <string name="passwortWdh">Passwort wdh.</string>
 
     <string name="createHousehold">neuen Haushalt erstellen</string> <!-- alrenativ: Haus bauen? -->
     <string name="moveIn">in bestehenden Haushalt einziehen</string>

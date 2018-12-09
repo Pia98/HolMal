@@ -10,6 +10,7 @@
         android:id="@+id/logo"
         android:layout_width="246dp"
         android:layout_height="190dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/logo_hol_mal"
         app:layout_constraintEnd_toStartOf="@+id/rightMargin"
         app:layout_constraintStart_toEndOf="@+id/leftMargin"
@@ -19,25 +20,40 @@
         android:id="@+id/emailInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:inputType="textEmailAddress"
         android:hint="@string/email"
-        app:layout_constraintEnd_toStartOf="@+id/quarterLineRigth"
-        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     <EditText
         android:id="@+id/passwortInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:inputType="text"
         android:hint="@string/passwort"
-        app:layout_constraintEnd_toStartOf="@+id/quarterLineRigth"
-        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/emailInput" />
+
+    <EditText
+        android:id="@+id/passwortInputWdh"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="@string/passwortWdh"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/passwortInput" />
 
 
     <!-- corresponds to button 1 in paper prototype-->
@@ -45,24 +61,27 @@
         android:id="@+id/loginButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@color/colorAccentColor"
         android:text="@string/login"
-        app:layout_constraintEnd_toStartOf="@+id/quarterLineRigth"
-        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/passwortInput" />
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/passwortInputWdh" />
 
     <!-- corresponds to button 2 in paper prototype-->
     <Button
         android:id="@+id/registrationButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@color/colorPrimary"
         android:text="@string/registration"
-        app:layout_constraintEnd_toStartOf="@+id/quarterLineRigth"
-        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
 
@@ -73,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.03" />
+        app:layout_constraintGuide_percent="0.1" />
 
     <android.support.constraint.Guideline
         android:id="@+id/topMargin"
@@ -87,7 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.97" />
+        app:layout_constraintGuide_percent="0.90" />
 
     <android.support.constraint.Guideline
         android:id="@+id/bottomMargin"
@@ -105,7 +124,7 @@
 
     <android.support.constraint.Guideline
         android:id="@+id/centerLineVertical"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
