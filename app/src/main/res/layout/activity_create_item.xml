@@ -15,7 +15,7 @@
         app:layout_constraintTop_toBottomOf="@id/topMargin"/>
 
     <TextView
-        android:id="@+id/createIttemHeader"
+        android:id="@+id/createItemHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/createElementText"
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/what"
-        app:layout_constraintTop_toBottomOf="@id/createIttemHeader"
+        app:layout_constraintTop_toBottomOf="@id/createItemHeader"
         app:layout_constraintStart_toEndOf="@id/leftMargin"/>
 
     <EditText
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         app:layout_constraintTop_toBottomOf="@id/what"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
+        app:layout_constraintStart_toEndOf="@id/leftMargin" />
 
     <Button
         android:id="@+id/fromFavorites"
@@ -154,7 +154,7 @@
         app:layout_constraintGuide_percent="0.25" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/quarterLineRigth"
+        android:id="@+id/quarterLineRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -200,6 +200,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.66666" />v
+        app:layout_constraintGuide_percent="0.66666" />
 
 </android.support.constraint.ConstraintLayout>
