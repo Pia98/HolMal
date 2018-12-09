@@ -40,6 +40,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <!-- corresponds to button 7 in paper prototype-->
+    <!--change from text in Button to picture later due to design-->
     <Button
         android:id="@+id/addItem"
         android:layout_width="wrap_content"
