@@ -95,6 +95,21 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         if(isRegistration){
             if(validate()){
                 Toast.makeText(getApplicationContext(), "registriert", Toast.LENGTH_SHORT).show();
+                String email = emailInput.getText().toString();
+                String password = passwordInput.getText().toString();
+
+                fireAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isComplete()) {
+                            Log.i(MainActivity.class.getName(), "Registration successful");
+                            Intent intent = new Intent(LoginActivity.this, StartActivity.class);
+                            startActivity(intent);
+                        }
+                        else
+                            Log.e(MainActivity.class.getName(), "Registration failed");
+                    }
+                });
             }
         }else{
             passwortInputWdh.setVisibility(View.VISIBLE);
