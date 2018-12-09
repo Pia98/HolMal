@@ -14,14 +14,20 @@ public class RegistrationActivity extends AppCompatActivity {
     Fragment currentFragment;
     FragmentHandling fragmentHandling = new FragmentHandling();
 
+    String userName;
+    String householdName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.registration_activity);
+        setContentView(R.layout.activity_registration);
         ButterKnife.bind(this);
 
         // maybe not the best solution
-        int fragmentNumber = getIntent().getExtras().getInt("fragmentNumber");
+        Bundle extras = getIntent().getExtras();
+        int fragmentNumber = extras.getInt("fragmentNumber");
+        userName = extras.getString("userName");
+        householdName = extras.getString("householdName");
         chooseFragment(fragmentNumber);
 
 //        if (savedInstanceState == null) {
@@ -40,10 +46,14 @@ public class RegistrationActivity extends AppCompatActivity {
         switch (fragmentNumber) {
             // RegistrationFragment1 because it's from context 'create'
             case 1:
-                fragmentHandling.putFragment(currentFragment,
+                Bundle extras = new Bundle();
+                extras.putString("userName", userName);
+                extras.putString("householdName", householdName);
+                fragmentHandling.putFragmentwithExtras(currentFragment,
                         RegistrationFragment1.newInstance(),
                         getSupportFragmentManager(),
-                        R.id.fragmentContainerRegistration);
+                        R.id.fragmentContainerRegistration,
+                        extras);
                 break;
             // RegistrationFragment2 because it's from context 'move in'
             case 2:

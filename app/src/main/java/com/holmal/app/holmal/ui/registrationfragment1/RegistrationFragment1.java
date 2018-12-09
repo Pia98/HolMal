@@ -9,10 +9,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.holmal.app.holmal.MainActivity;
 import com.holmal.app.holmal.R;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -24,13 +26,21 @@ public class RegistrationFragment1 extends Fragment {
         return new RegistrationFragment1();
     }
 
+    @BindView(R.id.householtNameFromInput)
+    TextView inputHousehold;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.registration_fragment1_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_registration_fragment1, container, false);
         ButterKnife.bind(this, view);
+
+        String userName = this.getArguments().getString("userName");
+        String householdName = this.getArguments().getString("householdName");
+
+        inputHousehold.setText(householdName);
 
         return view;
     }
