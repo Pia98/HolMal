@@ -1,51 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?><!-- item of fragment_item_list
-single line in one list-->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- screen 8 -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ItemInformation">
 
-
-    <TextView
-        android:id="@+id/content"
+    <Button
+        android:id="@+id/itemClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
+        android:text="X"
+        app:layout_constraintEnd_toStartOf="@id/rightMargin"
+        app:layout_constraintTop_toBottomOf="@id/topMargin"/>
+
+    <TextView
+        android:id="@+id/itemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="item"
-        android:textAppearance="?attr/textAppearanceListItem"
-        app:layout_constraintStart_toEndOf="@id/leftMargin" />
+        app:layout_constraintTop_toBottomOf="@id/itemClose"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
 
     <TextView
-        android:id="@+id/item_number"
+        android:id="@+id/itemAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
         android:text="Anzahl"
-        android:textAppearance="?attr/textAppearanceListItem"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/content" />
+        app:layout_constraintTop_toBottomOf="@id/itemName"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
 
     <TextView
-        android:id="@+id/urgent"
+        android:id="@+id/itemUrgent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="!"
-        app:layout_constraintEnd_toStartOf="@id/additionalInfo" />
+        android:text="@string/urgent"
+        app:layout_constraintTop_toBottomOf="@id/itemClose"
+        app:layout_constraintEnd_toStartOf="@id/rightMargin" />
 
     <TextView
-        android:id="@+id/additionalInfo"
+        android:id="@+id/itemDesctiption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="i"
-        app:layout_constraintEnd_toStartOf="@id/color" />
+        android:text="Info"
+        app:layout_constraintTop_toBottomOf="@id/itemAmount"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
 
-    <ImageView
-        android:id="@+id/color"
+    <TextView
+        android:id="@+id/itemTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/rightMargin" />
+        android:text="bringt Lars mit"
+        app:layout_constraintTop_toBottomOf="@id/itemDesctiption"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
+
+    <Button
+        android:id="@+id/itemEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="bearbeiten"
+        app:layout_constraintEnd_toStartOf="@id/itemDelete"
+        app:layout_constraintTop_toBottomOf="@id/itemTask"/>
+
+    <Button
+        android:id="@+id/itemDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="löschen"
+        app:layout_constraintEnd_toStartOf="@id/rightMargin"
+        app:layout_constraintTop_toBottomOf="@id/itemTask"/>
 
     <!-- Guidelines -->
 
