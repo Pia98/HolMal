@@ -36,6 +36,9 @@
     <string name="ErrorEnterHouseholdName">Wähle einen Namen für den Haushalt</string>
     <string name="ErrorEnterItem">Gebe eine Bezeichnung an</string>
 
+    <string name="lists">Einkaufslisten</string>
+    <string name="assignments">Meine Aufträge</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
