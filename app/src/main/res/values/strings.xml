@@ -17,7 +17,7 @@
     <string name="myJobs">Meine Aufträge</string>
 
     <string name="moveInHouseholdAs">Folgendem Haushalt beitreten als:</string>
-    
+
     <string name="createElementText">Neues Element auf die Liste schreiben</string>
     <string name="what">Was</string>
     <string name="fromFavorites">aus Favoriten</string>
@@ -26,6 +26,8 @@
     <string name="urgent">dringend</string>
     <string name="saveAsFavorite">als Favorit speichern</string>
     <string name="add">Hinzufügen</string>
+
+    <string name="favorites">Favoriten</string>
 
     <string name="ErrorEnterName">Gib einen Namen ein</string>
     <string name="ErrorChoseColor">Wähle eine Farbe</string>
