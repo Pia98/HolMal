@@ -38,7 +38,8 @@
         <activity android:name=".CreateItem" />
         <activity android:name=".Favorites" />
         <activity android:name=".AllShoppingLists" />
-        <activity android:name=".CreateShoppingList"></activity>
+        <activity android:name=".CreateShoppingList" />
+        <activity android:name=".Settings"></activity>
     </application>
 
 </manifest>
