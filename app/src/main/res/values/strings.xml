@@ -29,6 +29,8 @@
 
     <string name="favorites">Favoriten</string>
 
+    <string name="shoppingList">Einkaufszettel</string>
+
     <string name="ErrorEnterName">Gib einen Namen ein</string>
     <string name="ErrorChoseColor">Wähle eine Farbe</string>
     <string name="ErrorNameTaken">Dieser Name ist vergeben</string>

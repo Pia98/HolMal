@@ -36,7 +36,8 @@
         <activity android:name=".MoveInHousehold" />
         <activity android:name=".ShoppingList" />
         <activity android:name=".CreateItem" />
-        <activity android:name=".Favorites"></activity>
+        <activity android:name=".Favorites" />
+        <activity android:name=".AllShoppingLists"></activity>
     </application>
 
 </manifest>
