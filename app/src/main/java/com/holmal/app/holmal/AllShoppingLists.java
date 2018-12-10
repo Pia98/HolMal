@@ -1,5 +1,6 @@
 package com.holmal.app.holmal;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ public class AllShoppingLists extends AppCompatActivity {
 
     @OnClick(R.id.addShoppingList)
     public void addShoppingListClicked(){
-        // TODO
+        Intent intent = new Intent(this, CreateShoppingList.class);
+        startActivity(intent);
     }
 }

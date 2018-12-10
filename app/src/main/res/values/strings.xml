@@ -30,6 +30,12 @@
     <string name="favorites">Favoriten</string>
 
     <string name="shoppingList">Einkaufszettel</string>
+    
+    <string name="createShoppingListHeader">Neuen Einkaufszettel erstellen:</string>
+    <string name="shoppingListName">Bezeichnung</string>
+    <string name="category">Kategorie</string>
+    <string name="newCategory">neue Kategorie</string>
+    <string name="create">erstellen</string>
 
     <string name="ErrorEnterName">Gib einen Namen ein</string>
     <string name="ErrorChoseColor">Wähle eine Farbe</string>
