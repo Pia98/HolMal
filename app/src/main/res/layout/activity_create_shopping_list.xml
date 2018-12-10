@@ -12,47 +12,46 @@
         android:layout_height="wrap_content"
         android:text="X"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"
-        app:layout_constraintTop_toBottomOf="@id/topMargin"/>
+        app:layout_constraintTop_toBottomOf="@id/topMargin" />
 
     <TextView
         android:id="@+id/createShoppingListHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/createShoppingListHeader"
         android:fontFamily="@font/amatic_sc_bold"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        android:text="@string/createShoppingListHeader"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"
-        app:layout_constraintTop_toBottomOf="@id/close"
-        />
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/close" />
 
     <TextView
         android:id="@+id/shoppingListName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/shoppingListName"
-        app:layout_constraintTop_toBottomOf="@id/createShoppingListHeader"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/createShoppingListHeader" />
 
     <EditText
         android:id="@+id/shoppingListNameInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/shoppingListName"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/shoppingListName" />
 
     <TextView
         android:id="@+id/shoppingListCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/category"
-        app:layout_constraintTop_toBottomOf="@id/shoppingListNameInput"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/shoppingListNameInput" />
 
-    <!-- besser zum Ausklappen mit String drinnen "newCategory" -->
-    <EditText
-        android:id="@+id/shoppingListCategoryInput"
+    <Spinner
+        android:id="@+id/shoppingListCategoryDropDown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/shoppingListCategory"/>
 
@@ -61,8 +60,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/create"
-        app:layout_constraintEnd_toStartOf="@id/rightMargin"
-        app:layout_constraintBottom_toTopOf="@id/bottomMargin"/>
+        app:layout_constraintBottom_toTopOf="@id/bottomMargin"
+        app:layout_constraintEnd_toStartOf="@id/rightMargin" />
 
     <!-- Guidelines -->
 
