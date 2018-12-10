@@ -35,5 +35,7 @@ public class StartActivity extends AppCompatActivity {
     @OnClick({R.id.logoutButton})
     public void logoutStart(){
         FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+        startActivity(intent);
     }
 }
