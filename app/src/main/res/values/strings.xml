@@ -41,6 +41,10 @@
     <string name="members">Mitglieder</string>
     <string name="leave">Haushalt verlassen</string> <!-- ausziehen -->
 
+    <string name="leaveConfirmation">Möchtest Du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
+    <string name="yes">Ja</string>
+    <string name="no">No</string>
+
     <string name="ErrorEnterName">Gib einen Namen ein</string>
     <string name="ErrorChoseColor">Wähle eine Farbe</string>
     <string name="ErrorNameTaken">Dieser Name ist vergeben</string>
