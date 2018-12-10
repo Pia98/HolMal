@@ -103,8 +103,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isComplete()) {
                             Log.i(MainActivity.class.getName(), "Registration successful");
-                            Intent intent = new Intent(LoginActivity.this, StartActivity.class);
-                            startActivity(intent);
                         }
                         else
                             Log.e(MainActivity.class.getName(), "Registration failed");
