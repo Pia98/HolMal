@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
     public void register(){
         if(isRegistration){
             if(validate()){
-                Toast.makeText(getApplicationContext(), "registriert", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "validated", Toast.LENGTH_SHORT).show();
                 String email = emailInput.getText().toString();
                 String password = passwordInput.getText().toString();
 
