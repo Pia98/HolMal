@@ -9,17 +9,13 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
     <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
-    <FrameLayout
-        android:id="@+id/content_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ShoppingList">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintStart_toEndOf="@+id/leftMargin">
+        app:layout_constraintStart_toEndOf="@+id/leftMargin"
+        tools:context=".ShoppingList">
         <!-- Using a guideline here seems not to work -->
 
         <!-- corresponds to button 9 in paper prototype-->
@@ -51,13 +47,13 @@
 
     <!-- corresponds to button 7 in paper prototype-->
     <!--change from text in Button to picture later due to design-->
-        <Button
-            android:id="@+id/addItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+"
-            app:layout_constraintBottom_toTopOf="@+id/quarterLineBottom"
-            app:layout_constraintEnd_toStartOf="@+id/rightMargin" />
+    <Button
+        android:id="@+id/addItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="+"
+        app:layout_constraintBottom_toTopOf="@+id/quarterLineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin" />
 
     <!-- put fragment_item_list on this -->
 
@@ -161,7 +157,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.66666" />
-    </FrameLayout>
+
 
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
     <android.support.design.widget.NavigationView
