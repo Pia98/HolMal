@@ -37,7 +37,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
     public void moveInDoneClick() {
         //if every input is valid go to next window
         if (validate()) {
-            Intent intent = new Intent(this, MainActivity.class); // decide if main (screen 11) or screen 5, then change here
+            Intent intent = new Intent(this, ShoppingList.class); // decide if main (screen 11) or screen 5 (shoppingList), then change here
             startActivity(intent);
         }
     }

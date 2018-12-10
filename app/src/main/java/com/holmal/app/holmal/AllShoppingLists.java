@@ -7,21 +7,18 @@ import android.os.Bundle;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class AllShoppingLists extends AppCompatActivity {
 
-    //hey there :)
-    //testing push
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_all_shopping_lists);
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.addItem)
-    public void addItemClicked(){
-        Intent intent = new Intent(this, CreateItem.class);
+    @OnClick(R.id.addShoppingList)
+    public void addShoppingListClicked(){
+        Intent intent = new Intent(this, CreateShoppingList.class);
         startActivity(intent);
     }
-
 }
