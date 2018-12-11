@@ -1,14 +1,14 @@
 package com.holmal.app.holmal.model;
 
-public class Einkaufsliste {
+public class ShoppingList {
     private String listName;
     private Item[] itemsOfThisList;
     private String category;
 
-    public Einkaufsliste() {
+    public ShoppingList() {
     }
 
-    public Einkaufsliste(String listName, Item[] itemsOfThisList, String category) {
+    public ShoppingList(String listName, Item[] itemsOfThisList, String category) {
         this.listName = listName;
         this.itemsOfThisList = itemsOfThisList;
         this.category = category;
