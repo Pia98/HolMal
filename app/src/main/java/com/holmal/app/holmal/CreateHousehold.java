@@ -9,6 +9,12 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.holmal.app.holmal.model.Household;
+import com.holmal.app.holmal.model.TestHoushold;
+import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
 
 import butterknife.ButterKnife;
@@ -18,6 +24,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
 
     Fragment currentFragment;
     FragmentHandling fragmentHandling = new FragmentHandling();
+    FireBaseHandling fireHandling = new FireBaseHandling();
     String userNameString;
     String houseHoldNameString;
 
@@ -37,6 +44,11 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
     @OnClick(R.id.createHouseholdDone)
     public void createHouseholdDoneClick() {
         if (validate()) {
+            TestHoushold household = new TestHoushold(houseHoldNameString);
+            DatabaseReference myRef =FirebaseDatabase.getInstance().getReference();
+            myRef.child("haushalt").setValue(household);
+
+
             Intent intent = new Intent(this, RegistrationActivity.class);
             // RegistrationFragment1 has to be drawn
             intent.putExtra("fragmentNumber", 1);

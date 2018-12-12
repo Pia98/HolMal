@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
 
 
     FirebaseAuth fireAuth;
+    FirebaseDatabase database;
 
     @BindView(R.id.emailInput)
     EditText emailInput;
@@ -51,6 +53,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         ButterKnife.bind(this);
 
         fireAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         passwortInputWdh.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
