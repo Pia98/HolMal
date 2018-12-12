@@ -44,8 +44,10 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
     @OnClick(R.id.createHouseholdDone)
     public void createHouseholdDoneClick() {
         if (validate()) {
+            // Testhaushalt mit eingegebenem Namen anlegen
             TestHoushold household = new TestHoushold(houseHoldNameString);
-            DatabaseReference myRef =FirebaseDatabase.getInstance().getReference();
+            // household auf Datenbank speichern unter "haushalt"
+            DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
             myRef.child("haushalt").setValue(household);
 
 
