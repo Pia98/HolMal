@@ -3,7 +3,7 @@
     <!-- Basic app colors -->
     <color name="colorPrimary">#4cc1bb</color>
     <color name="colorAccentColor">#940e3e</color>
-    <color name="colorAccentSilver">#D9DEDE</color>
+    <color name="colorAccentSilver">#d9dede</color>
 
     <color name="colorBackground">#FFF9F0</color>
     <color name="colorFont">#000028</color>
