@@ -1,56 +1,97 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- screen 5 -->
+<?xml version="1.0" encoding="utf-8"?><!-- when app opens the first time -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShoppingList">
+    tools:context=".StartActivity">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/leftMargin">
-        <!-- Using a guideline here seems not to work -->
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="246dp"
+        android:layout_height="190dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/logo_hol_mal"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
+        app:layout_constraintStart_toEndOf="@+id/leftMargin"
+        app:layout_constraintTop_toTopOf="@+id/topMargin" />
 
-        <!-- corresponds to button 9 in paper prototype-->
-        <!-- Maybe not the right type for menu -->
-        <Button
-            android:id="@+id/menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Menu" /><!--TODO change this text-->
-
-        <TextView
-            android:id="@+id/householdName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Maier"
-            app:layout_constraintStart_toEndOf="@id/menu"/>
-
-        <TextView
-            android:id="@+id/ShoppinglistText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/amatic_sc_bold"
-            android:text="Einkaufszettel Titel"
-            app:layout_constraintStart_toEndOf="@id/menu"
-            app:layout_constraintTop_toBottomOf="@id/householdName"/>
-    </android.support.constraint.ConstraintLayout>
-
-    <!-- corresponds to button 7 in paper prototype-->
-    <!--change from text in Button to picture later due to design-->
-    <Button
-        android:id="@+id/addItem"
+    <EditText
+        android:id="@+id/emailInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="+"
-        app:layout_constraintBottom_toTopOf="@+id/quarterLineBottom"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toStartOf="@+id/rightMargin"
-        app:layout_constraintStart_toStartOf="@+id/quarterLineRigth" />
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
 
-    <!-- put fragment_item_list on this -->
+    <EditText
+        android:id="@+id/passwortInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="@string/passwort"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/emailInput" />
+
+    <EditText
+        android:id="@+id/passwortInputWdh"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="@string/passwortWdh"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/passwortInput" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="13dp"
+        app:layout_constraintStart_toEndOf="@+id/registrationButton"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorAccentColor"
+        android:text="@string/login"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/passwortInputWdh" />
+
+    <!-- corresponds to button 2 in paper prototype-->
+    <Button
+        android:id="@+id/registrationButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/registration"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+
 
     <!-- Guidelines -->
 
@@ -59,7 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.03" />
+        app:layout_constraintGuide_percent="0.1" />
 
     <android.support.constraint.Guideline
         android:id="@+id/topMargin"
@@ -73,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.97" />
+        app:layout_constraintGuide_percent="0.90" />
 
     <android.support.constraint.Guideline
         android:id="@+id/bottomMargin"
@@ -151,4 +192,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.66666" />
+
 </android.support.constraint.ConstraintLayout>

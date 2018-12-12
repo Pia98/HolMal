@@ -23,19 +23,18 @@
             -->
         </activity>
         <activity android:name=".RegistrationActivity" />
-        <activity android:name=".StartActivity">
-
-            <!-- when app starts the first time open activity_start -->
+        <activity android:name=".StartActivity"/>
+        <activity android:name=".CreateHousehold" />
+        <activity android:name=".MoveInHousehold" />
+        <activity android:name=".ShoppingList" />
+        <activity android:name=".CreateItem" />
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateHousehold" />
-        <activity android:name=".MoveInHousehold" />
-        <activity android:name=".ShoppingList" />
-        <activity android:name=".CreateItem" />
         <activity android:name=".Favorites" />
         <activity android:name=".AllShoppingLists" />
         <activity android:name=".CreateShoppingList" />
