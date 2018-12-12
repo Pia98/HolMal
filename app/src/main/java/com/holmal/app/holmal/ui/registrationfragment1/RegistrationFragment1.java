@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.holmal.app.holmal.MainActivity;
 import com.holmal.app.holmal.R;
+import com.holmal.app.holmal.ShoppingList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,7 +55,7 @@ public class RegistrationFragment1 extends Fragment {
 
     @OnClick(R.id.registrationCreateDone)
     public void registrationCreateButtonDoneClick(){
-        Intent intent = new Intent(getActivity(), MainActivity.class); // decide if main (screen 11) or screen 5, then change here
+        Intent intent = new Intent(getActivity(), ShoppingList.class); // decide if main (screen 11) or screen 5 (shoppingList), then change here
         startActivity(intent);
     }
 }

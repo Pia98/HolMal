@@ -17,7 +17,7 @@
     <string name="myJobs">Meine Aufträge</string>
 
     <string name="moveInHouseholdAs">Folgendem Haushalt beitreten als:</string>
-    
+
     <string name="createElementText">Neues Element auf die Liste schreiben</string>
     <string name="what">Was</string>
     <string name="fromFavorites">aus Favoriten</string>
@@ -27,11 +27,30 @@
     <string name="saveAsFavorite">als Favorit speichern</string>
     <string name="add">Hinzufügen</string>
 
+    <string name="favorites">Favoriten</string>
+
+    <string name="shoppingList">Einkaufszettel</string>
+
+    <string name="createShoppingListHeader">Neuen Einkaufszettel erstellen:</string>
+    <string name="shoppingListName">Bezeichnung</string>
+    <string name="category">Kategorie</string>
+    <string name="newCategory">neue Kategorie</string>
+    <string name="create">erstellen</string>
+
+    <string name="settings">Einstellungen</string>
+    <string name="members">Mitglieder</string>
+    <string name="leave">Haushalt verlassen</string> <!-- ausziehen -->
+
+    <string name="leaveConfirmation">Möchtest Du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
+    <string name="yes">Ja</string>
+    <string name="no">No</string>
+
     <string name="ErrorEnterName">Gib einen Namen ein</string>
     <string name="ErrorChoseColor">Wähle eine Farbe</string>
     <string name="ErrorNameTaken">Dieser Name ist vergeben</string>
     <string name="ErrorChooseHousehold">Wähle einen Haushalt</string>
     <string name="ErrorEnterHouseholdName">Wähle einen Namen für den Haushalt</string>
+    <string name="ErrorEnterItem">Gebe eine Bezeichnung an</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

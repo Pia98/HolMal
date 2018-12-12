@@ -1,108 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- screen 7 -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateItem">
+    tools:context=".AllShoppingLists">
 
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/leftMargin">
+        <!-- Using a guideline here seems not to work -->
+
+        <!-- corresponds to button 9 in paper prototype-->
+        <!-- Maybe not the right type for menu -->
+        <Button
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Menu" /><!--TODO change this text-->
+
+        <TextView
+            android:id="@+id/householdName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Maier"
+            app:layout_constraintStart_toEndOf="@id/menu"/>
+
+        <TextView
+            android:id="@+id/ShoppinglistText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/amatic_sc_bold"
+            android:text="@string/shoppingList"
+            app:layout_constraintStart_toEndOf="@id/menu"
+            app:layout_constraintTop_toBottomOf="@id/householdName"/>
+    </android.support.constraint.ConstraintLayout>
+
+    <!-- corresponds to button 13 in paper prototype-->
+    <!--change from text in Button to picture later due to design-->
     <Button
-        android:id="@+id/cancelButton"
+        android:id="@+id/addShoppingList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancel"
-        app:layout_constraintEnd_toStartOf="@id/rightMargin"
-        app:layout_constraintTop_toBottomOf="@id/topMargin"/>
+        android:text="+"
+        app:layout_constraintBottom_toTopOf="@+id/bottomMargin"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin" />
 
-    <TextView
-        android:id="@+id/createItemHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/createElementText"
-        app:layout_constraintTop_toBottomOf="@id/cancelButton"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintEnd_toStartOf="@id/rightMargin"/>
-
-    <TextView
-        android:id="@+id/what"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/what"
-        app:layout_constraintTop_toBottomOf="@id/createItemHeader"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
-
-    <EditText
-        android:id="@+id/whatInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/what"
-        app:layout_constraintStart_toEndOf="@id/leftMargin" />
-
-    <!-- Button 10 of prototype -->
-    <Button
-        android:id="@+id/fromFavorites"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/fromFavorites"
-        app:layout_constraintStart_toEndOf="@id/whatInput"
-        app:layout_constraintTop_toBottomOf="@id/what"/>
-
-    <TextView
-        android:id="@+id/amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/amount"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/whatInput"/>
-
-    <EditText
-        android:id="@+id/amountInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/amount"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
-
-    <TextView
-        android:id="@+id/info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/info"
-        app:layout_constraintTop_toBottomOf="@id/amountInput"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
-
-    <EditText
-        android:id="@+id/infoInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/info"/>
-
-    <CheckBox
-        android:id="@+id/urgentChecked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/urgent"
-        app:layout_constraintTop_toBottomOf="@id/infoInput"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
-
-    <CheckBox
-        android:id="@+id/saveAsFavoriteChecked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/saveAsFavorite"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/urgentChecked"/>
-
-    <Button
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add"
-        app:layout_constraintEnd_toStartOf="@id/rightMargin"
-        app:layout_constraintBottom_toTopOf="@id/bottomMargin"/>
-
+    <!-- shopping lists here -->
 
     <!-- Guidelines -->
 
@@ -156,7 +103,7 @@
         app:layout_constraintGuide_percent="0.25" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/quarterLineRight"
+        android:id="@+id/quarterLineRigth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -203,5 +150,4 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.66666" />
-
 </android.support.constraint.ConstraintLayout>

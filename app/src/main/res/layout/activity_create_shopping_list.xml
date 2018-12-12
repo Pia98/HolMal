@@ -1,108 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- screen 7 -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateItem">
+    tools:context=".CreateShoppingList">
 
     <Button
-        android:id="@+id/cancelButton"
+        android:id="@+id/close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancel"
+        android:text="X"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"
-        app:layout_constraintTop_toBottomOf="@id/topMargin"/>
+        app:layout_constraintTop_toBottomOf="@id/topMargin" />
 
     <TextView
-        android:id="@+id/createItemHeader"
+        android:id="@+id/createShoppingListHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/createElementText"
-        app:layout_constraintTop_toBottomOf="@id/cancelButton"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintEnd_toStartOf="@id/rightMargin"/>
-
-    <TextView
-        android:id="@+id/what"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/what"
-        app:layout_constraintTop_toBottomOf="@id/createItemHeader"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
-
-    <EditText
-        android:id="@+id/whatInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/what"
-        app:layout_constraintStart_toEndOf="@id/leftMargin" />
-
-    <!-- Button 10 of prototype -->
-    <Button
-        android:id="@+id/fromFavorites"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/fromFavorites"
-        app:layout_constraintStart_toEndOf="@id/whatInput"
-        app:layout_constraintTop_toBottomOf="@id/what"/>
-
-    <TextView
-        android:id="@+id/amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/amount"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/whatInput"/>
-
-    <EditText
-        android:id="@+id/amountInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/amount"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
-
-    <TextView
-        android:id="@+id/info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/info"
-        app:layout_constraintTop_toBottomOf="@id/amountInput"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
-
-    <EditText
-        android:id="@+id/infoInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/info"/>
-
-    <CheckBox
-        android:id="@+id/urgentChecked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/urgent"
-        app:layout_constraintTop_toBottomOf="@id/infoInput"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
-
-    <CheckBox
-        android:id="@+id/saveAsFavoriteChecked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/saveAsFavorite"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/urgentChecked"/>
-
-    <Button
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add"
+        android:fontFamily="@font/amatic_sc_bold"
+        android:text="@string/createShoppingListHeader"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"
-        app:layout_constraintBottom_toTopOf="@id/bottomMargin"/>
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/close" />
 
+    <TextView
+        android:id="@+id/shoppingListName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shoppingListName"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/createShoppingListHeader" />
+
+    <EditText
+        android:id="@+id/shoppingListNameInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/shoppingListName" />
+
+    <TextView
+        android:id="@+id/shoppingListCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/category"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/shoppingListNameInput" />
+
+    <Spinner
+        android:id="@+id/shoppingListCategoryDropDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/shoppingListCategory"/>
+
+    <Button
+        android:id="@+id/createShoppingList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create"
+        app:layout_constraintBottom_toTopOf="@id/bottomMargin"
+        app:layout_constraintEnd_toStartOf="@id/rightMargin" />
 
     <!-- Guidelines -->
 
@@ -156,7 +115,7 @@
         app:layout_constraintGuide_percent="0.25" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/quarterLineRight"
+        android:id="@+id/quarterLineRigth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -181,7 +140,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.33333" />
+        app:layout_constraintGuide_percent="0.33333334" />
 
     <android.support.constraint.Guideline
         android:id="@+id/thirdLineBottom"

@@ -35,7 +35,11 @@
         <activity android:name=".CreateHousehold" />
         <activity android:name=".MoveInHousehold" />
         <activity android:name=".ShoppingList" />
-        <activity android:name=".CreateItem"></activity>
+        <activity android:name=".CreateItem" />
+        <activity android:name=".Favorites" />
+        <activity android:name=".AllShoppingLists" />
+        <activity android:name=".CreateShoppingList" />
+        <activity android:name=".Settings"></activity>
     </application>
 
 </manifest>
