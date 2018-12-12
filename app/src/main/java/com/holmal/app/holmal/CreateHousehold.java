@@ -52,7 +52,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             personen.add(admin);
             TestHoushold household = new TestHoushold(houseHoldNameString, personen);
             DatabaseReference myRef =FirebaseDatabase.getInstance().getReference();
-            myRef.child("haushalt").setValue(household);
+            myRef.child("haushalt").push().setValue(household);
 
 
             Intent intent = new Intent(this, RegistrationActivity.class);
