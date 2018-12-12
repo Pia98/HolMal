@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,7 +38,10 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
     @BindView(R.id.loginButton)
     Button loginButton;
 
-    Boolean isRegistration = false;
+    private Boolean isRegistration = false;
+
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
 
     @Override
@@ -49,6 +53,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         fireAuth = FirebaseAuth.getInstance();
 
         passwortInputWdh.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -97,6 +102,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                 Toast.makeText(getApplicationContext(), "validated", Toast.LENGTH_SHORT).show();
                 String email = emailInput.getText().toString();
                 String password = passwordInput.getText().toString();
+                progressBar.setVisibility(View.VISIBLE);
 
                 fireAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -105,7 +111,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                             Log.i(MainActivity.class.getName(), "Registration successful");
                         }
                         else
-                            Log.e(MainActivity.class.getName(), "Registration failed");
+                            Log.e(MainActivity.class.getName(), "Registration failed: "+  task.getException().getMessage());
                     }
                 });
             }
