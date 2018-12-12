@@ -5,12 +5,10 @@ public class Person {
 
     /**@color */
     private String color;
-    private Household[] personsHousehold;
 
-    public Person(String personName, String color, Household[] personsHousehold) {
+    public Person(String personName, String color){
         this.personName = personName;
         this.color = color;
-        this.personsHousehold = personsHousehold;
     }
 
     public String getPersonName() {
@@ -29,11 +27,4 @@ public class Person {
         this.color = color;
     }
 
-    public Household[] getPersonsHousehold() {
-        return personsHousehold;
-    }
-
-    public void setPersonsHousehold(Household[] personsHousehold) {
-        this.personsHousehold = personsHousehold;
-    }
 }
