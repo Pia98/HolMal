@@ -13,9 +13,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.holmal.app.holmal.model.Household;
+import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.TestHoushold;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -44,7 +47,10 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
     @OnClick(R.id.createHouseholdDone)
     public void createHouseholdDoneClick() {
         if (validate()) {
-            TestHoushold household = new TestHoushold(houseHoldNameString);
+            Person admin = new Person(userNameString, "blau");
+            ArrayList<Person> personen = new ArrayList<>();
+            personen.add(admin);
+            TestHoushold household = new TestHoushold(houseHoldNameString, personen);
             DatabaseReference myRef =FirebaseDatabase.getInstance().getReference();
             myRef.child("haushalt").setValue(household);
 
