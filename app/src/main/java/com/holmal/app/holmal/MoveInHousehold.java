@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.holmal.app.holmal.utils.FragmentHandling;
+import com.holmal.app.holmal.utils.StorePersonHandling;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -21,6 +22,12 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
 
     Fragment currentFragment;
     FragmentHandling fragmentHandling = new FragmentHandling();
+
+    String userNameString;
+    String chosenColorString;
+
+    StorePersonHandling storePersonHandling = new StorePersonHandling();
+
 
 
     @Override
@@ -41,6 +48,10 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
         if (validate()) {
             Intent intent = new Intent(this, ShoppingList.class); // decide if main (screen 11) or screen 5 (shoppingList), then change here
             startActivity(intent);
+
+            // TODO check first if not taken yet in the household
+            storePersonHandling.storePersonOnDatabase(userNameString, chosenColorString);
+
         }
     }
 
@@ -50,6 +61,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
     public Boolean validate(){
         //TODO validate Button 5
         EditText userName = (EditText)findViewById(R.id.userNameInput);
+        userNameString = userName.getText().toString();
         if (userName.getText().toString().isEmpty()){
             Toast.makeText(this, R.string.ErrorEnterName, Toast.LENGTH_SHORT).show();
             return false;
@@ -74,6 +86,10 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
         RadioGroup colourChooser = findViewById(R.id.colorChoice);
         //check if a button was chosen
         if (colourChooser.getCheckedRadioButtonId()!= -1) {
+            // TODO just default color, change to chosen
+            chosenColorString = "lila";
+            // int id = colourChooser.getCheckedRadioButtonId();
+            // chosenColorString = ...;
             return true;
         }
         else {

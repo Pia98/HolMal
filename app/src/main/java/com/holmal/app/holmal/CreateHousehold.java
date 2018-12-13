@@ -5,7 +5,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.TestHoushold;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
+import com.holmal.app.holmal.utils.StorePersonHandling;
 
 import java.util.ArrayList;
 
@@ -24,12 +27,18 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class CreateHousehold extends AppCompatActivity implements PersonalInput.OnFragmentInteractionListener {
+    private static final String TAG = CreateHousehold.class.getName();
+
 
     Fragment currentFragment;
     FragmentHandling fragmentHandling = new FragmentHandling();
     FireBaseHandling fireHandling = new FireBaseHandling();
     String userNameString;
     String houseHoldNameString;
+    String chosenColorString;
+
+    StorePersonHandling storePersonHandling = new StorePersonHandling();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +71,10 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             intent.putExtra("householdName", houseHoldNameString);
             intent.putExtra("householdName", houseHoldNameString);
             startActivity(intent);
+
+            Log.i(TAG, "store person: name - " + userNameString + ", color - " + chosenColorString);
+            // speichert eine Person mit Username und Farbe auf Datenbank
+            storePersonHandling.storePersonOnDatabase(userNameString, chosenColorString);
         }
     }
 
@@ -102,6 +115,10 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             return false;
             }
         else {
+            // TODO just default color, change to chosen
+            chosenColorString = "lila";
+            // int id = colourChooser.getCheckedRadioButtonId();
+            // chosenColorString = ...;
             return true;
         }
     }
