@@ -36,6 +36,10 @@ public class CreateItem extends AppCompatActivity {
         if (validate()) {
             //TODO implement functionality aka actually add item to list
             //maybe also check whether item is a favourite here and add to favourites
+            
+            //and lead back to general view of the shopping list
+            Intent intent = new Intent (this, ShoppingList.class);
+            startActivity(intent);
         }
     }
 
