@@ -18,9 +18,11 @@ public class CreateItem extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
+    //pressing this button takes you back to the general view of the shopping list
     @OnClick(R.id.cancelButton)
     public void cancelButtonClicked() {
-        //TODO
+        Intent intent = new Intent (this, ShoppingList.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.fromFavorites)
