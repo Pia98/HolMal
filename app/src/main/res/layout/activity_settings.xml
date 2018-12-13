@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- screen 5 -->
+<!-- screen 14 -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShoppingList">
+    tools:context=".Settings">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/top"
@@ -23,34 +23,81 @@
             android:text="Menu" /><!--TODO change this text-->
 
         <TextView
-            android:id="@+id/householdName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Maier"
-            app:layout_constraintStart_toEndOf="@id/menu"/>
-
-        <TextView
-            android:id="@+id/ShoppinglistText"
+            android:id="@+id/settingsHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/amatic_sc_bold"
-            android:text="Einkaufszettel Titel"
-            app:layout_constraintStart_toEndOf="@id/menu"
-            app:layout_constraintTop_toBottomOf="@id/householdName"/>
+            android:text="@string/settings"
+            app:layout_constraintStart_toEndOf="@id/menu"/>
     </android.support.constraint.ConstraintLayout>
 
-    <!-- corresponds to button 7 in paper prototype-->
-    <!--change from text in Button to picture later due to design-->
-    <Button
-        android:id="@+id/addItem"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/householdNameTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+"
-        app:layout_constraintBottom_toTopOf="@+id/quarterLineBottom"
-        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
-        app:layout_constraintStart_toStartOf="@+id/quarterLineRigth" />
+        android:text="@string/householdName"
+        app:layout_constraintTop_toBottomOf="@id/top"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
 
-    <!-- put fragment_item_list on this -->
+    <TextView
+        android:id="@+id/householdName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Maier"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/householdNameTitle"/>
+    <Button
+        android:id="@+id/editHouseholdName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="bearbeiten"
+        app:layout_constraintTop_toBottomOf="@id/householdNameTitle"
+        app:layout_constraintStart_toEndOf="@id/householdName"/>
+
+    <TextView
+        android:id="@+id/IdTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/id"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/editHouseholdName" />
+
+    <TextView
+        android:id="@+id/thisHouseholdId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="123456789"
+        app:layout_constraintTop_toBottomOf="@id/IdTitle"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
+
+    <TextView
+        android:id="@+id/householdMembersTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/members"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/thisHouseholdId" />
+
+    <!-- TODO aendern um alle Mitglieder darstellen zu koennen.
+    Ich weiss jetzt nicht, was hierfuer die Beste Moeglichkeit waere -->
+    <TextView
+        android:id="@+id/allMembers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="alle Mitglieder mit Farbe hier"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/householdMembersTitle"/>
+
+
+    <!-- corresponds to button 15 in paper prototype-->
+    <Button
+        android:id="@+id/leaveHousehold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/leave"
+        app:layout_constraintBottom_toTopOf="@id/bottomMargin"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin" />
 
     <!-- Guidelines -->
 
@@ -151,4 +198,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.66666" />
+
 </android.support.constraint.ConstraintLayout>

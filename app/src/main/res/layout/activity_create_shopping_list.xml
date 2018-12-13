@@ -1,56 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- screen 5 -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShoppingList">
+    tools:context=".CreateShoppingList">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/top"
+    <Button
+        android:id="@+id/close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/leftMargin">
-        <!-- Using a guideline here seems not to work -->
+        android:text="X"
+        app:layout_constraintEnd_toStartOf="@id/rightMargin"
+        app:layout_constraintTop_toBottomOf="@id/topMargin" />
 
-        <!-- corresponds to button 9 in paper prototype-->
-        <!-- Maybe not the right type for menu -->
-        <Button
-            android:id="@+id/menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Menu" /><!--TODO change this text-->
+    <TextView
+        android:id="@+id/createShoppingListHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/amatic_sc_bold"
+        android:text="@string/createShoppingListHeader"
+        app:layout_constraintEnd_toStartOf="@id/rightMargin"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/close" />
 
-        <TextView
-            android:id="@+id/householdName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Maier"
-            app:layout_constraintStart_toEndOf="@id/menu"/>
+    <TextView
+        android:id="@+id/shoppingListName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shoppingListName"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/createShoppingListHeader" />
 
-        <TextView
-            android:id="@+id/ShoppinglistText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/amatic_sc_bold"
-            android:text="Einkaufszettel Titel"
-            app:layout_constraintStart_toEndOf="@id/menu"
-            app:layout_constraintTop_toBottomOf="@id/householdName"/>
-    </android.support.constraint.ConstraintLayout>
-
-    <!-- corresponds to button 7 in paper prototype-->
-    <!--change from text in Button to picture later due to design-->
-    <Button
-        android:id="@+id/addItem"
+    <EditText
+        android:id="@+id/shoppingListNameInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="+"
-        app:layout_constraintBottom_toTopOf="@+id/quarterLineBottom"
-        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
-        app:layout_constraintStart_toStartOf="@+id/quarterLineRigth" />
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/thirdLineBottom"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/shoppingListName" />
 
-    <!-- put fragment_item_list on this -->
+    <TextView
+        android:id="@+id/shoppingListCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/category"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/shoppingListNameInput" />
+
+    <Spinner
+        android:id="@+id/shoppingListCategoryDropDown"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toStartOf="@+id/thirdLineBottom"
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/shoppingListCategory" />
+
+    <Button
+        android:id="@+id/createShoppingList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create"
+        app:layout_constraintBottom_toTopOf="@id/bottomMargin"
+        app:layout_constraintEnd_toStartOf="@id/rightMargin" />
 
     <!-- Guidelines -->
 
@@ -129,7 +144,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.33333" />
+        app:layout_constraintGuide_percent="0.33333334" />
 
     <android.support.constraint.Guideline
         android:id="@+id/thirdLineBottom"
@@ -151,4 +166,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.66666" />
+
 </android.support.constraint.ConstraintLayout>

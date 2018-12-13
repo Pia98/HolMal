@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.holmal.app.holmal.ui.registrationfragment1.RegistrationFragment1;
 import com.holmal.app.holmal.ui.registrationfragment1.RegistrationFragment2;
+import com.holmal.app.holmal.utils.FragmentHandling;
 
 import butterknife.ButterKnife;
 

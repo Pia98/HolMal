@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".StartActivity">
 
-    <!-- TODO Replace with Logo/App Name-->
-    <!--<ImageView-->
-        <!--android:id="@+id/dummyLogo"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/dummy_logo"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/thirdLineLeft"-->
-        <!--app:layout_constraintEnd_toStartOf="@+id/rightMargin"-->
-        <!--app:layout_constraintStart_toStartOf="@+id/leftMargin"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/topMargin" />-->
 
     <ImageView
         android:id="@+id/logo"
@@ -29,20 +19,37 @@
     <!-- corresponds to button 1 in paper prototype-->
     <Button
         android:id="@+id/createHousehold"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/createHousehold"
-        app:layout_constraintStart_toEndOf="@+id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/logo" />
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     <!-- corresponds to button 2 in paper prototype-->
     <Button
         android:id="@+id/moveIn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/moveIn"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/createHousehold" />
+
+    <Button
+        android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/moveIn"
-        app:layout_constraintStart_toEndOf="@+id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@+id/createHousehold" />
+        android:text="@string/logout"
+        app:layout_constraintEnd_toStartOf="@id/rightMargin"
+        app:layout_constraintBottom_toTopOf="@id/bottomMargin"
+        app:layout_constraintTop_toBottomOf="@id/invite"/>
 
 
     <!-- Guidelines -->

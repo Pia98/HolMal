@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -30,4 +32,10 @@ public class StartActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @OnClick({R.id.logoutButton})
+    public void logoutStart(){
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
 }

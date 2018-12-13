@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- screen 5 -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShoppingList">
+    tools:context=".AllShoppingLists">
+
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/top"
@@ -34,23 +34,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/amatic_sc_bold"
-            android:text="Einkaufszettel Titel"
+            android:text="@string/shoppingList"
             app:layout_constraintStart_toEndOf="@id/menu"
             app:layout_constraintTop_toBottomOf="@id/householdName"/>
     </android.support.constraint.ConstraintLayout>
 
-    <!-- corresponds to button 7 in paper prototype-->
+    <!-- corresponds to button 13 in paper prototype-->
     <!--change from text in Button to picture later due to design-->
     <Button
-        android:id="@+id/addItem"
-        android:layout_width="0dp"
+        android:id="@+id/addShoppingList"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="+"
-        app:layout_constraintBottom_toTopOf="@+id/quarterLineBottom"
-        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
-        app:layout_constraintStart_toStartOf="@+id/quarterLineRigth" />
+        app:layout_constraintBottom_toTopOf="@+id/bottomMargin"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin" />
 
-    <!-- put fragment_item_list on this -->
+    <!-- shopping lists here -->
 
     <!-- Guidelines -->
 
