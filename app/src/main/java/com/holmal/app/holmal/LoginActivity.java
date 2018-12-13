@@ -89,8 +89,9 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
             fireAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isComplete())
+                    if(task.isComplete()){
                         Log.i(MainActivity.class.getName(), "Login successful");
+                        finish();}
                     else
                         Log.e(MainActivity.class.getName(), "Login failed");
                 }
