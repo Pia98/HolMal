@@ -19,7 +19,6 @@ import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.TestHoushold;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
-import com.holmal.app.holmal.utils.StorePersonHandling;
 
 import java.util.ArrayList;
 
@@ -27,17 +26,22 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class CreateHousehold extends AppCompatActivity implements PersonalInput.OnFragmentInteractionListener {
+
+    /**LOG_TAG*/
     private static final String TAG = CreateHousehold.class.getName();
 
-
+    /**fragments*/
     Fragment currentFragment;
-    FragmentHandling fragmentHandling = new FragmentHandling();
-    FireBaseHandling fireHandling = new FireBaseHandling();
+
+    /**Strings*/
     String userNameString;
     String houseHoldNameString;
     String chosenColorString;
 
-    StorePersonHandling storePersonHandling = new StorePersonHandling();
+    /**Handling classes*/
+    //StorePersonHandling fireBaseHandling = new StorePersonHandling();
+    FireBaseHandling fireBaseHandling = new FireBaseHandling();
+    FragmentHandling fragmentHandling = new FragmentHandling();
 
 
     @Override
@@ -57,12 +61,12 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
     public void createHouseholdDoneClick() {
         if (validate()) {
             Person admin = new Person(userNameString, "blau");
-            ArrayList<Person> personen = new ArrayList<>();
-            personen.add(admin);
-            TestHoushold household = new TestHoushold(houseHoldNameString, personen);
-            DatabaseReference myRef =FirebaseDatabase.getInstance().getReference();
-            myRef.child("haushalt").push().setValue(household);
+            fireBaseHandling.storeNewTestHousehold(houseHoldNameString, admin);
 
+            Log.i(TAG, "store person: name - " + userNameString + ", color - " + chosenColorString);
+            // speichert eine Person mit Username und Farbe auf Datenbank
+            //fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorString);
+            fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorString);
 
             Intent intent = new Intent(this, RegistrationActivity.class);
             // RegistrationFragment1 has to be drawn
@@ -71,10 +75,6 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             intent.putExtra("householdName", houseHoldNameString);
             intent.putExtra("householdName", houseHoldNameString);
             startActivity(intent);
-
-            Log.i(TAG, "store person: name - " + userNameString + ", color - " + chosenColorString);
-            // speichert eine Person mit Username und Farbe auf Datenbank
-            storePersonHandling.storePersonOnDatabase(userNameString, chosenColorString);
         }
     }
 
@@ -92,7 +92,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             Toast.makeText(this, R.string.ErrorEnterName, Toast.LENGTH_SHORT).show();
             return false;
         }
-        //TODO check if name is not taken
+        //TODO check if name is not taken;
         /*
         if (userName.getText.toString() is in List of Names in Household)
          Toast.makeText(this, ErrorNameTaken, Toast.LENGTH_SHORT).show();

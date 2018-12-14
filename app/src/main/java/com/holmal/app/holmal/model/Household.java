@@ -5,9 +5,14 @@ public class Household {
     private Person[] personInHousehold;
     private ShoppingList[] shoppingLists;
 
-    public Household(String householdName){
+    /**
+     * Used for creating a new household
+     * @param householdName
+     * @param personInHousehold
+     */
+    public Household(String householdName, Person[] personInHousehold){
         this.householdName = householdName;
-        this.personInHousehold = new Person[] {};
+        this.personInHousehold = personInHousehold;
         this.shoppingLists = new ShoppingList[] {};
     }
 

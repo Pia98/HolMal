@@ -10,7 +10,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.holmal.app.holmal.utils.FragmentHandling;
-import com.holmal.app.holmal.utils.StorePersonHandling;
+import com.holmal.app.holmal.utils.FireBaseHandling;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -26,7 +26,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
     String userNameString;
     String chosenColorString;
 
-    StorePersonHandling storePersonHandling = new StorePersonHandling();
+    FireBaseHandling fireBaseHandling = new FireBaseHandling();
 
 
 
@@ -50,7 +50,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
             startActivity(intent);
 
             // TODO check first if not taken yet in the household
-            storePersonHandling.storePersonOnDatabase(userNameString, chosenColorString);
+            fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorString);
 
         }
     }
