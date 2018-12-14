@@ -1,4 +1,4 @@
-package com.holmal.app.holmal;
+package com.holmal.app.holmal.utils;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

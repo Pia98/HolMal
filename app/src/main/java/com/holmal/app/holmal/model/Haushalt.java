@@ -7,14 +7,14 @@ public class Haushalt {
     private String haushaltName;
     private String id;
     private ArrayList<Person> personenImHaushalt = new ArrayList<Person>();
-    private Einkaufsliste[] einkaufslisten;
+    private ShoppingList[] einkaufslisten;
 
     public Haushalt(String haushaltName, Person ersteller){
         this.haushaltName = haushaltName;
         personenImHaushalt.add(ersteller);
     }
 
-    public Haushalt(String haushaltName, String id, ArrayList<Person> personenImHaushalt, Einkaufsliste[] einkaufslisten) {
+    public Haushalt(String haushaltName, String id, ArrayList<Person> personenImHaushalt, ShoppingList[] einkaufslisten) {
         this.haushaltName = haushaltName;
         this.id = id;
         this.personenImHaushalt = personenImHaushalt;
@@ -43,11 +43,11 @@ public class Haushalt {
     }
 
 
-    public Einkaufsliste[] getEinkaufslisten() {
+    public ShoppingList[] getEinkaufslisten() {
         return einkaufslisten;
     }
 
-    public void setEinkaufslisten(Einkaufsliste[] einkaufslisten) {
+    public void setEinkaufslisten(ShoppingList[] einkaufslisten) {
         this.einkaufslisten = einkaufslisten;
     }
 

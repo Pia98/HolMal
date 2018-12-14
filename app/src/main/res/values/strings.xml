@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Hol Mal</string>
 
+    <string name="login">login</string>
+    <string name="logout">logout</string>
+    <string name="registration">registrieren</string>
+    <string name="email">E-Mail Adresse</string>
+    <string name="passwort">Passwort</string>
+    <string name="passwortWdh">Passwort wdh.</string>
+
     <string name="createHousehold">neuen Haushalt erstellen</string> <!-- alrenativ: Haus bauen? -->
     <string name="moveIn">in bestehenden Haushalt einziehen</string>
 
@@ -51,6 +58,9 @@
     <string name="ErrorChooseHousehold">Wähle einen Haushalt</string>
     <string name="ErrorEnterHouseholdName">Wähle einen Namen für den Haushalt</string>
     <string name="ErrorEnterItem">Gebe eine Bezeichnung an</string>
+
+    <string name="lists">Einkaufslisten</string>
+    <string name="assignments">Meine Aufträge</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
