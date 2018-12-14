@@ -51,13 +51,15 @@
 
     <!-- corresponds to button 7 in paper prototype-->
     <!--change from text in Button to picture later due to design-->
-        <Button
-            android:id="@+id/addItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+"
-            app:layout_constraintBottom_toTopOf="@+id/quarterLineBottom"
-            app:layout_constraintEnd_toStartOf="@+id/rightMargin" />
+
+    <Button
+        android:id="@+id/addItem"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="+"
+        app:layout_constraintBottom_toTopOf="@+id/quarterLineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
+        app:layout_constraintStart_toStartOf="@+id/quarterLineRigth" />
 
     <!-- put fragment_item_list on this -->
 

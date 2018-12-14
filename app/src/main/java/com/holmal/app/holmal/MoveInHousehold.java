@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-import android.widget.ToggleButton;
+
+import com.holmal.app.holmal.utils.FragmentHandling;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 

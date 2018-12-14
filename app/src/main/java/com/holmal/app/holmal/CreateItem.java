@@ -18,9 +18,11 @@ public class CreateItem extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
+    //pressing this button takes you back to the general view of the shopping list
     @OnClick(R.id.cancelButton)
     public void cancelButtonClicked() {
-        //TODO
+        Intent intent = new Intent (this, ShoppingList.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.fromFavorites)
@@ -34,6 +36,10 @@ public class CreateItem extends AppCompatActivity {
         if (validate()) {
             //TODO implement functionality aka actually add item to list
             //maybe also check whether item is a favourite here and add to favourites
+            
+            //and lead back to general view of the shopping list
+            Intent intent = new Intent (this, ShoppingList.class);
+            startActivity(intent);
         }
     }
 

@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
+
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -23,19 +23,19 @@
             -->
         </activity>
         <activity android:name=".RegistrationActivity" />
-        <activity android:name=".StartActivity">
-
-            <!-- when app starts the first time open activity_start -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".StartActivity"/>
         <activity android:name=".CreateHousehold" />
         <activity android:name=".MoveInHousehold" />
         <activity android:name=".ShoppingList" />
         <activity android:name=".CreateItem" />
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Favorites" />
         <activity android:name=".AllShoppingLists" />
         <activity android:name=".CreateShoppingList" />
