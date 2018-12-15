@@ -6,10 +6,10 @@ public class Person {
     /**@color */
     private String color;
 
-    public Person(String personName, String color) {
+    public Person(String personName, String color){
         this.personName = personName;
         this.color = color;
-}
+    }
 
     public String getPersonName() {
         return personName;
@@ -26,4 +26,5 @@ public class Person {
     public void setColor(String color) {
         this.color = color;
     }
+
 }
