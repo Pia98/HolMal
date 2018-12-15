@@ -36,4 +36,11 @@ public class FireBaseHandling {
         DatabaseReference personRef = firebaseDatabase.getReference();
         personRef.child("person").push().setValue(person);
     }
+
+    public void storeNewPersonInHousehold(String name, String color, String id) {
+        Person person = new Person(name, color);
+
+        DatabaseReference personRef = firebaseDatabase.getReference();
+        personRef.child("person").push().setValue(person);
+    }
 }
