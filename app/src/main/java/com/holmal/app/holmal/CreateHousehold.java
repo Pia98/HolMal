@@ -5,31 +5,36 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
-import com.holmal.app.holmal.model.TestHoushold;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
-
-import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class CreateHousehold extends AppCompatActivity implements PersonalInput.OnFragmentInteractionListener {
 
+    /**LOG_TAG*/
+    private static final String TAG = CreateHousehold.class.getName();
+
+    /**fragments*/
     Fragment currentFragment;
-    FragmentHandling fragmentHandling = new FragmentHandling();
-    FireBaseHandling fireHandling = new FireBaseHandling();
+
+    /**Strings*/
     String userNameString;
     String houseHoldNameString;
+    String chosenColorString;
+
+    /**Handling classes*/
+    //StorePersonHandling fireBaseHandling = new StorePersonHandling();
+    FireBaseHandling fireBaseHandling = new FireBaseHandling();
+    FragmentHandling fragmentHandling = new FragmentHandling();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +53,12 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
     public void createHouseholdDoneClick() {
         if (validate()) {
             Person admin = new Person(userNameString, "blau");
-            ArrayList<Person> personen = new ArrayList<>();
-            personen.add(admin);
-            TestHoushold household = new TestHoushold(houseHoldNameString, personen);
-            DatabaseReference myRef =FirebaseDatabase.getInstance().getReference();
-            myRef.child("haushalt").push().setValue(household);
+            fireBaseHandling.storeNewHousehold(houseHoldNameString, admin);
 
+            Log.i(TAG, "store person: name - " + userNameString + ", color - " + chosenColorString);
+            // speichert eine Person mit Username und Farbe auf Datenbank
+            //fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorString);
+            fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorString);
 
             Intent intent = new Intent(this, RegistrationActivity.class);
             // RegistrationFragment1 has to be drawn
@@ -79,7 +84,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             Toast.makeText(this, R.string.ErrorEnterName, Toast.LENGTH_SHORT).show();
             return false;
         }
-        //TODO check if name is not taken
+        //TODO check if name is not taken;
         /*
         if (userName.getText.toString() is in List of Names in Household)
          Toast.makeText(this, ErrorNameTaken, Toast.LENGTH_SHORT).show();
@@ -102,6 +107,10 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             return false;
             }
         else {
+            // TODO just default color, change to chosen
+            chosenColorString = "lila";
+            // int id = colourChooser.getCheckedRadioButtonId();
+            // chosenColorString = ...;
             return true;
         }
     }
