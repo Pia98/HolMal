@@ -33,6 +33,7 @@ public class FireBaseHandling {
     public void storePersonOnDatabase(String name, String color) {
         Person person = new Person(name, color);
 
+
         DatabaseReference personRef = firebaseDatabase.getReference();
         personRef.child("person").push().setValue(person);
     }
