@@ -30,7 +30,7 @@ public class FireBaseHandling {
         myRef.child("haushalt").push().setValue(household);
     }*/
 
-    public void storePersonOnDatabase(String name, String color) {
+    public void storePersonOnDatabase(String name, int color) {
         Person person = new Person(name, color);
 
 

@@ -24,7 +24,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
     FragmentHandling fragmentHandling = new FragmentHandling();
 
     String userNameString;
-    String chosenColorString;
+    int chosenColorId;
 
     FireBaseHandling fireBaseHandling = new FireBaseHandling();
 
@@ -50,7 +50,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
             startActivity(intent);
 
             // TODO check first if not taken yet in the household
-            fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorString);
+            fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorId);
 
         }
     }
@@ -87,9 +87,9 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
         //check if a button was chosen
         if (colourChooser.getCheckedRadioButtonId()!= -1) {
             // TODO just default color, change to chosen
-            chosenColorString = "lila";
+            chosenColorId = colourChooser.getCheckedRadioButtonId();
             // int id = colourChooser.getCheckedRadioButtonId();
-            // chosenColorString = ...;
+            // chosenColorId = ...;
             return true;
         }
         else {
