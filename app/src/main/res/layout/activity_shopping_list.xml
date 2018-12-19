@@ -165,6 +165,7 @@
         app:layout_constraintGuide_percent="0.66666" />
     </FrameLayout>
 
+    
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
