@@ -105,7 +105,6 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
 
     }
 
-
     /*
     Method that checks if a colour button has been chosen. Users must choose a colour before entering a household.
      */
