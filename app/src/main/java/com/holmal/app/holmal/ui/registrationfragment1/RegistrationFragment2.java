@@ -21,6 +21,7 @@ import butterknife.OnClick;
 public class RegistrationFragment2 extends Fragment {
 
     private RegistrationFragment2ViewModel mViewModel;
+    String inputId;
 
     public static RegistrationFragment2 newInstance() {
         return new RegistrationFragment2();
@@ -45,14 +46,16 @@ public class RegistrationFragment2 extends Fragment {
     public void idInputDoneClick(){
         if(validate()) {
             Intent intent = new Intent(getActivity(), MoveInHousehold.class);
+            intent.putExtra("inputId", inputId);
             startActivity(intent);
         }
     }
 
     //checks for input
     public Boolean validate() {
-        EditText householdName = (EditText) getView().findViewById(R.id.idInput);
-        if (householdName.getText().toString().isEmpty()) {
+        EditText householdId = (EditText) getView().findViewById(R.id.idInput);
+        inputId = householdId.getText().toString();
+        if (inputId.isEmpty()) {
             Toast.makeText(getActivity(), R.string.ErrorChooseHousehold, Toast.LENGTH_SHORT).show();
             return false;
         }

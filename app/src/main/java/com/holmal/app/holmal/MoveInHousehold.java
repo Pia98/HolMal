@@ -7,11 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.holmal.app.holmal.utils.FragmentHandling;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -22,6 +24,11 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
 
     Fragment currentFragment;
     FragmentHandling fragmentHandling = new FragmentHandling();
+
+    @BindView(R.id.householdIDAsText)
+    TextView householdIdAsText;
+
+    String householdId;
 
     String userNameString;
     int chosenColorId;
@@ -40,11 +47,15 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
                 PersonalInput.newInstance(),
                 getSupportFragmentManager(),
                 R.id.fragmentContainerMoveIn);
+
+        Bundle extras = getIntent().getExtras();
+        householdId = extras.getString("inputId");
+        householdIdAsText.setText(householdId);
+
     }
 
     @OnClick(R.id.moveInDone)
     public void moveInDoneClick() {
-        //if every input is valid go to next window
         if (validate()) {
             Intent intent = new Intent(this, ShoppingList.class); // decide if main (screen 11) or screen 5 (shoppingList), then change here
             startActivity(intent);
