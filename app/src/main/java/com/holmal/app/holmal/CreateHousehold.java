@@ -35,6 +35,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
     String userNameString;
     String houseHoldNameString;
     int chosenColorId;
+    String householdId;
 
     /**
      * Handling classes
@@ -61,11 +62,13 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
     public void createHouseholdDoneClick() {
         if (validate()) {
             Person admin = new Person(userNameString, chosenColorId);
-            fireBaseHandling.storeNewHousehold(houseHoldNameString, admin);
+            householdId = fireBaseHandling.storeNewHousehold(houseHoldNameString, admin);
+
+            Log.i(TAG, "householdID: " + householdId);
+
 
             Log.i(TAG, "store person: name - " + userNameString + ", color - " + chosenColorId);
             // speichert eine Person mit Username und Farbe auf Datenbank
-            //fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorId);
             fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorId);
 
             Intent intent = new Intent(this, RegistrationActivity.class);
@@ -73,7 +76,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             intent.putExtra("fragmentNumber", 1);
             intent.putExtra("userName", userNameString);
             intent.putExtra("householdName", houseHoldNameString);
-            intent.putExtra("householdName", houseHoldNameString);
+            intent.putExtra("householdId", householdId);
             startActivity(intent);
         }
     }
@@ -114,10 +117,36 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             Toast.makeText(this, R.string.ErrorChoseColor, Toast.LENGTH_SHORT).show();
             return false;
         } else {
-            // TODO just default color, change to chosen
             chosenColorId = colourChooser.getCheckedRadioButtonId();
 
-            Log.i(TAG, "Color ID: " + chosenColorId);
+            Log.i(TAG, "Chosen color ID: " + chosenColorId);
+            // just to get the id of the color
+//            switch(chosenColorId){
+//                case R.id.color1:
+//                    Log.i(TAG, "Color to ID color1: " + chosenColorId);
+//                    break;
+//                case R.id.color2:
+//                    Log.i(TAG, "Color to ID color2: " + chosenColorId);
+//                    break;
+//                case R.id.color3:
+//                    Log.i(TAG, "Color to ID color3: " + chosenColorId);
+//                    break;
+//                case R.id.color4:
+//                    Log.i(TAG, "Color to ID color4: " + chosenColorId);
+//                    break;
+//                case R.id.color5:
+//                    Log.i(TAG, "Color to ID color5: " + chosenColorId);
+//                    break;
+//                case R.id.color6:
+//                    Log.i(TAG, "Color to ID color6: " + chosenColorId);
+//                    break;
+//                case R.id.color7:
+//                    Log.i(TAG, "Color to ID color7: " + chosenColorId);
+//                    break;
+//                case R.id.color8:
+//                    Log.i(TAG, "Color to ID color8: " + chosenColorId);
+//                    break;
+//            }
 
             return true;
         }

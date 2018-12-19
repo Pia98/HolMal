@@ -13,12 +13,17 @@ public class FireBaseHandling {
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-    public void storeNewHousehold(String name, Person person){
+    public String storeNewHousehold(String name, Person person){
         ArrayList<Person> personen = new ArrayList<>();
         personen.add(person);
         Household household = new Household(name, personen);
+
         DatabaseReference householdRef = firebaseDatabase.getReference();
-        householdRef.child("houshold").push().setValue(household);
+
+        String storeId = householdRef.push().getKey();
+        householdRef.child("household").child(storeId).setValue(household);
+
+        return storeId;
     }
 
    /* public void storeNewTestHousehold(String name, Person person){
