@@ -17,6 +17,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     String userName;
     String householdName;
+    String householdId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class RegistrationActivity extends AppCompatActivity {
         int fragmentNumber = extras.getInt("fragmentNumber");
         userName = extras.getString("userName");
         householdName = extras.getString("householdName");
+        householdId = extras.getString("householdId");
         chooseFragment(fragmentNumber);
 
 //        if (savedInstanceState == null) {
@@ -50,6 +52,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 Bundle extras = new Bundle();
                 extras.putString("userName", userName);
                 extras.putString("householdName", householdName);
+                extras.putString("householdId", householdId);
                 fragmentHandling.putFragmentwithExtras(currentFragment,
                         RegistrationFragment1.newInstance(),
                         getSupportFragmentManager(),

@@ -30,6 +30,9 @@ public class RegistrationFragment1 extends Fragment {
     @BindView(R.id.householtNameFromInput)
     TextView inputHousehold;
 
+    @BindView(R.id.generatedID)
+    TextView generatedID;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -40,8 +43,10 @@ public class RegistrationFragment1 extends Fragment {
 
         String userName = this.getArguments().getString("userName");
         String householdName = this.getArguments().getString("householdName");
+        String householdId = this.getArguments().getString("householdId");
 
         inputHousehold.setText(householdName);
+        generatedID.setText(householdId);
 
         return view;
     }
