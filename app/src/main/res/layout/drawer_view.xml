@@ -4,10 +4,10 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/assignments"
-            android:title="@strings/assignments"
+            android:title="@string/assignments"
             />
         <item
             android:id="@+id/lists"
-            android:title="@strings/lists" />
+            android:title="@string/lists" />
     </group>
 </menu>
