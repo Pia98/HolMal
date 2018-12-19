@@ -17,8 +17,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toEndOf="@+id/leftMargin">
         <!-- Using a guideline here seems not to work -->
 
@@ -30,7 +30,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
-    
+
 
         <TextView
             android:id="@+id/householdName"
@@ -51,13 +51,15 @@
 
     <!-- corresponds to button 7 in paper prototype-->
     <!--change from text in Button to picture later due to design-->
+
     <Button
         android:id="@+id/addItem"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="+"
         app:layout_constraintBottom_toTopOf="@+id/quarterLineBottom"
-        app:layout_constraintEnd_toStartOf="@+id/rightMargin" />
+        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
+        app:layout_constraintStart_toStartOf="@+id/quarterLineRigth" />
 
     <!-- put fragment_item_list on this -->
 
@@ -170,5 +172,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:menu="@layout/drawer_view"
         app:headerLayout="@layout/nav_header" />
 </android.support.v4.widget.DrawerLayout>
