@@ -147,8 +147,16 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         if(email.isEmpty() && password.isEmpty()){
             Toast.makeText(getApplicationContext(), "Bitte gib deine Emailadresse und dein Passwort an", Toast.LENGTH_SHORT).show();
             return false;
-        }else if(isRegistration && passwortWdh.isEmpty() && !(passwortWdh == password)){
+        }else if(password.length()<6 ){
+            Toast.makeText(getApplicationContext(), "Das Passwort muss min. 6 Zeichen lang sein.",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(isRegistration && passwortWdh.isEmpty()){
             Toast.makeText(getApplicationContext(), "Bitte wiederhole dein Passwort", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(isRegistration && !(passwortWdh.equals(password))){
+            Toast.makeText(getApplicationContext(), "Bitte überprüfe dein Passwort: ",
+                    Toast.LENGTH_SHORT).show();
             return false;
         }else{
             return true;
