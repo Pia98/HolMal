@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -92,8 +94,11 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                     if(task.isComplete()){
                         Log.i(MainActivity.class.getName(), "Login successful");
                         finish();}
-                    else
+                    else {
+                        Toast.makeText(getApplicationContext(), "Login fehlgeschlagen: Bitte überprüfe deine Email und dein Passwort",
+                                Toast.LENGTH_SHORT).show();
                         Log.e(MainActivity.class.getName(), "Login failed");
+                    }
                 }
             });
         }
@@ -103,7 +108,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
     public void register(){
         if(isRegistration){
             if(validate()){
-                Toast.makeText(getApplicationContext(), "validated", Toast.LENGTH_SHORT).show();
                 String email = emailInput.getText().toString();
                 String password = passwordInput.getText().toString();
                 progressBar.setVisibility(View.VISIBLE);
@@ -111,11 +115,18 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                 fireAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isComplete()) {
+                        if(task.isSuccessful()) {
                             Log.i(MainActivity.class.getName(), "Registration successful");
                         }
-                        else
+                        else{
+                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                Toast.makeText(getApplicationContext(), "User with this email already exist.", Toast.LENGTH_SHORT).show();
+                            }else if(task.getException() instanceof FirebaseAuthWeakPasswordException){
+                                Toast.makeText(getApplicationContext(), "Das Passwort muss min. 6 Zeichen lang sein.", Toast.LENGTH_SHORT).show();
+                            }
                             Log.e(MainActivity.class.getName(), "Registration failed: "+  task.getException().getMessage());
+                            progressBar.setVisibility(View.INVISIBLE);
+                        }
                     }
                 });
             }
