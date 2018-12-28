@@ -27,14 +27,6 @@ public class PersonListener implements ValueEventListener {
             personList.add(value);
         }
         Log.i("PersonListener", "personList: " + personList);
-
-        List<String> personNames = new ArrayList<>();
-
-        for(int i = 0; i < personList.size(); i++){
-            String name = personList.get(i).getPersonName();
-            personNames.add(name);
-        }
-        Log.i("PersonListener", "personNames: " + personNames);
     }
 
     @Override

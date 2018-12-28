@@ -30,4 +30,11 @@ public class Person {
         this.color = color;
     }
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "personName='" + personName + '\'' +
+                ", color=" + color +
+                '}';
+    }
 }
