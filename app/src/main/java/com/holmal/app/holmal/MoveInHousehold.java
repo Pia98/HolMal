@@ -57,6 +57,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
         householdId = extras.getString("inputId");
 
         // listener fuer personen
+        fireBaseHandling.startPersonValueEventListener(householdId);
 
         householdIdAsText.setText(householdId);
 
