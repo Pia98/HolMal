@@ -16,6 +16,8 @@ import java.util.ArrayList;
 //that are used in multiple other classes
 public class FireBaseHandling {
 
+    PersonListener personListener = new PersonListener();
+
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
     String householdRubric = "household";
@@ -30,8 +32,17 @@ public class FireBaseHandling {
         String storeId = householdRef.push().getKey();
         householdRef.child(householdRubric).child(storeId).setValue(household);
 
+        // registriere listener unter household/id/personenInHousehold
+        householdRef.child(householdRubric + "/" + storeId + "/personInHousehold").addValueEventListener(personListener);
+
         return storeId;
+
+        //listener fuer personen (und einkaufsliste)
     }
+
+
+    // registriere Listener fuer Personen bei Beitritt
+
 
    /* public void storeNewTestHousehold(String name, Person person){
         ArrayList<Person> personen = new ArrayList<>();
@@ -84,10 +95,9 @@ public class FireBaseHandling {
 
     //}
 
-    public void storeMoveInPersonInHousehold(String id, String name, int color){
-        Person person = new Person(name, color);
-
+    public void storeMoveInPersonInHousehold(String id, Person person){
         DatabaseReference personRef = firebaseDatabase.getReference();
         personRef.child(householdRubric + "/" + id + "/personInHousehold").push().setValue(person);
+        // listener fuer einkaufsliste starten
     }
 }

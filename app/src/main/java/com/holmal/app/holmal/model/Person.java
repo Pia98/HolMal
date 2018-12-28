@@ -11,6 +11,9 @@ public class Person {
         this.color = color;
     }
 
+    public Person() {
+    }
+
     public String getPersonName() {
         return personName;
     }

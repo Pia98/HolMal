@@ -11,8 +11,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.holmal.app.holmal.utils.FragmentHandling;
+import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.FragmentHandling;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +55,9 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
 
         Bundle extras = getIntent().getExtras();
         householdId = extras.getString("inputId");
+
+        // listener fuer personen
+
         householdIdAsText.setText(householdId);
 
     }
@@ -61,13 +65,14 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
     @OnClick(R.id.moveInDone)
     public void moveInDoneClick() {
         if (validate()) {
+            Person person = new Person(userNameString, chosenColorId);
             Intent intent = new Intent(this, ShoppingList.class); // decide if main (screen 11) or screen 5 (shoppingList), then change here
             startActivity(intent);
 
             // TODO check first if not taken yet in the household
             //fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorId);
             Log.i(TAG, userNameString + " (color: " + chosenColorId + ") wants to move in " + householdId);
-            fireBaseHandling.storeMoveInPersonInHousehold(householdId, userNameString, chosenColorId);
+            fireBaseHandling.storeMoveInPersonInHousehold(householdId, person);
 
         }
     }
@@ -100,7 +105,6 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
         RadioGroup colourChooser = findViewById(R.id.colorChoice);
         //check if a button was chosen
         if (colourChooser.getCheckedRadioButtonId()!= -1) {
-            // TODO just default color, change to chosen
             chosenColorId = colourChooser.getCheckedRadioButtonId();
             // int id = colourChooser.getCheckedRadioButtonId();
             // chosenColorId = ...;
