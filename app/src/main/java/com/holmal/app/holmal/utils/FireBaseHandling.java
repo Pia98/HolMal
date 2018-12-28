@@ -57,40 +57,6 @@ public class FireBaseHandling {
         personRef.child("person").push().setValue(person);
     }
 
-    /*public void getHouseholdFromID(String id) {
-        DatabaseReference householdRef = firebaseDatabase.getReference(id);
-
-
-        // wie bekomm ich hier Daten zurueck, bzw weiter?
-        householdRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Household household = dataSnapshot.getValue(Household.class);
-                household.getPersonInHousehold();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-/*
-        householdRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Household household = dataSnapshot.getValue(Household.class);
-                System.out.println(household);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-*/
-
-    //}
-
     public void storeMoveInPersonInHousehold(String id, Person person){
         DatabaseReference personRef = firebaseDatabase.getReference();
         personRef.child(householdRubric + "/" + id + "/personInHousehold").push().setValue(person);

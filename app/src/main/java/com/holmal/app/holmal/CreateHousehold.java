@@ -68,6 +68,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             ArrayList<Person> personen = new ArrayList<>();
             personen.add(admin);
             Household household = new Household(houseHoldNameString, personen);
+            householdId = fireBaseHandling.storeNewHousehold(household);
 
             Log.i(TAG, "householdID: " + householdId);
 
