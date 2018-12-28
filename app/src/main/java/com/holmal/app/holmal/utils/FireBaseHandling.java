@@ -29,7 +29,7 @@ public class FireBaseHandling {
         householdRef.child(householdRubric).child(storeId).setValue(household);
 
         // registriere listener unter household/id/personenInHousehold
-        householdRef.child(householdRubric + "/" + storeId + "/personInHousehold").addValueEventListener(personListener);
+        startPersonValueEventListener(storeId);
 
         return storeId;
 
@@ -61,5 +61,10 @@ public class FireBaseHandling {
         DatabaseReference personRef = firebaseDatabase.getReference();
         personRef.child(householdRubric + "/" + id + "/personInHousehold").push().setValue(person);
         // listener fuer einkaufsliste starten
+    }
+
+    public void startPersonValueEventListener(String householdId){
+        DatabaseReference ref = firebaseDatabase.getReference();
+        ref.child(householdRubric + "/" + householdId + "/personInHousehold").addValueEventListener(personListener);
     }
 }
