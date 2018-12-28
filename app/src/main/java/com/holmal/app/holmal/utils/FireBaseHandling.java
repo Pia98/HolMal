@@ -28,17 +28,12 @@ public class FireBaseHandling {
         String storeId = householdRef.push().getKey();
         householdRef.child(householdRubric).child(storeId).setValue(household);
 
-        // registriere listener unter household/id/personenInHousehold
+        //listener fuer personen und einkaufsliste gleich starten, wenn Haushalt erstellt wird
+
         startPersonValueEventListener(storeId);
 
         return storeId;
-
-        //listener fuer personen (und einkaufsliste)
     }
-
-
-    // registriere Listener fuer Personen bei Beitritt
-
 
    /* public void storeNewTestHousehold(String name, Person person){
         ArrayList<Person> personen = new ArrayList<>();
@@ -60,9 +55,10 @@ public class FireBaseHandling {
     public void storeMoveInPersonInHousehold(String id, Person person){
         DatabaseReference personRef = firebaseDatabase.getReference();
         personRef.child(householdRubric + "/" + id + "/personInHousehold").push().setValue(person);
-        // listener fuer einkaufsliste starten
+        // listener fuer einkaufsliste starten, wenn beitretende Person erfolgreich gespeichert wurde
     }
 
+    // registriere listener unter household/id/personenInHousehold
     public void startPersonValueEventListener(String householdId){
         DatabaseReference ref = firebaseDatabase.getReference();
         ref.child(householdRubric + "/" + householdId + "/personInHousehold").addValueEventListener(personListener);

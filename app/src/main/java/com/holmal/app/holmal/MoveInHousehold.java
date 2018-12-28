@@ -56,7 +56,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
         Bundle extras = getIntent().getExtras();
         householdId = extras.getString("inputId");
 
-        // listener fuer personen
+        // listener fuer personen starten, gleich bei erzeugen, bevor Person gespeichert, wegen Abfragen ob bereits in Haushalt vorhanden
         fireBaseHandling.startPersonValueEventListener(householdId);
 
         householdIdAsText.setText(householdId);

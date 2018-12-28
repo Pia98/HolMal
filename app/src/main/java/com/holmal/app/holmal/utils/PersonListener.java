@@ -13,9 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class PersonListener implements ValueEventListener {
-
     List<Person> personList = new ArrayList<>();
-
 
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
