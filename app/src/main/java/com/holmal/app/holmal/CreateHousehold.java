@@ -152,7 +152,6 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
 //                    Log.i(TAG, "Color to ID color8: " + chosenColorId);
 //                    break;
 //            }
-
             return true;
         }
     }
