@@ -22,11 +22,7 @@ public class FireBaseHandling {
 
     String householdRubric = "household";
 
-    public String storeNewHousehold(String name, Person person) {
-        ArrayList<Person> personen = new ArrayList<>();
-        personen.add(person);
-        Household household = new Household(name, personen);
-
+    public String storeNewHousehold(Household household) {
         DatabaseReference householdRef = firebaseDatabase.getReference();
 
         String storeId = householdRef.push().getKey();
