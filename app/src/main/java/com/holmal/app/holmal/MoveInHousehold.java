@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -18,6 +19,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MoveInHousehold extends AppCompatActivity implements PersonalInput.OnFragmentInteractionListener {
+
+    private static final String TAG = MoveInHousehold.class.getName();
+
 
     //to check validation
     Boolean validationSuccessful =true;
@@ -61,7 +65,9 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
             startActivity(intent);
 
             // TODO check first if not taken yet in the household
-            fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorId);
+            //fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorId);
+            Log.i(TAG, userNameString + " (color: " + chosenColorId + ") wants to move in " + householdId);
+            fireBaseHandling.storeMoveInPersonInHousehold(householdId, userNameString, chosenColorId);
 
         }
     }
@@ -84,10 +90,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
          return false;
          */
         else return checkColours();
-
-
     }
-
 
     /*
     Method that checks if a colour button has been chosen. Users must choose a colour before entering a household.

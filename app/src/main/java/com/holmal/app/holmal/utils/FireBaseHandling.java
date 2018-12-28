@@ -1,7 +1,12 @@
 package com.holmal.app.holmal.utils;
 
+import android.support.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
 
@@ -13,7 +18,9 @@ public class FireBaseHandling {
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-    public String storeNewHousehold(String name, Person person){
+    String householdRubric = "household";
+
+    public String storeNewHousehold(String name, Person person) {
         ArrayList<Person> personen = new ArrayList<>();
         personen.add(person);
         Household household = new Household(name, personen);
@@ -21,7 +28,7 @@ public class FireBaseHandling {
         DatabaseReference householdRef = firebaseDatabase.getReference();
 
         String storeId = householdRef.push().getKey();
-        householdRef.child("household").child(storeId).setValue(household);
+        householdRef.child(householdRubric).child(storeId).setValue(household);
 
         return storeId;
     }
@@ -41,5 +48,46 @@ public class FireBaseHandling {
 
         DatabaseReference personRef = firebaseDatabase.getReference();
         personRef.child("person").push().setValue(person);
+    }
+
+    /*public void getHouseholdFromID(String id) {
+        DatabaseReference householdRef = firebaseDatabase.getReference(id);
+
+
+        // wie bekomm ich hier Daten zurueck, bzw weiter?
+        householdRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Household household = dataSnapshot.getValue(Household.class);
+                household.getPersonInHousehold();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+/*
+        householdRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Household household = dataSnapshot.getValue(Household.class);
+                System.out.println(household);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+*/
+
+    //}
+
+    public void storeMoveInPersonInHousehold(String id, String name, int color){
+        Person person = new Person(name, color);
+
+        DatabaseReference personRef = firebaseDatabase.getReference();
+        personRef.child(householdRubric + "/" + id + "/personInHousehold").push().setValue(person);
     }
 }
