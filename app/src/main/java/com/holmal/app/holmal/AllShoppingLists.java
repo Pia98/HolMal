@@ -30,12 +30,12 @@ public class AllShoppingLists extends AppCompatActivity {
         setContentView(R.layout.activity_all_shopping_lists);
         ButterKnife.bind(this);
 
-        //menu that appears from the left
+        /*//menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);*/
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
@@ -50,6 +50,12 @@ public class AllShoppingLists extends AppCompatActivity {
                         mDrawerLayout.closeDrawers();
 
                         // Add code here to update the UI based on the item selected
+                        //if my assignments is pressed in the menu you will be lead there
+                        if(menuItem.getItemId() == R.id.nav_my_tasks){
+                            Intent intentT = new Intent(AllShoppingLists.this, MyTasks.class);
+                            startActivity(intentT);
+                            return true;
+                        }
                         // For example, swap UI fragments here
 
                         return true;

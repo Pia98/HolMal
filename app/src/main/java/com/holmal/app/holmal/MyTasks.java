@@ -1,6 +1,7 @@
 package com.holmal.app.holmal;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,12 +24,13 @@ public class MyTasks  extends AppCompatActivity {
         setContentView(R.layout.activity_my_tasks);
         ButterKnife.bind(this);
 
-        //menu that appears from the left
+       /* //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
+
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);*/
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
@@ -43,6 +45,12 @@ public class MyTasks  extends AppCompatActivity {
                         mDrawerLayout.closeDrawers();
 
                         // Add code here to update the UI based on the item selected
+                        //if all shopping lists is pressed in the menu you will be lead there
+                            if (menuItem.getItemId()==R.id.nav_shopping_lists){
+                            Intent intentLists = new Intent(MyTasks.this, AllShoppingLists.class);
+                            startActivity(intentLists);
+                            return true;
+                        }
                         // For example, swap UI fragments here
 
                         return true;

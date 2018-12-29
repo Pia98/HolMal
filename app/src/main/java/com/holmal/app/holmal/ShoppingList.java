@@ -26,12 +26,12 @@ public class ShoppingList extends AppCompatActivity {
         setContentView(R.layout.activity_shopping_list);
         ButterKnife.bind(this);
 
-        //menu that appears from the left
+       /* //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);*/
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
@@ -58,8 +58,6 @@ public class ShoppingList extends AppCompatActivity {
                             startActivity(intentLists);
                             return true;
                         }
-
-
                             // For example, swap UI fragments here
 
                             return true;
