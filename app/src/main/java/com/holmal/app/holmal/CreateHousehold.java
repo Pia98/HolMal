@@ -10,9 +10,12 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -62,7 +65,10 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
     public void createHouseholdDoneClick() {
         if (validate()) {
             Person admin = new Person(userNameString, chosenColorId);
-            householdId = fireBaseHandling.storeNewHousehold(houseHoldNameString, admin);
+            ArrayList<Person> personen = new ArrayList<>();
+            personen.add(admin);
+            Household household = new Household(houseHoldNameString, personen);
+            householdId = fireBaseHandling.storeNewHousehold(household);
 
             Log.i(TAG, "householdID: " + householdId);
 
@@ -146,7 +152,6 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
 //                    Log.i(TAG, "Color to ID color8: " + chosenColorId);
 //                    break;
 //            }
-
             return true;
         }
     }

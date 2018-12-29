@@ -11,6 +11,9 @@ public class Person {
         this.color = color;
     }
 
+    public Person() {
+    }
+
     public String getPersonName() {
         return personName;
     }
@@ -27,4 +30,11 @@ public class Person {
         this.color = color;
     }
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "personName='" + personName + '\'' +
+                ", color=" + color +
+                '}';
+    }
 }

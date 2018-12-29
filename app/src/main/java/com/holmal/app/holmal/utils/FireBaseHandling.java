@@ -1,7 +1,12 @@
 package com.holmal.app.holmal.utils;
 
+import android.support.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
 
@@ -11,17 +16,21 @@ import java.util.ArrayList;
 //that are used in multiple other classes
 public class FireBaseHandling {
 
+    PersonListener personListener = new PersonListener();
+
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-    public String storeNewHousehold(String name, Person person){
-        ArrayList<Person> personen = new ArrayList<>();
-        personen.add(person);
-        Household household = new Household(name, personen);
+    String householdRubric = "household";
 
+    public String storeNewHousehold(Household household) {
         DatabaseReference householdRef = firebaseDatabase.getReference();
 
         String storeId = householdRef.push().getKey();
-        householdRef.child("household").child(storeId).setValue(household);
+        householdRef.child(householdRubric).child(storeId).setValue(household);
+
+        //listener fuer personen und einkaufsliste gleich starten, wenn Haushalt erstellt wird
+
+        startPersonValueEventListener(storeId);
 
         return storeId;
     }
@@ -42,11 +51,16 @@ public class FireBaseHandling {
         DatabaseReference personRef = firebaseDatabase.getReference();
         personRef.child("person").push().setValue(person);
     }
-
-    public void storeNewPersonInHousehold(String name, String color, String id) {
-        Person person = new Person(name, color);
-
+    
+    public void storeMoveInPersonInHousehold(String id, Person person){
         DatabaseReference personRef = firebaseDatabase.getReference();
-        personRef.child("person").push().setValue(person);
+        personRef.child(householdRubric + "/" + id + "/personInHousehold").push().setValue(person);
+        // listener fuer einkaufsliste starten, wenn beitretende Person erfolgreich gespeichert wurde
+    }
+
+    // registriere listener unter household/id/personenInHousehold
+    public void startPersonValueEventListener(String householdId){
+        DatabaseReference ref = firebaseDatabase.getReference();
+        ref.child(householdRubric + "/" + householdId + "/personInHousehold").addValueEventListener(personListener);
     }
 }
