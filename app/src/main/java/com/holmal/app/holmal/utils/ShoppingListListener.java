@@ -6,25 +6,25 @@ import android.util.Log;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.holmal.app.holmal.model.Person;
+import com.holmal.app.holmal.model.ShoppingList;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class PersonListener implements ValueEventListener {
-    List<Person> personList = new ArrayList<>();
+public class ShoppingListListener implements ValueEventListener {
+    List<ShoppingList> shoppingListList = new ArrayList<>();
 
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        personList.clear();
+        shoppingListList.clear();
         Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
         Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
         while (iterator.hasNext()) {
-            Person value = iterator.next().getValue(Person.class);
-            personList.add(value);
+            ShoppingList value = iterator.next().getValue(ShoppingList.class);
+            shoppingListList.add(value);
         }
-        Log.i("PersonListener", "personList: " + personList);
+        Log.i("ShoppingList", "shoppingListList: " + shoppingListList);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class PersonListener implements ValueEventListener {
 
     }
 
-    public List<Person> getPersonList() {
-        return personList;
+    public List<ShoppingList> getShoppingListList() {
+        return shoppingListList;
     }
 }
