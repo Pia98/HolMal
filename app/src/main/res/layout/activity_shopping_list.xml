@@ -65,16 +65,14 @@
                 android:layout_height="wrap_content"></ListView>
 
         </android.support.constraint.ConstraintLayout>
-        <Button
+        <ImageButton
             android:id="@+id/addItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+"
+            android:src="@drawable/ic_add_circle"
             android:translationX="@dimen/ButtonPositionX"
             android:translationY="@dimen/ButtonPositionY"
-            app:layout_constraintBottom_toTopOf="@+id/quarterLineBottom"
-            app:layout_constraintEnd_toStartOf="@+id/rightMargin"
-            app:layout_constraintStart_toStartOf="@+id/quarterLineRigth" />
+           />
 
 
 
