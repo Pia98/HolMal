@@ -1,5 +1,7 @@
 package com.holmal.app.holmal.utils;
 
+import android.util.Log;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.holmal.app.holmal.model.Household;
@@ -10,6 +12,7 @@ import com.holmal.app.holmal.model.Person;
 public class FireBaseHandling {
 
     private PersonListener personListener = new PersonListener();
+    private ShoppingListListener shoppingListListener = new ShoppingListListener();
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference reference = firebaseDatabase.getReference();
@@ -23,6 +26,7 @@ public class FireBaseHandling {
         //listener fuer personen und einkaufsliste gleich starten, wenn Haushalt erstellt wird
 
         startPersonValueEventListener(storeId);
+        startShoppingListListener(storeId);
 
         return storeId;
     }
@@ -41,15 +45,25 @@ public class FireBaseHandling {
         reference.child("person").push().setValue(person);
     }
     
-    public void storeMoveInPersonInHousehold(String id, Person person){
-        reference.child(householdRubric + "/" + id + "/personInHousehold").push().setValue(person);
+    public void storeMoveInPersonInHousehold(String householdId, Person person){
+        reference.child(householdRubric + "/" + householdId + "/personInHousehold").push().setValue(person);
         // listener fuer einkaufsliste starten, wenn beitretende Person erfolgreich gespeichert wurde
+        startShoppingListListener(householdId);
     }
 
     // registriere listener unter household/id/personenInHousehold
     public void startPersonValueEventListener(String householdId) {
         reference.child(householdRubric + "/" + householdId + "/personInHousehold")
                 .addValueEventListener(personListener);
+        Log.i("FirebaseHandling", "personListener started");
+    }
+
+    private void startShoppingListListener(String householdId){
+        // ich glaube hier kommt shoppingLists hin, aender ich aber notfalls, falls doch nicht,
+        // wenn ich rausfinde, dass es nach dem speichern doch anders ist - ME
+        reference.child(householdRubric + "/" + householdId + "/shoppingLists")
+                .addValueEventListener(shoppingListListener);
+        Log.i("FirebaseHandling", "shoppingListListener started");
     }
 
     public PersonListener getPersonListener() {
