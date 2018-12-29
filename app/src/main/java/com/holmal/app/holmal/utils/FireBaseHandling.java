@@ -51,7 +51,7 @@ public class FireBaseHandling {
         DatabaseReference personRef = firebaseDatabase.getReference();
         personRef.child("person").push().setValue(person);
     }
-
+    
     public void storeMoveInPersonInHousehold(String id, Person person){
         DatabaseReference personRef = firebaseDatabase.getReference();
         personRef.child(householdRubric + "/" + id + "/personInHousehold").push().setValue(person);
