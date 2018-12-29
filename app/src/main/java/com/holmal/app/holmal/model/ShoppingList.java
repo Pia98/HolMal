@@ -1,5 +1,7 @@
 package com.holmal.app.holmal.model;
 
+import java.util.Arrays;
+
 public class ShoppingList {
     private String listName;
     private Item[] itemsOfThisList;
@@ -36,5 +38,14 @@ public class ShoppingList {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "ShoppingList{" +
+                "listName='" + listName + '\'' +
+                ", itemsOfThisList=" + Arrays.toString(itemsOfThisList) +
+                ", category='" + category + '\'' +
+                '}';
     }
 }
