@@ -24,6 +24,9 @@ public class Household {
         this.shoppingLists = shoppingLists;
     }
 
+    public Household() {
+    }
+
     public String getHouseholdName() {
         return householdName;
     }
