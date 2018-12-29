@@ -15,6 +15,8 @@ import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -25,7 +27,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
 
 
     //to check validation
-    Boolean validationSuccessful =true;
+    Boolean validationSuccessful = true;
 
     Fragment currentFragment;
     FragmentHandling fragmentHandling = new FragmentHandling();
@@ -39,8 +41,6 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
     int chosenColorId;
 
     FireBaseHandling fireBaseHandling = new FireBaseHandling();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,41 +81,62 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
     /*
     Method that checks whether the input is valid/there before proceeding to the next screen.
      */
-    public Boolean validate(){
+    private boolean validate() {
+        List<Person> personList = fireBaseHandling.getPersonListener().getPersonList();
+        if (checkUserName(personList)) {
+            return checkColours(personList);
+        } else return false;
+    }
+
+    private boolean checkUserName(List<Person> personList) {
         //TODO validate Button 5
-        EditText userName = (EditText)findViewById(R.id.userNameInput);
+        EditText userName = (EditText) findViewById(R.id.userNameInput);
         userNameString = userName.getText().toString();
-        if (userName.getText().toString().isEmpty()){
+        if (!userNameString.isEmpty()) {
+            return checkUserNameTaken(personList);
+        } else {
             Toast.makeText(this, R.string.ErrorEnterName, Toast.LENGTH_SHORT).show();
             return false;
         }
-        //TODO check if name is not taken
-        /*
-        if (userName.getText.toString() is in List of Names in Household)
-         Toast.makeText(this, ErrorNameTaken, Toast.LENGTH_SHORT).show();
-         return false;
-         */
-        else return checkColours();
+    }
+
+    private boolean checkUserNameTaken(List<Person> personList) {
+        for (Person person : personList) {
+            if (userNameString.equals(person.getPersonName())) {
+                Toast.makeText(this, R.string.ErrorNameTaken, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        return true;
     }
 
     /*
     Method that checks if a colour button has been chosen. Users must choose a colour before entering a household.
      */
-    public Boolean checkColours(){
-
+    private boolean checkColours(List<Person> personList) {
         RadioGroup colourChooser = findViewById(R.id.colorChoice);
         //check if a button was chosen
-        if (colourChooser.getCheckedRadioButtonId()!= -1) {
+        if (colourChooser.getCheckedRadioButtonId() != -1) {
             chosenColorId = colourChooser.getCheckedRadioButtonId();
             // int id = colourChooser.getCheckedRadioButtonId();
             // chosenColorId = ...;
-            return true;
-        }
-        else {
+            return checkColourTaken(personList);
+        } else {
             Toast.makeText(this, R.string.ErrorChoseColor, Toast.LENGTH_SHORT).show();
             return false;
         }
     }
+
+    private boolean checkColourTaken(List<Person> personList) {
+        for (Person person : personList) {
+            if (chosenColorId == person.getColor()) {
+                Toast.makeText(this, R.string.ErrorColorTaken, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {

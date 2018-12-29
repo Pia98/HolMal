@@ -20,7 +20,7 @@ public class PersonListener implements ValueEventListener {
         personList.clear();
         Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
         Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             Person value = iterator.next().getValue(Person.class);
             personList.add(value);
         }
@@ -30,5 +30,9 @@ public class PersonListener implements ValueEventListener {
     @Override
     public void onCancelled(@NonNull DatabaseError databaseError) {
 
+    }
+
+    public List<Person> getPersonList() {
+        return personList;
     }
 }

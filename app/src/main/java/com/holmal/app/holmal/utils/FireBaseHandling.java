@@ -9,12 +9,12 @@ import com.holmal.app.holmal.model.Person;
 //that are used in multiple other classes
 public class FireBaseHandling {
 
-    PersonListener personListener = new PersonListener();
+    private PersonListener personListener = new PersonListener();
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference reference = firebaseDatabase.getReference();
 
-    String householdRubric = "household";
+    private String householdRubric = "household";
 
     public String storeNewHousehold(Household household) {
         String storeId = reference.push().getKey();
@@ -50,5 +50,9 @@ public class FireBaseHandling {
     public void startPersonValueEventListener(String householdId) {
         reference.child(householdRubric + "/" + householdId + "/personInHousehold")
                 .addValueEventListener(personListener);
+    }
+
+    public PersonListener getPersonListener() {
+        return personListener;
     }
 }

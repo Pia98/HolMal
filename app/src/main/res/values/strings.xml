@@ -54,7 +54,8 @@
 
     <string name="ErrorEnterName">Gib einen Namen ein</string>
     <string name="ErrorChoseColor">Wähle eine Farbe</string>
-    <string name="ErrorNameTaken">Dieser Name ist vergeben</string>
+    <string name="ErrorNameTaken">Dieser Name ist bereits vergeben</string>
+    <string name="ErrorColorTaken">Diese Farbe ist bereits vergeben</string>
     <string name="ErrorChooseHousehold">Wähle einen Haushalt</string>
     <string name="ErrorEnterHouseholdName">Wähle einen Namen für den Haushalt</string>
     <string name="ErrorEnterItem">Gebe eine Bezeichnung an</string>
