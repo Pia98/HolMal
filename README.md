@@ -1,8 +1,7 @@
 # HolMal
 LMU PEM Projekt
 
-
-This branch is for restructuring (e.g. packages for view, registration, model etc)
+a nice looking branch for design
 
 Objekte auf Firebase speichern
 

@@ -6,12 +6,15 @@ public class Person {
     private String personName;
 
     /**@color */
-    private String color;
+    private int color;
 
-    public Person(String personName, String color) {
+    public Person(String personName, int color){
         this.personName = personName;
         this.color = color;
-}
+    }
+
+    public Person() {
+    }
 
     public String getPersonName() {
         return personName;
@@ -21,11 +24,19 @@ public class Person {
         this.personName = personName;
     }
 
-    public String getColor() {
+    public int getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(int color) {
         this.color = color;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "personName='" + personName + '\'' +
+                ", color=" + color +
+                '}';
     }
 }

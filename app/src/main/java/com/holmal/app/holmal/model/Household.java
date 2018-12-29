@@ -1,20 +1,30 @@
 package com.holmal.app.holmal.model;
 
+import java.util.ArrayList;
+
 public class Household {
     private String householdName;
-    private Person[] personInHousehold;
-    private ShoppingList[] shoppingLists;
+    private ArrayList<Person> personInHousehold;
+    private ArrayList<ShoppingList> shoppingLists;
 
-    public Household(String householdName){
+    /**
+     * Used for creating a new household
+     * @param householdName
+     * @param personInHousehold
+     */
+    public Household(String householdName, ArrayList<Person> personInHousehold){
         this.householdName = householdName;
-        this.personInHousehold = new Person[] {};
-        this.shoppingLists = new ShoppingList[] {};
+        this.personInHousehold = personInHousehold;
+        this.shoppingLists = new ArrayList<ShoppingList>();
     }
 
-    public Household(String householdName, Person[] personInHousehold, ShoppingList[] shoppingLists) {
+    public Household(String householdName, ArrayList<Person> personInHousehold, ArrayList<ShoppingList> shoppingLists) {
         this.householdName = householdName;
         this.personInHousehold = personInHousehold;
         this.shoppingLists = shoppingLists;
+    }
+
+    public Household() {
     }
 
     public String getHouseholdName() {
@@ -25,19 +35,19 @@ public class Household {
         this.householdName = householdName;
     }
 
-    public Person[] getPersonInHousehold() {
+    public ArrayList<Person> getPersonInHousehold() {
         return personInHousehold;
     }
 
-    public void setPersonInHousehold(Person[] personInHousehold) {
+    public void setPersonInHousehold(ArrayList<Person> personInHousehold) {
         this.personInHousehold = personInHousehold;
     }
 
-    public ShoppingList[] getShoppingLists() {
+    public ArrayList<ShoppingList> getShoppingLists() {
         return shoppingLists;
     }
 
-    public void setShoppingListsn(ShoppingList[] shoppingLists) {
+    public void setShoppingListsn(ArrayList<ShoppingList> shoppingLists) {
         this.shoppingLists = shoppingLists;
     }
 }
