@@ -40,9 +40,10 @@ public class FireBaseHandling {
         Person person = new Person(name, color);
         reference.child("person").push().setValue(person);
     }
-
-    public void storeMoveInPersonInHousehold(String id, Person person) {
-        reference.child(householdRubric + "/" + id + "/personInHousehold").push().setValue(person);
+    
+    public void storeMoveInPersonInHousehold(String id, Person person){
+        DatabaseReference personRef = firebaseDatabase.getReference();
+        personRef.child(householdRubric + "/" + id + "/personInHousehold").push().setValue(person);
         // listener fuer einkaufsliste starten, wenn beitretende Person erfolgreich gespeichert wurde
     }
 
