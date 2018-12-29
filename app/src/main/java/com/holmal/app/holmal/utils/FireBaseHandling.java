@@ -24,7 +24,6 @@ public class FireBaseHandling {
         reference.child(householdRubric).child(storeId).setValue(household);
 
         //listener fuer personen und einkaufsliste gleich starten, wenn Haushalt erstellt wird
-
         startPersonValueEventListener(storeId);
         startShoppingListListener(storeId);
 
