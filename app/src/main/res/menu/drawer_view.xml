@@ -5,13 +5,13 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_my_tasks"
-            android:title="Meine Aufträge" />
+            android:title="Meine Aufträge"
+            />
         <item
             android:id="@+id/nav_shopping_lists"
             android:title="Einkaufslisten" />
     </group>
-    <item android:title="Options">
-        <menu>
+    <group android:id="@+id/options">
             <item
                 android:id="@+id/nav_edit"
                 android:icon="@drawable/ic_edit_black_24dp"
@@ -23,6 +23,5 @@
             <item
                 android:id="@+id/logout"
                 android:title="Logout"/>
-        </menu>
-    </item>
+    </group>
 </menu>
