@@ -72,6 +72,7 @@
             android:src="@drawable/ic_add_circle"
             android:translationX="@dimen/ButtonPositionX"
             android:translationY="@dimen/ButtonPositionY"
+            android:background="@color/colorBackground"
            />
 
 
