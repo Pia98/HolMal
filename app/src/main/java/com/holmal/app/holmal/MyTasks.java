@@ -51,6 +51,11 @@ public class MyTasks  extends AppCompatActivity {
                             startActivity(intentLists);
                             return true;
                         }
+                            else if (menuItem.getItemId()==R.id.nav_settings){
+                                Intent intentLists = new Intent(MyTasks.this, Settings.class);
+                                startActivity(intentLists);
+                                return true;
+                            }
                         // For example, swap UI fragments here
 
                         return true;

@@ -56,6 +56,11 @@ public class AllShoppingLists extends AppCompatActivity {
                             startActivity(intentT);
                             return true;
                         }
+                        else if (menuItem.getItemId()==R.id.nav_settings){
+                            Intent intentLists = new Intent(AllShoppingLists.this, Settings.class);
+                            startActivity(intentLists);
+                            return true;
+                        }
                         // For example, swap UI fragments here
 
                         return true;
