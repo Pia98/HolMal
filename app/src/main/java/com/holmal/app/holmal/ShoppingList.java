@@ -87,6 +87,8 @@ public class ShoppingList extends AppCompatActivity {
          return super.onOptionsItemSelected(item);
      }
 
+   
+
     //Button that lets you add an item to the shopping list
     @OnClick (R.id.addItem)
     public void addItemOnClicked(){
