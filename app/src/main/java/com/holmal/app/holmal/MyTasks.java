@@ -24,13 +24,13 @@ public class MyTasks  extends AppCompatActivity {
         setContentView(R.layout.activity_my_tasks);
         ButterKnife.bind(this);
 
-       /* //menu that appears from the left
+       //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);*/
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
