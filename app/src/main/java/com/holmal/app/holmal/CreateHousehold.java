@@ -81,7 +81,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             Household household = new Household(houseHoldNameString, personList, shoppingLists);
             householdId = fireBaseHandling.storeNewHousehold(household);
             // HaushaltID in storage speichern
-            preferences.storePreferences(this, "householdID", householdId);
+            preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
 
 
             Log.i(TAG, "householdID: " + householdId);

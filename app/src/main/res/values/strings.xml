@@ -69,6 +69,12 @@
 
     <string name="defaultShoppingList">Einkaufsliste 1</string>
 
+
+
+
+    <!-- strings used to store something -->
+    <string name="householdIDPreference">householdID</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
