@@ -11,6 +11,6 @@
 <dimen name="toolbarHight">50dp</dimen>
 <dimen name="ButtonPositionX">280dp</dimen>
 <dimen name="ButtonPositionY">400dp</dimen>
-    
+ 
     <dimen name="text_margin">8dp</dimen>
 </resources>
