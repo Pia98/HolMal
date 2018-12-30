@@ -77,7 +77,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
             //fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorId);
             Log.i(TAG, userNameString + " (color: " + chosenColorId + ") wants to move in " + householdId);
             fireBaseHandling.storeMoveInPersonInHousehold(householdId, person);
-            // HaushaltID in storage speichern
+            // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
         }
     }
