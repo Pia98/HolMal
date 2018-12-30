@@ -60,8 +60,14 @@
     <string name="ErrorEnterHouseholdName">Wähle einen Namen für den Haushalt</string>
     <string name="ErrorEnterItem">Gebe eine Bezeichnung an</string>
 
+    <!-- TODO an benutzten Stellen
+    lists -> shoppingLists
+    und assignments -> myJobs aendern -->
     <string name="lists">Einkaufslisten</string>
     <string name="assignments">Meine Aufträge</string>
+
+
+    <string name="defaultShoppingList">Einkaufsliste 1</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

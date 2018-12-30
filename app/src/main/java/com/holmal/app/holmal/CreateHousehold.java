@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
+import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
 
@@ -64,10 +65,16 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
     @OnClick(R.id.createHouseholdDone)
     public void createHouseholdDoneClick() {
         if (validate()) {
+            // create list to store all household members. Started with person that has created
             Person admin = new Person(userNameString, chosenColorId);
-            ArrayList<Person> personen = new ArrayList<>();
-            personen.add(admin);
-            Household household = new Household(houseHoldNameString, personen);
+            ArrayList<Person> personList = new ArrayList<>();
+            personList.add(admin);
+            // create default ShoppingList when household created
+            ShoppingList defaultList = new ShoppingList(getString(R.string.defaultShoppingList), "null");
+            ArrayList<ShoppingList> shoppingLists = new ArrayList<>();
+            shoppingLists.add(defaultList);
+            // create household with name, persons, defaultShoppingList
+            Household household = new Household(houseHoldNameString, personList, shoppingLists);
             householdId = fireBaseHandling.storeNewHousehold(household);
 
             Log.i(TAG, "householdID: " + householdId);
@@ -75,6 +82,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
 
             Log.i(TAG, "store person: name - " + userNameString + ", color - " + chosenColorId);
             // speichert eine Person mit Username und Farbe auf Datenbank
+            // todo not needed anymore
             fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorId);
 
             Intent intent = new Intent(this, RegistrationActivity.class);

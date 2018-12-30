@@ -10,6 +10,11 @@ public class ShoppingList {
     public ShoppingList() {
     }
 
+    public ShoppingList(String listName, String category) {
+        this.listName = listName;
+        this.category = category;
+    }
+
     public ShoppingList(String listName, Item[] itemsOfThisList, String category) {
         this.listName = listName;
         this.itemsOfThisList = itemsOfThisList;

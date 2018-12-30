@@ -6,6 +6,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
+import com.holmal.app.holmal.model.ShoppingList;
 
 //Class for handling references to the firebase database
 //that are used in multiple other classes
@@ -49,6 +50,11 @@ public class FireBaseHandling {
         // listener fuer einkaufsliste starten, wenn beitretende Person erfolgreich gespeichert wurde
         startShoppingListListener(householdId);
     }
+
+    public void storeShoppingListInHousehold(String householdId, ShoppingList shoppingList){
+        reference.child(householdRubric + "/" + householdId + "/shoppingLists").push().setValue(shoppingList);
+    }
+
 
     // registriere listener unter household/id/personenInHousehold
     public void startPersonValueEventListener(String householdId) {
