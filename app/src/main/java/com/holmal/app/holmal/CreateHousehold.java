@@ -15,6 +15,7 @@ import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
+import com.holmal.app.holmal.utils.PreferencesAccess;
 
 import java.util.ArrayList;
 
@@ -48,6 +49,9 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
     FireBaseHandling fireBaseHandling = new FireBaseHandling();
     FragmentHandling fragmentHandling = new FragmentHandling();
 
+    PreferencesAccess preferences = new PreferencesAccess();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +80,9 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             // create household with name, persons, defaultShoppingList
             Household household = new Household(houseHoldNameString, personList, shoppingLists);
             householdId = fireBaseHandling.storeNewHousehold(household);
+            // HaushaltID in storage speichern
+            preferences.storePreferences(this, "householdID", householdId);
+
 
             Log.i(TAG, "householdID: " + householdId);
 

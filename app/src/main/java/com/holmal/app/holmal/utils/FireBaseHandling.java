@@ -1,5 +1,6 @@
 package com.holmal.app.holmal.utils;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
@@ -30,15 +31,6 @@ public class FireBaseHandling {
 
         return storeId;
     }
-
-   /* public void storeNewTestHousehold(String name, Person person){
-        ArrayList<Person> personen = new ArrayList<>();
-        personen.add(person);
-        TestHoushold household = new TestHoushold(name, personen);
-
-        DatabaseReference myRef = firebaseDatabase.getReference();
-        myRef.child("haushalt").push().setValue(household);
-    }*/
 
     public void storePersonOnDatabase(String name, int color) {
         Person person = new Person(name, color);

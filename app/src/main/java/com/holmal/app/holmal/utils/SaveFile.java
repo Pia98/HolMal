@@ -7,12 +7,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
-public class SavingFile {
+public class SaveFile {
     String filename = "holmal";
 
     public void checkIfFileExists(Context context, String data){
         File file = context.getFileStreamPath(filename);
+        File file2 = context.getFilesDir();
         if(file.exists()){
 
         }
@@ -30,8 +33,11 @@ public class SavingFile {
 
     private void writeIntoFile(FileOutputStream fileOutputStream, String data){
         try {
-            fileOutputStream.write(data.getBytes());
-            fileOutputStream.close();
+//            fileOutputStream.write(data.getBytes());
+//            fileOutputStream.close();
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

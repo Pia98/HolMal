@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
+import com.holmal.app.holmal.utils.PreferencesAccess;
 
 import java.util.List;
 
@@ -66,6 +67,8 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
     @OnClick(R.id.moveInDone)
     public void moveInDoneClick() {
         if (validate()) {
+            PreferencesAccess preferences = new PreferencesAccess();
+
             Person person = new Person(userNameString, chosenColorId);
             Intent intent = new Intent(this, ShoppingList.class); // decide if main (screen 11) or screen 5 (shoppingList), then change here
             startActivity(intent);
@@ -74,7 +77,8 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
             //fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorId);
             Log.i(TAG, userNameString + " (color: " + chosenColorId + ") wants to move in " + householdId);
             fireBaseHandling.storeMoveInPersonInHousehold(householdId, person);
-
+            // HaushaltID in storage speichern
+            preferences.storePreferences(this, "householdID", householdId);
         }
     }
 
