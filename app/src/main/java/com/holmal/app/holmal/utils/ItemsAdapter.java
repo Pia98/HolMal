@@ -15,13 +15,11 @@ import com.holmal.app.holmal.model.ShoppingList;
 public class ItemsAdapter extends ArrayAdapter<Item> {
 
     private Context context;
-    private Item[] items;
 
     //constructor
-    public ItemsAdapter(Context context, int resource, Item[] items){
-        super(context, resource, items);
+    public ItemsAdapter(Context context){
+        super(context, R.layout.single_item_layout);
         this.context = context;
-        this.items = items;
     }
 
     //method that actually adapts the view to show the items on the list
@@ -37,9 +35,10 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
         //gets shopping list from firebase ShoppingListListener
         ShoppingListListener listener = new ShoppingListListener();
         ShoppingList shoppingList = listener.getShoppingListList().get(0);
+        //TODO abfrage welche shopping list man erhält!! wichtig
 
         //gets itemlist from this shoppingList
-        items = shoppingList.getItemsOfThisList();
+        Item[] items = shoppingList.getItemsOfThisList();
 
         //iterates over the items and gets name and quantitiy of each one
         for (int i = 0; i< items.length; i++){

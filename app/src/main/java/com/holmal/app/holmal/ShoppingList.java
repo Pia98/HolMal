@@ -11,7 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import com.holmal.app.holmal.utils.ItemsAdapter;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -93,6 +96,11 @@ public class ShoppingList extends AppCompatActivity {
                     }
                 }
         );
+
+        //fill List with the items with an adapter
+        ItemsAdapter adapter = new ItemsAdapter(this);
+        ListView list = findViewById(R.id.list);
+        list.setAdapter(adapter);
         }
 
      //Menu is opened
