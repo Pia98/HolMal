@@ -22,6 +22,7 @@ public class StartActivity extends AppCompatActivity {
 
         Log.i(TAG,"opened");
 
+        // TODO auskommentieren, wenn man nicht gleich weiter geleitet werden will in die App, sondern create und moveIn Moeglichkeit haben will
         // wenn householdID schon in preferences (also ich schon in einem Haushalt bin) dann gehe gleich weiter in MainActivity
         PreferencesAccess preferences = new PreferencesAccess();
         String householdID = preferences.readPreferences(this, getString(R.string.householdIDPreference));
