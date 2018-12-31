@@ -74,7 +74,8 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             ArrayList<Person> personList = new ArrayList<>();
             personList.add(admin);
             // create default ShoppingList when household created
-            ShoppingList defaultList = new ShoppingList(getString(R.string.defaultShoppingList), "null");
+            String category = null;
+            ShoppingList defaultList = new ShoppingList(getString(R.string.defaultShoppingList), category);
             ArrayList<ShoppingList> shoppingLists = new ArrayList<>();
             shoppingLists.add(defaultList);
             // create household with name, persons, defaultShoppingList

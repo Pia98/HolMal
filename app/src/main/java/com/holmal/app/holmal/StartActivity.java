@@ -27,9 +27,10 @@ public class StartActivity extends AppCompatActivity {
         String householdID = preferences.readPreferences(this, getString(R.string.householdIDPreference));
         if(householdID != null){
             Log.i(TAG, "already registered in an household");
-            Intent intent = new Intent(this, MainActivity.class); // TODO ist das der richtige Screen?
+            Intent intent = new Intent(this, ShoppingList.class);
             startActivity(intent);
         }
+
     }
 
     @OnClick(R.id.createHousehold)
