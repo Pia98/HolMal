@@ -62,6 +62,20 @@
     <string name="ErrorEnterItem">Gebe eine Bezeichnung an</string>
 
     <string name="shoppingLists">Einkaufslisten</string>
+    <!-- TODO an benutzten Stellen
+    lists -> shoppingLists
+    und assignments -> myJobs aendern -->
+    <string name="lists">Einkaufslisten</string>
+    <string name="assignments">Meine Aufträge</string>
+
+
+    <string name="defaultShoppingList">Einkaufsliste 1</string>
+
+
+
+
+    <!-- strings used to store something -->
+    <string name="householdIDPreference">householdID</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
