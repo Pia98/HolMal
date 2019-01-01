@@ -9,50 +9,61 @@
     android:fitsSystemWindows="true"
     tools:context=".Settings">
 
-    <android.support.constraint.ConstraintLayout
+    <android.widget.FrameLayout
         android:id="@+id/top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@+id/leftMargin">
-        <!-- Using a guideline here seems not to work -->
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toEndOf="@+id/leftMargin"
+        >
 
         <!-- corresponds to button 9 in paper prototype-->
-        <!-- Maybe not the right type for menu -->
-        <Button
+        <android.support.v7.widget.Toolbar
             android:id="@+id/menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Menu" /><!--TODO change this text-->
-
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
         <TextView
             android:id="@+id/settingsHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/amatic_sc_bold"
             android:text="@string/settings"
-            app:layout_constraintStart_toEndOf="@id/menu"/>
+            app:layout_constraintStart_toEndOf="@id/menu"
+            />
     </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/toolbarHight">
 
     <TextView
         android:id="@+id/householdNameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/householdName"
-        app:layout_constraintTop_toBottomOf="@id/top"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
+        />
 
     <TextView
         android:id="@+id/householdName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Maier"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/householdNameTitle"/>
-    <Button
+
+        <ImageButton
         android:id="@+id/editHouseholdName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="bearbeiten"
+        android:src="@drawable/ic_edit_black_24dp"
+        android:contentDescription="@string/edit"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toBottomOf="@id/householdNameTitle"
         app:layout_constraintStart_toEndOf="@id/householdName"/>
 
@@ -61,7 +72,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/id"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/editHouseholdName" />
 
     <TextView
@@ -70,14 +80,13 @@
         android:layout_height="wrap_content"
         android:text="123456789"
         app:layout_constraintTop_toBottomOf="@id/IdTitle"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
+        />
 
     <TextView
         android:id="@+id/householdMembersTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/members"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/thisHouseholdId" />
 
     <!-- TODO aendern um alle Mitglieder darstellen zu koennen.
@@ -87,8 +96,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="alle Mitglieder mit Farbe hier"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/householdMembersTitle"/>
+       />
+
 
 
     <!-- corresponds to button 15 in paper prototype-->
@@ -97,9 +106,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/leave"
-        app:layout_constraintBottom_toTopOf="@id/bottomMargin"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintEnd_toStartOf="@+id/rightMargin" />
+        android:translationX="100dp"
+        android:translationY="300dp"
+         />
+
+
+    </android.support.constraint.ConstraintLayout>
+    </android.widget.FrameLayout>
 
     <!-- Guidelines -->
 

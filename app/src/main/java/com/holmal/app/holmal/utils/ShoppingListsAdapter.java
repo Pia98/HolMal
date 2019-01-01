@@ -13,8 +13,8 @@ import com.holmal.app.holmal.R;
 public class ShoppingListsAdapter extends BaseAdapter {
 
     private Context context;
-    ShoppingListListener listener = new ShoppingListListener();
-    String openItems = " offene Items";
+    private ShoppingListListener listener = new ShoppingListListener();
+    private String openItems = " offene Items";
 
     //constructor
     public ShoppingListsAdapter(Context context){
@@ -23,8 +23,7 @@ public class ShoppingListsAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        int amountOfLists = listener.getShoppingListList().size();
-        return amountOfLists;
+        return listener.getShoppingListList().size();
     }
 
     @Override
