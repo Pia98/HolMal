@@ -33,7 +33,8 @@
     <string name="urgent">dringend</string>
     <string name="saveAsFavorite">als Favorit speichern</string>
     <string name="add">Hinzufügen</string>
-    <string name="addItem">Item zu EInkaufsliste hinzufügen</string>
+    <string name="addItem">Item zu Einkaufsliste hinzufügen</string>
+    <string name="addShoppingList">Neue Einkaufsliste erstellen</string>
 
     <string name="favorites">Favoriten</string>
 
@@ -62,11 +63,6 @@
     <string name="ErrorEnterItem">Gebe eine Bezeichnung an</string>
 
     <string name="shoppingLists">Einkaufslisten</string>
-    <!-- TODO an benutzten Stellen
-    lists -> shoppingLists
-    und assignments -> myJobs aendern -->
-    <string name="lists">Einkaufslisten</string>
-    <string name="assignments">Meine Aufträge</string>
 
 
     <string name="defaultShoppingList">Einkaufsliste 1</string>

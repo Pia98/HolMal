@@ -1,5 +1,6 @@
 package com.holmal.app.holmal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -32,12 +33,23 @@ public class CreateShoppingList extends AppCompatActivity {
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
     }
 
+    //if clicked one is lead back to the overview of all shopping lists
+    @OnClick(R.id.close)
+    public void goBack(){
+        Intent intent = new Intent(this, AllShoppingLists.class);
+        startActivity(intent);
+    }
+    
     @OnClick(R.id.createShoppingList)
     public void createShoppingListClicked() {
         if (validate()) {
             // TODO change category
             ShoppingList shoppingList = new ShoppingList(shoppingListNameString, shoppingListCategoryString);
             fireBaseHandling.storeShoppingListInHousehold(householdId, shoppingList);
+
+            //go back to all shopping lists overview
+            Intent intent = new Intent(this, AllShoppingLists.class);
+            startActivity(intent);
         }
     }
 

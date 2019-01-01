@@ -12,5 +12,12 @@
 <dimen name="ButtonPositionX">280dp</dimen>
 <dimen name="ButtonPositionY">400dp</dimen>
 
+<!--single_shopping_list-->
+    <!--combined hight: 100dp-->
+    <dimen name ="listNameHight">70dp</dimen>
+    <dimen name ="listAmountHight">30dp</dimen>
+    <dimen name ="widthHalfScreen">150dp</dimen>
 
+    <!--activity_all_shoppinh_lists-->
+    <dimen name="ListsButtonPositionY">450dp</dimen>
 </resources>

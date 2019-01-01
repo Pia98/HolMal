@@ -38,15 +38,35 @@
             app:layout_constraintTop_toBottomOf="@id/householdName"/>
     </android.support.constraint.ConstraintLayout>
 
+        <!--display of the shopping lists-->
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/toolbarHight"
+            >
+
+            <GridView
+                android:id="@+id/allShoppingLists"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="2"></GridView>
+
+        </android.support.constraint.ConstraintLayout>
+
 
     <!-- corresponds to button 13 in paper prototype-->
-    <!--change from text in Button to picture later due to design-->
-    <Button
-        android:id="@+id/addShoppingList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+"
-        />
+
+        <ImageButton
+            android:id="@+id/addShoppingList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/addShoppingList"
+            android:src="@drawable/ic_add_circle"
+            android:translationX="@dimen/ButtonPositionX"
+            android:translationY="@dimen/ListsButtonPositionY"
+            android:background="@android:color/transparent"
+            />
+
     </android.widget.FrameLayout>
 
     <!-- shopping lists here -->
