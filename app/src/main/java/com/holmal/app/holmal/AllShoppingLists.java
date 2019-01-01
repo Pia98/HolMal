@@ -13,6 +13,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridView;
+
+import com.holmal.app.holmal.utils.ShoppingListsAdapter;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -88,6 +91,11 @@ public class AllShoppingLists extends AppCompatActivity {
                     }
                 }
         );
+
+        //fill with lists with an adapter
+        ShoppingListsAdapter adapter = new ShoppingListsAdapter(this);
+        GridView lists = findViewById(R.id.allShoppingLists);
+        lists.setAdapter(adapter);
     }
 
     //Menu is opened

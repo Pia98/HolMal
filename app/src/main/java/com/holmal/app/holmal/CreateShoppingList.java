@@ -39,7 +39,7 @@ public class CreateShoppingList extends AppCompatActivity {
         Intent intent = new Intent(this, AllShoppingLists.class);
         startActivity(intent);
     }
-    
+
     @OnClick(R.id.createShoppingList)
     public void createShoppingListClicked() {
         if (validate()) {
