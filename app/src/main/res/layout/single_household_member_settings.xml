@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--this view helps represent the household members in a list in settings -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="6dip"
+    >
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/personColour"
+        android:layout_marginLeft="10px"/>
+    <!--TODO add hardcoded amounts to dimens-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/personName"
+        android:layout_marginLeft="60px"
+        android:text="@+id/itemName"
+        android:textSize="35px"
+        />
+</RelativeLayout>

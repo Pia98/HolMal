@@ -8,6 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.holmal.app.holmal.model.Person;
+import com.holmal.app.holmal.utils.PersonListener;
+import com.holmal.app.holmal.utils.SettingsAdapter;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -76,7 +86,14 @@ public class Settings extends AppCompatActivity {
                     }
                 }
         );
+
+
+        //show members in household
+        SettingsAdapter adapter = new SettingsAdapter(this);
+        ListView list = findViewById(R.id.listOfHouseholdMembers);
+        list.setAdapter(adapter);
     }
+
 
     //Menu is opened
     @Override
