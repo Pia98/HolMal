@@ -66,4 +66,8 @@ public class FireBaseHandling {
     public PersonListener getPersonListener() {
         return personListener;
     }
+
+    public ShoppingListListener getShoppingListListener() {
+        return shoppingListListener;
+    }
 }
