@@ -9,74 +9,38 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
     <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
-    <FrameLayout
+    <android.widget.FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ShoppingList">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/top"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toEndOf="@+id/leftMargin">
-        <!-- Using a guideline here seems not to work -->
-
-        <!-- corresponds to button 9 in paper prototype-->
-        <!-- Maybe not the right type for menu -->
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/menu"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
-
-
-        <TextView
-            android:id="@+id/householdName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Maier"
-            app:layout_constraintStart_toEndOf="@id/menu"/>
-
-        <TextView
-            android:id="@+id/ShoppinglistText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/amatic_sc_bold"
-            android:text="Einkaufszettel Titel"
-            app:layout_constraintStart_toEndOf="@id/menu"
-            app:layout_constraintTop_toBottomOf="@id/householdName"/>
-    </android.support.constraint.ConstraintLayout>
-
-    <!-- corresponds to button 7 in paper prototype-->
-    <!--change from text in Button to picture later due to design-->
-
-
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/toolbarHight"
-           >
+            app:layout_constraintStart_toEndOf="@+id/leftMargin">
 
-            <ListView
-                android:id="@+id/list"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/menu"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></ListView>
-
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+            <TextView
+                android:id="@+id/ShoppinglistText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/amatic_sc_bold"
+                android:text="Meine Aufträge"
+                app:layout_constraintStart_toEndOf="@id/menu"
+                app:layout_constraintTop_toBottomOf="@id/householdName"/>
         </android.support.constraint.ConstraintLayout>
-        <ImageButton
-            android:id="@+id/addItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/addItem"
-            android:src="@drawable/ic_add_circle"
-            android:translationX="@dimen/ButtonPositionX"
-            android:translationY="@dimen/ButtonPositionY"
-            android:background="@android:color/transparent"
-           />
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Du bist in meine Aufträge"/>
 
 
 
@@ -91,8 +55,8 @@
 
         <android.support.constraint.Guideline
             android:id="@+id/topMargin"
-            android:layout_width="165dp"
-            android:layout_height="79dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.03" />
 
@@ -179,10 +143,9 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.66666" />
+    </android.widget.FrameLayout>
 
-    </FrameLayout>
 
-    
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.holmal.app.holmal.utils.PreferencesAccess;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,6 +21,17 @@ public class StartActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Log.i(TAG,"opened");
+
+        // TODO auskommentieren, wenn man nicht gleich weiter geleitet werden will in die App, sondern create und moveIn Moeglichkeit haben will
+        // wenn householdID schon in preferences (also ich schon in einem Haushalt bin) dann gehe gleich weiter in MainActivity
+        PreferencesAccess preferences = new PreferencesAccess();
+        String householdID = preferences.readPreferences(this, getString(R.string.householdIDPreference));
+        if(householdID != null){
+            Log.i(TAG, "already registered in an household");
+            Intent intent = new Intent(this, ShoppingList.class);
+            startActivity(intent);
+        }
+
     }
 
     @OnClick(R.id.createHousehold)

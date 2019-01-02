@@ -1,53 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<!--Screen 12-->
+<!--for the drawer menu-->
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".AllShoppingLists">
 
-
-    <android.support.constraint.ConstraintLayout
+    <android.widget.FrameLayout
         android:id="@+id/top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@+id/leftMargin">
         <!-- Using a guideline here seems not to work -->
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@+id/leftMargin">
 
-        <!-- corresponds to button 9 in paper prototype-->
-        <!-- Maybe not the right type for menu -->
-        <Button
+        <android.support.v7.widget.Toolbar
             android:id="@+id/menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Menu" /><!--TODO change this text-->
-
-        <TextView
-            android:id="@+id/householdName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Maier"
-            app:layout_constraintStart_toEndOf="@id/menu"/>
-
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
         <TextView
             android:id="@+id/ShoppinglistText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/amatic_sc_bold"
-            android:text="@string/shoppingList"
+            android:text="Alle Listen"
             app:layout_constraintStart_toEndOf="@id/menu"
             app:layout_constraintTop_toBottomOf="@id/householdName"/>
     </android.support.constraint.ConstraintLayout>
 
+        <!--display of the shopping lists-->
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/toolbarHight"
+            >
+
+            <GridView
+                android:id="@+id/allShoppingLists"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="2"></GridView>
+
+        </android.support.constraint.ConstraintLayout>
+
+
     <!-- corresponds to button 13 in paper prototype-->
-    <!--change from text in Button to picture later due to design-->
-    <Button
-        android:id="@+id/addShoppingList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+"
-        app:layout_constraintBottom_toTopOf="@+id/bottomMargin"
-        app:layout_constraintEnd_toStartOf="@+id/rightMargin" />
+
+        <ImageButton
+            android:id="@+id/addShoppingList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/addShoppingList"
+            android:src="@drawable/ic_add_circle"
+            android:translationX="@dimen/ButtonPositionX"
+            android:translationY="@dimen/ListsButtonPositionY"
+            android:background="@android:color/transparent"
+            />
+
+    </android.widget.FrameLayout>
 
     <!-- shopping lists here -->
 
@@ -150,4 +170,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.66666" />
-</android.support.constraint.ConstraintLayout>
+
+    <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/drawer_view"
+        app:headerLayout="@layout/nav_header" />
+</android.support.v4.widget.DrawerLayout>

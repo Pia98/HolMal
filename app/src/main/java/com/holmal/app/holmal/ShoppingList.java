@@ -8,8 +8,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.holmal.app.holmal.utils.ItemsAdapter;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,7 +29,7 @@ public class ShoppingList extends AppCompatActivity {
         setContentView(R.layout.activity_shopping_list);
         ButterKnife.bind(this);
 
-        //menu that appears from the left
+       //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -44,6 +49,23 @@ public class ShoppingList extends AppCompatActivity {
                             mDrawerLayout.closeDrawers();
 
                             // Add code here to update the UI based on the item selected
+                            //if my assignments is pressed in the menu you will be lead there
+                            if(menuItem.getItemId() == R.id.nav_my_tasks){
+                                Intent intentT = new Intent(ShoppingList.this, MyTasks.class);
+                                startActivity(intentT);
+                                return true;
+                            }
+                            //if all shopping lists is pressed in the menu you will be lead there
+                            else if (menuItem.getItemId()==R.id.nav_shopping_lists){
+                            Intent intentLists = new Intent(ShoppingList.this, AllShoppingLists.class);
+                            startActivity(intentLists);
+                            return true;
+                        }
+                            else if (menuItem.getItemId()==R.id.nav_settings){
+                                Intent intentLists = new Intent(ShoppingList.this, Settings.class);
+                                startActivity(intentLists);
+                                return true;
+                            }
                             // For example, swap UI fragments here
 
                             return true;
@@ -74,6 +96,11 @@ public class ShoppingList extends AppCompatActivity {
                     }
                 }
         );
+
+        //fill List with the items with an adapter
+        ItemsAdapter adapter = new ItemsAdapter(this);
+        ListView list = findViewById(R.id.list);
+        list.setAdapter(adapter);
         }
 
      //Menu is opened
@@ -85,7 +112,8 @@ public class ShoppingList extends AppCompatActivity {
                  return true;
          }
          return super.onOptionsItemSelected(item);
-     }
+
+    }
 
     //Button that lets you add an item to the shopping list
     @OnClick (R.id.addItem)
