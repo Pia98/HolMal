@@ -97,12 +97,6 @@
     <!-- TODO aendern um alle Mitglieder darstellen zu koennen.
     Ich weiss jetzt nicht, was hierfuer die Beste Moeglichkeit waere
     -->
-    <TextView
-        android:id="@+id/allMembers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="alle Mitglieder mit Farbe hier"
-       />
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

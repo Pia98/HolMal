@@ -7,23 +7,41 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.holmal.app.holmal.R;
-import com.holmal.app.holmal.model.Item;
+
 import com.holmal.app.holmal.model.Person;
 
-
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class SettingsAdapter extends ArrayAdapter<Item> {
+public class SettingsAdapter extends ArrayAdapter<Person> {
 
+    ArrayList<Person> householdMembers;
     private Context context;
 
     //constructor
-    public SettingsAdapter(Context context){
-        super(context, R.layout.single_household_member_settings);
+    public SettingsAdapter(Context context, ArrayList<Person> householdMembers){
+        super(context, R.layout.single_household_member_settings, householdMembers);
         this.context = context;
+        this.householdMembers = householdMembers;
+    }
+
+
+    @Override
+    public int getCount() {
+        if(householdMembers == null) {
+            return 0;
+        }
+        else{
+            return householdMembers.size();
+        }
+    }
+
+    @Override
+    public Person getItem(int i) {
+        return householdMembers.get(i);
     }
 
     //method that actually adapts the view to show the household members
