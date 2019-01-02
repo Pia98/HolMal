@@ -98,9 +98,11 @@ public class Settings extends AppCompatActivity {
         );
 
 
+
         //show members in household
         ArrayList<Person> people = new ArrayList<Person>();
-        SettingsAdapter adapter = new SettingsAdapter(this, people);
+        Intent intent = getIntent();
+        SettingsAdapter adapter = new SettingsAdapter(this, people, intent);
         ListView list = findViewById(R.id.listOfHouseholdMembers);
         list.setAdapter(adapter);
     }
