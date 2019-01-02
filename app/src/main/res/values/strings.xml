@@ -68,6 +68,11 @@
 
     <string name="defaultShoppingList">Einkaufsliste 1</string>
 
+    <!-- TODO raus schmeissen, nur zum testen fuer ShoppingList Kategorie -->
+    <string-array name="spinner">
+        <item>eins</item>
+        <item>zwei</item>
+    </string-array>
 
 
 

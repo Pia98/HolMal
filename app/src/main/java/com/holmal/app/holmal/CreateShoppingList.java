@@ -3,7 +3,6 @@ package com.holmal.app.holmal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -43,7 +42,6 @@ public class CreateShoppingList extends AppCompatActivity {
     @OnClick(R.id.createShoppingList)
     public void createShoppingListClicked() {
         if (validate()) {
-            // TODO change category
             ShoppingList shoppingList = new ShoppingList(shoppingListNameString, shoppingListCategoryString);
             fireBaseHandling.storeShoppingListInHousehold(householdId, shoppingList);
 
@@ -59,10 +57,8 @@ public class CreateShoppingList extends AppCompatActivity {
     private boolean validate() {
         EditText shoppingList = (EditText) findViewById(R.id.shoppingListNameInput);
         shoppingListNameString = shoppingList.getText().toString();
-
         Spinner category = (Spinner) findViewById(R.id.shoppingListCategoryDropDown);
-        //shoppingListCategoryString = category.getSelectedItem().toString();
-        Log.i("CreateShoppingList", "category: " + shoppingListCategoryString);
+        shoppingListCategoryString = category.getSelectedItem().toString();
 
         if (!shoppingListNameString.isEmpty()) {
             return true;
