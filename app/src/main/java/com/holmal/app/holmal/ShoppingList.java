@@ -8,12 +8,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.holmal.app.holmal.model.Item;
+import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.ItemsAdapter;
 
 import butterknife.ButterKnife;
@@ -97,10 +100,19 @@ public class ShoppingList extends AppCompatActivity {
                 }
         );
 
+
+Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
         //fill List with the items with an adapter
-        ItemsAdapter adapter = new ItemsAdapter(this);
+        /**com.holmal.app.holmal.model.ShoppingList shoppingList = FireBaseHandling.getInstance()
+                .getShoppingListListener().
+                        getShoppingListList().
+                        get(0);
+
+        //Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
+        //TODO abfrage welche shopping list man erhält!! wichtig
+        ItemsAdapter adapter = new ItemsAdapter(this, items);
         ListView list = findViewById(R.id.list);
-        list.setAdapter(adapter);
+        list.setAdapter(adapter);*/
         }
 
      //Menu is opened
