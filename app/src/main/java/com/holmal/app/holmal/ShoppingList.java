@@ -8,20 +8,26 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.ItemsAdapter;
+import com.holmal.app.holmal.utils.PreferencesAccess;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ShoppingList extends AppCompatActivity {
 
+    private static final String TAG = ShoppingList.class.getName();
+
     private DrawerLayout mDrawerLayout;
+    com.holmal.app.holmal.model.ShoppingList currentShoppingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +35,18 @@ public class ShoppingList extends AppCompatActivity {
         setContentView(R.layout.activity_shopping_list);
         ButterKnife.bind(this);
 
-       //menu that appears from the left
+
+
+        try {
+            getCurrentShoppingList();
+        } catch (Throwable e) {
+            Log.e(TAG, "Error " + e);
+            e.printStackTrace();
+        }
+
+
+
+        //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -103,7 +120,38 @@ public class ShoppingList extends AppCompatActivity {
         list.setAdapter(adapter);
         }
 
-     //Menu is opened
+    private void getCurrentShoppingList() {
+        Log.i(TAG, "getCurrentShoppingList called");
+
+
+        // von Haushalt -> Listen -> Liste mit namen aus Preferences
+        PreferencesAccess preferences = new PreferencesAccess();
+        String recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
+        List<com.holmal.app.holmal.model.ShoppingList> shoppingLists =
+                FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
+        Log.i(TAG, "shoppingLists " + shoppingLists);
+
+        if(recentShoppingListName == null){
+            Log.i(TAG, "no recent shoppingListName");
+            //recentShoppingListName = shoppingLists.get(0).getListName();
+            if(shoppingLists.isEmpty()){
+                Log.i(TAG, "shoppingList is empty");
+            }
+        }
+        Log.i(TAG, "recentShoppingListName: " + recentShoppingListName);
+
+        for (com.holmal.app.holmal.model.ShoppingList shoppingList : shoppingLists) {
+            Log.i(TAG, "for Schleife");
+            if (recentShoppingListName.equals(shoppingList.getListName())) {
+                Log.i(TAG, "if Statement");
+                currentShoppingList = shoppingList;
+                Log.i(TAG, "currentShoppingList: " + currentShoppingList);
+                break;
+            }
+        }
+    }
+
+    //Menu is opened
      @Override
      public boolean onOptionsItemSelected(MenuItem item) {
          switch (item.getItemId()) {
@@ -115,14 +163,12 @@ public class ShoppingList extends AppCompatActivity {
 
     }
 
-    // screen/context muss ShoppingList Objekt bereithalten
 
     //Button that lets you add an item to the shopping list
     @OnClick (R.id.addItem)
     public void addItemOnClicked(){
         //TODO this does nothing so I did something wrong. Needs to be done correctly (but it doesn't hurt the program so I left it)
 
-        // TODO hier die aktuelle ShoppingList mit 'uebergeben'
         Intent intent = new Intent(this, CreateItem.class);
         startActivity(intent);
     }

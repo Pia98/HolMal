@@ -13,6 +13,9 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ShoppingListListener implements ValueEventListener {
+    //private static final String TAG = ShoppingListListener.class.getName();
+
+
     List<ShoppingList> shoppingListList = new ArrayList<>();
 
     @Override
@@ -26,12 +29,12 @@ public class ShoppingListListener implements ValueEventListener {
             value.setStoreId(snapshot.getKey());
             shoppingListList.add(value);
         }
-        Log.i("ShoppingList", "shoppingListList: " + shoppingListList);
+        Log.i("ShoppingListListener", "onDataChange shoppingListList: " + shoppingListList);
     }
 
     @Override
     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+        Log.i("ShoppingListListener", "onCancelled");
     }
 
     public List<ShoppingList> getShoppingListList() {
