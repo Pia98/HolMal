@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PersonListener;
+import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.SettingsAdapter;
 
 import java.util.ArrayList;
@@ -99,16 +100,9 @@ public class Settings extends AppCompatActivity {
         );
 
 
-
         //show members in household
         //gets the person listener from firebase
-        FireBaseHandling fireBaseHandling = FireBaseHandling.getInstance();
-        
-        Bundle extras =  getIntent().getExtras();
-        String householdId = extras.getString("inputId");
-        // listener fuer personen starten, gleich bei erzeugen, bevor Person gespeichert, wegen Abfragen ob bereits in Haushalt vorhanden
-        fireBaseHandling.startPersonValueEventListener(householdId);
-        List<Person> personInHousehold = fireBaseHandling.getPersonListener().getPersonList();
+        List<Person> personInHousehold = FireBaseHandling.getInstance().getPersonListener().getPersonList();
 
         SettingsAdapter adapter = new SettingsAdapter(this, personInHousehold);
         ListView list = findViewById(R.id.listOfHouseholdMembers);
