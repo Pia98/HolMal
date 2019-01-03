@@ -26,10 +26,6 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
 
     private static final String TAG = MoveInHousehold.class.getName();
 
-
-    //to check validation
-    Boolean validationSuccessful = true;
-
     Fragment currentFragment;
     FragmentHandling fragmentHandling = new FragmentHandling();
 
@@ -40,8 +36,6 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
 
     String userNameString;
     int chosenColorId;
-
-    FireBaseHandling fireBaseHandling = new FireBaseHandling();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +52,16 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
         householdId = extras.getString("inputId");
 
         // listener fuer personen starten, gleich bei erzeugen, bevor Person gespeichert, wegen Abfragen ob bereits in Haushalt vorhanden
-        fireBaseHandling.startPersonValueEventListener(householdId);
+        FireBaseHandling.getInstance().startPersonValueEventListener(householdId);
 
         householdIdAsText.setText(householdId);
 
     }
 
+    /**
+     * When 'done' button is clicekd and all input is valid,
+     * create a person and store this on database in the household,
+     */
     @OnClick(R.id.moveInDone)
     public void moveInDoneClick() {
         if (validate()) {
@@ -74,24 +72,31 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
             startActivity(intent);
 
             // TODO check first if not taken yet in the household
-            //fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorId);
-            Log.i(TAG, userNameString + " (color: " + chosenColorId + ") wants to move in " + householdId);
-            fireBaseHandling.storeMoveInPersonInHousehold(householdId, person);
+            Log.i(TAG, String.format("'%s' (color: %s) wants to move in '%s'", userNameString, chosenColorId, householdId));
+            FireBaseHandling.getInstance().storeMoveInPersonInHousehold(householdId, person);
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
         }
     }
 
-    /*
-    Method that checks whether the input is valid/there before proceeding to the next screen.
+    /**
+     * Check if all input fields are valid
+     *
+     * @return if all inputs are valid
      */
     private boolean validate() {
-        List<Person> personList = fireBaseHandling.getPersonListener().getPersonList();
+        List<Person> personList = FireBaseHandling.getInstance().getPersonListener().getPersonList();
         if (checkUserName(personList)) {
             return checkColours(personList);
         } else return false;
     }
 
+    /**
+     * Check if userName input is valid
+     *
+     * @param personList List of all household members
+     * @return if input is valid
+     */
     private boolean checkUserName(List<Person> personList) {
         //TODO validate Button 5
         EditText userName = (EditText) findViewById(R.id.userNameInput);
@@ -104,6 +109,12 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
         }
     }
 
+    /**
+     * Check if there is a household member with the same userName
+     *
+     * @param personList List of all household members
+     * @return if the userName is already taken
+     */
     private boolean checkUserNameTaken(List<Person> personList) {
         for (Person person : personList) {
             if (userNameString.equals(person.getPersonName())) {
@@ -114,16 +125,17 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
         return true;
     }
 
-    /*
-    Method that checks if a colour button has been chosen. Users must choose a colour before entering a household.
+    /**
+     * Check if the color input is valid
+     *
+     * @param personList List of all household members
+     * @return if input is valid
      */
     private boolean checkColours(List<Person> personList) {
         RadioGroup colourChooser = findViewById(R.id.colorChoice);
         //check if a button was chosen
         if (colourChooser.getCheckedRadioButtonId() != -1) {
             chosenColorId = colourChooser.getCheckedRadioButtonId();
-            // int id = colourChooser.getCheckedRadioButtonId();
-            // chosenColorId = ...;
             return checkColourTaken(personList);
         } else {
             Toast.makeText(this, R.string.ErrorChoseColor, Toast.LENGTH_SHORT).show();
@@ -131,6 +143,12 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
         }
     }
 
+    /**
+     * Check if there is a household member with the same color
+     *
+     * @param personList List of all household members
+     * @return if the color is already taken
+     */
     private boolean checkColourTaken(List<Person> personList) {
         for (Person person : personList) {
             if (chosenColorId == person.getColor()) {

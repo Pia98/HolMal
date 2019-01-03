@@ -62,12 +62,20 @@
     <string name="ErrorChooseHousehold">Wähle einen Haushalt</string>
     <string name="ErrorEnterHouseholdName">Wähle einen Namen für den Haushalt</string>
     <string name="ErrorEnterItem">Gebe eine Bezeichnung an</string>
+    <string name="ErrorEnterShoppingListName">Gib eine Bezeichnung ein</string>
+    <string name="ErrorListNameTaken">Es existiert bereits eine Liste mit diesem Namen</string>
 
+    <!-- TODO an "shoppingList" angleichen-->
     <string name="shoppingLists">Einkaufslisten</string>
 
 
     <string name="defaultShoppingList">Einkaufsliste 1</string>
 
+    <!-- TODO raus schmeissen, nur zum testen fuer ShoppingList Kategorie -->
+    <string-array name="spinner">
+        <item>eins</item>
+        <item>zwei</item>
+    </string-array>
 
 
 

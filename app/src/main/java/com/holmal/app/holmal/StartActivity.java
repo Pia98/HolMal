@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 
 import butterknife.ButterKnife;
@@ -27,11 +28,11 @@ public class StartActivity extends AppCompatActivity {
         PreferencesAccess preferences = new PreferencesAccess();
         String householdID = preferences.readPreferences(this, getString(R.string.householdIDPreference));
         if(householdID != null){
+            FireBaseHandling.getInstance().registerAllListeners(householdID);
             Log.i(TAG, "already registered in an household");
             Intent intent = new Intent(this, ShoppingList.class);
             startActivity(intent);
         }
-
     }
 
     @OnClick(R.id.createHousehold)
