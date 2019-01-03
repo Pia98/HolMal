@@ -108,7 +108,7 @@ Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().get
                         getShoppingListList().
                         get(0);
 
-        //Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
+        Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
         //TODO abfrage welche shopping list man erhält!! wichtig
         ItemsAdapter adapter = new ItemsAdapter(this, items);
         ListView list = findViewById(R.id.list);
