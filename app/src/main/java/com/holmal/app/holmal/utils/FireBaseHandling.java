@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.holmal.app.holmal.model.Household;
+import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
 
@@ -53,6 +54,10 @@ public class FireBaseHandling {
         reference.child(householdRubric + "/" + householdId + "/shoppingLists").push().setValue(shoppingList);
     }
 
+    public void storeShoppingListItem(String householdId, String shoppingListId, Item item){
+        reference.child(householdRubric + "/" + householdId + "/shoppingLists" + shoppingListId + "/itemsOfThisList").push().setValue(item);
+    }
+
 
     // registriere listener unter household/id/personenInHousehold
     public void startPersonValueEventListener(String householdId) {
@@ -62,8 +67,6 @@ public class FireBaseHandling {
     }
 
     private void startShoppingListListener(String householdId){
-        // ich glaube hier kommt shoppingLists hin, aender ich aber notfalls, falls doch nicht,
-        // wenn ich rausfinde, dass es nach dem speichern doch anders ist - ME
         reference.child(householdRubric + "/" + householdId + "/shoppingLists")
                 .addValueEventListener(shoppingListListener);
         Log.i("FirebaseHandling", "shoppingListListener started");
