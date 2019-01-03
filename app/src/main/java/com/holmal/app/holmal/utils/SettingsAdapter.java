@@ -2,6 +2,7 @@ package com.holmal.app.holmal.utils;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,34 +20,32 @@ import java.util.List;
 
 public class SettingsAdapter extends ArrayAdapter<Person> {
 
-    ArrayList<Person> householdMembers;
+
     private Context context;
-    FireBaseHandling fireBaseHandling = FireBaseHandling.getInstance();
-    Intent intent;
+    List<Person> personInHousehold;
 
     //constructor
-    public SettingsAdapter(Context context, ArrayList<Person> householdMembers, Intent intent){
-        super(context, R.layout.single_household_member_settings, householdMembers);
+    public SettingsAdapter(Context context, List<Person> personInHousehold){
+        super(context, R.layout.single_household_member_settings);
         this.context = context;
-        this.householdMembers = householdMembers;
-        this.intent = intent;
-
+        this.personInHousehold = personInHousehold;
     }
 
 
     @Override
     public int getCount() {
-        if(householdMembers == null) {
+        Log.i("personInHousehold", "count: "+personInHousehold);
+        if(personInHousehold.size()== 0) {
             return 0;
         }
         else{
-            return householdMembers.size();
+            return personInHousehold.size();
         }
     }
 
     @Override
     public Person getItem(int i) {
-        return householdMembers.get(i);
+        return personInHousehold.get(i);
     }
 
     //method that actually adapts the view to show the household members
@@ -60,17 +59,9 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
         ImageView colour = (ImageView) rowView.findViewById(R.id.personColour);
         TextView name = (TextView) rowView.findViewById(R.id.personName);
 
-        //gets the person listener from firebase
-
-        Bundle extras =  intent.getExtras();
-        String householdId = extras.getString("inputId");
-        // listener fuer personen starten, gleich bei erzeugen, bevor Person gespeichert, wegen Abfragen ob bereits in Haushalt vorhanden
-        fireBaseHandling.startPersonValueEventListener(householdId);
-
-        List<Person> personInHousehold = fireBaseHandling.getPersonListener().getPersonList();
-
         for (int i = 0; i< personInHousehold.size(); i++){
 
+            Log.i("personInHousehold", "person: " + personInHousehold.get(i));
             colour.setColorFilter(personInHousehold.get(i).getColor());
             name.setText(personInHousehold.get(i).getPersonName());
         }
