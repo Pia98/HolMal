@@ -46,7 +46,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
      * Handling classes
      */
     //StorePersonHandling fireBaseHandling = new StorePersonHandling();
-    FireBaseHandling fireBaseHandling = new FireBaseHandling();
+    //FireBaseHandling fireBaseHandling = new FireBaseHandling();
     FragmentHandling fragmentHandling = new FragmentHandling();
 
     PreferencesAccess preferences = new PreferencesAccess();
@@ -80,7 +80,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             shoppingLists.add(defaultList);
             // create household with name, persons, defaultShoppingList
             Household household = new Household(houseHoldNameString, personList, shoppingLists);
-            householdId = fireBaseHandling.storeNewHousehold(household);
+            householdId = FireBaseHandling.getInstance().storeNewHousehold(household);
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
 
@@ -91,7 +91,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             Log.i(TAG, "store person: name - " + userNameString + ", color - " + chosenColorId);
             // speichert eine Person mit Username und Farbe auf Datenbank
             // todo not needed anymore
-            fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorId);
+            FireBaseHandling.getInstance().storePersonOnDatabase(userNameString, chosenColorId);
 
             Intent intent = new Intent(this, RegistrationActivity.class);
             // RegistrationFragment1 has to be drawn

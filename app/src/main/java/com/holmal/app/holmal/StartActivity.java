@@ -15,7 +15,7 @@ import butterknife.OnClick;
 public class StartActivity extends AppCompatActivity {
     private static final String TAG = StartActivity.class.getName();
 
-    FireBaseHandling fireBaseHandling = new FireBaseHandling();
+    //FireBaseHandling fireBaseHandling = new FireBaseHandling();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class StartActivity extends AppCompatActivity {
         PreferencesAccess preferences = new PreferencesAccess();
         String householdID = preferences.readPreferences(this, getString(R.string.householdIDPreference));
         if(householdID != null){
-            fireBaseHandling.registerAllListeners(householdID);
+            FireBaseHandling.getInstance().registerAllListeners(householdID);
             Log.i(TAG, "already registered in an household");
             Intent intent = new Intent(this, ShoppingList.class);
             startActivity(intent);

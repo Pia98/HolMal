@@ -24,7 +24,7 @@ public class CreateShoppingList extends AppCompatActivity {
     String shoppingListCategoryString;
     String householdId;
 
-    FireBaseHandling fireBaseHandling = new FireBaseHandling();
+    //FireBaseHandling fireBaseHandling = new FireBaseHandling();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class CreateShoppingList extends AppCompatActivity {
     public void createShoppingListClicked() {
         if (validate()) {
             ShoppingList shoppingList = new ShoppingList(shoppingListNameString, shoppingListCategoryString);
-            fireBaseHandling.storeShoppingListInHousehold(householdId, shoppingList);
+            FireBaseHandling.getInstance().storeShoppingListInHousehold(householdId, shoppingList);
             Log.i("CreateShoppingList", "shoppingList name: " + shoppingListNameString);
 
             //go back to all shopping lists overview
@@ -65,7 +65,7 @@ public class CreateShoppingList extends AppCompatActivity {
         Spinner category = (Spinner) findViewById(R.id.shoppingListCategoryDropDown);
         shoppingListCategoryString = category.getSelectedItem().toString();
 
-        List<ShoppingList> shoppingLists = fireBaseHandling.getShoppingListListener().getShoppingListList();
+        List<ShoppingList> shoppingLists = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
 
         if (!shoppingListNameString.isEmpty()) {
             return checkListNameTaken(shoppingLists);

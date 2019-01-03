@@ -41,7 +41,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
     String userNameString;
     int chosenColorId;
 
-    FireBaseHandling fireBaseHandling = new FireBaseHandling();
+    //FireBaseHandling fireBaseHandling = new FireBaseHandling();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
         householdId = extras.getString("inputId");
 
         // listener fuer personen starten, gleich bei erzeugen, bevor Person gespeichert, wegen Abfragen ob bereits in Haushalt vorhanden
-        fireBaseHandling.startPersonValueEventListener(householdId);
+        FireBaseHandling.getInstance().startPersonValueEventListener(householdId);
 
         householdIdAsText.setText(householdId);
 
@@ -76,7 +76,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
             // TODO check first if not taken yet in the household
             //fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorId);
             Log.i(TAG, userNameString + " (color: " + chosenColorId + ") wants to move in " + householdId);
-            fireBaseHandling.storeMoveInPersonInHousehold(householdId, person);
+            FireBaseHandling.getInstance().storeMoveInPersonInHousehold(householdId, person);
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
         }
@@ -86,7 +86,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
     Method that checks whether the input is valid/there before proceeding to the next screen.
      */
     private boolean validate() {
-        List<Person> personList = fireBaseHandling.getPersonListener().getPersonList();
+        List<Person> personList = FireBaseHandling.getInstance().getPersonListener().getPersonList();
         if (checkUserName(personList)) {
             return checkColours(personList);
         } else return false;
