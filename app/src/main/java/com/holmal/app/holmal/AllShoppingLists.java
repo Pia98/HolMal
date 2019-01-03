@@ -15,7 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 
+import com.holmal.app.holmal.model.ShoppingList;
+import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.ShoppingListsAdapter;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -93,7 +97,8 @@ public class AllShoppingLists extends AppCompatActivity {
         );
 
         //fill with lists with an adapter
-        ShoppingListsAdapter adapter = new ShoppingListsAdapter(this);
+        List<ShoppingList> shoppingLists = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
+        ShoppingListsAdapter adapter = new ShoppingListsAdapter(this, shoppingLists);
         GridView lists = findViewById(R.id.allShoppingLists);
         lists.setAdapter(adapter);
     }
