@@ -21,7 +21,9 @@ public class ShoppingListListener implements ValueEventListener {
         Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
         Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
         while (iterator.hasNext()) {
-            ShoppingList value = iterator.next().getValue(ShoppingList.class);
+            DataSnapshot snapshot = iterator.next();
+            ShoppingList value = snapshot.getValue(ShoppingList.class);
+            value.setStoreId(snapshot.getKey());
             shoppingListList.add(value);
         }
         Log.i("ShoppingList", "shoppingListList: " + shoppingListList);

@@ -115,10 +115,14 @@ public class ShoppingList extends AppCompatActivity {
 
     }
 
+    // screen/context muss ShoppingList Objekt bereithalten
+
     //Button that lets you add an item to the shopping list
     @OnClick (R.id.addItem)
     public void addItemOnClicked(){
         //TODO this does nothing so I did something wrong. Needs to be done correctly (but it doesn't hurt the program so I left it)
+
+        // TODO hier die aktuelle ShoppingList mit 'uebergeben'
         Intent intent = new Intent(this, CreateItem.class);
         startActivity(intent);
     }
