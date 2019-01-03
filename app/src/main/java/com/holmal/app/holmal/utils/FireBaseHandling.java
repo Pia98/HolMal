@@ -70,4 +70,9 @@ public class FireBaseHandling {
     public ShoppingListListener getShoppingListListener() {
         return shoppingListListener;
     }
+
+    public void registerAllListeners(String householdId){
+        startPersonValueEventListener(householdId);
+        startShoppingListListener(householdId);
+    }
 }

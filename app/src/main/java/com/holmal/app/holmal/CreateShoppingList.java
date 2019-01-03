@@ -48,6 +48,7 @@ public class CreateShoppingList extends AppCompatActivity {
         if (validate()) {
             ShoppingList shoppingList = new ShoppingList(shoppingListNameString, shoppingListCategoryString);
             fireBaseHandling.storeShoppingListInHousehold(householdId, shoppingList);
+            Log.i("CreateShoppingList", "shoppingList name: " + shoppingListNameString);
 
             //go back to all shopping lists overview
             Intent intent = new Intent(this, AllShoppingLists.class);
@@ -76,11 +77,14 @@ public class CreateShoppingList extends AppCompatActivity {
     }
 
     private boolean checkListNameTaken(List<ShoppingList> shoppingLists){
-        for(ShoppingList list : shoppingLists){
-            if(shoppingListNameString.equals(list.getListName())){
+        for(ShoppingList shoppingList : shoppingLists){
+            if(shoppingListNameString.equals(shoppingList.getListName())){
                 Log.i("CreateShoppingList", "name already taken");
                 Toast.makeText(this, R.string.ErrorListNameTaken, Toast.LENGTH_SHORT).show();
                 return false;
+            }
+            else {
+                Log.i("CreateShoppingList", String.format("shoppingList names: '%s', '%s' (entered list name)", shoppingList.getListName(), shoppingListNameString));
             }
         }
         Log.i("CrateShoppingList", "all right");
