@@ -15,12 +15,31 @@ import com.holmal.app.holmal.model.ShoppingList;
 public class ItemsAdapter extends ArrayAdapter<Item> {
 
     private Context context;
+    private Item[] items;
 
     //constructor
-    public ItemsAdapter(Context context){
+    public ItemsAdapter(Context context, Item[] items){
         super(context, R.layout.single_item_layout);
         this.context = context;
+        this.items = items;
+
     }
+
+    @Override
+    public int getCount() {
+        if(items.length== 0) {
+            return 0;
+        }
+        else{
+            return items.length;
+        }
+    }
+
+    @Override
+    public Item getItem(int i) {
+        return items[i];
+    }
+
 
     //method that actually adapts the view to show the items on the list
     @Override
@@ -31,14 +50,6 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
         View rowView = inflater.inflate(R.layout.single_item_layout, parent, false);
         TextView nameView = (TextView) rowView.findViewById(R.id.itemName);
         TextView descriptionView = (TextView) rowView.findViewById(R.id.itemAmount);
-
-        //gets shopping list from firebase ShoppingListListener
-        ShoppingListListener listener = new ShoppingListListener();
-        ShoppingList shoppingList = listener.getShoppingListList().get(0);
-        //TODO abfrage welche shopping list man erhält!! wichtig
-
-        //gets itemlist from this shoppingList
-        Item[] items = shoppingList.getItemsOfThisList();
 
         //iterates over the items and gets name and quantitiy of each one
         for (int i = 0; i< items.length; i++){

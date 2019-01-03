@@ -65,6 +65,7 @@
     <string name="ErrorEnterShoppingListName">Gib eine Bezeichnung ein</string>
     <string name="ErrorListNameTaken">Es existiert bereits eine Liste mit diesem Namen</string>
 
+    <!-- TODO an "shoppingList" angleichen-->
     <string name="shoppingLists">Einkaufslisten</string>
 
 

@@ -9,10 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.holmal.app.holmal.model.Item;
+import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.ItemsAdapter;
 import com.holmal.app.holmal.utils.PreferencesAccess;
@@ -114,10 +118,15 @@ public class ShoppingList extends AppCompatActivity {
                 }
         );
 
+
+        Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
         //fill List with the items with an adapter
-        ItemsAdapter adapter = new ItemsAdapter(this);
+      /**  Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
+        //TODO abfrage welche shopping list man erhält!! wichtig
+       //TODO auskommentieren um items anzuzeigen, wenn liste der listen nicht [] ist
+        ItemsAdapter adapter = new ItemsAdapter(this, items);
         ListView list = findViewById(R.id.list);
-        list.setAdapter(adapter);
+        list.setAdapter(adapter);*/
         }
 
     private void getCurrentShoppingList() {
@@ -163,12 +172,10 @@ public class ShoppingList extends AppCompatActivity {
 
     }
 
-
     //Button that lets you add an item to the shopping list
     @OnClick (R.id.addItem)
     public void addItemOnClicked(){
         //TODO this does nothing so I did something wrong. Needs to be done correctly (but it doesn't hurt the program so I left it)
-
         Intent intent = new Intent(this, CreateItem.class);
         startActivity(intent);
     }

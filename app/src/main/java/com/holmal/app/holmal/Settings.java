@@ -4,10 +4,25 @@ import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.holmal.app.holmal.model.Person;
+import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.PersonListener;
+import com.holmal.app.holmal.utils.PreferencesAccess;
+import com.holmal.app.holmal.utils.SettingsAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,6 +35,13 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
+
+        //menu that appears from the left
+        Toolbar toolbar = findViewById(R.id.menu);
+        setSupportActionBar(toolbar);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
@@ -76,7 +98,17 @@ public class Settings extends AppCompatActivity {
                     }
                 }
         );
+
+
+        //show members in household
+        //gets the person listener from firebase
+        List<Person> personInHousehold = FireBaseHandling.getInstance().getPersonListener().getPersonList();
+
+        SettingsAdapter adapter = new SettingsAdapter(this, personInHousehold);
+        ListView list = findViewById(R.id.listOfHouseholdMembers);
+        list.setAdapter(adapter);
     }
+
 
     //Menu is opened
     @Override
