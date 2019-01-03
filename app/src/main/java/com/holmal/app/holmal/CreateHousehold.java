@@ -110,11 +110,11 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
         userNameString = userName.getText().toString();
         houseHoldNameString = householdName.getText().toString();
         if (houseHoldNameString.isEmpty()) {
-            Toast.makeText(this, R.string.ErrorEnterHouseholdName, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.ErrorEnterHouseholdName, Toast.LENGTH_LONG).show();
             return false;
         }
         if (userNameString.isEmpty()) {
-            Toast.makeText(this, R.string.ErrorEnterName, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.ErrorEnterName, Toast.LENGTH_LONG).show();
             return false;
         }
         //TODO check if name is not taken;
@@ -135,7 +135,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
         RadioGroup colourChooser = findViewById(R.id.colorChoice);
         //check if a button was chosen
         if (colourChooser.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(this, R.string.ErrorChoseColor, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.ErrorChoseColor, Toast.LENGTH_LONG).show();
             return false;
         } else {
             chosenColorId = colourChooser.getCheckedRadioButtonId();

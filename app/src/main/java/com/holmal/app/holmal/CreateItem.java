@@ -86,7 +86,7 @@ public class CreateItem extends AppCompatActivity {
         if (!itemName.isEmpty()) {
             return true;
         } else {
-            Toast.makeText(this, R.string.ErrorEnterItem, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.ErrorEnterItem, Toast.LENGTH_LONG).show();
             return false;
         }
     }
