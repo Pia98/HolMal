@@ -13,8 +13,6 @@ import android.content.Intent;
 
 import com.holmal.app.holmal.Settings;
 import com.holmal.app.holmal.model.Person;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
