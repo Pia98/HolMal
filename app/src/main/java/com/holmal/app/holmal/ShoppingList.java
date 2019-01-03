@@ -101,15 +101,11 @@ public class ShoppingList extends AppCompatActivity {
         );
 
 
-Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
+        Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
         //fill List with the items with an adapter
-        /**com.holmal.app.holmal.model.ShoppingList shoppingList = FireBaseHandling.getInstance()
-                .getShoppingListListener().
-                        getShoppingListList().
-                        get(0);
-
-        Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
+      /**  Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
         //TODO abfrage welche shopping list man erhält!! wichtig
+       //TODO auskommentieren um items anzuzeigen, wenn liste der listen nicht [] ist
         ItemsAdapter adapter = new ItemsAdapter(this, items);
         ListView list = findViewById(R.id.list);
         list.setAdapter(adapter);*/
