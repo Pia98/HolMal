@@ -24,8 +24,6 @@ public class CreateShoppingList extends AppCompatActivity {
     String shoppingListCategoryString;
     String householdId;
 
-    //FireBaseHandling fireBaseHandling = new FireBaseHandling();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,19 +34,28 @@ public class CreateShoppingList extends AppCompatActivity {
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
     }
 
-    //if clicked one is lead back to the overview of all shopping lists
+    /**
+     * When 'close' button is clicked, do nothing and go back to the overview of all shopping lists
+     */
     @OnClick(R.id.close)
-    public void goBack(){
+    public void goBack() {
         Intent intent = new Intent(this, AllShoppingLists.class);
         startActivity(intent);
     }
 
+    /**
+     * When 'create' button is clicekd and all input is valid,
+     * create a shoppingList and store this on database,
+     * then go back to the overview of all shopping lists
+     */
     @OnClick(R.id.createShoppingList)
     public void createShoppingListClicked() {
         if (validate()) {
             ShoppingList shoppingList = new ShoppingList(shoppingListNameString, shoppingListCategoryString);
             FireBaseHandling.getInstance().storeShoppingListInHousehold(householdId, shoppingList);
-            Log.i("CreateShoppingList", "shoppingList name: " + shoppingListNameString);
+            Log.i("CreateShoppingList",
+                    String.format("store shoppingList with name: '%s' and category: '%s'",
+                            shoppingListNameString, shoppingListCategoryString));
 
             //go back to all shopping lists overview
             Intent intent = new Intent(this, AllShoppingLists.class);
@@ -56,8 +63,10 @@ public class CreateShoppingList extends AppCompatActivity {
         }
     }
 
-    /*
-    Method that checks whether the input is valid/there before proceeding to the next screen.
+    /**
+     * Check if all input fields are valid
+     *
+     * @return if all inputs are valid
      */
     private boolean validate() {
         EditText shoppingList = (EditText) findViewById(R.id.shoppingListNameInput);
@@ -65,7 +74,8 @@ public class CreateShoppingList extends AppCompatActivity {
         Spinner category = (Spinner) findViewById(R.id.shoppingListCategoryDropDown);
         shoppingListCategoryString = category.getSelectedItem().toString();
 
-        List<ShoppingList> shoppingLists = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
+        List<ShoppingList> shoppingLists =
+                FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
 
         if (!shoppingListNameString.isEmpty()) {
             return checkListNameTaken(shoppingLists);
@@ -76,15 +86,22 @@ public class CreateShoppingList extends AppCompatActivity {
         }
     }
 
-    private boolean checkListNameTaken(List<ShoppingList> shoppingLists){
-        for(ShoppingList shoppingList : shoppingLists){
-            if(shoppingListNameString.equals(shoppingList.getListName())){
+    /**
+     * Check if there exists a shopping list with the same name in the household
+     *
+     * @param shoppingLists List of all shoppingLists
+     * @return if the shoppingList name is already taken
+     */
+    private boolean checkListNameTaken(List<ShoppingList> shoppingLists) {
+        for (ShoppingList shoppingList : shoppingLists) {
+            if (shoppingListNameString.equals(shoppingList.getListName())) {
                 Log.i("CreateShoppingList", "name already taken");
                 Toast.makeText(this, R.string.ErrorListNameTaken, Toast.LENGTH_SHORT).show();
                 return false;
-            }
-            else {
-                Log.i("CreateShoppingList", String.format("shoppingList names: '%s', '%s' (entered list name)", shoppingList.getListName(), shoppingListNameString));
+            } else {
+                Log.i("CreateShoppingList",
+                        String.format("shoppingList names: '%s', '%s' (entered list name)",
+                                shoppingList.getListName(), shoppingListNameString));
             }
         }
         Log.i("CrateShoppingList", "all right");

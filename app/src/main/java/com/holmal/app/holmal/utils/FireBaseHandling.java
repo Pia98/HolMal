@@ -13,11 +13,11 @@ import com.holmal.app.holmal.model.ShoppingList;
 //that are used in multiple other classes
 public class FireBaseHandling {
 
+    // to get access to a FireBaseHandling instance
     public static FireBaseHandling getInstance() {
         return firebaseHandling;
     }
-
-    static FireBaseHandling firebaseHandling = new FireBaseHandling();
+    private static FireBaseHandling firebaseHandling = new FireBaseHandling();
 
     private PersonListener personListener = new PersonListener();
     private ShoppingListListener shoppingListListener = new ShoppingListListener();

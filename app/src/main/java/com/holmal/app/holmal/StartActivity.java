@@ -15,8 +15,6 @@ import butterknife.OnClick;
 public class StartActivity extends AppCompatActivity {
     private static final String TAG = StartActivity.class.getName();
 
-    //FireBaseHandling fireBaseHandling = new FireBaseHandling();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
