@@ -150,9 +150,7 @@ public class ShoppingList extends AppCompatActivity {
         Log.i(TAG, "recentShoppingListName: " + recentShoppingListName);
 
         for (com.holmal.app.holmal.model.ShoppingList shoppingList : shoppingLists) {
-            Log.i(TAG, "for Schleife");
             if (recentShoppingListName.equals(shoppingList.getListName())) {
-                Log.i(TAG, "if Statement");
                 currentShoppingList = shoppingList;
                 Log.i(TAG, "currentShoppingList: " + currentShoppingList);
                 break;
