@@ -21,7 +21,7 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
 
     ArrayList<Person> householdMembers;
     private Context context;
-    FireBaseHandling fireBaseHandling = new FireBaseHandling();
+    FireBaseHandling fireBaseHandling = FireBaseHandling.getInstance();
     Intent intent;
 
     //constructor

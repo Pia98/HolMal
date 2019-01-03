@@ -15,6 +15,7 @@ import com.holmal.app.holmal.model.ShoppingList;
 public class ItemsAdapter extends ArrayAdapter<Item> {
 
     private Context context;
+    private FireBaseHandling fireBaseHandling = FireBaseHandling.getInstance();
 
     //constructor
     public ItemsAdapter(Context context){
@@ -33,7 +34,7 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
         TextView descriptionView = (TextView) rowView.findViewById(R.id.itemAmount);
 
         //gets shopping list from firebase ShoppingListListener
-        ShoppingListListener listener = new ShoppingListListener();
+        ShoppingListListener listener = fireBaseHandling.getShoppingListListener();
         ShoppingList shoppingList = listener.getShoppingListList().get(0);
         //TODO abfrage welche shopping list man erhält!! wichtig
 

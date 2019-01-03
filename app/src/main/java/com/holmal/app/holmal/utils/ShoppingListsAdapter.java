@@ -13,7 +13,8 @@ import com.holmal.app.holmal.R;
 public class ShoppingListsAdapter extends BaseAdapter {
 
     private Context context;
-    private ShoppingListListener listener = new ShoppingListListener();
+    private FireBaseHandling fireBaseHandling = FireBaseHandling.getInstance();
+    private ShoppingListListener listener = fireBaseHandling.getShoppingListListener();
     private String openItems = " offene Items";
 
     //constructor
@@ -43,6 +44,15 @@ public class ShoppingListsAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.single_shoppinglist_layout, parent, false);
+
+
+        /*
+          Bundle extras =  intent.getExtras();
+        String householdId = extras.getString("inputId");
+        // listener fuer personen starten, gleich bei erzeugen, bevor Person gespeichert, wegen Abfragen ob bereits in Haushalt vorhanden
+        fireBaseHandling.startPersonValueEventListener(householdId);
+         */
+
 
         TextView nameView = (TextView) convertView.findViewById(R.id.nameOfList);
         TextView descriptionView = (TextView) convertView.findViewById(R.id.amountItemsOnList);
