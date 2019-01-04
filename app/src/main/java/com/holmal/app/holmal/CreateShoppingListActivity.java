@@ -56,9 +56,8 @@ public class CreateShoppingListActivity extends AppCompatActivity {
         if (validate()) {
             ShoppingList shoppingList = new ShoppingList(shoppingListNameString, shoppingListCategoryString);
             FireBaseHandling.getInstance().storeShoppingListInHousehold(householdId, shoppingList);
-            Log.i(TAG,
-                    String.format("store shoppingList with name: '%s' and category: '%s'",
-                            shoppingListNameString, shoppingListCategoryString));
+            Log.i(TAG, String.format("store shoppingList with name: '%s' and category: '%s'",
+                    shoppingListNameString, shoppingListCategoryString));
 
             //go back to all shopping lists overview
             Intent intent = new Intent(this, AllShoppingListsActivity.class);
@@ -102,9 +101,8 @@ public class CreateShoppingListActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), R.string.ErrorListNameTaken, Toast.LENGTH_LONG).show();
                 return false;
             } else {
-                Log.i(TAG,
-                        String.format("shoppingList names: '%s', '%s' (entered list name)",
-                                shoppingList.getListName(), shoppingListNameString));
+                Log.i(TAG, String.format("shoppingList names: '%s', '%s' (entered list name)",
+                        shoppingList.getListName(), shoppingListNameString));
             }
         }
         Log.i("CrateShoppingList", "all right");
