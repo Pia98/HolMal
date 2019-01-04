@@ -104,7 +104,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
         if (!userNameString.isEmpty()) {
             return checkUserNameTaken(personList);
         } else {
-            Toast.makeText(this, R.string.ErrorEnterName, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.ErrorEnterName, Toast.LENGTH_LONG).show();
             return false;
         }
     }
@@ -118,7 +118,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
     private boolean checkUserNameTaken(List<Person> personList) {
         for (Person person : personList) {
             if (userNameString.equals(person.getPersonName())) {
-                Toast.makeText(this, R.string.ErrorNameTaken, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.ErrorNameTaken, Toast.LENGTH_LONG).show();
                 return false;
             }
         }
@@ -138,7 +138,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
             chosenColorId = colourChooser.getCheckedRadioButtonId();
             return checkColourTaken(personList);
         } else {
-            Toast.makeText(this, R.string.ErrorChoseColor, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.ErrorChoseColor, Toast.LENGTH_LONG).show();
             return false;
         }
     }
@@ -152,7 +152,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
     private boolean checkColourTaken(List<Person> personList) {
         for (Person person : personList) {
             if (chosenColorId == person.getColor()) {
-                Toast.makeText(this, R.string.ErrorColorTaken, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.ErrorColorTaken, Toast.LENGTH_LONG).show();
                 return false;
             }
         }

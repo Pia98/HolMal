@@ -81,7 +81,7 @@ public class CreateShoppingList extends AppCompatActivity {
             return checkListNameTaken(shoppingLists);
         } else {
             Log.i("CreateShoppingList", "no shoppingListName");
-            Toast.makeText(this, R.string.ErrorEnterShoppingListName, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.ErrorEnterShoppingListName, Toast.LENGTH_LONG).show();
             return false;
         }
     }
@@ -96,7 +96,7 @@ public class CreateShoppingList extends AppCompatActivity {
         for (ShoppingList shoppingList : shoppingLists) {
             if (shoppingListNameString.equals(shoppingList.getListName())) {
                 Log.i("CreateShoppingList", "name already taken");
-                Toast.makeText(this, R.string.ErrorListNameTaken, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.ErrorListNameTaken, Toast.LENGTH_LONG).show();
                 return false;
             } else {
                 Log.i("CreateShoppingList",

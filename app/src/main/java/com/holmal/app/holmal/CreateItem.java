@@ -3,25 +3,42 @@ package com.holmal.app.holmal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.holmal.app.holmal.model.Item;
+import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.PreferencesAccess;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class CreateItem extends AppCompatActivity {
 
+    String itemName;
+    String quantity;
+    boolean important;
+    boolean favorite;
+    String additionalInfo;
+
+    String householdId;
+    String shoppingListId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_item);
         ButterKnife.bind(this);
+
+        PreferencesAccess preferences = new PreferencesAccess();
+        householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
     }
 
     //pressing this button takes you back to the general view of the shopping list
     @OnClick(R.id.cancelButton)
     public void cancelButtonClicked() {
-        Intent intent = new Intent (this, ShoppingList.class);
+        Intent intent = new Intent(this, ShoppingList.class);
         startActivity(intent);
     }
 
@@ -35,23 +52,42 @@ public class CreateItem extends AppCompatActivity {
     public void itemCreationOnClicked() {
         if (validate()) {
             //TODO implement functionality aka actually add item to list
+
+            Item item = new Item(itemName, quantity, important, favorite, additionalInfo);
+            FireBaseHandling.getInstance().storeShoppingListItem(householdId, shoppingListId, item);
+
             //maybe also check whether item is a favourite here and add to favourites
-            
+
             //and lead back to general view of the shopping list
-            Intent intent = new Intent (this, ShoppingList.class);
+            Intent intent = new Intent(this, ShoppingList.class);
             startActivity(intent);
         }
     }
 
     //Validation: add button can only be pressed if a name has been given
-    public Boolean validate() {
+    private boolean validate() {
         EditText itemInput = findViewById(R.id.whatInput);
-        String itemName = itemInput.getText().toString();
-        if (itemName.isEmpty()) {
-            Toast.makeText(this, R.string.ErrorEnterItem, Toast.LENGTH_SHORT).show();
-            return false;
-        } else {
+        itemName = itemInput.getText().toString();
+
+        EditText amountInput = findViewById(R.id.amountInput);
+        quantity = amountInput.getText().toString();
+        EditText infoInput = findViewById(R.id.infoInput);
+        additionalInfo = infoInput.getText().toString();
+        CheckBox urgentInput = findViewById(R.id.urgentChecked);
+        if (urgentInput.isChecked()) {
+            important = true;
+        }
+        CheckBox saveAsFavoriteInput = findViewById(R.id.saveAsFavoriteChecked);
+        if (saveAsFavoriteInput.isChecked()) {
+            favorite = true;
+        }
+
+
+        if (!itemName.isEmpty()) {
             return true;
+        } else {
+            Toast.makeText(getApplicationContext(), R.string.ErrorEnterItem, Toast.LENGTH_LONG).show();
+            return false;
         }
     }
 }

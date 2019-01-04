@@ -17,14 +17,21 @@ import android.widget.Toast;
 
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.ItemsAdapter;
+import com.holmal.app.holmal.utils.PreferencesAccess;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ShoppingList extends AppCompatActivity {
 
+    private static final String TAG = ShoppingList.class.getName();
+
     private DrawerLayout mDrawerLayout;
+    com.holmal.app.holmal.model.ShoppingList currentShoppingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +39,18 @@ public class ShoppingList extends AppCompatActivity {
         setContentView(R.layout.activity_shopping_list);
         ButterKnife.bind(this);
 
-       //menu that appears from the left
+
+
+        try {
+            getCurrentShoppingList();
+        } catch (Throwable e) {
+            Log.e(TAG, "Error " + e);
+            e.printStackTrace();
+        }
+
+
+
+        //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -111,7 +129,36 @@ public class ShoppingList extends AppCompatActivity {
         list.setAdapter(adapter);*/
         }
 
-     //Menu is opened
+    private void getCurrentShoppingList() {
+        Log.i(TAG, "getCurrentShoppingList called");
+
+
+        // von Haushalt -> Listen -> Liste mit namen aus Preferences
+        PreferencesAccess preferences = new PreferencesAccess();
+        String recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
+        List<com.holmal.app.holmal.model.ShoppingList> shoppingLists =
+                FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
+        Log.i(TAG, "shoppingLists " + shoppingLists);
+
+        if(recentShoppingListName == null){
+            Log.i(TAG, "no recent shoppingListName");
+            //recentShoppingListName = shoppingLists.get(0).getListName();
+            if(shoppingLists.isEmpty()){
+                Log.i(TAG, "shoppingList is empty");
+            }
+        }
+        Log.i(TAG, "recentShoppingListName: " + recentShoppingListName);
+
+        for (com.holmal.app.holmal.model.ShoppingList shoppingList : shoppingLists) {
+            if (recentShoppingListName.equals(shoppingList.getListName())) {
+                currentShoppingList = shoppingList;
+                Log.i(TAG, "currentShoppingList: " + currentShoppingList);
+                break;
+            }
+        }
+    }
+
+    //Menu is opened
      @Override
      public boolean onOptionsItemSelected(MenuItem item) {
          switch (item.getItemId()) {

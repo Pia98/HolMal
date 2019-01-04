@@ -57,7 +57,7 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
            String itemName = items[i].getItemName();
            nameView.setText(itemName);
 
-           int itemQuantity = items[i].getQuantity();
+           String itemQuantity = items[i].getQuantity();
            descriptionView.setText(itemQuantity);
     }
     return rowView;
