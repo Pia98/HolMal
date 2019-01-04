@@ -1,6 +1,8 @@
 package com.holmal.app.holmal.utils;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +60,24 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
 
             Log.i("personInHousehold", "person: " + personInHousehold.get(i));
 
-            colour.setBackgroundColor(personInHousehold.get(i).getColor());
+            if (personInHousehold.get(i).getColor() == R.id.color1){
+                colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonLightGreen));
+            }else if (personInHousehold.get(i).getColor() == R.id.color2){
+                colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonGreen));
+            }else if (personInHousehold.get(i).getColor() == R.id.color3){
+                colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonBlue));
+            }else if (personInHousehold.get(i).getColor() == R.id.color4) {
+                colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonLightBlue));
+            }else if (personInHousehold.get(i).getColor() == R.id.color5) {
+                colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonOrange));
+            }else if (personInHousehold.get(i).getColor() == R.id.color6) {
+                colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonRed));
+            }else if (personInHousehold.get(i).getColor() == R.id.color7) {
+                colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonPink));
+            }else{
+                colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonPurple));
+            }
+        
             name.setText(personInHousehold.get(i).getPersonName());
         }
         return rowView;
