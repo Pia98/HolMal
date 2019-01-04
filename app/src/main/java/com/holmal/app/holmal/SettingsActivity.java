@@ -1,37 +1,40 @@
 package com.holmal.app.holmal;
 
-
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.holmal.app.holmal.model.Person;
+import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.SettingsAdapter;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-//class that shows the users assignments
-public class MyTasks  extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
-        private DrawerLayout mDrawerLayout;
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
+    private DrawerLayout mDrawerLayout;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_tasks);
+        setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
 
-       //menu that appears from the left
+        //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
-
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -49,25 +52,26 @@ public class MyTasks  extends AppCompatActivity {
                         mDrawerLayout.closeDrawers();
 
                         // Add code here to update the UI based on the item selected
+                        //if my assignments is pressed in the menu you will be lead there
+                        if(menuItem.getItemId() == R.id.nav_my_tasks){
+                            Intent intentT = new Intent(SettingsActivity.this, MyTasksActivity.class);
+                            startActivity(intentT);
+                            return true;
+                        }
                         //if all shopping lists is pressed in the menu you will be lead there
-                            if (menuItem.getItemId()==R.id.nav_shopping_lists){
-                                Intent intentLists = new Intent(MyTasks.this, AllShoppingLists.class);
-                                startActivity(intentLists);
-                                return true;
-                            }
-                            else if (menuItem.getItemId()==R.id.nav_settings){
-                                Intent intentLists = new Intent(MyTasks.this, Settings.class);
-                                startActivity(intentLists);
-                                return true;
-                            }
-                            //Logout
-                            else if (menuItem.getItemId()==R.id.logout){
-                                Log.i("TAG", "Logout button clicked");
-                                FirebaseAuth.getInstance().signOut();
-                                Intent intentout = new Intent(MyTasks.this, LoginActivity.class);
-                                startActivity(intentout);
-                                return true;
-                            }
+                        else if (menuItem.getItemId()==R.id.nav_shopping_lists){
+                            Intent intentLists = new Intent(SettingsActivity.this, AllShoppingListsActivity.class);
+                            startActivity(intentLists);
+                            return true;
+                        }
+                        //Logout
+                        else if (menuItem.getItemId()==R.id.logout){
+                            Log.i("TAG", "Logout button clicked");
+                            FirebaseAuth.getInstance().signOut();
+                            Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
+                            startActivity(intentout);
+                            return true;
+                        }
 
                         return true;
                     }
@@ -97,16 +101,33 @@ public class MyTasks  extends AppCompatActivity {
                     }
                 }
         );
+
+
+        //show members in household
+        //gets the person listener from firebase
+        List<Person> personInHousehold = FireBaseHandling.getInstance().getPersonListener().getPersonList();
+
+        SettingsAdapter adapter = new SettingsAdapter(this, personInHousehold);
+        ListView list = findViewById(R.id.listOfHouseholdMembers);
+        list.setAdapter(adapter);
     }
 
-        //Menu is opened
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
+
+    //Menu is opened
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
         return super.onOptionsItemSelected(item);
+
+    }
+
+
+    @OnClick(R.id.leaveHousehold)
+    public void leaveHouseholdClicked(){
+        // TODO
     }
 }

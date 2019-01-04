@@ -22,9 +22,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MoveInHousehold extends AppCompatActivity implements PersonalInput.OnFragmentInteractionListener {
+public class MoveInHouseholdActivity extends AppCompatActivity implements PersonalInputFragment.OnFragmentInteractionListener {
 
-    private static final String TAG = MoveInHousehold.class.getName();
+    private static final String TAG = MoveInHouseholdActivity.class.getName();
 
     Fragment currentFragment;
     FragmentHandling fragmentHandling = new FragmentHandling();
@@ -44,7 +44,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
         ButterKnife.bind(this);
 
         fragmentHandling.putFragment(currentFragment,
-                PersonalInput.newInstance(),
+                PersonalInputFragment.newInstance(),
                 getSupportFragmentManager(),
                 R.id.fragmentContainerMoveIn);
 
@@ -68,7 +68,7 @@ public class MoveInHousehold extends AppCompatActivity implements PersonalInput.
             PreferencesAccess preferences = new PreferencesAccess();
 
             Person person = new Person(userNameString, chosenColorId);
-            Intent intent = new Intent(this, ShoppingList.class); // decide if main (screen 11) or screen 5 (shoppingList), then change here
+            Intent intent = new Intent(this, ShoppingListActivity.class); // decide if main (screen 11) or screen 5 (shoppingList), then change here
             startActivity(intent);
 
             // TODO check first if not taken yet in the household
