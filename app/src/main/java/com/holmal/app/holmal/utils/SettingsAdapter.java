@@ -77,7 +77,7 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
             }else{
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonPurple));
             }
-        
+
             name.setText(personInHousehold.get(i).getPersonName());
         }
         return rowView;
