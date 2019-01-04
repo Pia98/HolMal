@@ -64,7 +64,6 @@ public class ShoppingListsAdapter extends BaseAdapter {
                 descriptionView.append(openItems);
             }
         }
-
         return convertView;
     }
 }
