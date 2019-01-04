@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PersonListener;
@@ -68,7 +70,14 @@ public class Settings extends AppCompatActivity {
                             startActivity(intentLists);
                             return true;
                         }
-                        // For example, swap UI fragments here
+                        //Logout
+                        else if (menuItem.getItemId()==R.id.logout){
+                            Log.i("TAG", "Logout button clicked");
+                            FirebaseAuth.getInstance().signOut();
+                            Intent intentout = new Intent(Settings.this, LoginActivity.class);
+                            startActivity(intentout);
+                            return true;
+                        }
 
                         return true;
                     }

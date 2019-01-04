@@ -11,10 +11,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.ShoppingListsAdapter;
@@ -65,7 +67,14 @@ public class AllShoppingLists extends AppCompatActivity {
                             startActivity(intentLists);
                             return true;
                         }
-                        // For example, swap UI fragments here
+                        //Logout
+                        else if (menuItem.getItemId()==R.id.logout){
+                            Log.i("TAG", "Logout button clicked");
+                            FirebaseAuth.getInstance().signOut();
+                            Intent intentout = new Intent(AllShoppingLists.this, LoginActivity.class);
+                            startActivity(intentout);
+                            return true;
+                        }
 
                         return true;
                     }

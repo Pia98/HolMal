@@ -9,8 +9,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.google.firebase.auth.FirebaseAuth;
+
 import butterknife.ButterKnife;
 
 //class that shows the users assignments
@@ -47,16 +51,23 @@ public class MyTasks  extends AppCompatActivity {
                         // Add code here to update the UI based on the item selected
                         //if all shopping lists is pressed in the menu you will be lead there
                             if (menuItem.getItemId()==R.id.nav_shopping_lists){
-                            Intent intentLists = new Intent(MyTasks.this, AllShoppingLists.class);
-                            startActivity(intentLists);
-                            return true;
-                        }
+                                Intent intentLists = new Intent(MyTasks.this, AllShoppingLists.class);
+                                startActivity(intentLists);
+                                return true;
+                            }
                             else if (menuItem.getItemId()==R.id.nav_settings){
                                 Intent intentLists = new Intent(MyTasks.this, Settings.class);
                                 startActivity(intentLists);
                                 return true;
                             }
-                        // For example, swap UI fragments here
+                            //Logout
+                            else if (menuItem.getItemId()==R.id.logout){
+                                Log.i("TAG", "Logout button clicked");
+                                FirebaseAuth.getInstance().signOut();
+                                Intent intentout = new Intent(MyTasks.this, LoginActivity.class);
+                                startActivity(intentout);
+                                return true;
+                            }
 
                         return true;
                     }
