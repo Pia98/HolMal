@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FireBaseHandling;
@@ -78,16 +79,23 @@ public class ShoppingList extends AppCompatActivity {
                             }
                             //if all shopping lists is pressed in the menu you will be lead there
                             else if (menuItem.getItemId()==R.id.nav_shopping_lists){
-                            Intent intentLists = new Intent(ShoppingList.this, AllShoppingLists.class);
-                            startActivity(intentLists);
-                            return true;
-                        }
-                            else if (menuItem.getItemId()==R.id.nav_settings){
-                                Intent intentLists = new Intent(ShoppingList.this, Settings.class);
+                                Intent intentLists = new Intent(ShoppingList.this, AllShoppingLists.class);
                                 startActivity(intentLists);
                                 return true;
                             }
-                            // For example, swap UI fragments here
+                            else if (menuItem.getItemId()==R.id.nav_settings){
+                                Intent intentnav = new Intent(ShoppingList.this, Settings.class);
+                                startActivity(intentnav);
+                                return true;
+                            }
+                            //Logout
+                            else if (menuItem.getItemId()==R.id.logout){
+                                Log.i(TAG, "Logout button clicked");
+                                FirebaseAuth.getInstance().signOut();
+                                Intent intentout = new Intent(ShoppingList.this, LoginActivity.class);
+                                startActivity(intentout);
+                                return true;
+                            }
 
                             return true;
                         }
