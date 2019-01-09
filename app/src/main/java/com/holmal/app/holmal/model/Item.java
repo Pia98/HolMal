@@ -2,7 +2,7 @@ package com.holmal.app.holmal.model;
 
 public class Item {
     private String itemName;
-    private int quantity;
+    private String quantity;
     private boolean important;
     private boolean favorite;
     private Person itsTask;
@@ -14,7 +14,7 @@ public class Item {
     public Item() {
     }
 
-    public Item(String itemName, int quantity, boolean important, boolean favorite, Person itsTask, String additionalInfo, boolean done, int timeDone) {
+    public Item(String itemName, String quantity, boolean important, boolean favorite, Person itsTask, String additionalInfo, boolean done, int timeDone) {
         this.itemName = itemName;
         this.quantity = quantity;
         this.important = important;
@@ -25,6 +25,14 @@ public class Item {
         this.timeDone = timeDone;
     }
 
+    public Item(String itemName, String quantity, boolean important, boolean favorite, String additionalInfo) {
+        this.itemName = itemName;
+        this.quantity = quantity;
+        this.important = important;
+        this.favorite = favorite;
+        this.additionalInfo = additionalInfo;
+    }
+
     public String getItemName() {
         return itemName;
     }
@@ -33,11 +41,11 @@ public class Item {
         this.itemName = itemName;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 

@@ -13,6 +13,9 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ShoppingListListener implements ValueEventListener {
+    //private static final String TAG = ShoppingListListener.class.getName();
+
+
     List<ShoppingList> shoppingListList = new ArrayList<>();
 
     @Override
@@ -21,15 +24,17 @@ public class ShoppingListListener implements ValueEventListener {
         Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
         Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
         while (iterator.hasNext()) {
-            ShoppingList value = iterator.next().getValue(ShoppingList.class);
+            DataSnapshot snapshot = iterator.next();
+            ShoppingList value = snapshot.getValue(ShoppingList.class);
+            value.setStoreId(snapshot.getKey());
             shoppingListList.add(value);
         }
-        Log.i("ShoppingList", "shoppingListList: " + shoppingListList);
+        Log.i("ShoppingListListener", "onDataChange shoppingListList: " + shoppingListList);
     }
 
     @Override
     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+        Log.i("ShoppingListListener", "onCancelled");
     }
 
     public List<ShoppingList> getShoppingListList() {

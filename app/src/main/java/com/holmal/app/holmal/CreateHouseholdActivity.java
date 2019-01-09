@@ -22,12 +22,12 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CreateHousehold extends AppCompatActivity implements PersonalInput.OnFragmentInteractionListener {
+public class CreateHouseholdActivity extends AppCompatActivity implements PersonalInputFragment.OnFragmentInteractionListener {
 
     /**
      * LOG_TAG
      */
-    private static final String TAG = CreateHousehold.class.getName();
+    private static final String TAG = CreateHouseholdActivity.class.getName();
 
     /**
      * fragments
@@ -46,7 +46,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
      * Handling classes
      */
     //StorePersonHandling fireBaseHandling = new StorePersonHandling();
-    FireBaseHandling fireBaseHandling = new FireBaseHandling();
+    //FireBaseHandling fireBaseHandling = new FireBaseHandling();
     FragmentHandling fragmentHandling = new FragmentHandling();
 
     PreferencesAccess preferences = new PreferencesAccess();
@@ -60,7 +60,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
         ButterKnife.bind(this);
 
         fragmentHandling.putFragment(currentFragment,
-                PersonalInput.newInstance(),
+                PersonalInputFragment.newInstance(),
                 getSupportFragmentManager(),
                 R.id.fragmentContainerCreateHousehold);
 
@@ -73,16 +73,17 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             Person admin = new Person(userNameString, chosenColorId);
             ArrayList<Person> personList = new ArrayList<>();
             personList.add(admin);
-            // create default ShoppingList when household created
+            // create default ShoppingListActivity when household created
             String category = null;
             ShoppingList defaultList = new ShoppingList(getString(R.string.defaultShoppingList), category);
             ArrayList<ShoppingList> shoppingLists = new ArrayList<>();
             shoppingLists.add(defaultList);
             // create household with name, persons, defaultShoppingList
             Household household = new Household(houseHoldNameString, personList, shoppingLists);
-            householdId = fireBaseHandling.storeNewHousehold(household);
+            householdId = FireBaseHandling.getInstance().storeNewHousehold(household);
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
+            preferences.storePreferences(this, getString(R.string.recentShoppingListNamePreference), defaultList.getListName());
 
 
             Log.i(TAG, "householdID: " + householdId);
@@ -91,7 +92,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             Log.i(TAG, "store person: name - " + userNameString + ", color - " + chosenColorId);
             // speichert eine Person mit Username und Farbe auf Datenbank
             // todo not needed anymore
-            fireBaseHandling.storePersonOnDatabase(userNameString, chosenColorId);
+            FireBaseHandling.getInstance().storePersonOnDatabase(userNameString, chosenColorId);
 
             Intent intent = new Intent(this, RegistrationActivity.class);
             // RegistrationFragment1 has to be drawn
@@ -110,11 +111,11 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
         userNameString = userName.getText().toString();
         houseHoldNameString = householdName.getText().toString();
         if (houseHoldNameString.isEmpty()) {
-            Toast.makeText(this, R.string.ErrorEnterHouseholdName, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.ErrorEnterHouseholdName, Toast.LENGTH_LONG).show();
             return false;
         }
         if (userNameString.isEmpty()) {
-            Toast.makeText(this, R.string.ErrorEnterName, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.ErrorEnterName, Toast.LENGTH_LONG).show();
             return false;
         }
         //TODO check if name is not taken;
@@ -135,7 +136,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
         RadioGroup colourChooser = findViewById(R.id.colorChoice);
         //check if a button was chosen
         if (colourChooser.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(this, R.string.ErrorChoseColor, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.ErrorChoseColor, Toast.LENGTH_LONG).show();
             return false;
         } else {
             chosenColorId = colourChooser.getCheckedRadioButtonId();

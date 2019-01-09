@@ -11,7 +11,7 @@
         android:layout_width="@dimen/widthHalfScreen"
         android:layout_height="@dimen/listNameHight"
         android:text="@+id/nameOfList"
-        android:textSize="30sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
@@ -23,7 +23,7 @@
         android:layout_width="@dimen/widthHalfScreen"
         android:layout_height="@dimen/listAmountHight"
         android:text="@+id/amountItemsOnList"
-        android:textSize="19sp"
+        android:textSize="10sp"
         android:translationY="@dimen/listNameHight"
         android:background="@color/colorAccentSilver"/>
 </android.support.constraint.ConstraintLayout>

@@ -1,38 +1,37 @@
 package com.holmal.app.holmal;
 
-import android.content.Context;
+
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridView;
 
-import com.holmal.app.holmal.utils.ShoppingListsAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-//Overview over all the shopping lists
-public class AllShoppingLists extends AppCompatActivity {
 
-    private DrawerLayout mDrawerLayout;
+//class that shows the users assignments
+public class MyTasksActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+        private DrawerLayout mDrawerLayout;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_shopping_lists);
+        setContentView(R.layout.activity_my_tasks);
         ButterKnife.bind(this);
 
-        //menu that appears from the left
+       //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
+
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -50,18 +49,25 @@ public class AllShoppingLists extends AppCompatActivity {
                         mDrawerLayout.closeDrawers();
 
                         // Add code here to update the UI based on the item selected
-                        //if my assignments is pressed in the menu you will be lead there
-                        if(menuItem.getItemId() == R.id.nav_my_tasks){
-                            Intent intentT = new Intent(AllShoppingLists.this, MyTasks.class);
-                            startActivity(intentT);
-                            return true;
-                        }
-                        else if (menuItem.getItemId()==R.id.nav_settings){
-                            Intent intentLists = new Intent(AllShoppingLists.this, Settings.class);
-                            startActivity(intentLists);
-                            return true;
-                        }
-                        // For example, swap UI fragments here
+                        //if all shopping lists is pressed in the menu you will be lead there
+                            if (menuItem.getItemId()==R.id.nav_shopping_lists){
+                                Intent intentLists = new Intent(MyTasksActivity.this, AllShoppingListsActivity.class);
+                                startActivity(intentLists);
+                                return true;
+                            }
+                            else if (menuItem.getItemId()==R.id.nav_settings){
+                                Intent intentLists = new Intent(MyTasksActivity.this, SettingsActivity.class);
+                                startActivity(intentLists);
+                                return true;
+                            }
+                            //Logout
+                            else if (menuItem.getItemId()==R.id.logout){
+                                Log.i("TAG", "Logout button clicked");
+                                FirebaseAuth.getInstance().signOut();
+                                Intent intentout = new Intent(MyTasksActivity.this, LoginActivity.class);
+                                startActivity(intentout);
+                                return true;
+                            }
 
                         return true;
                     }
@@ -91,16 +97,11 @@ public class AllShoppingLists extends AppCompatActivity {
                     }
                 }
         );
-
-        //fill with lists with an adapter
-        ShoppingListsAdapter adapter = new ShoppingListsAdapter(this);
-        GridView lists = findViewById(R.id.allShoppingLists);
-        lists.setAdapter(adapter);
     }
 
-    //Menu is opened
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+        //Menu is opened
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
@@ -108,15 +109,4 @@ public class AllShoppingLists extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
-    //Button that leads to screen 13
-    @OnClick(R.id.addShoppingList)
-    public void addShoppingListClicked(){
-        Intent intent = new Intent(this, CreateShoppingList.class);
-        startActivity(intent);
-    }
-
 }

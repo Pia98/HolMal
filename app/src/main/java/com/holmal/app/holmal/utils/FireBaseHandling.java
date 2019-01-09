@@ -1,17 +1,26 @@
 package com.holmal.app.holmal.utils;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.holmal.app.holmal.model.Household;
+import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
 
 //Class for handling references to the firebase database
 //that are used in multiple other classes
 public class FireBaseHandling {
+    //private static final String TAG = FireBaseHandling.class.getName();
+
+
+    // to get access to a FireBaseHandling instance
+    public static FireBaseHandling getInstance() {
+        Log.i("FireBaseHandling", "getInstance() " + firebaseHandling);
+        return firebaseHandling;
+    }
+    private static FireBaseHandling firebaseHandling = new FireBaseHandling();
 
     private PersonListener personListener = new PersonListener();
     private ShoppingListListener shoppingListListener = new ShoppingListListener();
@@ -47,23 +56,37 @@ public class FireBaseHandling {
         reference.child(householdRubric + "/" + householdId + "/shoppingLists").push().setValue(shoppingList);
     }
 
+    public void storeShoppingListItem(String householdId, String shoppingListId, Item item){
+        reference.child(householdRubric + "/" + householdId + "/shoppingLists" + shoppingListId + "/itemsOfThisList").push().setValue(item);
+    }
+
 
     // registriere listener unter household/id/personenInHousehold
     public void startPersonValueEventListener(String householdId) {
+        Log.i("FireBaseHandling", "personListener started (householdId: " + householdId + ")");
         reference.child(householdRubric + "/" + householdId + "/personInHousehold")
                 .addValueEventListener(personListener);
-        Log.i("FirebaseHandling", "personListener started");
     }
 
     private void startShoppingListListener(String householdId){
-        // ich glaube hier kommt shoppingLists hin, aender ich aber notfalls, falls doch nicht,
-        // wenn ich rausfinde, dass es nach dem speichern doch anders ist - ME
+        Log.i("FireBaseHandling", "shoppingListListener started (householdId: " + householdId + ")");
         reference.child(householdRubric + "/" + householdId + "/shoppingLists")
                 .addValueEventListener(shoppingListListener);
-        Log.i("FirebaseHandling", "shoppingListListener started");
     }
 
     public PersonListener getPersonListener() {
         return personListener;
+    }
+
+    public ShoppingListListener getShoppingListListener() {
+        return shoppingListListener;
+    }
+
+    public void registerAllListeners(String householdId){
+        Log.i("FireBaseHandling", "registerAllListeners called (householdId: " + householdId + ")");
+
+        // Daten explizit noch mal neu laden
+        startPersonValueEventListener(householdId);
+        startShoppingListListener(householdId);
     }
 }

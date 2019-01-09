@@ -4,15 +4,26 @@ import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.holmal.app.holmal.model.Person;
+import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.SettingsAdapter;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class Settings extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     @Override
@@ -20,6 +31,13 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
+
+        //menu that appears from the left
+        Toolbar toolbar = findViewById(R.id.menu);
+        setSupportActionBar(toolbar);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
@@ -36,17 +54,24 @@ public class Settings extends AppCompatActivity {
                         // Add code here to update the UI based on the item selected
                         //if my assignments is pressed in the menu you will be lead there
                         if(menuItem.getItemId() == R.id.nav_my_tasks){
-                            Intent intentT = new Intent(Settings.this, MyTasks.class);
+                            Intent intentT = new Intent(SettingsActivity.this, MyTasksActivity.class);
                             startActivity(intentT);
                             return true;
                         }
                         //if all shopping lists is pressed in the menu you will be lead there
                         else if (menuItem.getItemId()==R.id.nav_shopping_lists){
-                            Intent intentLists = new Intent(Settings.this, AllShoppingLists.class);
+                            Intent intentLists = new Intent(SettingsActivity.this, AllShoppingListsActivity.class);
                             startActivity(intentLists);
                             return true;
                         }
-                        // For example, swap UI fragments here
+                        //Logout
+                        else if (menuItem.getItemId()==R.id.logout){
+                            Log.i("TAG", "Logout button clicked");
+                            FirebaseAuth.getInstance().signOut();
+                            Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
+                            startActivity(intentout);
+                            return true;
+                        }
 
                         return true;
                     }
@@ -76,7 +101,17 @@ public class Settings extends AppCompatActivity {
                     }
                 }
         );
+
+
+        //show members in household
+        //gets the person listener from firebase
+        List<Person> personInHousehold = FireBaseHandling.getInstance().getPersonListener().getPersonList();
+
+        SettingsAdapter adapter = new SettingsAdapter(this, personInHousehold);
+        ListView list = findViewById(R.id.listOfHouseholdMembers);
+        list.setAdapter(adapter);
     }
+
 
     //Menu is opened
     @Override

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".Settings">
+    tools:context=".SettingsActivity">
 
     <android.widget.FrameLayout
         android:id="@+id/top"
@@ -27,7 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            />
         <TextView
             android:id="@+id/settingsHeader"
             android:layout_width="wrap_content"
@@ -88,26 +89,34 @@
         android:layout_height="wrap_content"
         android:text="@string/members"
         app:layout_constraintTop_toBottomOf="@id/thisHouseholdId" />
+    </android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_marginTop="160dp">
 
     <!-- TODO aendern um alle Mitglieder darstellen zu koennen.
-    Ich weiss jetzt nicht, was hierfuer die Beste Moeglichkeit waere -->
-    <TextView
-        android:id="@+id/allMembers"
+    Ich weiss jetzt nicht, was hierfuer die Beste Moeglichkeit waere
+    -->
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listOfHouseholdMembers"
+            >
+        </ListView>
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="alle Mitglieder mit Farbe hier"
-       />
-
-
-
-    <!-- corresponds to button 15 in paper prototype-->
+        android:layout_marginTop="400dp"
+        android:layout_marginLeft="100dp">
+        <!-- corresponds to button 15 in paper prototype-->
     <Button
         android:id="@+id/leaveHousehold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/leave"
-        android:translationX="100dp"
-        android:translationY="300dp"
          />
 
 

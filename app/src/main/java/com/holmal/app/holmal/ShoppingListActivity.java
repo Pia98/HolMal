@@ -8,20 +8,25 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import com.holmal.app.holmal.utils.ItemsAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.PreferencesAccess;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShoppingList extends AppCompatActivity {
+public class ShoppingListActivity extends AppCompatActivity {
+
+    private static final String TAG = ShoppingListActivity.class.getName();
 
     private DrawerLayout mDrawerLayout;
+    com.holmal.app.holmal.model.ShoppingList currentShoppingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +34,18 @@ public class ShoppingList extends AppCompatActivity {
         setContentView(R.layout.activity_shopping_list);
         ButterKnife.bind(this);
 
-       //menu that appears from the left
+
+
+        try {
+            getCurrentShoppingList();
+        } catch (Throwable e) {
+            Log.e(TAG, "Error " + e);
+            e.printStackTrace();
+        }
+
+
+
+        //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -51,22 +67,29 @@ public class ShoppingList extends AppCompatActivity {
                             // Add code here to update the UI based on the item selected
                             //if my assignments is pressed in the menu you will be lead there
                             if(menuItem.getItemId() == R.id.nav_my_tasks){
-                                Intent intentT = new Intent(ShoppingList.this, MyTasks.class);
+                                Intent intentT = new Intent(ShoppingListActivity.this, MyTasksActivity.class);
                                 startActivity(intentT);
                                 return true;
                             }
                             //if all shopping lists is pressed in the menu you will be lead there
                             else if (menuItem.getItemId()==R.id.nav_shopping_lists){
-                            Intent intentLists = new Intent(ShoppingList.this, AllShoppingLists.class);
-                            startActivity(intentLists);
-                            return true;
-                        }
-                            else if (menuItem.getItemId()==R.id.nav_settings){
-                                Intent intentLists = new Intent(ShoppingList.this, Settings.class);
+                                Intent intentLists = new Intent(ShoppingListActivity.this, AllShoppingListsActivity.class);
                                 startActivity(intentLists);
                                 return true;
                             }
-                            // For example, swap UI fragments here
+                            else if (menuItem.getItemId()==R.id.nav_settings){
+                                Intent intentnav = new Intent(ShoppingListActivity.this, SettingsActivity.class);
+                                startActivity(intentnav);
+                                return true;
+                            }
+                            //Logout
+                            else if (menuItem.getItemId()==R.id.logout){
+                                Log.i(TAG, "Logout button clicked");
+                                FirebaseAuth.getInstance().signOut();
+                                Intent intentout = new Intent(ShoppingListActivity.this, LoginActivity.class);
+                                startActivity(intentout);
+                                return true;
+                            }
 
                             return true;
                         }
@@ -97,13 +120,47 @@ public class ShoppingList extends AppCompatActivity {
                 }
         );
 
+
+        Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
         //fill List with the items with an adapter
-        ItemsAdapter adapter = new ItemsAdapter(this);
+      /**  Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
+        //TODO abfrage welche shopping list man erhält!! wichtig
+       //TODO auskommentieren um items anzuzeigen, wenn liste der listen nicht [] ist
+        ItemsAdapter adapter = new ItemsAdapter(this, items);
         ListView list = findViewById(R.id.list);
-        list.setAdapter(adapter);
+        list.setAdapter(adapter);*/
         }
 
-     //Menu is opened
+    private void getCurrentShoppingList() {
+        Log.i(TAG, "getCurrentShoppingList called");
+
+
+        // von Haushalt -> Listen -> Liste mit namen aus Preferences
+        PreferencesAccess preferences = new PreferencesAccess();
+        String recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
+        List<com.holmal.app.holmal.model.ShoppingList> shoppingLists =
+                FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
+        Log.i(TAG, "shoppingLists " + shoppingLists);
+
+        if(recentShoppingListName == null){
+            Log.i(TAG, "no recent shoppingListName");
+            //recentShoppingListName = shoppingLists.get(0).getListName();
+            if(shoppingLists.isEmpty()){
+                Log.i(TAG, "shoppingList is empty");
+            }
+        }
+        Log.i(TAG, "recentShoppingListName: " + recentShoppingListName);
+
+        for (com.holmal.app.holmal.model.ShoppingList shoppingList : shoppingLists) {
+            if (recentShoppingListName.equals(shoppingList.getListName())) {
+                currentShoppingList = shoppingList;
+                Log.i(TAG, "currentShoppingList: " + currentShoppingList);
+                break;
+            }
+        }
+    }
+
+    //Menu is opened
      @Override
      public boolean onOptionsItemSelected(MenuItem item) {
          switch (item.getItemId()) {
@@ -119,7 +176,7 @@ public class ShoppingList extends AppCompatActivity {
     @OnClick (R.id.addItem)
     public void addItemOnClicked(){
         //TODO this does nothing so I did something wrong. Needs to be done correctly (but it doesn't hurt the program so I left it)
-        Intent intent = new Intent(this, CreateItem.class);
+        Intent intent = new Intent(this, CreateItemActivity.class);
         startActivity(intent);
     }
 }

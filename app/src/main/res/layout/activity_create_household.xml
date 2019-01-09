@@ -5,7 +5,7 @@
     android:id="@+id/registrationfragment1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateHousehold">
+    tools:context=".CreateHouseholdActivity">
 
     <TextView
         android:id="@+id/createHouseholdHeading"

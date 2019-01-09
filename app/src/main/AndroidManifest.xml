@@ -24,10 +24,10 @@
         </activity>
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".StartActivity"/>
-        <activity android:name=".CreateHousehold" />
-        <activity android:name=".MoveInHousehold" />
-        <activity android:name=".ShoppingList" />
-        <activity android:name=".CreateItem" />
+        <activity android:name=".CreateHouseholdActivity" />
+        <activity android:name=".MoveInHouseholdActivity" />
+        <activity android:name=".ShoppingListActivity" />
+        <activity android:name=".CreateItemActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
 
@@ -36,11 +36,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Favorites" />
-        <activity android:name=".AllShoppingLists" />
-        <activity android:name=".CreateShoppingList" />
-        <activity android:name=".MyTasks" />
-        <activity android:name=".Settings">
+        <activity android:name=".FavoritesActivity" />
+        <activity android:name=".AllShoppingListsActivity" />
+        <activity android:name=".CreateShoppingListActivity" />
+        <activity android:name=".MyTasksActivity" />
+        <activity android:name=".SettingsActivity">
         </activity>
     </application>
 

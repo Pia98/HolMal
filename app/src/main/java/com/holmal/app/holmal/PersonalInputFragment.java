@@ -12,12 +12,12 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PersonalInput.OnFragmentInteractionListener} interface
+ * {@link PersonalInputFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PersonalInput#newInstance} factory method to
+ * Use the {@link PersonalInputFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PersonalInput extends Fragment {
+public class PersonalInputFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +29,7 @@ public class PersonalInput extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PersonalInput() {
+    public PersonalInputFragment() {
         // Required empty public constructor
     }
 
@@ -39,11 +39,11 @@ public class PersonalInput extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PersonalInput.
+     * @return A new instance of fragment PersonalInputFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PersonalInput newInstance(String param1, String param2) {
-        PersonalInput fragment = new PersonalInput();
+    public static PersonalInputFragment newInstance(String param1, String param2) {
+        PersonalInputFragment fragment = new PersonalInputFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -52,8 +52,8 @@ public class PersonalInput extends Fragment {
     }
 
 
-    public static PersonalInput newInstance(){
-        return new PersonalInput();
+    public static PersonalInputFragment newInstance(){
+        return new PersonalInputFragment();
     }
 
 

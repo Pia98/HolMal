@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.holmal.app.holmal.MoveInHousehold;
+import com.holmal.app.holmal.MoveInHouseholdActivity;
 import com.holmal.app.holmal.R;
 
 import butterknife.ButterKnife;
@@ -45,7 +45,7 @@ public class RegistrationFragment2 extends Fragment {
     @OnClick(R.id.idInputDone)
     public void idInputDoneClick(){
         if(validate()) {
-            Intent intent = new Intent(getActivity(), MoveInHousehold.class);
+            Intent intent = new Intent(getActivity(), MoveInHouseholdActivity.class);
             intent.putExtra("inputId", inputId);
             startActivity(intent);
         }
