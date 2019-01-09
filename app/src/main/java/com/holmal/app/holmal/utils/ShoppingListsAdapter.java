@@ -55,12 +55,12 @@ public class ShoppingListsAdapter extends BaseAdapter {
 
             nameView.setText(shoppinglists.get(i).getListName());
 
-            if(shoppinglists.get(i).getItemsOfThisList()==null || shoppinglists.get(i).getItemsOfThisList().length == 0){
+            if(shoppinglists.get(i).getItemsOfThisList()==null || shoppinglists.get(i).getItemsOfThisList().size() == 0){
                 descriptionView.setText("Keine");
                 descriptionView.append(openItems);
             }
             else {
-                descriptionView.setText(shoppinglists.get(i).getItemsOfThisList().length);
+                descriptionView.setText(shoppinglists.get(i).getItemsOfThisList().size());
                 descriptionView.append(openItems);
             }
         }

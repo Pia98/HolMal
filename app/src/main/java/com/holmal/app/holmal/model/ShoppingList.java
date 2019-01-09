@@ -1,10 +1,11 @@
 package com.holmal.app.holmal.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ShoppingList {
     private String listName;
-    private Item[] itemsOfThisList;
+    private ArrayList<Item> itemsOfThisList;
     private String category;
 
     // das Element wird nicht in DB gespeichert, dient nur dazu DB Id in App zu transportieren
@@ -18,7 +19,7 @@ public class ShoppingList {
         this.category = category;
     }
 
-    public ShoppingList(String listName, Item[] itemsOfThisList, String category) {
+    public ShoppingList(String listName, ArrayList<Item> itemsOfThisList, String category) {
         this.listName = listName;
         this.itemsOfThisList = itemsOfThisList;
         this.category = category;
@@ -32,11 +33,11 @@ public class ShoppingList {
         this.listName = listName;
     }
 
-    public Item[] getItemsOfThisList() {
+    public ArrayList<Item> getItemsOfThisList() {
         return itemsOfThisList;
     }
 
-    public void setItemsOfThisList(Item[] itemsOfThisList) {
+    public void setItemsOfThisList(ArrayList<Item> itemsOfThisList) {
         this.itemsOfThisList = itemsOfThisList;
     }
 
@@ -60,7 +61,7 @@ public class ShoppingList {
     public String toString() {
         return "ShoppingList{" +
                 "listName='" + listName + '\'' +
-                ", itemsOfThisList=" + Arrays.toString(itemsOfThisList) +
+                ", itemsOfThisList=" + itemsOfThisList +
                 ", category='" + category + '\'' +
                 ", storeId='" + storeId + '\'' +
                 '}';
