@@ -98,6 +98,8 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         String email = emailInput.getText().toString();
         String password = passwordInput.getText().toString();
         if(validate()){
+            progressBar.setVisibility(View.VISIBLE);
+
             fireAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -105,6 +107,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                         Log.i(MainActivity.class.getName(), "Login successful");
                         finish();}
                     else {
+                        progressBar.setVisibility(View.INVISIBLE);
                         errorMessage2.setText("Login fehlgeschlagen: Bitte überprüfe deine Email und dein Passwort");
                         Log.e(MainActivity.class.getName(), "Login failed");
                     }
@@ -115,6 +118,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
 
     @OnClick(R.id.registrationButton)
     public void register(){
+        errorMessage2.setText("");
         if(isRegistration){
             if(validate()){
                 String email = emailInput.getText().toString();
@@ -130,10 +134,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                         else{
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                 errorMessage1.setText("User with this email already exist.");
-                                Toast.makeText(getApplicationContext(), "User with this email already exist.", Toast.LENGTH_SHORT).show();
-                            }else if(task.getException() instanceof FirebaseAuthWeakPasswordException){
-                                errorMessage2.setText("Das Passwort muss min. 6 Zeichen lang sein.");
-                                Toast.makeText(getApplicationContext(), "Das Passwort muss min. 6 Zeichen lang sein.", Toast.LENGTH_SHORT).show();
                             }
                             Log.e(MainActivity.class.getName(), "Registration failed: "+  task.getException().getMessage());
                             progressBar.setVisibility(View.INVISIBLE);
@@ -167,18 +167,16 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         String password = passwordInput.getText().toString();
         String passwortWdh = passwortInputWdh.getText().toString();
         if(email.isEmpty() && password.isEmpty()){
-            Toast.makeText(getApplicationContext(), "Bitte gib deine Emailadresse und dein Passwort an", Toast.LENGTH_SHORT).show();
+            errorMessage3.setText("Bitte gib deine Emailadresse und dein Passwort an");
             return false;
         }else if(password.length()<6 ){
-            Toast.makeText(getApplicationContext(), "Das Passwort muss min. 6 Zeichen lang sein.",
-                    Toast.LENGTH_SHORT).show();
+            errorMessage2.setText("Das Passwort muss min. 6 Zeichen lang sein.");
             return false;
         }else if(isRegistration && passwortWdh.isEmpty()){
-            Toast.makeText(getApplicationContext(), "Bitte wiederhole dein Passwort", Toast.LENGTH_SHORT).show();
+            errorMessage3.setText("Bitte wiederhole dein Passwort");
             return false;
         }else if(isRegistration && !(passwortWdh.equals(password))){
-            Toast.makeText(getApplicationContext(), "Bitte überprüfe dein Passwort: ",
-                    Toast.LENGTH_SHORT).show();
+            errorMessage3.setText("Bitte überprüfe dein Passwort");
             return false;
         }else{
             return true;
