@@ -30,8 +30,8 @@ public abstract class DummyContent {
     }
 
     public Person getLukas() {
-        lukas = new Person("Lukas", "#4e7cb2", new ArrayList<Haushalt>());
-        lukas.addHaushalt(dummyHaushalt);
+        lukas = new Person("Lukas", 1);
+        //lukas.addHaushalt(dummyHaushalt);
         return lukas;
     }
 
