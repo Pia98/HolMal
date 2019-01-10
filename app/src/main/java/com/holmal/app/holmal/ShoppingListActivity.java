@@ -1,6 +1,7 @@
 package com.holmal.app.holmal;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 
@@ -26,25 +28,22 @@ public class ShoppingListActivity extends AppCompatActivity {
     private static final String TAG = ShoppingListActivity.class.getName();
 
     private DrawerLayout mDrawerLayout;
-    com.holmal.app.holmal.model.ShoppingList currentShoppingList;
-
+    ShoppingList currentShoppingList;
+    // TODO change hardcoded id
+    String shoppingListId = "0";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
         ButterKnife.bind(this);
-
-
-
+/*
         try {
             getCurrentShoppingList();
         } catch (Throwable e) {
             Log.e(TAG, "Error " + e);
             e.printStackTrace();
         }
-
-
-
+*/
         //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
@@ -137,23 +136,24 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         // von Haushalt -> Listen -> Liste mit namen aus Preferences
         PreferencesAccess preferences = new PreferencesAccess();
+        String householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
         String recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
-        List<com.holmal.app.holmal.model.ShoppingList> shoppingLists =
+        List<ShoppingList> shoppingLists =
                 FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
         Log.i(TAG, "shoppingLists " + shoppingLists);
-
-        if(recentShoppingListName == null){
+        if (shoppingLists.isEmpty()) {
+            Log.i(TAG, "shoppingList is empty");
+            //shoppingLists = FireBaseHandling.getInstance().initializeShoppingList(householdId);
+        }
+        if (recentShoppingListName == null) {
             Log.i(TAG, "no recent shoppingListName");
             //recentShoppingListName = shoppingLists.get(0).getListName();
-            if(shoppingLists.isEmpty()){
-                Log.i(TAG, "shoppingList is empty");
-            }
         }
         Log.i(TAG, "recentShoppingListName: " + recentShoppingListName);
-
-        for (com.holmal.app.holmal.model.ShoppingList shoppingList : shoppingLists) {
+        for (ShoppingList shoppingList : shoppingLists) {
             if (recentShoppingListName.equals(shoppingList.getListName())) {
                 currentShoppingList = shoppingList;
+                shoppingListId = currentShoppingList.getStoreId();
                 Log.i(TAG, "currentShoppingList: " + currentShoppingList);
                 break;
             }
@@ -177,6 +177,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     public void addItemOnClicked(){
         //TODO this does nothing so I did something wrong. Needs to be done correctly (but it doesn't hurt the program so I left it)
         Intent intent = new Intent(this, CreateItemActivity.class);
+        intent.putExtra("shoppingListId", shoppingListId);
         startActivity(intent);
     }
 }

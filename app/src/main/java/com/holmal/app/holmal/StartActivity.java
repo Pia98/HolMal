@@ -28,8 +28,10 @@ public class StartActivity extends AppCompatActivity {
         PreferencesAccess preferences = new PreferencesAccess();
         String householdID = preferences.readPreferences(this, getString(R.string.householdIDPreference));
         if(householdID != null){
-            FireBaseHandling.getInstance().registerAllListeners(householdID);
             Log.i(TAG, "already registered in an household");
+            //initialLists
+            //FireBaseHandling.getInstance().initializeShoppingList(householdID);
+            FireBaseHandling.getInstance().registerAllListeners(householdID);
             Intent intent = new Intent(this, ShoppingListActivity.class);
             startActivity(intent);
         }

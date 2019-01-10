@@ -17,6 +17,7 @@ public class ShoppingList {
     public ShoppingList(String listName, String category) {
         this.listName = listName;
         this.category = category;
+        this.itemsOfThisList = new ArrayList<Item>();
     }
 
     public ShoppingList(String listName, ArrayList<Item> itemsOfThisList, String category) {

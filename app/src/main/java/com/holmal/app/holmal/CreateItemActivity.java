@@ -30,7 +30,8 @@ public class CreateItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_item);
         ButterKnife.bind(this);
-
+        Bundle extras = getIntent().getExtras();
+        shoppingListId = extras.getString("shoppingListId");
         PreferencesAccess preferences = new PreferencesAccess();
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
     }
@@ -81,8 +82,7 @@ public class CreateItemActivity extends AppCompatActivity {
         if (saveAsFavoriteInput.isChecked()) {
             favorite = true;
         }
-
-
+        // Bezeichnung ist eingegeben
         if (!itemName.isEmpty()) {
             return true;
         } else {
