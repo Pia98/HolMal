@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                         finish();}
                     else {
                         progressBar.setVisibility(View.INVISIBLE);
-                        errorMessage2.setText("Login fehlgeschlagen: Bitte überprüfe deine Email und dein Passwort");
+                        errorMessage2.setText(R.string.ErrorLoginFailed);
                         Log.e(MainActivity.class.getName(), "Login failed");
                     }
                 }
@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                         }
                         else{
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                errorMessage1.setText("User with this email already exist.");
+                                errorMessage1.setText(R.string.ErrorLoginAlreadyExists);
                             }
                             Log.e(MainActivity.class.getName(), "Registration failed: "+  task.getException().getMessage());
                             progressBar.setVisibility(View.INVISIBLE);
@@ -167,16 +167,16 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         String password = passwordInput.getText().toString();
         String passwortWdh = passwortInputWdh.getText().toString();
         if(email.isEmpty() && password.isEmpty()){
-            errorMessage3.setText("Bitte gib deine Emailadresse und dein Passwort an");
+            errorMessage3.setText(R.string.ErrorLoginNotEntered);
             return false;
         }else if(password.length()<6 ){
-            errorMessage2.setText("Das Passwort muss min. 6 Zeichen lang sein.");
+            errorMessage2.setText(R.string.ErrorLoginShortPW);
             return false;
         }else if(isRegistration && passwortWdh.isEmpty()){
-            errorMessage3.setText("Bitte wiederhole dein Passwort");
+            errorMessage3.setText(R.string.ErrorLoginRepeatPW);
             return false;
         }else if(isRegistration && !(passwortWdh.equals(password))){
-            errorMessage3.setText("Bitte überprüfe dein Passwort");
+            errorMessage3.setText(R.string.ErrorLoginCheckPW);
             return false;
         }else{
             return true;
