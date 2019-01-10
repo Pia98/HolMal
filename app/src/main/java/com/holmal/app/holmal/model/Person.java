@@ -1,5 +1,7 @@
 package com.holmal.app.holmal.model;
 
+import java.util.ArrayList;
+
 public class Person {
     private String personName;
 
