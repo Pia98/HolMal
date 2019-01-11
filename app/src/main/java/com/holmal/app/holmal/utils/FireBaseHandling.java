@@ -1,13 +1,22 @@
 package com.holmal.app.holmal.utils;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 //Class for handling references to the firebase database
 //that are used in multiple other classes
@@ -57,8 +66,8 @@ public class FireBaseHandling {
     }
 
     public void storeShoppingListItem(String householdId, String shoppingListId, Item item){
-        //reference.child(householdRubric + "/" + householdId + "/shoppingLists/" + shoppingListId + "/itemsOfThisList").push().setValue(item);
-        reference.child(householdRubric).child(householdId).child("shoppingLists").child(shoppingListId).child("itemsOfThisList").push().setValue(item);
+        reference.child(householdRubric + "/" + householdId + "/shoppingLists/" + shoppingListId + "/itemsOfThisList").push().setValue(item);
+        //reference.child(householdRubric).child(householdId).child("shoppingLists").child(shoppingListId).child("itemsOfThisList").push().setValue(item);
     }
 
 
@@ -90,4 +99,36 @@ public class FireBaseHandling {
         startPersonValueEventListener(householdId);
         startShoppingListListener(householdId);
     }
+/*
+    public void initializeShoppingList(String householdId){
+        Log.i("FirebaseHandling", String.format("initializeShoppingList called (householdId: %s)", householdId));
+
+        final List<ShoppingList> shoppingListList = new ArrayList<>();
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                shoppingListList.clear();
+                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+                Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
+                while (iterator.hasNext()) {
+                    DataSnapshot snapshot = iterator.next();
+                    ShoppingList value = snapshot.getValue(ShoppingList.class);
+                    Log.i("firebaseHandling", "ListName: " + value.getListName());
+                    Log.i("FirebaseHandling", "value: " + value);
+                    value.setStoreId(snapshot.getKey());
+                    shoppingListList.add(value);
+                }
+                Log.i("FirebaseHandling", "onDataChanged shoppingListList: " + shoppingListList);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        };
+
+        String child = householdRubric + "/" + householdId + "/shoppingLists";
+        Query query = reference.orderByChild(child);
+        //query.addListenerForSingleValueEvent(valueEventListener);
+        query.addValueEventListener(valueEventListener);
+    }
+    */
 }

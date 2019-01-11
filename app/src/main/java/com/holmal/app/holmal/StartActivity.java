@@ -30,7 +30,7 @@ public class StartActivity extends AppCompatActivity {
         if(householdID != null){
             Log.i(TAG, "already registered in an household");
             //initialLists
-            //FireBaseHandling.getInstance().initializeShoppingList(householdID);
+//            FireBaseHandling.getInstance().initializeShoppingList(householdID);
             FireBaseHandling.getInstance().registerAllListeners(householdID);
             Intent intent = new Intent(this, ShoppingListActivity.class);
             startActivity(intent);

@@ -37,12 +37,14 @@ public class ShoppingListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shopping_list);
         ButterKnife.bind(this);
 /*
+
         try {
             getCurrentShoppingList();
         } catch (Throwable e) {
             Log.e(TAG, "Error " + e);
             e.printStackTrace();
         }
+
 */
         //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
