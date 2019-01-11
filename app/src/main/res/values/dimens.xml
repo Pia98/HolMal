@@ -14,8 +14,8 @@
 
 <!--single_shopping_list-->
     <!--combined hight: 100dp-->
-    <dimen name ="listNameHight">50dp</dimen>
-    <dimen name ="listAmountHight">30dp</dimen>
+    <dimen name ="listNameHight">40dp</dimen>
+    <dimen name ="listAmountHight">20dp</dimen>
     <dimen name ="widthHalfScreen">150dp</dimen>
 
     <!--activity_all_shoppinh_lists-->
