@@ -21,6 +21,7 @@ import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.ItemsAdapter;
 import com.holmal.app.holmal.utils.PreferencesAccess;
+import com.holmal.app.holmal.utils.ShoppingListListener;
 
 import java.util.List;
 
