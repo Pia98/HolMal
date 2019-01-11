@@ -1,6 +1,7 @@
 package com.holmal.app.holmal.utils;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,29 +65,29 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
            String itemQuantity = items[position].getQuantity();
            descriptionView.setText(itemQuantity);
 
-           //TODO Kommentar weg wenn Eigenschaften auf die ich mich beziehe existieren
-            /*
-            if(items[i].getUrgency()){
-                urgencyView.setVisible(true);
+            //shows ! if the item is urgent
+            if(items[position].isImportant()){
+                urgencyView.setImageAlpha(255);
                 }
             else{
-                 urgencyView.setVisible(false);
+                 urgencyView.setImageAlpha(0);
                 }
 
-            if(items[i].getInfoAvailable(){
-                infoView.setVisible(true);
+            //shows an i if there is additional information to this item
+            if(items[position].getAdditionalInfo().isEmpty()){
+                infoView.setImageAlpha(0);
                 }
             else{
-                 infoView.setVisible(false);
+                 infoView.setImageAlpha(255);
                 }
 
-            if (items[i].isAssignedTo() = null){
-                assignedView.setBackground to Backgroundcolour
-                }
-            else{
-            assignedView.setBackground(getColour of the person its assigned to)
+            //shows a colored bar accordiing to the person who took on this item as a task
+            if(items[position].getItsTask() == null){
+                assignedView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorBackground));
             }
-             */
+            else{
+                assignedView.setBackgroundColor(ContextCompat.getColor(context, items[position].getItsTask().getColor()));
+            }
 
     return rowView;
     }
