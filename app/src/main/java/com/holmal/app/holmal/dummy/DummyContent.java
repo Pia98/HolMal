@@ -1,6 +1,6 @@
 package com.holmal.app.holmal.dummy;
 
-import com.holmal.app.holmal.model.Haushalt;
+import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
 
 import java.util.ArrayList;
@@ -18,14 +18,14 @@ import java.util.Map;
  */
 public abstract class DummyContent {
 
-    public Haushalt dummyHaushalt;
+    public Household dummyHaushalt;
 
-    public Haushalt getDummyHaushalt() {
-        dummyHaushalt = new Haushalt("dummyHaushalt", getLukas());
+    public Household getDummyHaushalt() {
+        dummyHaushalt = new Household("dummyHaushalt", new ArrayList<Person>());
         return dummyHaushalt;
     }
 
-    public void setDummyHaushalt(Haushalt dummyHaushalt) {
+    public void setDummyHaushalt(Household dummyHaushalt) {
         this.dummyHaushalt = dummyHaushalt;
     }
 

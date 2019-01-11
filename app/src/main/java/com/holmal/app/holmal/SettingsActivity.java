@@ -38,6 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        setTitle(R.string.settings);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
