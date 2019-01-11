@@ -5,11 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.model.Item;
-import com.holmal.app.holmal.model.ShoppingList;
+
 
 
 public class ItemsAdapter extends ArrayAdapter<Item> {
@@ -51,6 +52,10 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
         TextView nameView = (TextView) rowView.findViewById(R.id.itemName);
         TextView descriptionView = (TextView) rowView.findViewById(R.id.itemAmount);
 
+        ImageView urgencyView = (ImageView) rowView.findViewById(R.id.urgent);
+        ImageView infoView = (ImageView) rowView.findViewById(R.id.infoAvailable);
+        ImageView assignedView = (ImageView) rowView.findViewById(R.id.assignedTo);
+
         //iterates over the items and gets name and quantitiy of each one
         for (int i = 0; i< items.length; i++){
 
@@ -59,6 +64,30 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
 
            String itemQuantity = items[i].getQuantity();
            descriptionView.setText(itemQuantity);
+
+           //TODO Kommentar weg wenn Eigenschaften auf die ich mich beziehe existieren
+            /*
+            if(items[i].getUrgency()){
+                urgencyView.setVisible(true);
+                }
+            else{
+                 urgencyView.setVisible(false);
+                }
+
+            if(items[i].getInfoAvailable(){
+                infoView.setVisible(true);
+                }
+            else{
+                 infoView.setVisible(false);
+                }
+
+            if (items[i].isAssignedTo() = null){
+                assignedView.setBackground to Backgroundcolour
+                }
+            else{
+            assignedView.setBackground(getColour of the person its assigned to)
+            }
+             */
     }
     return rowView;
     }
