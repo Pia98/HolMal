@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.addItem)
     public void addItemClicked(){
-        Intent intent = new Intent(this, CreateItem.class);
+        Intent intent = new Intent(this, CreateItemActivity.class);
         startActivity(intent);
     }
 

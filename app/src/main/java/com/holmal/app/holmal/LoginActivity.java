@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,6 +47,15 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+
+    @BindView(R.id.error_message1)
+    TextView errorMessage1;
+
+    @BindView(R.id.error_message2)
+    TextView errorMessage2;
+
+    @BindView(R.id.error_message3)
+    TextView errorMessage3;
 
 
     @Override
@@ -88,15 +98,17 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         String email = emailInput.getText().toString();
         String password = passwordInput.getText().toString();
         if(validate()){
+            progressBar.setVisibility(View.VISIBLE);
+
             fireAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isComplete()){
+                    if(task.isSuccessful()){
                         Log.i(MainActivity.class.getName(), "Login successful");
                         finish();}
                     else {
-                        Toast.makeText(getApplicationContext(), "Login fehlgeschlagen: Bitte überprüfe deine Email und dein Passwort",
-                                Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.INVISIBLE);
+                        errorMessage2.setText(R.string.ErrorLoginFailed);
                         Log.e(MainActivity.class.getName(), "Login failed");
                     }
                 }
@@ -106,6 +118,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
 
     @OnClick(R.id.registrationButton)
     public void register(){
+        errorMessage2.setText("");
         if(isRegistration){
             if(validate()){
                 String email = emailInput.getText().toString();
@@ -120,9 +133,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                         }
                         else{
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                Toast.makeText(getApplicationContext(), "User with this email already exist.", Toast.LENGTH_SHORT).show();
-                            }else if(task.getException() instanceof FirebaseAuthWeakPasswordException){
-                                Toast.makeText(getApplicationContext(), "Das Passwort muss min. 6 Zeichen lang sein.", Toast.LENGTH_SHORT).show();
+                                errorMessage1.setText(R.string.ErrorLoginAlreadyExists);
                             }
                             Log.e(MainActivity.class.getName(), "Registration failed: "+  task.getException().getMessage());
                             progressBar.setVisibility(View.INVISIBLE);
@@ -156,18 +167,16 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         String password = passwordInput.getText().toString();
         String passwortWdh = passwortInputWdh.getText().toString();
         if(email.isEmpty() && password.isEmpty()){
-            Toast.makeText(getApplicationContext(), "Bitte gib deine Emailadresse und dein Passwort an", Toast.LENGTH_SHORT).show();
+            errorMessage3.setText(R.string.ErrorLoginNotEntered);
             return false;
         }else if(password.length()<6 ){
-            Toast.makeText(getApplicationContext(), "Das Passwort muss min. 6 Zeichen lang sein.",
-                    Toast.LENGTH_SHORT).show();
+            errorMessage2.setText(R.string.ErrorLoginShortPW);
             return false;
         }else if(isRegistration && passwortWdh.isEmpty()){
-            Toast.makeText(getApplicationContext(), "Bitte wiederhole dein Passwort", Toast.LENGTH_SHORT).show();
+            errorMessage3.setText(R.string.ErrorLoginRepeatPW);
             return false;
         }else if(isRegistration && !(passwortWdh.equals(password))){
-            Toast.makeText(getApplicationContext(), "Bitte überprüfe dein Passwort: ",
-                    Toast.LENGTH_SHORT).show();
+            errorMessage3.setText(R.string.ErrorLoginCheckPW);
             return false;
         }else{
             return true;

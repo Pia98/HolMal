@@ -17,8 +17,11 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CreateShoppingList extends AppCompatActivity {
+public class CreateShoppingListActivity extends AppCompatActivity {
 //screen 13
+
+    private static final String TAG = CreateShoppingListActivity.class.getName();
+
 
     String shoppingListNameString;
     String shoppingListCategoryString;
@@ -39,7 +42,7 @@ public class CreateShoppingList extends AppCompatActivity {
      */
     @OnClick(R.id.close)
     public void goBack() {
-        Intent intent = new Intent(this, AllShoppingLists.class);
+        Intent intent = new Intent(this, AllShoppingListsActivity.class);
         startActivity(intent);
     }
 
@@ -53,12 +56,11 @@ public class CreateShoppingList extends AppCompatActivity {
         if (validate()) {
             ShoppingList shoppingList = new ShoppingList(shoppingListNameString, shoppingListCategoryString);
             FireBaseHandling.getInstance().storeShoppingListInHousehold(householdId, shoppingList);
-            Log.i("CreateShoppingList",
-                    String.format("store shoppingList with name: '%s' and category: '%s'",
-                            shoppingListNameString, shoppingListCategoryString));
+            Log.i(TAG, String.format("store shoppingList with name: '%s' and category: '%s'",
+                    shoppingListNameString, shoppingListCategoryString));
 
             //go back to all shopping lists overview
-            Intent intent = new Intent(this, AllShoppingLists.class);
+            Intent intent = new Intent(this, AllShoppingListsActivity.class);
             startActivity(intent);
         }
     }
@@ -80,7 +82,7 @@ public class CreateShoppingList extends AppCompatActivity {
         if (!shoppingListNameString.isEmpty()) {
             return checkListNameTaken(shoppingLists);
         } else {
-            Log.i("CreateShoppingList", "no shoppingListName");
+            Log.i(TAG, "no shoppingListName");
             Toast.makeText(getApplicationContext(), R.string.ErrorEnterShoppingListName, Toast.LENGTH_LONG).show();
             return false;
         }
@@ -95,13 +97,12 @@ public class CreateShoppingList extends AppCompatActivity {
     private boolean checkListNameTaken(List<ShoppingList> shoppingLists) {
         for (ShoppingList shoppingList : shoppingLists) {
             if (shoppingListNameString.equals(shoppingList.getListName())) {
-                Log.i("CreateShoppingList", "name already taken");
+                Log.i(TAG, "name already taken");
                 Toast.makeText(getApplicationContext(), R.string.ErrorListNameTaken, Toast.LENGTH_LONG).show();
                 return false;
             } else {
-                Log.i("CreateShoppingList",
-                        String.format("shoppingList names: '%s', '%s' (entered list name)",
-                                shoppingList.getListName(), shoppingListNameString));
+                Log.i(TAG, String.format("shoppingList names: '%s', '%s' (entered list name)",
+                        shoppingList.getListName(), shoppingListNameString));
             }
         }
         Log.i("CrateShoppingList", "all right");

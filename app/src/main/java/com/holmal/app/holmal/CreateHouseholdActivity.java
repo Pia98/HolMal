@@ -22,12 +22,12 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CreateHousehold extends AppCompatActivity implements PersonalInput.OnFragmentInteractionListener {
+public class CreateHouseholdActivity extends AppCompatActivity implements PersonalInputFragment.OnFragmentInteractionListener {
 
     /**
      * LOG_TAG
      */
-    private static final String TAG = CreateHousehold.class.getName();
+    private static final String TAG = CreateHouseholdActivity.class.getName();
 
     /**
      * fragments
@@ -60,7 +60,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
         ButterKnife.bind(this);
 
         fragmentHandling.putFragment(currentFragment,
-                PersonalInput.newInstance(),
+                PersonalInputFragment.newInstance(),
                 getSupportFragmentManager(),
                 R.id.fragmentContainerCreateHousehold);
 
@@ -73,7 +73,7 @@ public class CreateHousehold extends AppCompatActivity implements PersonalInput.
             Person admin = new Person(userNameString, chosenColorId);
             ArrayList<Person> personList = new ArrayList<>();
             personList.add(admin);
-            // create default ShoppingList when household created
+            // create default ShoppingListActivity when household created
             String category = null;
             ShoppingList defaultList = new ShoppingList(getString(R.string.defaultShoppingList), category);
             ArrayList<ShoppingList> shoppingLists = new ArrayList<>();

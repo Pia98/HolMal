@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import butterknife.ButterKnife;
 
 //class that shows the users assignments
-public class MyTasks  extends AppCompatActivity {
+public class MyTasksActivity extends AppCompatActivity {
 
         private DrawerLayout mDrawerLayout;
 
@@ -31,6 +31,7 @@ public class MyTasks  extends AppCompatActivity {
        //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
+        setTitle(R.string.myJobs);
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
@@ -51,12 +52,12 @@ public class MyTasks  extends AppCompatActivity {
                         // Add code here to update the UI based on the item selected
                         //if all shopping lists is pressed in the menu you will be lead there
                             if (menuItem.getItemId()==R.id.nav_shopping_lists){
-                                Intent intentLists = new Intent(MyTasks.this, AllShoppingLists.class);
+                                Intent intentLists = new Intent(MyTasksActivity.this, AllShoppingListsActivity.class);
                                 startActivity(intentLists);
                                 return true;
                             }
                             else if (menuItem.getItemId()==R.id.nav_settings){
-                                Intent intentLists = new Intent(MyTasks.this, Settings.class);
+                                Intent intentLists = new Intent(MyTasksActivity.this, SettingsActivity.class);
                                 startActivity(intentLists);
                                 return true;
                             }
@@ -64,7 +65,7 @@ public class MyTasks  extends AppCompatActivity {
                             else if (menuItem.getItemId()==R.id.logout){
                                 Log.i("TAG", "Logout button clicked");
                                 FirebaseAuth.getInstance().signOut();
-                                Intent intentout = new Intent(MyTasks.this, LoginActivity.class);
+                                Intent intentout = new Intent(MyTasksActivity.this, LoginActivity.class);
                                 startActivity(intentout);
                                 return true;
                             }

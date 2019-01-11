@@ -11,25 +11,19 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
-import com.holmal.app.holmal.utils.PersonListener;
-import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.SettingsAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class Settings extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     @Override
@@ -44,6 +38,7 @@ public class Settings extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        setTitle(R.string.settings);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
@@ -60,13 +55,13 @@ public class Settings extends AppCompatActivity {
                         // Add code here to update the UI based on the item selected
                         //if my assignments is pressed in the menu you will be lead there
                         if(menuItem.getItemId() == R.id.nav_my_tasks){
-                            Intent intentT = new Intent(Settings.this, MyTasks.class);
+                            Intent intentT = new Intent(SettingsActivity.this, MyTasksActivity.class);
                             startActivity(intentT);
                             return true;
                         }
                         //if all shopping lists is pressed in the menu you will be lead there
                         else if (menuItem.getItemId()==R.id.nav_shopping_lists){
-                            Intent intentLists = new Intent(Settings.this, AllShoppingLists.class);
+                            Intent intentLists = new Intent(SettingsActivity.this, AllShoppingListsActivity.class);
                             startActivity(intentLists);
                             return true;
                         }
@@ -74,7 +69,7 @@ public class Settings extends AppCompatActivity {
                         else if (menuItem.getItemId()==R.id.logout){
                             Log.i("TAG", "Logout button clicked");
                             FirebaseAuth.getInstance().signOut();
-                            Intent intentout = new Intent(Settings.this, LoginActivity.class);
+                            Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
                             startActivity(intentout);
                             return true;
                         }

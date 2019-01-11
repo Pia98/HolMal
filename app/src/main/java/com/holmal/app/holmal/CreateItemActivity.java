@@ -14,7 +14,7 @@ import com.holmal.app.holmal.utils.PreferencesAccess;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CreateItem extends AppCompatActivity {
+public class CreateItemActivity extends AppCompatActivity {
 
     String itemName;
     String quantity;
@@ -38,13 +38,13 @@ public class CreateItem extends AppCompatActivity {
     //pressing this button takes you back to the general view of the shopping list
     @OnClick(R.id.cancelButton)
     public void cancelButtonClicked() {
-        Intent intent = new Intent(this, ShoppingList.class);
+        Intent intent = new Intent(this, ShoppingListActivity.class);
         startActivity(intent);
     }
 
     @OnClick(R.id.fromFavorites)
     public void fromFavoritesButtonClicked() {
-        Intent intent = new Intent(this, Favorites.class);
+        Intent intent = new Intent(this, FavoritesActivity.class);
         startActivity(intent);
     }
 
@@ -59,7 +59,7 @@ public class CreateItem extends AppCompatActivity {
             //maybe also check whether item is a favourite here and add to favourites
 
             //and lead back to general view of the shopping list
-            Intent intent = new Intent(this, ShoppingList.class);
+            Intent intent = new Intent(this, ShoppingListActivity.class);
             startActivity(intent);
         }
     }

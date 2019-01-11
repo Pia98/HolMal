@@ -30,7 +30,7 @@ public class StartActivity extends AppCompatActivity {
         if(householdID != null){
             FireBaseHandling.getInstance().registerAllListeners(householdID);
             Log.i(TAG, "already registered in an household");
-            Intent intent = new Intent(this, ShoppingList.class);
+            Intent intent = new Intent(this, ShoppingListActivity.class);
             startActivity(intent);
         }
     }
@@ -38,7 +38,7 @@ public class StartActivity extends AppCompatActivity {
     @OnClick(R.id.createHousehold)
     public void createHouseholdButtonClick() {
         Log.i(TAG, "CreateHousehold button clicked");
-        Intent intent = new Intent(this, CreateHousehold.class);
+        Intent intent = new Intent(this, CreateHouseholdActivity.class);
         startActivity(intent);
     }
 

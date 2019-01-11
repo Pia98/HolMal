@@ -15,4 +15,8 @@
         <item name="android:background">@color/colorBackground</item>
         <item name="android:editTextColor">@color/colorFont</item>
     </style>
+
+    <style name="blueActionBar" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
 </resources>

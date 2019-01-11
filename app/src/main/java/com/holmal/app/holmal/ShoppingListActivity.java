@@ -9,17 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.utils.FireBaseHandling;
-import com.holmal.app.holmal.utils.FireBaseHandling;
-import com.holmal.app.holmal.utils.ItemsAdapter;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.ShoppingListListener;
 
@@ -28,9 +22,9 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShoppingList extends AppCompatActivity {
+public class ShoppingListActivity extends AppCompatActivity {
 
-    private static final String TAG = ShoppingList.class.getName();
+    private static final String TAG = ShoppingListActivity.class.getName();
 
     private DrawerLayout mDrawerLayout;
     com.holmal.app.holmal.model.ShoppingList currentShoppingList;
@@ -42,12 +36,14 @@ public class ShoppingList extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-
         try {
             getCurrentShoppingList();
+            PreferencesAccess preferences = new PreferencesAccess();
+            setTitle(preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference)));
         } catch (Throwable e) {
             Log.e(TAG, "Error " + e);
             e.printStackTrace();
+            setTitle(R.string.shoppingList);
         }
 
 
@@ -74,18 +70,18 @@ public class ShoppingList extends AppCompatActivity {
                             // Add code here to update the UI based on the item selected
                             //if my assignments is pressed in the menu you will be lead there
                             if(menuItem.getItemId() == R.id.nav_my_tasks){
-                                Intent intentT = new Intent(ShoppingList.this, MyTasks.class);
+                                Intent intentT = new Intent(ShoppingListActivity.this, MyTasksActivity.class);
                                 startActivity(intentT);
                                 return true;
                             }
                             //if all shopping lists is pressed in the menu you will be lead there
                             else if (menuItem.getItemId()==R.id.nav_shopping_lists){
-                                Intent intentLists = new Intent(ShoppingList.this, AllShoppingLists.class);
+                                Intent intentLists = new Intent(ShoppingListActivity.this, AllShoppingListsActivity.class);
                                 startActivity(intentLists);
                                 return true;
                             }
                             else if (menuItem.getItemId()==R.id.nav_settings){
-                                Intent intentnav = new Intent(ShoppingList.this, Settings.class);
+                                Intent intentnav = new Intent(ShoppingListActivity.this, SettingsActivity.class);
                                 startActivity(intentnav);
                                 return true;
                             }
@@ -93,7 +89,7 @@ public class ShoppingList extends AppCompatActivity {
                             else if (menuItem.getItemId()==R.id.logout){
                                 Log.i(TAG, "Logout button clicked");
                                 FirebaseAuth.getInstance().signOut();
-                                Intent intentout = new Intent(ShoppingList.this, LoginActivity.class);
+                                Intent intentout = new Intent(ShoppingListActivity.this, LoginActivity.class);
                                 startActivity(intentout);
                                 return true;
                             }
@@ -183,7 +179,7 @@ public class ShoppingList extends AppCompatActivity {
     @OnClick (R.id.addItem)
     public void addItemOnClicked(){
         //TODO this does nothing so I did something wrong. Needs to be done correctly (but it doesn't hurt the program so I left it)
-        Intent intent = new Intent(this, CreateItem.class);
+        Intent intent = new Intent(this, CreateItemActivity.class);
         startActivity(intent);
     }
 }
