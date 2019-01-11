@@ -56,30 +56,28 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
         ImageView colour = (ImageView) rowView.findViewById(R.id.personColour);
         TextView name = (TextView) rowView.findViewById(R.id.personName);
 
-        for (int i = 0; i< personInHousehold.size(); i++){
+            Log.i("personInHousehold", "person: " + personInHousehold.get(position));
 
-            Log.i("personInHousehold", "person: " + personInHousehold.get(i));
-
-            if (personInHousehold.get(i).getColor() == R.id.color1){
+            if (personInHousehold.get(position).getColor() == R.id.color1){
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonLightGreen));
-            }else if (personInHousehold.get(i).getColor() == R.id.color2){
+            }else if (personInHousehold.get(position).getColor() == R.id.color2){
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonGreen));
-            }else if (personInHousehold.get(i).getColor() == R.id.color3){
+            }else if (personInHousehold.get(position).getColor() == R.id.color3){
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonBlue));
-            }else if (personInHousehold.get(i).getColor() == R.id.color4) {
+            }else if (personInHousehold.get(position).getColor() == R.id.color4) {
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonLightBlue));
-            }else if (personInHousehold.get(i).getColor() == R.id.color5) {
+            }else if (personInHousehold.get(position).getColor() == R.id.color5) {
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonOrange));
-            }else if (personInHousehold.get(i).getColor() == R.id.color6) {
+            }else if (personInHousehold.get(position).getColor() == R.id.color6) {
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonRed));
-            }else if (personInHousehold.get(i).getColor() == R.id.color7) {
+            }else if (personInHousehold.get(position).getColor() == R.id.color7) {
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonPink));
             }else{
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonPurple));
             }
 
-            name.setText(personInHousehold.get(i).getPersonName());
-        }
+            name.setText(personInHousehold.get(position).getPersonName());
+
         return rowView;
     }
 

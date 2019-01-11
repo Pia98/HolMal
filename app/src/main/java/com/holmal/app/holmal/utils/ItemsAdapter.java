@@ -57,12 +57,11 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
         ImageView assignedView = (ImageView) rowView.findViewById(R.id.assignedTo);
 
         //iterates over the items and gets name and quantitiy of each one
-        for (int i = 0; i< items.length; i++){
 
-           String itemName = items[i].getItemName();
+           String itemName = items[position].getItemName();
            nameView.setText(itemName);
 
-           String itemQuantity = items[i].getQuantity();
+           String itemQuantity = items[position].getQuantity();
            descriptionView.setText(itemQuantity);
 
            //TODO Kommentar weg wenn Eigenschaften auf die ich mich beziehe existieren
@@ -88,7 +87,7 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
             assignedView.setBackground(getColour of the person its assigned to)
             }
              */
-    }
+
     return rowView;
     }
 
