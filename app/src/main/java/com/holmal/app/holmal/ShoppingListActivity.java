@@ -132,6 +132,16 @@ public class ShoppingListActivity extends AppCompatActivity {
         ItemsAdapter adapter = new ItemsAdapter(this, items);
         ListView list = findViewById(R.id.list);
         list.setAdapter(adapter);*/
+
+        /**
+         * //handles click on item to see detailed information
+         * list.setOnClickListener(new AdapterView.OnItemClickListener() {
+         *              @Override
+         *              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+         *              if(item an der stelle hat info){
+         *              starte ItemInformationFragment
+         * });}
+         */
         }
 
     private void getCurrentShoppingList() {
