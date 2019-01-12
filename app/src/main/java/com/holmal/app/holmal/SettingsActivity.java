@@ -146,14 +146,14 @@ public class SettingsActivity extends AppCompatActivity {
                         PreferencesAccess preferencesAccess = new PreferencesAccess();
                         String householdID = preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.householdIDPreference));
                         preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.householdIDPreference), null);
-
+                        //TODO change personID from 0 to the id of the person using the app
                         FireBaseHandling.getInstance().removePersonFromHousehold(householdID,"0");
                         //delete household if household is empty now
                         List<Person> personInHousehold = FireBaseHandling.getInstance().getPersonListener().getPersonList();
 
                         //hasn't synchronized by then so use former size - 1
                         if(personInHousehold.size() -1 == 0){
-                            Log.e("deleteHousehold", householdID + "deleteHousehold");
+                            Log.e("deleteHousehold", householdID + " has been deleted");
                             FireBaseHandling.getInstance().deleteHousehold(householdID);
                         }
                         FirebaseAuth.getInstance().signOut();
