@@ -151,7 +151,9 @@ public class SettingsActivity extends AppCompatActivity {
                         //delete household if household is empty now
                         List<Person> personInHousehold = FireBaseHandling.getInstance().getPersonListener().getPersonList();
 
-                        if(personInHousehold.isEmpty()){
+                        //hasn't synchronized by then so use former size - 1
+                        if(personInHousehold.size() -1 == 0){
+                            Log.e("deleteHousehold", householdID + "deleteHousehold");
                             FireBaseHandling.getInstance().deleteHousehold(householdID);
                         }
                         FirebaseAuth.getInstance().signOut();

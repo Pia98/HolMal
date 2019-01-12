@@ -42,7 +42,7 @@ public class FireBaseHandling {
     }
 
     public void deleteHousehold(String householdId){
-        reference.getRoot().child(householdId).removeValue();
+        reference.child(householdRubric).child(householdId).removeValue();
     }
     public void removePersonFromHousehold(String householdId, String person){
         reference.child(householdRubric).child(householdId).child("personInHousehold").child(person).removeValue();
