@@ -144,15 +144,19 @@ public class SettingsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         //remove member from household
                         PreferencesAccess preferencesAccess = new PreferencesAccess();
+                        String householdID = preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.householdIDPreference));
                         preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.householdIDPreference), null);
+
+                        FireBaseHandling.getInstance().removePersonFromHousehold(householdID,"0");
+                        //delete household if household is empty now
+                        List<Person> personInHousehold = FireBaseHandling.getInstance().getPersonListener().getPersonList();
+
+                        if(personInHousehold.isEmpty()){
+                            FireBaseHandling.getInstance().deleteHousehold(householdID);
+                        }
                         FirebaseAuth.getInstance().signOut();
                         Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
                         startActivity(intentout);
-                        //delete household if household is empty now
-                        List<Person> personInHousehold = FireBaseHandling.getInstance().getPersonListener().getPersonList();
-                        if(personInHousehold.isEmpty()){
-                           // FireBaseHandling.getInstance().deleteHousehold();
-                        }
                     }
                 });
         builder.setNegativeButton(
