@@ -18,6 +18,8 @@ import android.widget.ListView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.PersonListener;
+import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.SettingsAdapter;
 
 import java.util.List;
@@ -140,10 +142,17 @@ public class SettingsActivity extends AppCompatActivity {
                 "Ja",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        // TODO
                         //remove member from household
-                        //delete household if household is empty now 
+                        PreferencesAccess preferencesAccess = new PreferencesAccess();
+                        preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.householdIDPreference), null);
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
+                        startActivity(intentout);
+                        //delete household if household is empty now
+                        List<Person> personInHousehold = FireBaseHandling.getInstance().getPersonListener().getPersonList();
+                        if(personInHousehold.isEmpty()){
+                           // FireBaseHandling.getInstance().deleteHousehold();
+                        }
                     }
                 });
         builder.setNegativeButton(
