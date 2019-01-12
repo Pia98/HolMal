@@ -142,7 +142,23 @@ public class ShoppingListActivity extends AppCompatActivity {
          *              starte ItemInformationFragment
          * });}
          */
-        }
+
+        /**
+         * //handles double click on item -> makes item assigned to self
+         * list.setOnTouchListener(new OnTouchListener() {
+         *     private GestureDetector gestureDetector = new GestureDetector(ShoppingListActivity.this, new GestureDetector.SimpleOnGestureListener() {
+         *         @Override
+         *         public boolean onDoubleTap(MotionEvent e) {
+         *         if(item an der stelle ist nicht assigned){
+         *         assined add person
+         *         }else{
+         *         assigned remove person
+         *         }
+         *             return super.onDoubleTap(e);
+         *         }
+         *     });
+         */
+    }
 
     private void getCurrentShoppingList() {
         Log.i(TAG, "getCurrentShoppingList called");
