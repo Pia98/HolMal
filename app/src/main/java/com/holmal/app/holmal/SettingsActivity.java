@@ -145,9 +145,10 @@ public class SettingsActivity extends AppCompatActivity {
                         //remove member from household
                         PreferencesAccess preferencesAccess = new PreferencesAccess();
                         String householdID = preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.householdIDPreference));
+                        String personID = preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.personIDPreference));
                         preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.householdIDPreference), null);
-                        //TODO change personID from 0 to the id of the person using the app
-                        FireBaseHandling.getInstance().removePersonFromHousehold(householdID,"0");
+
+                        FireBaseHandling.getInstance().removePersonFromHousehold(householdID,personID);
                         //delete household if household is empty now
                         List<Person> personInHousehold = FireBaseHandling.getInstance().getPersonListener().getPersonList();
 

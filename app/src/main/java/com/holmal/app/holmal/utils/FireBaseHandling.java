@@ -48,9 +48,11 @@ public class FireBaseHandling {
         reference.child(householdRubric).child(householdId).child("personInHousehold").child(person).removeValue();
     }
 
-    public void storePersonOnDatabase(String name, int color) {
+    public String storePersonOnDatabase(String name, int color) {
+        String personId = reference.push().getKey();
         Person person = new Person(name, color);
         reference.child("person").push().setValue(person);
+        return personId;
     }
     
     public void storeMoveInPersonInHousehold(String householdId, Person person){
