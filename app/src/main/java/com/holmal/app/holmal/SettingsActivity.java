@@ -1,10 +1,12 @@
 package com.holmal.app.holmal;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -129,6 +131,33 @@ public class SettingsActivity extends AppCompatActivity {
 
     @OnClick(R.id.leaveHousehold)
     public void leaveHouseholdClicked(){
-        // TODO
+
+        //pop up that asks the user if they are sure
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Möchtest du wirklich den Haushalt verlassen?");
+        builder.setCancelable(true);
+        builder.setPositiveButton(
+                "Ja",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        // TODO
+                        //remove member from household
+                        //delete household if household is empty now 
+                    }
+                });
+        builder.setNegativeButton(
+                "Nein",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+
+
     }
 }
