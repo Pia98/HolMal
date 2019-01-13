@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Person;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -22,11 +23,9 @@ public class PersonListener implements ValueEventListener {
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
         personHash.clear();
-        Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
-        Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
-        while (iterator.hasNext()) {
-            String id = iterator.next().getKey();
-            Person value = iterator.next().getValue(Person.class);
+        for(DataSnapshot child : dataSnapshot.getChildren()) {
+            String id = child.getKey();
+            Person value = child.getValue(Person.class);
             personHash.put(id, value);
         }
         Log.i("PersonListener", "personList: " + personHash.toString());
