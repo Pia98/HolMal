@@ -16,6 +16,7 @@ import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -52,7 +53,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
         householdId = extras.getString("inputId");
 
         // listener fuer personen starten, gleich bei erzeugen, bevor Person gespeichert, wegen Abfragen ob bereits in Haushalt vorhanden
-        FireBaseHandling.getInstance().startPersonValueEventListener(householdId);
+        FireBaseHandling.getInstance().startPersonIDValueEventListener(householdId);
 
         householdIdAsText.setText(householdId);
 
@@ -86,24 +87,25 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
      * @return if all inputs are valid
      */
     private boolean validate() {
-        List<Person> personList = FireBaseHandling.getInstance().getPersonListener().getPersonList();
-        if (checkUserName(personList)) {
-            return checkColours(personList);
+        List<String> personIDList = FireBaseHandling.getInstance().getPersonIDListener().getPersonList();
+        HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
+        if (checkUserName(personIDList, personHash)) {
+            return checkColours(personHash);
         } else return false;
     }
 
     /**
      * Check if userName input is valid
-     *
-     * @param personList List of all household members
+     * @param personIDList list of all member ids in an household
+     * @param personHash List of all members
      * @return if input is valid
      */
-    private boolean checkUserName(List<Person> personList) {
+    private boolean checkUserName(List<String> personIDList, HashMap<String, Person> personHash) {
         //TODO validate Button 5
         EditText userName = (EditText) findViewById(R.id.userNameInput);
         userNameString = userName.getText().toString();
         if (!userNameString.isEmpty()) {
-            return checkUserNameTaken(personList);
+            return checkUserNameTaken(personIDList, personHash);
         } else {
             Toast.makeText(getApplicationContext(), R.string.ErrorEnterName, Toast.LENGTH_LONG).show();
             return false;
@@ -111,13 +113,14 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
     }
 
     /**
+     * TODO: check if id is in outher list
      * Check if there is a household member with the same userName
      *
-     * @param personList List of all household members
+     * @param personHash List of all household members
      * @return if the userName is already taken
      */
-    private boolean checkUserNameTaken(List<Person> personList) {
-        for (Person person : personList) {
+    private boolean checkUserNameTaken(List<String> personIDList, HashMap<String, Person> personHash) {
+        personHash.forEach(super, );
             if (userNameString.equals(person.getPersonName())) {
                 Toast.makeText(getApplicationContext(), R.string.ErrorNameTaken, Toast.LENGTH_LONG).show();
                 return false;

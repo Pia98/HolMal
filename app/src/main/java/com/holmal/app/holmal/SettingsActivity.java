@@ -18,7 +18,6 @@ import android.widget.ListView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
-import com.holmal.app.holmal.utils.PersonListener;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.SettingsAdapter;
 
@@ -110,7 +109,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         //show members in household
         //gets the person listener from firebase
-        List<Person> personInHousehold = FireBaseHandling.getInstance().getPersonListener().getPersonList();
+        List<Person> personInHousehold = FireBaseHandling.getInstance().getPersonIDListener().getPersonList();
 
         SettingsAdapter adapter = new SettingsAdapter(this, personInHousehold);
         ListView list = findViewById(R.id.listOfHouseholdMembers);
@@ -150,7 +149,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                         FireBaseHandling.getInstance().removePersonFromHousehold(householdID,personID);
                         //delete household if household is empty now
-                        List<Person> personInHousehold = FireBaseHandling.getInstance().getPersonListener().getPersonList();
+                        List<Person> personInHousehold = FireBaseHandling.getInstance().getPersonIDListener().getPersonList();
 
                         //hasn't synchronized by then so use former size - 1
                         if(personInHousehold.size() -1 == 0){

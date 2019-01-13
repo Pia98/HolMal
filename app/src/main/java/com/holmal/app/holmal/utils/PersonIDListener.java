@@ -8,28 +8,28 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Person;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
-public class PersonListener implements ValueEventListener {
+public class PersonIDListener implements ValueEventListener {
 
     /**
      * listens to the person ids in household
      */
-    //hier werden nur die Personen mit ihren von der Firebase zugeordneten ids gespeichert
-    HashMap<String, Person> personHash = new HashMap<>();
+    //hier werden nur die IDs der Personen gespeichert
+    List<String> personList = new ArrayList<>();
 
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        personHash.clear();
+        personList.clear();
         Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
         Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
         while (iterator.hasNext()) {
-            String id = iterator.next().getKey();
-            Person value = iterator.next().getValue(Person.class);
-            personHash.put(id, value);
+            String value = (String) iterator.next().getValue();
+            personList.add(value);
         }
-        Log.i("PersonListener", "personList: " + personHash.toString());
+        Log.i("PersonListener", "personList: " + personList);
     }
 
     @Override
@@ -37,8 +37,7 @@ public class PersonListener implements ValueEventListener {
 
     }
 
-
-    public HashMap<String, Person> getPersonHash() {
-        return personHash;
+    public List<String> getPersonList() {
+        return personList;
     }
 }
