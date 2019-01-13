@@ -78,6 +78,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
             preferences.storePreferences(this, getString(R.string.personIDPreference), personId);
+            preferences.storePreferences(this, getString(R.string.personNamePreference), userNameString);
         }
     }
 

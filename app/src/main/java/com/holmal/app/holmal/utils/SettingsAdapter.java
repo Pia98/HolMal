@@ -77,6 +77,10 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
             }
 
             name.setText(personInHousehold.get(position).getPersonName());
+            PreferencesAccess preferencesAccess = new PreferencesAccess();
+            if(personInHousehold.get(position).getPersonName().equals(preferencesAccess.readPreferences(context, "personName"))){
+                name.append(" (du)");
+            }
 
         return rowView;
     }
