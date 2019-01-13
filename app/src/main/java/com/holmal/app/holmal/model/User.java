@@ -2,6 +2,25 @@ package com.holmal.app.holmal.model;
 
 public class User {
 
+    //Emailadresse des Users
+    private String emailAdresse;
+
+    //ID der Person im Haushalt
+    private String personID;
+
+    /**
+     * Constructor
+     * @param emailAdresse
+     * @param personID
+     */
+    public User(String emailAdresse, String personID){
+        this.emailAdresse = emailAdresse;
+        this.personID = personID;
+    }
+
+    /**
+     * Getter and Setter
+     */
     public String getEmailAdresse() {
         return emailAdresse;
     }
@@ -15,17 +34,6 @@ public class User {
     }
 
     public void setPersonID(String personID) {
-        this.personID = personID;
-    }
-
-    //Emailadresse des Users
-    private String emailAdresse;
-
-    //ID der Person im Haushalt
-    private String personID;
-
-    public User(String emailAdresse, String personID){
-        this.emailAdresse = emailAdresse;
         this.personID = personID;
     }
 

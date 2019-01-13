@@ -25,7 +25,7 @@ public class ReferencesHandling {
         ArrayList<Person> personenImHaushalt = new ArrayList<>();
         for(int i = 0; i < personIDList.size(); i++){
             Log.i("ReferenceHandling", "get all members of an household personId: " + personIDList.get(i));
-            Log.i("ReferenceHandling", "show me what in personHash is: " + personHash.toString());
+            Log.i("ReferenceHandling", "show me what in userHash is: " + personHash.toString());
             if(personHash.containsKey(personIDList.get(i))){
                 Log.i("ReferenceHandling", "found this person: " + personIDList.get(i));
                 personenImHaushalt.add(personHash.get(personIDList.get(i)));
