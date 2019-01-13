@@ -48,6 +48,9 @@ public class FireBaseHandling {
         reference.child(householdRubric).child(householdId).child("personInHousehold").child(person).removeValue();
     }
 
+    public void deletePerson(String personId){
+        reference.child("person").child(personId).removeValue();
+    }
     public String storePersonOnDatabase(String name, int color) {
         String personId = reference.push().getKey();
         Person person = new Person(name, color);
@@ -97,5 +100,9 @@ public class FireBaseHandling {
         // Daten explizit noch mal neu laden
         startPersonValueEventListener(householdId);
         startShoppingListListener(householdId);
+    }
+
+    public DatabaseReference getReference() {
+        return reference;
     }
 }

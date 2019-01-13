@@ -11,9 +11,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.ItemsAdapter;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.ShoppingListListener;
 
@@ -28,6 +32,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     com.holmal.app.holmal.model.ShoppingList currentShoppingList;
+    Item[] items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,9 +129,10 @@ public class ShoppingListActivity extends AppCompatActivity {
         );
 
 
+
         Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
-        //fill List with the items with an adapter
-      /**  Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
+       /** //fill List with the items with an adapter
+        items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
         //TODO abfrage welche shopping list man erhält!! wichtig
        //TODO auskommentieren um items anzuzeigen, wenn liste der listen nicht [] ist
         ItemsAdapter adapter = new ItemsAdapter(this, items);
