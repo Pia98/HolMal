@@ -43,7 +43,8 @@ public class Person {
     public String toString() {
         return "Person{" +
                 "personName='" + personName + '\'' +
-                ", color=" + color +
+                ", color=" + color + '\'' +
+                ", email=" + email +
                 '}';
     }
 }

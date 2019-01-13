@@ -1,10 +1,13 @@
 package com.holmal.app.holmal.utils;
 
+import com.google.android.gms.common.util.BiConsumer;
 import com.holmal.app.holmal.model.Person;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import android.os.Build;
 import android.util.Log;
 
 /**
@@ -34,7 +37,24 @@ public class ReferencesHandling {
         return personenImHaushalt;
     }
 
-    public boolean isThisUserMemberOfThatHousehold(String householdID, String email, ArrayList<Person> users){
-    return true;
+    public boolean isThisUserMemberOfThatHousehold(String householdID, String email, HashMap<String, Person> users){
+        if(findPersonWithEmail(email, users) == null){
+            return false;
+        }else{
+
+        }
+        return true;
+    }
+
+    public Person findPersonWithEmail(String email, HashMap<String, Person> users){
+        Person result = null;
+        for(Person entry : users.values()){
+            Log.i("ReferencesHandling", "persons email: " + entry.getEmail() + " searched email: " + email);
+            if(entry.getEmail() == email){
+                result = entry;
+                break;
+            }
+        }
+        return result;
     }
 }
