@@ -44,6 +44,7 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
     String houseHoldNameString;
     int chosenColorId;
     String householdId;
+    String personId;
 
     /**
      * Handling classes
@@ -85,9 +86,11 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
             // create household with name, persons, defaultShoppingList
             Household household = new Household(houseHoldNameString, personList, shoppingLists);
             householdId = FireBaseHandling.getInstance().storeNewHousehold(household);
+            personId = FireBaseHandling.getInstance().storePersonOnDatabase(userNameString, chosenColorId);
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
             preferences.storePreferences(this, getString(R.string.recentShoppingListNamePreference), defaultList.getListName());
+            preferences.storePreferences(this, getString(R.string.personIDPreference), personId);
 
 
             Log.i(TAG, "householdID: " + householdId);

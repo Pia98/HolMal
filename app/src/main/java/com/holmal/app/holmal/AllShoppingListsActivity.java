@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -108,6 +109,18 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         ShoppingListsAdapter adapter = new ShoppingListsAdapter(this, shoppingLists);
         GridView lists = findViewById(R.id.allShoppingLists);
         lists.setAdapter(adapter);
+
+        //handle clicks on the lists
+        lists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("FürSvenja", "Open list from allshoppinglists");
+                //TODO open correct shopping list (-> set activeShoppingList to that one)
+                //Intent intent = new Intent(AllShoppingLists.this, ShoppingList.class);
+                //startActivity(intent);
+            }
+        });
     }
 
     //Menu is opened
@@ -130,5 +143,7 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CreateShoppingListActivity.class);
         startActivity(intent);
     }
+
+
 
 }

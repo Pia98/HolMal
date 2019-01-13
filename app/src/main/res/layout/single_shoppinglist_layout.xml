@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--TODO improve styling-->
     <TextView
@@ -17,13 +17,22 @@
         android:layout_marginTop="10dp"
         android:background="@color/colorAccentSilver"
         />
+    <TextView
+        android:id="@+id/categoryOfList"
+        android:layout_width="@dimen/widthHalfScreen"
+        android:layout_height="@dimen/listAmountHight"
+        android:text="@+id/categoryOfList"
+        android:textSize="13sp"
+        app:layout_constraintTop_toBottomOf="@id/nameOfList"
+        android:background="@color/colorAccentSilver"
+        />
 
     <TextView
         android:id="@+id/amountItemsOnList"
         android:layout_width="@dimen/widthHalfScreen"
         android:layout_height="@dimen/listAmountHight"
         android:text="@+id/amountItemsOnList"
-        android:textSize="10sp"
-        android:translationY="@dimen/listNameHight"
+        android:textSize="13sp"
+        app:layout_constraintTop_toBottomOf="@id/categoryOfList"
         android:background="@color/colorAccentSilver"/>
 </android.support.constraint.ConstraintLayout>

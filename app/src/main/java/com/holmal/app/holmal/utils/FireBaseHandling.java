@@ -42,8 +42,23 @@ public class FireBaseHandling {
         return storeId;
     }
 
+
     public void storeUserOnDatabase(User user) {
         reference.child("user").push().setValue(user);
+    }
+
+    public void deleteHousehold(String householdId){
+        reference.child(householdRubric).child(householdId).removeValue();
+    }
+    public void removePersonFromHousehold(String householdId, String person){
+        reference.child(householdRubric).child(householdId).child("personInHousehold").child(person).removeValue();
+    }
+
+    public String storePersonOnDatabase(String name, int color) {
+        String personId = reference.push().getKey();
+        Person person = new Person(name, color);
+        reference.child("person").push().setValue(person);
+        return personId;
     }
     
     public void storeMoveInPersonInHousehold(String householdId, Person person){
