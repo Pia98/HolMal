@@ -21,7 +21,7 @@ public abstract class DummyContent {
     public Household dummyHaushalt;
 
     public Household getDummyHaushalt() {
-        dummyHaushalt = new Household("dummyHaushalt", new ArrayList<Person>());
+        dummyHaushalt = new Household("dummyHaushalt", new ArrayList<String>());
         return dummyHaushalt;
     }
 

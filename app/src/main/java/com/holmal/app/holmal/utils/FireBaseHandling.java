@@ -54,17 +54,18 @@ public class FireBaseHandling {
         reference.child(householdRubric).child(householdId).child("personInHousehold").child(person).removeValue();
     }
 
-    public String storePersonOnDatabase(String name, int color) {
+    public String storePersonOnDatabase(Person person) {
         String personId = reference.push().getKey();
-        Person person = new Person(name, color);
         reference.child("person").push().setValue(person);
         return personId;
     }
     
-    public void storeMoveInPersonInHousehold(String householdId, Person person){
-        reference.child(householdRubric + "/" + householdId + "/personInHousehold").push().setValue(person);
+    public String storeMoveInPersonInHousehold(String householdId, Person person){
+        String personID = storePersonOnDatabase(person);
+        reference.child(householdRubric + "/" + householdId + "/personInHousehold").push().setValue(personID);
         // listener fuer einkaufsliste starten, wenn beitretende Person erfolgreich gespeichert wurde
         startShoppingListListener(householdId);
+        return personID;
     }
 
     public void storeShoppingListInHousehold(String householdId, ShoppingList shoppingList){

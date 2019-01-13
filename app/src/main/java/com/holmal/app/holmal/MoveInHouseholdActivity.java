@@ -73,8 +73,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
 
             // TODO check first if not taken yet in the household
             Log.i(TAG, String.format("'%s' (color: %s) wants to move in '%s'", userNameString, chosenColorId, householdId));
-            String personId = FireBaseHandling.getInstance().storePersonOnDatabase(userNameString, chosenColorId);
-            FireBaseHandling.getInstance().storeMoveInPersonInHousehold(householdId, person);
+            String personId = FireBaseHandling.getInstance().storeMoveInPersonInHousehold(householdId, person);
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
             preferences.storePreferences(this, getString(R.string.personIDPreference), personId);

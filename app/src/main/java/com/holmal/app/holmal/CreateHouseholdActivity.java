@@ -75,18 +75,19 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
     public void createHouseholdDoneClick() {
         if (validate()) {
             // create list to store all household members. Started with person that has created
-            Person admin = new Person(userNameString, chosenColorId);
-            ArrayList<Person> personList = new ArrayList<>();
-            personList.add(admin);
+            ArrayList<String> personList = new ArrayList<>();
             // create default ShoppingListActivity when household created
             String category = null;
             ShoppingList defaultList = new ShoppingList(getString(R.string.defaultShoppingList), category);
             ArrayList<ShoppingList> shoppingLists = new ArrayList<>();
             shoppingLists.add(defaultList);
             // create household with name, persons, defaultShoppingList
+            Person newPerson = new Person(userNameString, chosenColorId);
+            personId = FireBaseHandling.getInstance().storePersonOnDatabase(newPerson);
+            personList.add(personId);
+
             Household household = new Household(houseHoldNameString, personList, shoppingLists);
             householdId = FireBaseHandling.getInstance().storeNewHousehold(household);
-            personId = FireBaseHandling.getInstance().storePersonOnDatabase(userNameString, chosenColorId);
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
             preferences.storePreferences(this, getString(R.string.recentShoppingListNamePreference), defaultList.getListName());
@@ -98,7 +99,7 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
 
             Log.i(TAG, "store person: name - " + userNameString + ", color - " + chosenColorId);
             // speichert eine Person mit Email und ID auf Datenbank
-            User user = new User(fireAuth.getCurrentUser().getEmail().toString(), );
+            User user = new User(fireAuth.getCurrentUser().getEmail(), personId );
             FireBaseHandling.getInstance().storeUserOnDatabase(user);
 
             Intent intent = new Intent(this, RegistrationActivity.class);
