@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Household {
     private String householdName;
-    private ArrayList<Person> personInHousehold;
+    private ArrayList<String> personInHousehold;
     private ArrayList<ShoppingList> shoppingLists;
 
     /**
@@ -12,13 +12,13 @@ public class Household {
      * @param householdName
      * @param personInHousehold
      */
-    public Household(String householdName, ArrayList<Person> personInHousehold){
+    public Household(String householdName, ArrayList<String> personInHousehold){
         this.householdName = householdName;
         this.personInHousehold = personInHousehold;
         this.shoppingLists = new ArrayList<ShoppingList>();
     }
 
-    public Household(String householdName, ArrayList<Person> personInHousehold, ArrayList<ShoppingList> shoppingLists) {
+    public Household(String householdName, ArrayList<String> personInHousehold, ArrayList<ShoppingList> shoppingLists) {
         this.householdName = householdName;
         this.personInHousehold = personInHousehold;
         this.shoppingLists = shoppingLists;
@@ -35,11 +35,11 @@ public class Household {
         this.householdName = householdName;
     }
 
-    public ArrayList<Person> getPersonInHousehold() {
+    public ArrayList<String> getPersonInHousehold() {
         return personInHousehold;
     }
 
-    public void setPersonInHousehold(ArrayList<Person> personInHousehold) {
+    public void setPersonInHousehold(ArrayList<String> personInHousehold) {
         this.personInHousehold = personInHousehold;
     }
 
