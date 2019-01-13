@@ -8,9 +8,12 @@ public class Person {
     /**@color */
     private int color;
 
-    public Person(String personName, int color){
+    private String email;
+
+    public Person(String personName, int color, String email){
         this.personName = personName;
         this.color = color;
+        this.email = email;
     }
 
     public Person() {
@@ -31,6 +34,10 @@ public class Person {
     public void setColor(int color) {
         this.color = color;
     }
+
+    public String getEmail(){return email;}
+
+    public void setEmail(String email){this.email = email;}
 
     @Override
     public String toString() {

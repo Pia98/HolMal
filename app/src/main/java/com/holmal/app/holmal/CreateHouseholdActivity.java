@@ -10,12 +10,10 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
-import com.holmal.app.holmal.model.User;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
@@ -81,8 +79,10 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
             ShoppingList defaultList = new ShoppingList(getString(R.string.defaultShoppingList), category);
             ArrayList<ShoppingList> shoppingLists = new ArrayList<>();
             shoppingLists.add(defaultList);
+
+            String currentEmail = fireAuth.getCurrentUser().getEmail();
             // create household with name, persons, defaultShoppingList
-            Person newPerson = new Person(userNameString, chosenColorId);
+            Person newPerson = new Person(userNameString, chosenColorId, currentEmail);
             personId = FireBaseHandling.getInstance().storePersonOnDatabase(newPerson);
             personList.add(personId);
 
@@ -97,10 +97,7 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
             Log.i(TAG, "householdID: " + householdId);
 
 
-            Log.i(TAG, "store person: name - " + userNameString + ", color - " + chosenColorId);
-            // speichert eine Person mit Email und ID auf Datenbank
-            User user = new User(fireAuth.getCurrentUser().getEmail(), personId );
-            FireBaseHandling.getInstance().storeUserOnDatabase(user);
+            Log.i(TAG, "store person: name - " + userNameString + ", color - " + chosenColorId + ", email - " + currentEmail);
 
             Intent intent = new Intent(this, RegistrationActivity.class);
             // RegistrationFragment1 has to be drawn

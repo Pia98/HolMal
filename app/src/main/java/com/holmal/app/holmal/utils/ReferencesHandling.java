@@ -33,4 +33,8 @@ public class ReferencesHandling {
         }
         return personenImHaushalt;
     }
+
+    public boolean isThisUserMemberOfThatHousehold(String householdID, String email, ArrayList<Person> users){
+    return true;
+    }
 }
