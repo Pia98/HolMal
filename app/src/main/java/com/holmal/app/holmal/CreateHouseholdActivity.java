@@ -10,9 +10,12 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
+import com.holmal.app.holmal.model.User;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
@@ -51,7 +54,7 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
 
     PreferencesAccess preferences = new PreferencesAccess();
 
-
+    FirebaseAuth fireAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,7 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
                 getSupportFragmentManager(),
                 R.id.fragmentContainerCreateHousehold);
 
+        fireAuth = FirebaseAuth.getInstance();
     }
 
     @OnClick(R.id.createHouseholdDone)
@@ -90,9 +94,9 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
 
 
             Log.i(TAG, "store person: name - " + userNameString + ", color - " + chosenColorId);
-            // speichert eine Person mit Username und Farbe auf Datenbank
-            // todo not needed anymore
-            FireBaseHandling.getInstance().storePersonOnDatabase(userNameString, chosenColorId);
+            // speichert eine Person mit Email und ID auf Datenbank
+            User user = new User(fireAuth.getCurrentUser().getEmail().toString(), );
+            FireBaseHandling.getInstance().storeUserOnDatabase(user);
 
             Intent intent = new Intent(this, RegistrationActivity.class);
             // RegistrationFragment1 has to be drawn

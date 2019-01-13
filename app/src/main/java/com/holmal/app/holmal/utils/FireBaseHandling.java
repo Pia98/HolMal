@@ -8,6 +8,7 @@ import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
+import com.holmal.app.holmal.model.User;
 
 //Class for handling references to the firebase database
 //that are used in multiple other classes
@@ -41,9 +42,8 @@ public class FireBaseHandling {
         return storeId;
     }
 
-    public void storePersonOnDatabase(String name, int color) {
-        Person person = new Person(name, color);
-        reference.child("person").push().setValue(person);
+    public void storeUserOnDatabase(User user) {
+        reference.child("user").push().setValue(user);
     }
     
     public void storeMoveInPersonInHousehold(String householdId, Person person){
