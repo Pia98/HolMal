@@ -14,8 +14,13 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Item;
+import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.ItemsAdapter;
 import com.holmal.app.holmal.utils.PreferencesAccess;
@@ -131,13 +136,19 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
         Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
-       /** //fill List with the items with an adapter
-        items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
+
+        List<ShoppingList> filledList = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
+        if(filledList.isEmpty()){
+            Log.i("fürSvenja", "nothing yet");
+        }
+        else{
+        //fill List with the items with an adapter
+       items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
         //TODO abfrage welche shopping list man erhält!! wichtig
        //TODO auskommentieren um items anzuzeigen, wenn liste der listen nicht [] ist
         ItemsAdapter adapter = new ItemsAdapter(this, items);
         ListView list = findViewById(R.id.list);
-        list.setAdapter(adapter);*/
+        list.setAdapter(adapter);}
 
         /**
          * //handles click on item to see detailed information

@@ -69,7 +69,7 @@ public class FireBaseHandling {
     }
 
     public void storeShoppingListItem(String householdId, String shoppingListId, Item item){
-        reference.child(householdRubric + "/" + householdId + "/shoppingLists" + shoppingListId + "/itemsOfThisList").push().setValue(item);
+        reference.child(householdRubric + "/" + householdId + "/shoppingLists/" + shoppingListId + "/itemsOfThisList").push().setValue(item);
     }
 
 
