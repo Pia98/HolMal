@@ -1,4 +1,4 @@
-package com.holmal.app.holmal.utils;
+package com.holmal.app.holmal.utils.listener;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
