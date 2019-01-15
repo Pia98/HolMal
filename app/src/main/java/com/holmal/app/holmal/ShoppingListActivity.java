@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
+import com.holmal.app.holmal.utils.ShoppingListListener;
 
 import java.util.List;
 
@@ -36,13 +37,18 @@ public class ShoppingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
         ButterKnife.bind(this);
+
+
 /*
 
         try {
             getCurrentShoppingList();
+            PreferencesAccess preferences = new PreferencesAccess();
+            setTitle(preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference)));
         } catch (Throwable e) {
             Log.e(TAG, "Error " + e);
             e.printStackTrace();
+            setTitle(R.string.shoppingList);
         }
 
 */
@@ -130,6 +136,16 @@ public class ShoppingListActivity extends AppCompatActivity {
         ItemsAdapter adapter = new ItemsAdapter(this, items);
         ListView list = findViewById(R.id.list);
         list.setAdapter(adapter);*/
+
+        /**
+         * //handles click on item to see detailed information
+         * list.setOnClickListener(new AdapterView.OnItemClickListener() {
+         *              @Override
+         *              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+         *              if(item an der stelle hat info){
+         *              starte ItemInformationFragment
+         * });}
+         */
         }
 
     private void getCurrentShoppingList() {
@@ -150,6 +166,9 @@ public class ShoppingListActivity extends AppCompatActivity {
         if (recentShoppingListName == null) {
             Log.i(TAG, "no recent shoppingListName");
             //recentShoppingListName = shoppingLists.get(0).getListName();
+            if(shoppingLists.isEmpty()){
+                Log.i(TAG, "shoppingList is empty");
+            }
         }
         Log.i(TAG, "recentShoppingListName: " + recentShoppingListName);
         for (ShoppingList shoppingList : shoppingLists) {

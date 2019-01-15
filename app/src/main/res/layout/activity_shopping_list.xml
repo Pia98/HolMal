@@ -24,12 +24,12 @@
 
         <!-- corresponds to button 9 in paper prototype-->
         <!-- Maybe not the right type for menu -->
-        <android.support.v7.widget.Toolbar
+         <android.support.v7.widget.Toolbar
             android:id="@+id/menu"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+            android:theme="@style/blueActionBar" />
 
 
         <TextView

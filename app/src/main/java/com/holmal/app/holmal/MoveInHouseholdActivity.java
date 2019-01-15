@@ -15,7 +15,10 @@ import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
+import com.holmal.app.holmal.utils.ReferencesHandling;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,6 +31,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
 
     Fragment currentFragment;
     FragmentHandling fragmentHandling = new FragmentHandling();
+    ReferencesHandling referencesHandling = new ReferencesHandling();
 
     @BindView(R.id.householdIDAsText)
     TextView householdIdAsText;
@@ -52,7 +56,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
         householdId = extras.getString("inputId");
 
         // listener fuer personen starten, gleich bei erzeugen, bevor Person gespeichert, wegen Abfragen ob bereits in Haushalt vorhanden
-        FireBaseHandling.getInstance().startPersonValueEventListener(householdId);
+        FireBaseHandling.getInstance().startPersonIDValueEventListener(householdId);
 
         householdIdAsText.setText(householdId);
 
@@ -73,9 +77,10 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
 
             // TODO check first if not taken yet in the household
             Log.i(TAG, String.format("'%s' (color: %s) wants to move in '%s'", userNameString, chosenColorId, householdId));
-            FireBaseHandling.getInstance().storeMoveInPersonInHousehold(householdId, person);
+            String personId = FireBaseHandling.getInstance().storeMoveInPersonInHousehold(householdId, person);
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
+            preferences.storePreferences(this, getString(R.string.personIDPreference), personId);
         }
     }
 
@@ -85,19 +90,20 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
      * @return if all inputs are valid
      */
     private boolean validate() {
-        List<Person> personList = FireBaseHandling.getInstance().getPersonListener().getPersonList();
-        if (checkUserName(personList)) {
-            return checkColours(personList);
+        List<String> personIDList = FireBaseHandling.getInstance().getPersonIDListener().getPersonList();
+        HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
+        ArrayList<Person> personenInCurrentHousehold = referencesHandling.getAllMembersOfOneHousehold(personIDList, personHash);
+        if (checkUserName(personenInCurrentHousehold)) {
+            return checkColours(personenInCurrentHousehold);
         } else return false;
     }
 
     /**
      * Check if userName input is valid
-     *
-     * @param personList List of all household members
+     * @param personList List of all members
      * @return if input is valid
      */
-    private boolean checkUserName(List<Person> personList) {
+    private boolean checkUserName(ArrayList<Person> personList) {
         //TODO validate Button 5
         EditText userName = (EditText) findViewById(R.id.userNameInput);
         userNameString = userName.getText().toString();
@@ -110,12 +116,13 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
     }
 
     /**
+     * TODO: check if id is in outher list
      * Check if there is a household member with the same userName
      *
      * @param personList List of all household members
      * @return if the userName is already taken
      */
-    private boolean checkUserNameTaken(List<Person> personList) {
+    private boolean checkUserNameTaken(ArrayList<Person> personList) {
         for (Person person : personList) {
             if (userNameString.equals(person.getPersonName())) {
                 Toast.makeText(getApplicationContext(), R.string.ErrorNameTaken, Toast.LENGTH_LONG).show();

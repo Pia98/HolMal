@@ -1,10 +1,12 @@
 package com.holmal.app.holmal;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,8 +18,12 @@ import android.widget.ListView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.PreferencesAccess;
+import com.holmal.app.holmal.utils.ReferencesHandling;
 import com.holmal.app.holmal.utils.SettingsAdapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -26,6 +32,7 @@ import butterknife.OnClick;
 public class SettingsActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
+    ReferencesHandling referencesHandling = new ReferencesHandling();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        setTitle(R.string.settings);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
@@ -105,7 +113,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         //show members in household
         //gets the person listener from firebase
-        List<Person> personInHousehold = FireBaseHandling.getInstance().getPersonListener().getPersonList();
+        List<String> personIDList = FireBaseHandling.getInstance().getPersonIDListener().getPersonList();
+        HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
+        ArrayList<Person> personInHousehold = referencesHandling.getAllMembersOfOneHousehold(personIDList, personHash);
 
         SettingsAdapter adapter = new SettingsAdapter(this, personInHousehold);
         ListView list = findViewById(R.id.listOfHouseholdMembers);
@@ -128,6 +138,49 @@ public class SettingsActivity extends AppCompatActivity {
 
     @OnClick(R.id.leaveHousehold)
     public void leaveHouseholdClicked(){
-        // TODO
+
+        //pop up that asks the user if they are sure
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Möchtest du wirklich den Haushalt verlassen?");
+        builder.setCancelable(true);
+        builder.setPositiveButton(
+                "Ja",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //remove member from household
+                        PreferencesAccess preferencesAccess = new PreferencesAccess();
+                        String householdID = preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.householdIDPreference));
+                        String personID = preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.personIDPreference));
+                        preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.householdIDPreference), null);
+
+                        FireBaseHandling.getInstance().removePersonFromHousehold(householdID,personID);
+                        //delete household if household is empty now
+                        List<String> personIDList = FireBaseHandling.getInstance().getPersonIDListener().getPersonList();
+                        HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
+                        ArrayList<Person> personInHousehold = referencesHandling.getAllMembersOfOneHousehold(personIDList, personHash);
+
+                        //hasn't synchronized by then so use former size - 1
+                        if(personInHousehold.size() -1 == 0){
+                            Log.e("deleteHousehold", householdID + " has been deleted");
+                            FireBaseHandling.getInstance().deleteHousehold(householdID);
+                        }
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
+                        startActivity(intentout);
+                    }
+                });
+        builder.setNegativeButton(
+                "Nein",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+
+
     }
 }

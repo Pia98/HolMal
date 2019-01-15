@@ -31,6 +31,7 @@ public class MyTasksActivity extends AppCompatActivity {
        //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
+        setTitle(R.string.myJobs);
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);

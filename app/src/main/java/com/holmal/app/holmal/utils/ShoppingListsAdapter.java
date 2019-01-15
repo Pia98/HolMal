@@ -49,21 +49,20 @@ public class ShoppingListsAdapter extends BaseAdapter {
         convertView = inflater.inflate(R.layout.single_shoppinglist_layout, parent, false);
 
         TextView nameView = (TextView) convertView.findViewById(R.id.nameOfList);
+        TextView categoryView = (TextView) convertView.findViewById(R.id.categoryOfList);
         TextView descriptionView = (TextView) convertView.findViewById(R.id.amountItemsOnList);
 
-        for(int i = 0; i< shoppinglists.size(); i++){
+            nameView.setText(shoppinglists.get(position).getListName());
 
-            nameView.setText(shoppinglists.get(i).getListName());
+            categoryView.setText(shoppinglists.get(position).getCategory());
 
-            if(shoppinglists.get(i).getItemsOfThisList()==null || shoppinglists.get(i).getItemsOfThisList().size() == 0){
-                descriptionView.setText("Keine");
-                descriptionView.append(openItems);
+            if(shoppinglists.get(position).getItemsOfThisList()==null || shoppinglists.get(position).getItemsOfThisList().length == 0){
+                descriptionView.setText("Keine offenen Items");
             }
             else {
-                descriptionView.setText(shoppinglists.get(i).getItemsOfThisList().size());
+                descriptionView.setText(shoppinglists.get(position).getItemsOfThisList().length);
                 descriptionView.append(openItems);
             }
-        }
 
         return convertView;
     }

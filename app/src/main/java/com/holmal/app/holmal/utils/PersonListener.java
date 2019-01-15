@@ -9,22 +9,26 @@ import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Person;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 public class PersonListener implements ValueEventListener {
-    List<Person> personList = new ArrayList<>();
+
+    /**
+     * listens to the person ids in household
+     */
+    //hier werden nur die Personen mit ihren von der Firebase zugeordneten ids gespeichert
+    HashMap<String, Person> personHash = new HashMap<>();
 
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        personList.clear();
-        Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
-        Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
-        while (iterator.hasNext()) {
-            Person value = iterator.next().getValue(Person.class);
-            personList.add(value);
+        personHash.clear();
+        for(DataSnapshot child : dataSnapshot.getChildren()) {
+            String id = child.getKey();
+            Person value = child.getValue(Person.class);
+            personHash.put(id, value);
         }
-        Log.i("PersonListener", "personList: " + personList);
+        Log.i("PersonListener", "personList: " + personHash.toString());
     }
 
     @Override
@@ -32,7 +36,8 @@ public class PersonListener implements ValueEventListener {
 
     }
 
-    public List<Person> getPersonList() {
-        return personList;
+
+    public HashMap<String, Person> getPersonHash() {
+        return personHash;
     }
 }
