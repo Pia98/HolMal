@@ -39,19 +39,15 @@ public class ShoppingListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-/*
-
         try {
             getCurrentShoppingList();
-            PreferencesAccess preferences = new PreferencesAccess();
-            setTitle(preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference)));
+            setTitle(currentShoppingList.getListName());
         } catch (Throwable e) {
             Log.e(TAG, "Error " + e);
             e.printStackTrace();
             setTitle(R.string.shoppingList);
         }
 
-*/
         //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
