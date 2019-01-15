@@ -1,25 +1,17 @@
 package com.holmal.app.holmal.utils;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.model.User;
-
-import java.util.ArrayList;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import com.holmal.app.holmal.utils.listener.PersonIDListener;
+import com.holmal.app.holmal.utils.listener.PersonListener;
+import com.holmal.app.holmal.utils.listener.ShoppingListListener;
 
 //Class for handling references to the firebase database
 //that are used in multiple other classes
@@ -43,14 +35,20 @@ public class FireBaseHandling {
 
     private String householdRubric = "household";
     private String personRubric = "person";
+    private String shoppingListRubric = "shoppingList";
+    private String itemRubric = "item";
 
+    /*
+    create a new household
+    returns ID of this household
+     */
     public String storeNewHousehold(Household household) {
         String storeId = reference.push().getKey();
         reference.child(householdRubric).child(storeId).setValue(household);
 
         //listener fuer personen und einkaufsliste gleich starten, wenn Haushalt erstellt wird
         startPersonIDValueEventListener(storeId);
-        startShoppingListListener(storeId);
+        //startShoppingListListener(storeId);
         startPersonValueEventListener();
 
         return storeId;
@@ -68,9 +66,14 @@ public class FireBaseHandling {
         reference.child(householdRubric).child(householdId).child("personInHousehold").child(person).removeValue();
     }
 
+    /*
+    create a person
+    returns ID of this person
+    (this ID has to be referenced in the corresponding household)
+     */
     public String storePersonOnDatabase(Person person) {
         String personId = reference.push().getKey();
-        reference.child("person/" + personId).setValue(person);
+        reference.child(personRubric).child(personId).setValue(person);
         return personId;
     }
     
@@ -96,14 +99,39 @@ public class FireBaseHandling {
         return personID;
     }
 
-    public void storeShoppingListInHousehold(String householdId, ShoppingList shoppingList){
-        reference.child(householdRubric + "/" + householdId + "/shoppingLists").push().setValue(shoppingList);
+    public void storePerson(String householdId, Person person){
+        String storeId = reference.push().getKey();
+        reference.child(personRubric).child(storeId).setValue(person);
+        reference.child(householdRubric + "/" + householdId + "/personInHousehold").push().setValue(storeId);
     }
 
+    /*
+    stores shoppingList in household...
+     */
+    public void storeShoppingListInHousehold(String householdId, ShoppingList shoppingList){
+        String storeId = reference.push().getKey();
+        reference.child(shoppingListRubric).child(storeId).setValue(shoppingList);
+        reference.child(householdRubric + "/" + householdId + "/shoppingLists").push().setValue(storeId);
+    }
+
+
+    /*
+    stores item in shoppingList in household...
+     */
     public void storeShoppingListItem(String householdId, String shoppingListId, Item item){
         reference.child(householdRubric + "/" + householdId + "/shoppingLists/" + shoppingListId + "/itemsOfThisList").push().setValue(item);
         //reference.child(householdRubric).child(householdId).child("shoppingLists").child(shoppingListId).child("itemsOfThisList").push().setValue(item);
     }
+    /*
+    was bei item zu tun ist
+     */
+    /*
+    public String storeItem(String shoppingListId, Item item){
+        String storeId = reference.push().getKey();
+        reference.child(itemRubric).child(storeId).setValue(item);
+        reference.child(shoppingListRubric + shoppingListId + "/itemsOfThisList").push().setValue(storeId);
+        return storeId;
+    }*/
 
 
     // registriere listener unter household/id/personenInHousehold
