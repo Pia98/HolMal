@@ -48,7 +48,7 @@ public class FireBaseHandling {
 
         //listener fuer personen und einkaufsliste gleich starten, wenn Haushalt erstellt wird
         startPersonIDValueEventListener(storeId);
-        //startShoppingListListener(storeId);
+        startShoppingListListener(storeId);
         startPersonValueEventListener();
 
         return storeId;
@@ -149,8 +149,9 @@ public class FireBaseHandling {
 
     private void startShoppingListListener(String householdId){
         Log.i("FireBaseHandling", "shoppingListListener started (householdId: " + householdId + ")");
-        reference.child(householdRubric + "/" + householdId + "/shoppingLists")
-                .addValueEventListener(shoppingListListener);
+//        reference.child(householdRubric + "/" + householdId + "/shoppingLists")
+//                .addValueEventListener(shoppingListListener);
+        reference.child(shoppingListRubric).addValueEventListener(shoppingListListener);
     }
 
     public PersonIDListener getPersonIDListener() {
