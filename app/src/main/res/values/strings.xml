@@ -41,6 +41,10 @@
 
     <string name="shoppingList">Einkaufszettel</string>
 
+    <!--ShoppingListActivity-->
+    <string name="noOpenItems">Keine offenen Items</string>
+    <string name="openItems">offene Items</string>
+
     <string name="createShoppingListHeader">Neuen Einkaufszettel erstellen:</string>
     <string name="shoppingListName">Bezeichnung</string>
     <string name="category">Kategorie</string>
