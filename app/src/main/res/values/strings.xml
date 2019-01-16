@@ -85,8 +85,20 @@
 
     <!-- TODO raus schmeissen, nur zum testen fuer ShoppingList Kategorie -->
     <string-array name="spinner">
-        <item>eins</item>
-        <item>zwei</item>
+        <item></item>
+        <item>Apotheke</item>
+        <item>Bäcker</item>
+        <item>Baumarkt</item>
+        <item>Biomarkt</item>
+        <item>Drogerie</item>
+        <item>Elektronikgeschäft</item>
+        <item>Gärtnerei</item>
+        <item>Gemüsemarkt</item>
+        <item>Markt</item>
+        <item>Metzger</item>
+        <item>Rund ums Tier</item>
+        <item>Schreibwaren</item>
+        <item>Supermarkt</item>
     </string-array>
 
 

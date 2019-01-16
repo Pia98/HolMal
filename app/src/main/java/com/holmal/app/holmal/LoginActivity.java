@@ -20,6 +20,11 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.holmal.app.holmal.model.Person;
+import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.ReferencesHandling;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +35,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
 
     FirebaseAuth fireAuth;
     FirebaseDatabase database;
+    ReferencesHandling referencesHandling = new ReferencesHandling();
 
     @BindView(R.id.emailInput)
     EditText emailInput;
@@ -69,6 +75,8 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
 
         passwortInputWdh.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
+
+        FireBaseHandling.getInstance().startPersonValueEventListener();
     }
 
     @Override
@@ -95,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
 
     @OnClick(R.id.loginButton)
     public void login(){
-        String email = emailInput.getText().toString();
+        final String email = emailInput.getText().toString();
         String password = passwordInput.getText().toString();
         if(validate()){
             progressBar.setVisibility(View.VISIBLE);
@@ -104,12 +112,17 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Log.i(MainActivity.class.getName(), "Login successful");
+                        Log.i(LoginActivity.class.getName(), "Login successful");
+                        HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
+                        Person person = referencesHandling.findPersonWithEmail(email, personHash);
+                        if(person != null) {
+                            Toast.makeText(getApplicationContext(), person.toString(), Toast.LENGTH_SHORT).show();
+                        }
                         finish();}
                     else {
                         progressBar.setVisibility(View.INVISIBLE);
                         errorMessage2.setText(R.string.ErrorLoginFailed);
-                        Log.e(MainActivity.class.getName(), "Login failed");
+                        Log.e(LoginActivity.class.getName(), "Login failed");
                     }
                 }
             });
@@ -129,13 +142,13 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            Log.i(MainActivity.class.getName(), "Registration successful");
+                            Log.i(LoginActivity.class.getName(), "Registration successful");
                         }
                         else{
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                 errorMessage1.setText(R.string.ErrorLoginAlreadyExists);
                             }
-                            Log.e(MainActivity.class.getName(), "Registration failed: "+  task.getException().getMessage());
+                            Log.e(LoginActivity.class.getName(), "Registration failed: "+  task.getException().getMessage());
                             progressBar.setVisibility(View.INVISIBLE);
                         }
                     }
