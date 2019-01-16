@@ -91,6 +91,7 @@ public class FireBaseHandling {
                     personID = storePersonOnDatabase(householdId, person);
                     // listener fuer einkaufsliste starten, wenn beitretende Person erfolgreich gespeichert wurde
                     startShoppingListListener(householdId);
+                    startItemListener();
                 //}
           //  }
 
@@ -178,6 +179,7 @@ public class FireBaseHandling {
         startPersonIDValueEventListener(householdId);
         startShoppingListListener(householdId);
         startPersonValueEventListener();
+        startItemListener();
     }
 /*
     public void initializeShoppingList(String householdId){
