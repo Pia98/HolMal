@@ -1,11 +1,16 @@
 package com.holmal.app.holmal.utils;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.model.ShoppingList;
 

@@ -1,6 +1,7 @@
 package com.holmal.app.holmal;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -26,6 +27,8 @@ import com.holmal.app.holmal.utils.ItemsAdapter;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.ShoppingListListener;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -37,6 +40,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     com.holmal.app.holmal.model.ShoppingList currentShoppingList;
+    List<ShoppingList> shoppingListList = new ArrayList<>();
     Item[] items;
 
     @Override
@@ -136,6 +140,9 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
         Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
+        Log.i("fürSvenja", "interner Listener: " + shoppingListList);
+
+     /**   ShoppingListListener newListener = FireBaseHandling.getInstance().getShoppingListListener();
 
         List<ShoppingList> filledList = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
         if(filledList.isEmpty()){
@@ -148,7 +155,7 @@ public class ShoppingListActivity extends AppCompatActivity {
        //TODO auskommentieren um items anzuzeigen, wenn liste der listen nicht [] ist
         ItemsAdapter adapter = new ItemsAdapter(this, items);
         ListView list = findViewById(R.id.list);
-        list.setAdapter(adapter);}
+        list.setAdapter(adapter);}*/
 
         /**
          * //handles click on item to see detailed information
@@ -225,4 +232,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CreateItemActivity.class);
         startActivity(intent);
     }
+    
+
+
 }
