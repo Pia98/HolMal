@@ -8,10 +8,18 @@ public class ShoppingList {
     private ArrayList<Item> itemsOfThisList;
     private String category;
 
+    private String idBelongingTo;
+
     // das Element wird nicht in DB gespeichert, dient nur dazu DB Id in App zu transportieren
     private transient String storeId;
 
     public ShoppingList() {
+    }
+
+    public ShoppingList(String listName, String category, String idBelongingTo) {
+        this.listName = listName;
+        this.category = category;
+        this.idBelongingTo = idBelongingTo;
     }
 
     public ShoppingList(String listName, String category) {
@@ -58,12 +66,21 @@ public class ShoppingList {
         this.storeId = storeId;
     }
 
+    public String getIdBelongingTo() {
+        return idBelongingTo;
+    }
+
+    public void setIdBelongingTo(String idBelongingTo) {
+        this.idBelongingTo = idBelongingTo;
+    }
+
     @Override
     public String toString() {
         return "ShoppingList{" +
                 "listName='" + listName + '\'' +
                 ", itemsOfThisList=" + itemsOfThisList +
                 ", category='" + category + '\'' +
+                ", idBelongingTo='" + idBelongingTo + '\'' +
                 ", storeId='" + storeId + '\'' +
                 '}';
     }

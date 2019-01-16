@@ -2,13 +2,13 @@ package com.holmal.app.holmal;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -19,20 +19,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
-import com.holmal.app.holmal.utils.ReferencesHandling;
 import com.holmal.app.holmal.utils.SettingsAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    String householdId;
     private DrawerLayout mDrawerLayout;
-    ReferencesHandling referencesHandling = new ReferencesHandling();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,9 +112,20 @@ public class SettingsActivity extends AppCompatActivity {
 
         //show members in household
         //gets the person listener from firebase
-        List<String> personIDList = FireBaseHandling.getInstance().getPersonIDListener().getPersonList();
         HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
-        ArrayList<Person> personInHousehold = referencesHandling.getAllMembersOfOneHousehold(personIDList, personHash);
+        ArrayList<Person> personInHousehold = new ArrayList<>();
+        String[] keys = personHash.keySet().toArray(new String[personHash.size()]);
+
+        PreferencesAccess preferencesAccess = new PreferencesAccess();
+        householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
+
+        for(int i = 0; i < personHash.size(); i++){
+            Person person = personHash.get(keys[i]);
+            if(person.getIdBelongingTo().equals(householdId)){
+                personInHousehold.add(person);
+            }
+        }
+
 
         SettingsAdapter adapter = new SettingsAdapter(this, personInHousehold);
         ListView list = findViewById(R.id.listOfHouseholdMembers);
@@ -155,10 +165,16 @@ public class SettingsActivity extends AppCompatActivity {
 
                         FireBaseHandling.getInstance().removePersonFromHousehold(householdID,personID);
                         //delete household if household is empty now
-                        List<String> personIDList = FireBaseHandling.getInstance().getPersonIDListener().getPersonList();
                         HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
-                        ArrayList<Person> personInHousehold = referencesHandling.getAllMembersOfOneHousehold(personIDList, personHash);
+                        ArrayList<Person> personInHousehold = new ArrayList<>();
+                        String[] keys = personHash.keySet().toArray(new String[personHash.size()]);
 
+                        for(int i = 0; i < personHash.size(); i++){
+                            Person person = personHash.get(keys[i]);
+                            if(person.getIdBelongingTo().equals(householdId)){
+                                personInHousehold.add(person);
+                            }
+                        }
                         //hasn't synchronized by then so use former size - 1
                         if(personInHousehold.size() -1 == 0){
                             Log.e("deleteHousehold", householdID + " has been deleted");

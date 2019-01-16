@@ -94,7 +94,18 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
     private boolean validate() {
         List<String> personIDList = FireBaseHandling.getInstance().getPersonIDListener().getPersonList();
         HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
-        ArrayList<Person> personenInCurrentHousehold = referencesHandling.getAllMembersOfOneHousehold(personIDList, personHash);
+        //ArrayList<Person> personenInCurrentHousehold = referencesHandling.getAllMembersOfOneHousehold(personIDList, personHash);
+        ArrayList<Person> personenInCurrentHousehold = new ArrayList<>();
+        String[] keys = personHash.keySet().toArray(new String[personHash.size()]);
+
+        for(int i = 0; i < personHash.size(); i++){
+            Person person = personHash.get(keys[i]);
+            if(person.getIdBelongingTo().equals(householdId)){
+                personenInCurrentHousehold.add(person);
+            }
+        }
+
+
         if (checkUserName(personenInCurrentHousehold)) {
             return checkColours(personenInCurrentHousehold);
         } else return false;
