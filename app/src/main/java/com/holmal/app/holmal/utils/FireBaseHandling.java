@@ -126,13 +126,12 @@ public class FireBaseHandling {
     /*
     was bei item zu tun ist
      */
-    /*
     public String storeItem(String shoppingListId, Item item){
         String storeId = reference.push().getKey();
         reference.child(itemRubric).child(storeId).setValue(item);
-        reference.child(shoppingListRubric + shoppingListId + "/itemsOfThisList").push().setValue(storeId);
+        reference.child(shoppingListRubric + "/" + shoppingListId + "/itemsOfThisList").push().setValue(storeId);
         return storeId;
-    }*/
+    }
 
 
     // registriere listener unter household/id/personenInHousehold

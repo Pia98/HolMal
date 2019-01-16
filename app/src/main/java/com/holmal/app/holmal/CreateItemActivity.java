@@ -55,7 +55,8 @@ public class CreateItemActivity extends AppCompatActivity {
             //TODO implement functionality aka actually add item to list
 
             Item item = new Item(itemName, quantity, important, favorite, additionalInfo);
-            FireBaseHandling.getInstance().storeShoppingListItem(householdId, shoppingListId, item);
+            //FireBaseHandling.getInstance().storeShoppingListItem(householdId, shoppingListId, item);
+            FireBaseHandling.getInstance().storeItem(shoppingListId, item);
 
             //maybe also check whether item is a favourite here and add to favourites
 
