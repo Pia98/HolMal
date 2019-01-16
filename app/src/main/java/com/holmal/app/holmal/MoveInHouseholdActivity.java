@@ -71,7 +71,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
         if (validate()) {
             PreferencesAccess preferences = new PreferencesAccess();
 
-            Person person = new Person(userNameString, chosenColorId);
+            Person person = new Person(userNameString, chosenColorId, householdId);
 
             // TODO check first if not taken yet in the household
             Log.i(TAG, String.format("'%s' (color: %s) wants to move in '%s'", userNameString, chosenColorId, householdId));

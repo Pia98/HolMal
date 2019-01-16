@@ -81,12 +81,12 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
 //            ArrayList<ShoppingList> shoppingLists = new ArrayList<>();
 //            shoppingLists.add(defaultList);
             // create household with name, persons, defaultShoppingList
-            Person newPerson = new Person(userNameString, chosenColorId);
 //            personId = FireBaseHandling.getInstance().storePersonOnDatabase(newPerson);
 //            personList.add(personId);
 
             Household household = new Household(houseHoldNameString);
             householdId = FireBaseHandling.getInstance().storeNewHousehold(household);
+            Person newPerson = new Person(userNameString, chosenColorId, householdId);
             String personId = FireBaseHandling.getInstance().storePersonOnDatabase(householdId, newPerson);
             FireBaseHandling.getInstance().storeShoppingListInHousehold(householdId, defaultList);
             // HaushaltID in preferences speichern

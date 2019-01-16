@@ -77,7 +77,6 @@ public class FireBaseHandling {
     public String storePersonOnDatabase(String householdId, Person person) {
         String storeId = reference.push().getKey();
         reference.child(personRubric).child(storeId).setValue(person);
-        reference.child(householdRubric + "/" + householdId + "/personInHousehold").push().setValue(storeId);
         return storeId;
     }
     

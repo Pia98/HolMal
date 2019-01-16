@@ -8,6 +8,14 @@ public class Person {
     /**@color */
     private int color;
 
+    private String idBelongingTo;
+
+    public Person(String personName, int color, String idBelongingTo) {
+        this.personName = personName;
+        this.color = color;
+        this.idBelongingTo = idBelongingTo;
+    }
+
     public Person(String personName, int color){
         this.personName = personName;
         this.color = color;
@@ -32,11 +40,20 @@ public class Person {
         this.color = color;
     }
 
+    public String getIdBelongingTo() {
+        return idBelongingTo;
+    }
+
+    public void setIdBelongingTo(String idBelongingTo) {
+        this.idBelongingTo = idBelongingTo;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
                 "personName='" + personName + '\'' +
                 ", color=" + color +
+                ", idBelongingTo='" + idBelongingTo + '\'' +
                 '}';
     }
 }
