@@ -1,12 +1,12 @@
 package com.holmal.app.holmal;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -19,10 +19,11 @@ import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.ShoppingListsAdapter;
 
-import java.util.List;
+import java.util.HashMap;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 //Overview over all the shopping lists
 public class AllShoppingListsActivity extends AppCompatActivity {
 
@@ -56,18 +57,17 @@ public class AllShoppingListsActivity extends AppCompatActivity {
 
                         // Add code here to update the UI based on the item selected
                         //if my assignments is pressed in the menu you will be lead there
-                        if(menuItem.getItemId() == R.id.nav_my_tasks){
+                        if (menuItem.getItemId() == R.id.nav_my_tasks) {
                             Intent intentT = new Intent(AllShoppingListsActivity.this, MyTasksActivity.class);
                             startActivity(intentT);
                             return true;
-                        }
-                        else if (menuItem.getItemId()==R.id.nav_settings){
+                        } else if (menuItem.getItemId() == R.id.nav_settings) {
                             Intent intentLists = new Intent(AllShoppingListsActivity.this, SettingsActivity.class);
                             startActivity(intentLists);
                             return true;
                         }
                         //Logout
-                        else if (menuItem.getItemId()==R.id.logout){
+                        else if (menuItem.getItemId() == R.id.logout) {
                             Log.i("TAG", "Logout button clicked");
                             FirebaseAuth.getInstance().signOut();
                             Intent intentout = new Intent(AllShoppingListsActivity.this, LoginActivity.class);
@@ -105,7 +105,7 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         );
 
         //fill with lists with an adapter
-        List<ShoppingList> shoppingLists = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
+        HashMap<String, ShoppingList> shoppingLists = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
         ShoppingListsAdapter adapter = new ShoppingListsAdapter(this, shoppingLists);
         GridView lists = findViewById(R.id.allShoppingLists);
         lists.setAdapter(adapter);
@@ -135,15 +135,12 @@ public class AllShoppingListsActivity extends AppCompatActivity {
     }
 
 
-
-
     //Button that leads to screen 13
     @OnClick(R.id.addShoppingList)
-    public void addShoppingListClicked(){
+    public void addShoppingListClicked() {
         Intent intent = new Intent(this, CreateShoppingListActivity.class);
         startActivity(intent);
     }
-
 
 
 }

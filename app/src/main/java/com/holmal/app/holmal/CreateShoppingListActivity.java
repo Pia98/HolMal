@@ -12,7 +12,7 @@ import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 
-import java.util.List;
+import java.util.HashMap;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -76,7 +76,7 @@ public class CreateShoppingListActivity extends AppCompatActivity {
         Spinner category = (Spinner) findViewById(R.id.shoppingListCategoryDropDown);
         shoppingListCategoryString = category.getSelectedItem().toString();
 
-        List<ShoppingList> shoppingLists =
+        HashMap<String, ShoppingList> shoppingLists =
                 FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
 
         if (!shoppingListNameString.isEmpty()) {
@@ -94,8 +94,8 @@ public class CreateShoppingListActivity extends AppCompatActivity {
      * @param shoppingLists List of all shoppingLists
      * @return if the shoppingList name is already taken
      */
-    private boolean checkListNameTaken(List<ShoppingList> shoppingLists) {
-        for (ShoppingList shoppingList : shoppingLists) {
+    private boolean checkListNameTaken(HashMap<String, ShoppingList> shoppingLists) {
+        /*for (ShoppingList shoppingList : shoppingLists) {
             if (shoppingListNameString.equals(shoppingList.getListName())) {
                 Log.i(TAG, "name already taken");
                 Toast.makeText(getApplicationContext(), R.string.ErrorListNameTaken, Toast.LENGTH_LONG).show();
@@ -103,6 +103,18 @@ public class CreateShoppingListActivity extends AppCompatActivity {
             } else {
                 Log.i(TAG, String.format("shoppingList names: '%s', '%s' (entered list name)",
                         shoppingList.getListName(), shoppingListNameString));
+            }
+        }*/
+        for (int i = 0; i < shoppingLists.size(); i++) {
+            String[] keys = shoppingLists.keySet().toArray(new String[shoppingLists.size()]);
+            String name = shoppingLists.get(keys[i]).getListName();
+            if (shoppingListNameString.equals(name)) {
+                Log.i(TAG, "name already taken");
+                Toast.makeText(getApplicationContext(), R.string.ErrorListNameTaken, Toast.LENGTH_LONG).show();
+                return false;
+            } else {
+                Log.i(TAG, String.format("shoppingList names: '%s', '%s' (entered list name)",
+                        name, shoppingListNameString));
             }
         }
         Log.i("CrateShoppingList", "all right");
