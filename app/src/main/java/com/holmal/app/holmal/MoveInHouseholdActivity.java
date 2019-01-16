@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
@@ -32,6 +33,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
     Fragment currentFragment;
     FragmentHandling fragmentHandling = new FragmentHandling();
     ReferencesHandling referencesHandling = new ReferencesHandling();
+    FirebaseAuth fireAuth;
 
     @BindView(R.id.householdIDAsText)
     TextView householdIdAsText;
@@ -60,6 +62,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
 
         householdIdAsText.setText(householdId);
 
+        fireAuth = FirebaseAuth.getInstance();
     }
 
     /**
@@ -71,7 +74,8 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
         if (validate()) {
             PreferencesAccess preferences = new PreferencesAccess();
 
-            Person person = new Person(userNameString, chosenColorId);
+            String currentEmail = fireAuth.getCurrentUser().getEmail();
+            Person person = new Person(userNameString, chosenColorId, currentEmail);
             Intent intent = new Intent(this, ShoppingListActivity.class); // decide if main (screen 11) or screen 5 (shoppingList), then change here
             startActivity(intent);
 
