@@ -72,8 +72,6 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
             PreferencesAccess preferences = new PreferencesAccess();
 
             Person person = new Person(userNameString, chosenColorId);
-            Intent intent = new Intent(this, ShoppingListActivity.class); // decide if main (screen 11) or screen 5 (shoppingList), then change here
-            startActivity(intent);
 
             // TODO check first if not taken yet in the household
             Log.i(TAG, String.format("'%s' (color: %s) wants to move in '%s'", userNameString, chosenColorId, householdId));
@@ -81,6 +79,10 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
             preferences.storePreferences(this, getString(R.string.personIDPreference), personId);
+
+            // activity erst starten wenn Speicherung vorgenommen wurde
+            Intent intent = new Intent(this, AllShoppingListsActivity.class);
+            startActivity(intent);
         }
     }
 
