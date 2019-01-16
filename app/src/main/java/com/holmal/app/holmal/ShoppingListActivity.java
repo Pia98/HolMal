@@ -2,6 +2,7 @@ package com.holmal.app.holmal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,10 +14,16 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -39,7 +46,8 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         try {
             getCurrentShoppingList();
-            setTitle(currentShoppingList.getListName());
+            PreferencesAccess preferences = new PreferencesAccess();
+            setTitle(preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference)));
         } catch (Throwable e) {
             Log.e(TAG, "Error " + e);
             e.printStackTrace();
@@ -150,8 +158,32 @@ public class ShoppingListActivity extends AppCompatActivity {
         PreferencesAccess preferences = new PreferencesAccess();
         String householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
         String recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
-        List<ShoppingList> shoppingLists =
-                FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
+        //List<ShoppingList> shoppingLists =
+        //        FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
+        final List<ShoppingList> shoppingLists = new ArrayList<>();
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                shoppingLists.clear();
+                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+                Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
+                while (iterator.hasNext()) {
+                    DataSnapshot snapshot = iterator.next();
+                    ShoppingList value = snapshot.getValue(ShoppingList.class);
+                    value.setStoreId(snapshot.getKey());
+                    shoppingLists.add(value);
+                }
+                Log.i("ShoppingListActivity", "onDataChange shoppingListList: " + shoppingLists);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(listener);
+
+
         Log.i(TAG, "shoppingLists " + shoppingLists);
         if (shoppingLists.isEmpty()) {
             Log.i(TAG, "shoppingList is empty");
