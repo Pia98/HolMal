@@ -87,7 +87,7 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
 
             Household household = new Household(houseHoldNameString);
             householdId = FireBaseHandling.getInstance().storeNewHousehold(household);
-            String personId = FireBaseHandling.getInstance().storePerson(householdId, newPerson);
+            String personId = FireBaseHandling.getInstance().storePersonOnDatabase(householdId, newPerson);
             FireBaseHandling.getInstance().storeShoppingListInHousehold(householdId, defaultList);
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);

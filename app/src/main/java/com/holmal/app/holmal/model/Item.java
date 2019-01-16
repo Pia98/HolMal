@@ -11,6 +11,10 @@ public class Item {
     private boolean done;
     private int timeDone;
 
+    // das Element wird nicht in DB gespeichert, dient nur dazu DB Id in App zu transportieren
+    private transient String storeId;
+
+
     public Item() {
     }
 
@@ -95,5 +99,13 @@ public class Item {
 
     public void setTimeDone(int timeDone) {
         this.timeDone = timeDone;
+    }
+
+    public String getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
     }
 }
