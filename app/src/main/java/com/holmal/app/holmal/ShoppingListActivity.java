@@ -130,6 +130,20 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
         );
 
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.openItemsTab) {
+                //check items that are on list and not done
+                //give this list to adapter and set adapter
+                    getCurrentShoppingList();
+                } else if (id == R.id.doneItemsTab) {
+                //check items that are on list and done
+                //give resulting list to adapter
+                }
+                return true;
+            }});
 
         Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
         //fill List with the items with an adapter

@@ -40,10 +40,12 @@
              app:tabSelectedTextColor="#ffffff">
 
              <android.support.design.widget.TabItem
+                 android:id="@+id/openItemsTab"
                  android:text="@string/openItemsTabs"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"/>
              <android.support.design.widget.TabItem
+                 android:id="@+id/doneItemsTab"
                  android:text="@string/doneItemsTabs"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"/>
