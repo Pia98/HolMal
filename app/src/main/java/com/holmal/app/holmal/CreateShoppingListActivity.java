@@ -55,7 +55,7 @@ public class CreateShoppingListActivity extends AppCompatActivity {
     public void createShoppingListClicked() {
         if (validate()) {
             ShoppingList shoppingList = new ShoppingList(shoppingListNameString, shoppingListCategoryString, householdId);
-            FireBaseHandling.getInstance().storeShoppingListInHousehold(householdId, shoppingList);
+            FireBaseHandling.getInstance().storeShoppingList(householdId, shoppingList);
             Log.i(TAG, String.format("store shoppingList with name: '%s' and category: '%s'",
                     shoppingListNameString, shoppingListCategoryString));
 

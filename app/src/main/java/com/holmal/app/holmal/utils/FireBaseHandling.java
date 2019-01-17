@@ -40,10 +40,7 @@ public class FireBaseHandling {
     private String shoppingListRubric = "shoppingList";
     private String itemRubric = "item";
 
-    /*
-    create a new household
-    returns ID of this household
-     */
+
     public String storeNewHousehold(Household household) {
         String storeId = reference.push().getKey();
         reference.child(householdRubric).child(storeId).setValue(household);
@@ -69,25 +66,20 @@ public class FireBaseHandling {
         reference.child(householdRubric).child(householdId).child("personInHousehold").child(person).removeValue();
     }
 
-    /*
-    create a person
-    returns ID of this person
-    (this ID has to be referenced in the corresponding household)
-     */
-    public String storePersonOnDatabase(String householdId, Person person) {
+    public String storePerson(String householdId, Person person) {
         String storeId = reference.push().getKey();
         reference.child(personRubric).child(storeId).setValue(person);
         return storeId;
     }
     
-    public String storeMoveInPersonInHousehold(final String householdId, final Person person){
+    public String storeMoveInPerson(final String householdId, final Person person){
         String personID;
         //check if household with given id exists
         //reference.addListenerForSingleValueEvent(new ValueEventListener() {
           //  @Override
             //public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
               //  if(dataSnapshot.child(householdRubric + "/" + householdId).exists()){
-                    personID = storePersonOnDatabase(householdId, person);
+                    personID = storePerson(householdId, person);
                     // listener fuer einkaufsliste starten, wenn beitretende Person erfolgreich gespeichert wurde
                     startShoppingListListener(householdId);
                     startItemListener();
@@ -102,25 +94,13 @@ public class FireBaseHandling {
         return personID;
     }
 
-    /*
-    stores shoppingList in household...
-     */
-    public void storeShoppingListInHousehold(String householdId, ShoppingList shoppingList){
+
+    public void storeShoppingList(String householdId, ShoppingList shoppingList){
         String storeId = reference.push().getKey();
         reference.child(shoppingListRubric).child(storeId).setValue(shoppingList);
     }
 
 
-    /*
-    stores item in shoppingList in household...
-     */
-    public void storeShoppingListItem(String householdId, String shoppingListId, Item item){
-        reference.child(householdRubric + "/" + householdId + "/shoppingLists/" + shoppingListId + "/itemsOfThisList").push().setValue(item);
-        //reference.child(householdRubric).child(householdId).child("shoppingLists").child(shoppingListId).child("itemsOfThisList").push().setValue(item);
-    }
-    /*
-    was bei item zu tun ist
-     */
     public String storeItem(String shoppingListId, Item item){
         String storeId = reference.push().getKey();
         reference.child(itemRubric).child(storeId).setValue(item);

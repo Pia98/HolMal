@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
@@ -19,8 +18,6 @@ import com.holmal.app.holmal.model.User;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
-
-import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -80,17 +77,17 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
 //            ArrayList<ShoppingList> shoppingLists = new ArrayList<>();
 //            shoppingLists.add(defaultList);
             // create household with name, persons, defaultShoppingList
-//            personId = FireBaseHandling.getInstance().storePersonOnDatabase(newPerson);
+//            personId = FireBaseHandling.getInstance().storePerson(newPerson);
 //            personList.add(personId);
 
             Household household = new Household(houseHoldNameString);
             householdId = FireBaseHandling.getInstance().storeNewHousehold(household);
 
             Person newPerson = new Person(userNameString, chosenColorId, householdId);
-            String personId = FireBaseHandling.getInstance().storePersonOnDatabase(householdId, newPerson);
+            String personId = FireBaseHandling.getInstance().storePerson(householdId, newPerson);
 
             ShoppingList defaultList = new ShoppingList(getString(R.string.defaultShoppingList), category, householdId);
-            FireBaseHandling.getInstance().storeShoppingListInHousehold(householdId, defaultList);
+            FireBaseHandling.getInstance().storeShoppingList(householdId, defaultList);
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
             preferences.storePreferences(this, getString(R.string.recentShoppingListNamePreference), defaultList.getListName());
