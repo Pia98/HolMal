@@ -36,7 +36,8 @@
              android:id="@+id/tabs"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:theme="@style/blueTabsBar">
+             android:theme="@style/blueTabsBar"
+             app:tabSelectedTextColor="#ffffff">
 
              <android.support.design.widget.TabItem
                  android:text="@string/openItemsTabs"
