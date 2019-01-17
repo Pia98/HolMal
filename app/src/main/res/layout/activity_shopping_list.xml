@@ -15,12 +15,14 @@
         android:layout_height="match_parent"
         tools:context=".ShoppingListActivity">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/top"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toEndOf="@+id/leftMargin">
-        <!-- Using a guideline here seems not to work -->
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+            <android.support.design.widget.AppBarLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:fitsSystemWindows="true"
+                android:id="@+id/appBar_layout">
 
         <!-- corresponds to button 9 in paper prototype-->
          <android.support.v7.widget.Toolbar
@@ -30,13 +32,39 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/blueActionBar" />
 
-    </android.support.constraint.ConstraintLayout>
+         <android.support.design.widget.TabLayout
+             android:id="@+id/tabs"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:theme="@style/blueTabsBar"
+             app:tabSelectedTextColor="#ffffff">
+
+             <android.support.design.widget.TabItem
+                 android:id="@+id/openItemsTab"
+                 android:text="@string/openItemsTabs"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+             <android.support.design.widget.TabItem
+                 android:id="@+id/doneItemsTab"
+                 android:text="@string/doneItemsTabs"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+
+         </android.support.design.widget.TabLayout>
+        </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
+
+        </android.support.design.widget.CoordinatorLayout>
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/toolbarHight"
-           >
+            android:layout_marginTop="@dimen/tabsUtoolbarHight">
 
             <ListView
                 android:id="@+id/list"
@@ -56,113 +84,8 @@
             android:background="@android:color/transparent"
            />
 
-
-
-
-
-        <!-- Guidelines -->
-
-        <android.support.constraint.Guideline
-            android:id="@+id/leftMargin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.03" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/topMargin"
-            android:layout_width="165dp"
-            android:layout_height="79dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.03" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/rightMargin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.97" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/bottomMargin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.97" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/centerLineHorizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/centerLineVertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/quarterLineLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.25" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/quarterLineRigth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.75" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/quarterLineTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.25" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/quarterLineBottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.75" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/thirdLineTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.33333" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/thirdLineBottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.66666" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/thirdLineLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.33333" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/thirdLineRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.66666" />
-
     </FrameLayout>
 
-    
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

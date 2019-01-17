@@ -1,11 +1,15 @@
 package com.holmal.app.holmal.ui.registrationfragment1;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,8 @@ import com.holmal.app.holmal.ShoppingListActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.support.v4.content.ContextCompat.getSystemService;
 
 public class RegistrationFragment1 extends Fragment {
 
@@ -57,6 +63,33 @@ public class RegistrationFragment1 extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    //Haushalts ID in die Zwischenablage (ClipData)
+    @OnClick (R.id.copy)
+    public void copyHouseholdId(){
+
+        ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        String householdId = this.getArguments().getString("householdId");
+        ClipData clipData = ClipData.newPlainText("Hol Mal household id", householdId);
+        clipboardManager.setPrimaryClip(clipData);
+
+    }
+
+    //invite someone to your household
+    @OnClick (R.id.invite)
+    public void inviteToApp(){
+        try{
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Hol Mal");
+        String householdId = this.getArguments().getString("householdId");
+        String message = getArguments().getString("inviteExplanation") + householdId + "\"https://play.google.com/store/apps/details?id=\"" + getActivity().getPackageName();
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        startActivity(Intent.createChooser(intent, "Share via"));
+        }
+        catch (Exception e){
+            Log.i("Exception", "Invite failed " + e.toString());
+        }
+    }
     @OnClick(R.id.registrationCreateDone)
     public void registrationCreateButtonDoneClick(){
         Intent intent = new Intent(getActivity(), ShoppingListActivity.class); // decide if main (screen 11) or screen 5 (shoppingList), then change here

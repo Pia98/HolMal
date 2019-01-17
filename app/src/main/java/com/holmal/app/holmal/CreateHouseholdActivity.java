@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
@@ -52,7 +53,7 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
 
     PreferencesAccess preferences = new PreferencesAccess();
 
-
+    FirebaseAuth fireAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,24 +66,28 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
                 getSupportFragmentManager(),
                 R.id.fragmentContainerCreateHousehold);
 
+        fireAuth = FirebaseAuth.getInstance();
     }
 
     @OnClick(R.id.createHouseholdDone)
     public void createHouseholdDoneClick() {
         if (validate()) {
             // create list to store all household members. Started with person that has created
-            Person admin = new Person(userNameString, chosenColorId);
-            ArrayList<Person> personList = new ArrayList<>();
-            personList.add(admin);
+            ArrayList<String> personList = new ArrayList<>();
             // create default ShoppingListActivity when household created
             String category = null;
             ShoppingList defaultList = new ShoppingList(getString(R.string.defaultShoppingList), category);
             ArrayList<ShoppingList> shoppingLists = new ArrayList<>();
             shoppingLists.add(defaultList);
+
+            String currentEmail = fireAuth.getCurrentUser().getEmail();
             // create household with name, persons, defaultShoppingList
+            Person newPerson = new Person(userNameString, chosenColorId, currentEmail);
+            personId = FireBaseHandling.getInstance().storePersonOnDatabase(newPerson);
+            personList.add(personId);
+
             Household household = new Household(houseHoldNameString, personList, shoppingLists);
             householdId = FireBaseHandling.getInstance().storeNewHousehold(household);
-            personId = FireBaseHandling.getInstance().storePersonOnDatabase(userNameString, chosenColorId);
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
             preferences.storePreferences(this, getString(R.string.recentShoppingListNamePreference), defaultList.getListName());
@@ -93,10 +98,7 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
             Log.i(TAG, "householdID: " + householdId);
 
 
-            Log.i(TAG, "store person: name - " + userNameString + ", color - " + chosenColorId);
-            // speichert eine Person mit Username und Farbe auf Datenbank
-            // todo not needed anymore
-            FireBaseHandling.getInstance().storePersonOnDatabase(userNameString, chosenColorId);
+            Log.i(TAG, "store person: name - " + userNameString + ", color - " + chosenColorId + ", email - " + currentEmail);
 
             Intent intent = new Intent(this, RegistrationActivity.class);
             // RegistrationFragment1 has to be drawn

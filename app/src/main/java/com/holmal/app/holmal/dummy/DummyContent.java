@@ -21,7 +21,7 @@ public abstract class DummyContent {
     public Household dummyHaushalt;
 
     public Household getDummyHaushalt() {
-        dummyHaushalt = new Household("dummyHaushalt", new ArrayList<Person>());
+        dummyHaushalt = new Household("dummyHaushalt", new ArrayList<String>());
         return dummyHaushalt;
     }
 
@@ -30,7 +30,7 @@ public abstract class DummyContent {
     }
 
     public Person getLukas() {
-        lukas = new Person("Lukas", 1);
+        lukas = new Person("Lukas", 1, "dummy@email.de");
         //lukas.addHaushalt(dummyHaushalt);
         return lukas;
     }
