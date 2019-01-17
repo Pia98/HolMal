@@ -21,6 +21,10 @@
     <!-- Familienmitglieder einladen -->
     <string name="moveInWithID">Haushalt über ID beitreten</string>
 
+    <string name="openItemsTabs">offen</string>
+    <string name="doneItemsTabs">erledigt</string>
+
+
     <string name="username">Benutzername</string>
     <string name="color">Farbe</string>
 

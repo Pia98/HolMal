@@ -2,7 +2,9 @@ package com.holmal.app.holmal;
 
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -56,6 +58,11 @@ public class ShoppingListActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
+
+        //tab layout for open and done items
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
