@@ -54,7 +54,7 @@ public class CreateShoppingListActivity extends AppCompatActivity {
     @OnClick(R.id.createShoppingList)
     public void createShoppingListClicked() {
         if (validate()) {
-            ShoppingList shoppingList = new ShoppingList(shoppingListNameString, shoppingListCategoryString);
+            ShoppingList shoppingList = new ShoppingList(shoppingListNameString, shoppingListCategoryString, householdId);
             FireBaseHandling.getInstance().storeShoppingListInHousehold(householdId, shoppingList);
             Log.i(TAG, String.format("store shoppingList with name: '%s' and category: '%s'",
                     shoppingListNameString, shoppingListCategoryString));
@@ -78,9 +78,25 @@ public class CreateShoppingListActivity extends AppCompatActivity {
 
         HashMap<String, ShoppingList> shoppingLists =
                 FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
+        String[] keys = shoppingLists.keySet().toArray(new String[shoppingLists.size()]);
+        HashMap<String, ShoppingList> listsOfCurrentHousehold = new HashMap<>();
+
+        for(int i = 0; i < shoppingLists.size(); i++){
+            Log.i(TAG, "alle Listen durchgehen...");
+            ShoppingList thisShoppingList = shoppingLists.get(keys[i]);
+            Log.i(TAG, "liste: " + thisShoppingList);
+            // TODO das aeussere if statement raus schmeissen sobald alle Einkaufslisten mit idBelongingTo gespeichert werden
+            if(thisShoppingList.getIdBelongingTo() != null) {
+                if (thisShoppingList.getIdBelongingTo().equals(householdId)) {
+                    Log.i(TAG, "idBelongingTo = householdId");
+                    listsOfCurrentHousehold.put(keys[i], thisShoppingList);
+                    Log.i(TAG, "add to listsOfCurrentHousehold: " + listsOfCurrentHousehold);
+                }
+            }
+        }
 
         if (!shoppingListNameString.isEmpty()) {
-            return checkListNameTaken(shoppingLists);
+            return checkListNameTaken(listsOfCurrentHousehold);
         } else {
             Log.i(TAG, "no shoppingListName");
             Toast.makeText(getApplicationContext(), R.string.ErrorEnterShoppingListName, Toast.LENGTH_LONG).show();

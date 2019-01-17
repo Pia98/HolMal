@@ -108,7 +108,6 @@ public class FireBaseHandling {
     public void storeShoppingListInHousehold(String householdId, ShoppingList shoppingList){
         String storeId = reference.push().getKey();
         reference.child(shoppingListRubric).child(storeId).setValue(shoppingList);
-        reference.child(householdRubric + "/" + householdId + "/shoppingLists").push().setValue(storeId);
     }
 
 
