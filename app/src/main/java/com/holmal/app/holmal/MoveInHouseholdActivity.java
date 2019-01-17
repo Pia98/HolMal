@@ -103,10 +103,13 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
             Log.i(TAG, "alle Personen durchgehen...");
             Person person = personHash.get(keys[i]);
             Log.i(TAG, "person: " + person);
-            if(person.getIdBelongingTo().equals(householdId)){
-                Log.i(TAG, "idBelongingTo = householdId");
-                personenInCurrentHousehold.add(person);
-                Log.i(TAG, "personenInCurrentHousehold add: " + personenInCurrentHousehold);
+            // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
+            if(person.getIdBelongingTo() != null){
+                if(person.getIdBelongingTo().equals(householdId)){
+                    Log.i(TAG, "idBelongingTo = householdId");
+                    personenInCurrentHousehold.add(person);
+                    Log.i(TAG, "personenInCurrentHousehold add: " + personenInCurrentHousehold);
+                }
             }
         }
 
