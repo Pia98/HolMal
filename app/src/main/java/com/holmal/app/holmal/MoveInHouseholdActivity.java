@@ -97,13 +97,20 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
         //ArrayList<Person> personenInCurrentHousehold = referencesHandling.getAllMembersOfOneHousehold(personIDList, personHash);
         ArrayList<Person> personenInCurrentHousehold = new ArrayList<>();
         String[] keys = personHash.keySet().toArray(new String[personHash.size()]);
+        Log.i(TAG, "personenInCurrentHousehold: " + personenInCurrentHousehold);
 
         for(int i = 0; i < personHash.size(); i++){
+            Log.i(TAG, "alle Personen durchgehen...");
             Person person = personHash.get(keys[i]);
+            Log.i(TAG, "person: " + person);
             if(person.getIdBelongingTo().equals(householdId)){
+                Log.i(TAG, "idBelongingTo = householdId");
                 personenInCurrentHousehold.add(person);
+                Log.i(TAG, "personenInCurrentHousehold add: " + personenInCurrentHousehold);
             }
         }
+
+        Log.i(TAG, "personenInCurrentHousehold wird dann so uebergeben: " + personenInCurrentHousehold);
 
 
         if (checkUserName(personenInCurrentHousehold)) {

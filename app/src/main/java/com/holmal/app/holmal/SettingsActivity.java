@@ -120,9 +120,13 @@ public class SettingsActivity extends AppCompatActivity {
         householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
 
         for(int i = 0; i < personHash.size(); i++){
+            Log.i("SettingsActivity", "alle Personen durchgehen...");
             Person person = personHash.get(keys[i]);
+            Log.i("SettingsActivity", "person: " + person);
             if(person.getIdBelongingTo().equals(householdId)){
+                Log.i("SettingsActivity", "idBelongingTo = householdId");
                 personInHousehold.add(person);
+                Log.i("SettingsActivity", "personenInCurrentHousehold add: " + personInHousehold);
             }
         }
 
@@ -170,9 +174,13 @@ public class SettingsActivity extends AppCompatActivity {
                         String[] keys = personHash.keySet().toArray(new String[personHash.size()]);
 
                         for(int i = 0; i < personHash.size(); i++){
+                            Log.i("SettingsActivity", "alle Personen durchgehen...");
                             Person person = personHash.get(keys[i]);
+                            Log.i("SettingsActivity", "person: " + person);
                             if(person.getIdBelongingTo().equals(householdId)){
+                                Log.i("SettingsActivity", "idBelongingTo = householdId");
                                 personInHousehold.add(person);
+                                Log.i("SettingsActivity", "personenInCurrentHousehold add: " + personInHousehold);
                             }
                         }
                         //hasn't synchronized by then so use former size - 1
