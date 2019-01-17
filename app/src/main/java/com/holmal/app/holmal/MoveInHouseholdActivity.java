@@ -36,6 +36,10 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
     @BindView(R.id.householdIDAsText)
     TextView householdIdAsText;
 
+    // TODO set text, so that it is not hardcoded anymore!
+    @BindView(R.id.householdNameFromIDAsText)
+    TextView householdNameAsText;
+
     String householdId;
 
     String userNameString;

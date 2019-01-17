@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,12 +27,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ShoppingListActivity extends AppCompatActivity {
 
     private static final String TAG = ShoppingListActivity.class.getName();
+
+    // TODO set text, so that it is not hardcoded anymore!
+    @BindView(R.id.householdName)
+    TextView householdNameText;
 
     private DrawerLayout mDrawerLayout;
     ShoppingList currentShoppingList;

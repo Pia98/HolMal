@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.Person;
@@ -24,10 +25,19 @@ import com.holmal.app.holmal.utils.SettingsAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SettingsActivity extends AppCompatActivity {
+
+    // TODO set text, so that it is not hardcoded anymore!
+    @BindView(R.id.householdName)
+    TextView householdNameText;
+
+    // TODO set text, so that it is not hardcoded anymore!
+    @BindView(R.id.thisHouseholdId)
+    TextView householdIdText;
 
     String householdId;
     private DrawerLayout mDrawerLayout;
