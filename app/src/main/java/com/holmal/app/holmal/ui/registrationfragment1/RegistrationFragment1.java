@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,9 +73,22 @@ public class RegistrationFragment1 extends Fragment {
         clipboardManager.setPrimaryClip(clipData);
 
     }
+
+    //invite someone to your household
     @OnClick (R.id.invite)
     public void inviteToApp(){
-
+        try{
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Hol Mal");
+        String householdId = this.getArguments().getString("householdId");
+        String message = getArguments().getString("inviteExplanation") + householdId + "\"https://play.google.com/store/apps/details?id=\"" + getActivity().getPackageName();
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        startActivity(Intent.createChooser(intent, "Share via"));
+        }
+        catch (Exception e){
+            Log.i("Exception", "Invite failed " + e.toString());
+        }
     }
     @OnClick(R.id.registrationCreateDone)
     public void registrationCreateButtonDoneClick(){
