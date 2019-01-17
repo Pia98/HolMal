@@ -17,6 +17,7 @@ import android.widget.GridView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.ShoppingListsAdapter;
 
 import java.util.HashMap;
@@ -26,6 +27,7 @@ import butterknife.OnClick;
 
 //Overview over all the shopping lists
 public class AllShoppingListsActivity extends AppCompatActivity {
+    private static final String TAG = AllShoppingListsActivity.class.getName();
 
     private DrawerLayout mDrawerLayout;
 
@@ -106,7 +108,26 @@ public class AllShoppingListsActivity extends AppCompatActivity {
 
         //fill with lists with an adapter
         HashMap<String, ShoppingList> shoppingLists = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
-        ShoppingListsAdapter adapter = new ShoppingListsAdapter(this, shoppingLists);
+        String[] keys = shoppingLists.keySet().toArray(new String[shoppingLists.size()]);
+        HashMap<String, ShoppingList> listsOfCurrentHousehold = new HashMap<>();
+        PreferencesAccess preferencesAccess = new PreferencesAccess();
+        String householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
+
+        for(int i = 0; i < shoppingLists.size(); i++){
+            Log.i(TAG, "alle Listen durchgehen...");
+            ShoppingList thisShoppingList = shoppingLists.get(keys[i]);
+            Log.i(TAG, "liste: " + thisShoppingList);
+            // TODO das aeussere if statement raus schmeissen sobald alle Einkaufslisten mit idBelongingTo gespeichert werden
+            if(thisShoppingList.getIdBelongingTo() != null) {
+                if (thisShoppingList.getIdBelongingTo().equals(householdId)) {
+                    Log.i(TAG, "idBelongingTo = householdId");
+                    listsOfCurrentHousehold.put(keys[i], thisShoppingList);
+                    Log.i(TAG, "add to listsOfCurrentHousehold: " + listsOfCurrentHousehold);
+                }
+            }
+        }
+
+        ShoppingListsAdapter adapter = new ShoppingListsAdapter(this, listsOfCurrentHousehold);
         GridView lists = findViewById(R.id.allShoppingLists);
         lists.setAdapter(adapter);
 
