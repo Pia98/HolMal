@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.model.Person;
+
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -19,13 +21,15 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
 
 
     private Context context;
-    List<Person> personInHousehold;
+    HashMap<String, Person> personInHousehold;
+    String[] keys;
 
     //constructor
-    public SettingsAdapter(Context context, List<Person> personInHousehold){
+    public SettingsAdapter(Context context, HashMap<String, Person> personInHousehold){
         super(context, R.layout.single_household_member_settings);
         this.context = context;
         this.personInHousehold = personInHousehold;
+        keys = personInHousehold.keySet().toArray(new String[personInHousehold.size()]);
     }
 
 
@@ -42,7 +46,7 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
 
     @Override
     public Person getItem(int i) {
-        return personInHousehold.get(i);
+        return personInHousehold.get(keys[i]);
     }
 
     //method that actually adapts the view to show the household members
@@ -56,27 +60,28 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
         ImageView colour = (ImageView) rowView.findViewById(R.id.personColour);
         TextView name = (TextView) rowView.findViewById(R.id.personName);
 
-            Log.i("personInHousehold", "person: " + personInHousehold.get(position));
+        Person person = personInHousehold.get(keys[position]);
+        Log.i("personInHousehold", "person: " + person);
 
-            if (personInHousehold.get(position).getColor() == R.id.color1){
+            if (person.getColor() == R.id.color1){
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonLightGreen));
-            }else if (personInHousehold.get(position).getColor() == R.id.color2){
+            }else if (person.getColor() == R.id.color2){
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonGreen));
-            }else if (personInHousehold.get(position).getColor() == R.id.color3){
+            }else if (person.getColor() == R.id.color3){
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonBlue));
-            }else if (personInHousehold.get(position).getColor() == R.id.color4) {
+            }else if (person.getColor() == R.id.color4) {
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonLightBlue));
-            }else if (personInHousehold.get(position).getColor() == R.id.color5) {
+            }else if (person.getColor() == R.id.color5) {
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonOrange));
-            }else if (personInHousehold.get(position).getColor() == R.id.color6) {
+            }else if (person.getColor() == R.id.color6) {
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonRed));
-            }else if (personInHousehold.get(position).getColor() == R.id.color7) {
+            }else if (person.getColor() == R.id.color7) {
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonPink));
             }else{
                 colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonPurple));
             }
 
-            name.setText(personInHousehold.get(position).getPersonName());
+            name.setText(person.getPersonName());
 
         return rowView;
     }

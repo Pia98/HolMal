@@ -49,7 +49,7 @@ public class SettingsActivity extends AppCompatActivity {
     String householdId;
     private DrawerLayout mDrawerLayout;
 
-    private ArrayList<Person> joiningPerson = new ArrayList<>();
+    private HashMap<String, Person> joiningPerson = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +147,7 @@ public class SettingsActivity extends AppCompatActivity {
                     if (value.getIdBelongingTo() != null) {
                         if (value.getIdBelongingTo().equals(householdId)) {
                             Log.i(TAG, "Person gehört zu diesem Haushalt (householdId: " + householdId + ")");
-                            joiningPerson.add(value);
+                            joiningPerson.put(id, value);
                         }
                     }
                     Log.i(TAG, "joiningPerson in for Schleife bei listener: " + joiningPerson);
