@@ -163,35 +163,6 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         Log.i(TAG, "joiningPerson nach listener: " + joiningPerson);
-
-
-        //show members in household
-        //gets the person listener from firebase
-        /*HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
-        ArrayList<Person> personInHousehold = new ArrayList<>();
-        String[] keys = personHash.keySet().toArray(new String[personHash.size()]);
-
-        PreferencesAccess preferencesAccess = new PreferencesAccess();
-        householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
-
-        for(int i = 0; i < personHash.size(); i++){
-            Log.i("SettingsActivity", "alle Personen durchgehen...");
-            Person person = personHash.get(keys[i]);
-            Log.i("SettingsActivity", "person: " + person);
-            if(person.getIdBelongingTo().equals(householdId)){
-                Log.i("SettingsActivity", "idBelongingTo = householdId");
-                personInHousehold.add(person);
-                Log.i("SettingsActivity", "personenInCurrentHousehold add: " + personInHousehold);
-            }
-        }*/
-
-
-        //SettingsAdapter adapter = new SettingsAdapter(this, personInHousehold);
-/*
-        SettingsAdapter adapter = new SettingsAdapter(this, joiningPerson);
-        ListView list = findViewById(R.id.listOfHouseholdMembers);
-        list.setAdapter(adapter);
-*/
     }
 
 
@@ -227,25 +198,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                         FireBaseHandling.getInstance().removePersonFromHousehold(householdID,personID);
                         //delete household if household is empty now
-                        /*HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
-                        ArrayList<Person> personInHousehold = new ArrayList<>();
-                        String[] keys = personHash.keySet().toArray(new String[personHash.size()]);
-
-                        for(int i = 0; i < personHash.size(); i++){
-                            Log.i("SettingsActivity", "alle Personen durchgehen...");
-                            Person person = personHash.get(keys[i]);
-                            Log.i("SettingsActivity", "person: " + person);
-                            if(person.getIdBelongingTo().equals(householdId)){
-                                Log.i("SettingsActivity", "idBelongingTo = householdId");
-                                personInHousehold.add(person);
-                                Log.i("SettingsActivity", "personenInCurrentHousehold add: " + personInHousehold);
-                            }
-                        }*/
                         //hasn't synchronized by then so use former size - 1
-/*                        if(personInHousehold.size() -1 == 0){
-                            Log.e("deleteHousehold", householdID + " has been deleted");
-                            FireBaseHandling.getInstance().deleteHousehold(householdID);
-                        }*/
                         if(joiningPerson.size() -1 == 0){
                             Log.e("deleteHousehold", householdID + " has been deleted");
                             FireBaseHandling.getInstance().deleteHousehold(householdID);

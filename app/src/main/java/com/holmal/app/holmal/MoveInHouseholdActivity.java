@@ -66,9 +66,6 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
         Bundle extras = getIntent().getExtras();
         householdId = extras.getString("inputId");
 
-        // listener fuer personen starten, gleich bei erzeugen, bevor Person gespeichert, wegen Abfragen ob bereits in Haushalt vorhanden
-        //FireBaseHandling.getInstance().startPersonIDValueEventListener(householdId);
-
         FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -114,7 +111,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
 
             // TODO check first if not taken yet in the household
             Log.i(TAG, String.format("'%s' (color: %s) wants to move in '%s'", userNameString, chosenColorId, householdId));
-            String personId = FireBaseHandling.getInstance().storeMoveInPerson(householdId, person);
+            String personId = FireBaseHandling.getInstance().storePerson(householdId, person);
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
             preferences.storePreferences(this, getString(R.string.personIDPreference), personId);
@@ -132,33 +129,6 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
      */
     private boolean validate() {
         Log.i(TAG, "validate called");
-        //List<String> personIDList = FireBaseHandling.getInstance().getPersonIDListener().getPersonList();
-        /*HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
-        ArrayList<Person> personenInCurrentHousehold = referencesHandling.getAllMembersOfOneHousehold(personIDList, personHash);
-        ArrayList<Person> personenInCurrentHousehold = new ArrayList<>();
-        String[] keys = personHash.keySet().toArray(new String[personHash.size()]);
-        Log.i(TAG, "personenInCurrentHousehold: " + personenInCurrentHousehold);
-
-        for(int i = 0; i < personHash.size(); i++){
-            Log.i(TAG, "alle Personen durchgehen...");
-            Person person = personHash.get(keys[i]);
-            Log.i(TAG, "person: " + person);
-            // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
-            if(person.getIdBelongingTo() != null){
-                if(person.getIdBelongingTo().equals(householdId)){
-                    Log.i(TAG, "idBelongingTo = householdId");
-                    personenInCurrentHousehold.add(person);
-                    Log.i(TAG, "personenInCurrentHousehold add: " + personenInCurrentHousehold);
-                }
-            }
-        }
-
-        Log.i(TAG, "personenInCurrentHousehold wird dann so uebergeben: " + personenInCurrentHousehold);
-*/
-
-        /*if (checkUserName(personenInCurrentHousehold)) {
-            return checkColours(personenInCurrentHousehold);
-        } else return false;*/
         if (checkUserName(joiningPerson)) {
             return checkColours(joiningPerson);
         } else return false;

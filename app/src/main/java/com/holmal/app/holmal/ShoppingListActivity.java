@@ -45,6 +45,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     ShoppingList currentShoppingList;
 
+    PreferencesAccess preferences = new PreferencesAccess();
     String householdId;
     String recentShoppingListName;
 
@@ -56,10 +57,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shopping_list);
         ButterKnife.bind(this);
 
-        PreferencesAccess preferences = new PreferencesAccess();
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
-        // von Haushalt -> Listen -> Liste mit namen aus Preferences
-        recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
 
         FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
             @Override
@@ -81,7 +79,32 @@ public class ShoppingListActivity extends AppCompatActivity {
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
                 getCurrentShoppingList();
-                setTitle(recentShoppingListName);
+                if(recentShoppingListName != null){
+                    setTitle(recentShoppingListName);
+                }
+                else{
+                    setTitle(R.string.shoppingList);
+                }
+
+                Log.i("fürSvenja", ":" + listsOfThisHousehold);
+                //Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
+                //fill List with the items with an adapter
+                /**  Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
+                 //TODO abfrage welche shopping list man erhält!! wichtig
+                 //TODO auskommentieren um items anzuzeigen, wenn liste der listen nicht [] ist
+                 ItemsAdapter adapter = new ItemsAdapter(this, items);
+                 ListView list = findViewById(R.id.list);
+                 list.setAdapter(adapter);*/
+
+                /**
+                 * //handles click on item to see detailed information
+                 * list.setOnClickListener(new AdapterView.OnItemClickListener() {
+                 *              @Override
+                 *              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                 *              if(item an der stelle hat info){
+                 *              starte ItemInformationFragment
+                 * });}
+                 */
             }
 
             @Override
@@ -89,17 +112,6 @@ public class ShoppingListActivity extends AppCompatActivity {
 
             }
         });
-
-/*
-        try {
-            getCurrentShoppingList();
-            setTitle(recentShoppingListName);
-        } catch (Throwable e) {
-            Log.e(TAG, "Error " + e);
-            e.printStackTrace();
-            setTitle(R.string.shoppingList);
-        }
-*/
 
         //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
@@ -175,40 +187,24 @@ public class ShoppingListActivity extends AppCompatActivity {
                     }
                 }
         );
-
-
-        Log.i("fürSvenja", ":" + listsOfThisHousehold);
-        //Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
-        //fill List with the items with an adapter
-      /**  Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
-        //TODO abfrage welche shopping list man erhält!! wichtig
-       //TODO auskommentieren um items anzuzeigen, wenn liste der listen nicht [] ist
-        ItemsAdapter adapter = new ItemsAdapter(this, items);
-        ListView list = findViewById(R.id.list);
-        list.setAdapter(adapter);*/
-
-        /**
-         * //handles click on item to see detailed information
-         * list.setOnClickListener(new AdapterView.OnItemClickListener() {
-         *              @Override
-         *              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-         *              if(item an der stelle hat info){
-         *              starte ItemInformationFragment
-         * });}
-         */
         }
 
     private void getCurrentShoppingList() {
         Log.i(TAG, "getCurrentShoppingList called");
 
         Log.i(TAG, "shoppingLists " + listsOfThisHousehold);
+        // TODO kann dann auch wieder raus, ist aber gut zum testen
         if (listsOfThisHousehold.isEmpty()) {
             Log.i(TAG, "shoppingList is empty");
-            //shoppingLists = FireBaseHandling.getInstance().initializeShoppingList(householdId);
         }
+        // von Haushalt -> Listen -> Liste mit namen aus Preferences
+        recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
+
+        // TODO kann dann auch wieder raus, ist aber gut zum testen
         if (recentShoppingListName == null) {
             Log.i(TAG, "no recent shoppingListName");
         }
+        // get object of the recent ShoppingList
         else{
             Log.i(TAG, "recentShoppingListName: " + recentShoppingListName);
             String[] keys = listsOfThisHousehold.keySet().toArray(new String[listsOfThisHousehold.size()]);
@@ -222,55 +218,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
             }
         }
-
-/*
-        //List<ShoppingList> shoppingLists =
-        //        FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
-        final List<ShoppingList> shoppingLists = new ArrayList<>();
-        ValueEventListener listener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                shoppingLists.clear();
-                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
-                Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
-                while (iterator.hasNext()) {
-                    DataSnapshot snapshot = iterator.next();
-                    ShoppingList value = snapshot.getValue(ShoppingList.class);
-                    value.setStoreId(snapshot.getKey());
-                    shoppingLists.add(value);
-                }
-                Log.i("ShoppingListActivity", "onDataChange shoppingListList: " + shoppingLists);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        };
-        FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(listener);
-
-
-        Log.i(TAG, "shoppingLists " + shoppingLists);
-        if (shoppingLists.isEmpty()) {
-            Log.i(TAG, "shoppingList is empty");
-            //shoppingLists = FireBaseHandling.getInstance().initializeShoppingList(householdId);
-        }
-        if (recentShoppingListName == null) {
-            Log.i(TAG, "no recent shoppingListName");
-            //recentShoppingListName = shoppingLists.get(0).getListName();
-            if(shoppingLists.isEmpty()){
-                Log.i(TAG, "shoppingList is empty");
-            }
-        }
-        Log.i(TAG, "recentShoppingListName: " + recentShoppingListName);
-        for (ShoppingList shoppingList : shoppingLists) {
-            if (recentShoppingListName.equals(shoppingList.getListName())) {
-                currentShoppingList = shoppingList;
-                shoppingListId = currentShoppingList.getStoreId();
-                Log.i(TAG, "currentShoppingList: " + currentShoppingList);
-                break;
-            }
-        }*/
     }
 
     //Menu is opened

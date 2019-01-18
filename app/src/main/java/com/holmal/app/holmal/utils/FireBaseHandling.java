@@ -45,12 +45,6 @@ public class FireBaseHandling {
         String storeId = reference.push().getKey();
         reference.child(householdRubric).child(storeId).setValue(household);
 
-        //listener fuer personen und einkaufsliste gleich starten, wenn Haushalt erstellt wird
-        startPersonIDValueEventListener(storeId);
-        startShoppingListListener(storeId);
-        startPersonValueEventListener();
-        startItemListener();
-
         return storeId;
     }
 
@@ -71,29 +65,6 @@ public class FireBaseHandling {
         reference.child(personRubric).child(storeId).setValue(person);
         return storeId;
     }
-    
-    public String storeMoveInPerson(final String householdId, final Person person){
-        String personID;
-        //check if household with given id exists
-        //reference.addListenerForSingleValueEvent(new ValueEventListener() {
-          //  @Override
-            //public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-              //  if(dataSnapshot.child(householdRubric + "/" + householdId).exists()){
-                    personID = storePerson(householdId, person);
-                    // listener fuer einkaufsliste starten, wenn beitretende Person erfolgreich gespeichert wurde
-                    startShoppingListListener(householdId);
-                    startItemListener();
-                //}
-          //  }
-
-          //  @Override
-          //  public void onCancelled(@NonNull DatabaseError databaseError) {
-
-          //  }
-    //    });
-        return personID;
-    }
-
 
     public void storeShoppingList(String householdId, ShoppingList shoppingList){
         String storeId = reference.push().getKey();
@@ -107,88 +78,4 @@ public class FireBaseHandling {
         reference.child(shoppingListRubric + "/" + shoppingListId + "/itemsOfThisList").push().setValue(storeId);
         return storeId;
     }
-
-
-    // registriere listener unter household/id/personenInHousehold
-    public void startPersonIDValueEventListener(String householdId) {
-        Log.i("FireBaseHandling", "personListener started (householdId: " + householdId + ")");
-        reference.child(householdRubric + "/" + householdId + "/personInHousehold")
-                .addValueEventListener(personIDListener);
-    }
-
-    // registriere listener unter person
-    public void startPersonValueEventListener() {
-        Log.i("FireBaseHandling", "personListener started (person)");
-        reference.child(personRubric).addValueEventListener(personListener);
-    }
-
-    private void startShoppingListListener(String householdId){
-        Log.i("FireBaseHandling", "shoppingListListener started (householdId: " + householdId + ")");
-//        reference.child(householdRubric + "/" + householdId + "/shoppingLists")
-//                .addValueEventListener(shoppingListListener);
-        reference.child(shoppingListRubric).addValueEventListener(shoppingListListener);
-    }
-
-    private void startItemListener(){
-        Log.i("FirebaseHandling", "itemListener started");
-        reference.child(itemRubric).addValueEventListener(itemListener);
-    }
-
-    public PersonIDListener getPersonIDListener() {
-        return personIDListener;
-    }
-
-    public PersonListener getPersonListener() {
-        return personListener;
-    }
-
-    public ShoppingListListener getShoppingListListener() {
-        return shoppingListListener;
-    }
-
-    public ItemListener getItemListener() {
-        return itemListener;
-    }
-
-    public void registerAllListeners(String householdId){
-        Log.i("FireBaseHandling", "registerAllListeners called (householdId: " + householdId + ")");
-
-        // Daten explizit noch mal neu laden
-        startPersonIDValueEventListener(householdId);
-        startShoppingListListener(householdId);
-        startPersonValueEventListener();
-        startItemListener();
-    }
-/*
-    public void initializeShoppingList(String householdId){
-        Log.i("FirebaseHandling", String.format("initializeShoppingList called (householdId: %s)", householdId));
-
-        final List<ShoppingList> shoppingListList = new ArrayList<>();
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                shoppingListList.clear();
-                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
-                Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
-                while (iterator.hasNext()) {
-                    DataSnapshot snapshot = iterator.next();
-                    ShoppingList value = snapshot.getValue(ShoppingList.class);
-                    Log.i("firebaseHandling", "ListName: " + value.getListName());
-                    Log.i("FirebaseHandling", "value: " + value);
-                    value.setStoreId(snapshot.getKey());
-                    shoppingListList.add(value);
-                }
-                Log.i("FirebaseHandling", "onDataChanged shoppingListList: " + shoppingListList);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        };
-
-        String child = householdRubric + "/" + householdId + "/shoppingLists";
-        Query query = reference.orderByChild(child);
-        //query.addListenerForSingleValueEvent(valueEventListener);
-        query.addValueEventListener(valueEventListener);
-    }
-    */
 }

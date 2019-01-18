@@ -45,8 +45,6 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
     /**
      * Handling classes
      */
-    //StorePersonHandling fireBaseHandling = new StorePersonHandling();
-    //FireBaseHandling fireBaseHandling = new FireBaseHandling();
     FragmentHandling fragmentHandling = new FragmentHandling();
 
     PreferencesAccess preferences = new PreferencesAccess();
@@ -70,24 +68,17 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
     @OnClick(R.id.createHouseholdDone)
     public void createHouseholdDoneClick() {
         if (validate()) {
-            // create list to store all household members. Started with person that has created
-            //ArrayList<String> personList = new ArrayList<>();
-            // create default ShoppingListActivity when household created
-            String category = null;
-//            ArrayList<ShoppingList> shoppingLists = new ArrayList<>();
-//            shoppingLists.add(defaultList);
-            // create household with name, persons, defaultShoppingList
-//            personId = FireBaseHandling.getInstance().storePerson(newPerson);
-//            personList.add(personId);
-
             Household household = new Household(houseHoldNameString);
             householdId = FireBaseHandling.getInstance().storeNewHousehold(household);
 
             Person newPerson = new Person(userNameString, chosenColorId, householdId);
             String personId = FireBaseHandling.getInstance().storePerson(householdId, newPerson);
 
+            // create default ShoppingListActivity when household created
+            String category = null;
             ShoppingList defaultList = new ShoppingList(getString(R.string.defaultShoppingList), category, householdId);
             FireBaseHandling.getInstance().storeShoppingList(householdId, defaultList);
+
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
             preferences.storePreferences(this, getString(R.string.recentShoppingListNamePreference), defaultList.getListName());

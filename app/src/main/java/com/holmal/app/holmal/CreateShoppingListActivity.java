@@ -113,32 +113,6 @@ public class CreateShoppingListActivity extends AppCompatActivity {
         Spinner category = (Spinner) findViewById(R.id.shoppingListCategoryDropDown);
         shoppingListCategoryString = category.getSelectedItem().toString();
 
-        /*HashMap<String, ShoppingList> shoppingLists =
-                FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
-        String[] keys = shoppingLists.keySet().toArray(new String[shoppingLists.size()]);
-        HashMap<String, ShoppingList> listsOfCurrentHousehold = new HashMap<>();
-
-        for(int i = 0; i < shoppingLists.size(); i++){
-            Log.i(TAG, "alle Listen durchgehen...");
-            ShoppingList thisShoppingList = shoppingLists.get(keys[i]);
-            Log.i(TAG, "liste: " + thisShoppingList);
-            // TODO das aeussere if statement raus schmeissen sobald alle Einkaufslisten mit idBelongingTo gespeichert werden
-            if(thisShoppingList.getIdBelongingTo() != null) {
-                if (thisShoppingList.getIdBelongingTo().equals(householdId)) {
-                    Log.i(TAG, "idBelongingTo = householdId");
-                    listsOfCurrentHousehold.put(keys[i], thisShoppingList);
-                    Log.i(TAG, "add to listsOfCurrentHousehold: " + listsOfCurrentHousehold);
-                }
-            }
-        }*/
-
-        /*if (!shoppingListNameString.isEmpty()) {
-            return checkListNameTaken(listsOfCurrentHousehold);
-        } else {
-            Log.i(TAG, "no shoppingListName");
-            Toast.makeText(getApplicationContext(), R.string.ErrorEnterShoppingListName, Toast.LENGTH_LONG).show();
-            return false;
-        }*/
         if (!shoppingListNameString.isEmpty()) {
             return checkListNameTaken(listsOfThisHousehold);
         } else {
@@ -155,16 +129,6 @@ public class CreateShoppingListActivity extends AppCompatActivity {
      * @return if the shoppingList name is already taken
      */
     private boolean checkListNameTaken(HashMap<String, ShoppingList> shoppingLists) {
-        /*for (ShoppingList shoppingList : shoppingLists) {
-            if (shoppingListNameString.equals(shoppingList.getListName())) {
-                Log.i(TAG, "name already taken");
-                Toast.makeText(getApplicationContext(), R.string.ErrorListNameTaken, Toast.LENGTH_LONG).show();
-                return false;
-            } else {
-                Log.i(TAG, String.format("shoppingList names: '%s', '%s' (entered list name)",
-                        shoppingList.getListName(), shoppingListNameString));
-            }
-        }*/
         Log.i("CreateShoppingList", "Liste: " + shoppingLists);
 
         for (int i = 0; i < shoppingLists.size(); i++) {

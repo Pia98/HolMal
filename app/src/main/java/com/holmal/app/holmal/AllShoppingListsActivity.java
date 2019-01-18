@@ -135,10 +135,12 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                     }
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
+                //fill with lists with an adapter
                 ShoppingListsAdapter adapter = new ShoppingListsAdapter(AllShoppingListsActivity.this, listsOfThisHousehold);
                 GridView lists = findViewById(R.id.allShoppingLists);
                 lists.setAdapter(adapter);
 
+                //handle clicks on the lists
                 lists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                     @Override
@@ -156,41 +158,6 @@ public class AllShoppingListsActivity extends AppCompatActivity {
 
             }
         });
-
-        //fill with lists with an adapter
-        /*HashMap<String, ShoppingList> shoppingLists = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
-        String[] keys = shoppingLists.keySet().toArray(new String[shoppingLists.size()]);
-        HashMap<String, ShoppingList> listsOfCurrentHousehold = new HashMap<>();
-
-        for(int i = 0; i < shoppingLists.size(); i++){
-            Log.i(TAG, "alle Listen durchgehen...");
-            ShoppingList thisShoppingList = shoppingLists.get(keys[i]);
-            Log.i(TAG, "liste: " + thisShoppingList);
-            // TODO das aeussere if statement raus schmeissen sobald alle Einkaufslisten mit idBelongingTo gespeichert werden
-            if(thisShoppingList.getIdBelongingTo() != null) {
-                if (thisShoppingList.getIdBelongingTo().equals(householdId)) {
-                    Log.i(TAG, "idBelongingTo = householdId");
-                    listsOfCurrentHousehold.put(keys[i], thisShoppingList);
-                    Log.i(TAG, "add to listsOfCurrentHousehold: " + listsOfCurrentHousehold);
-                }
-            }
-        }*/
-
-        /*ShoppingListsAdapter adapter = new ShoppingListsAdapter(this, listsOfCurrentHousehold);
-        GridView lists = findViewById(R.id.allShoppingLists);
-        lists.setAdapter(adapter);*/
-
-        //handle clicks on the lists
-        /*lists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("FürSvenja", "Open list from allshoppinglists");
-                //TODO open correct shopping list (-> set activeShoppingList to that one)
-                //Intent intent = new Intent(AllShoppingLists.this, ShoppingList.class);
-                //startActivity(intent);
-            }
-        });*/
     }
 
     //Menu is opened
