@@ -30,7 +30,8 @@ public class CreateItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_item);
         ButterKnife.bind(this);
-
+        Bundle extras = getIntent().getExtras();
+        shoppingListId = extras.getString("shoppingListId");
         PreferencesAccess preferences = new PreferencesAccess();
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
     }
@@ -54,7 +55,8 @@ public class CreateItemActivity extends AppCompatActivity {
             //TODO implement functionality aka actually add item to list
 
             Item item = new Item(itemName, quantity, important, favorite, additionalInfo);
-            FireBaseHandling.getInstance().storeShoppingListItem(householdId, shoppingListId, item);
+            //FireBaseHandling.getInstance().storeShoppingListItem(householdId, shoppingListId, item);
+            FireBaseHandling.getInstance().storeItem(shoppingListId, item);
 
             //maybe also check whether item is a favourite here and add to favourites
 
@@ -81,8 +83,7 @@ public class CreateItemActivity extends AppCompatActivity {
         if (saveAsFavoriteInput.isChecked()) {
             favorite = true;
         }
-
-
+        // Bezeichnung ist eingegeben
         if (!itemName.isEmpty()) {
             return true;
         } else {

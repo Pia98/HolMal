@@ -30,7 +30,7 @@ public abstract class DummyContent {
     }
 
     public Person getLukas() {
-        lukas = new Person("Lukas", 1, "dummy@email.de");
+        //lukas = new Person("Lukas", 1, "dummy@email.de");
         //lukas.addHaushalt(dummyHaushalt);
         return lukas;
     }

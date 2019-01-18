@@ -18,8 +18,6 @@ import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 
-import java.util.ArrayList;
-
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -42,13 +40,10 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
     String houseHoldNameString;
     int chosenColorId;
     String householdId;
-    String personId;
 
     /**
      * Handling classes
      */
-    //StorePersonHandling fireBaseHandling = new StorePersonHandling();
-    //FireBaseHandling fireBaseHandling = new FireBaseHandling();
     FragmentHandling fragmentHandling = new FragmentHandling();
 
     PreferencesAccess preferences = new PreferencesAccess();
@@ -72,22 +67,18 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
     @OnClick(R.id.createHouseholdDone)
     public void createHouseholdDoneClick() {
         if (validate()) {
-            // create list to store all household members. Started with person that has created
-            ArrayList<String> personList = new ArrayList<>();
-            // create default ShoppingListActivity when household created
-            String category = null;
-            ShoppingList defaultList = new ShoppingList(getString(R.string.defaultShoppingList), category);
-            ArrayList<ShoppingList> shoppingLists = new ArrayList<>();
-            shoppingLists.add(defaultList);
+            Household household = new Household(houseHoldNameString);
+            householdId = FireBaseHandling.getInstance().storeNewHousehold(household);
 
             String currentEmail = fireAuth.getCurrentUser().getEmail();
-            // create household with name, persons, defaultShoppingList
-            Person newPerson = new Person(userNameString, chosenColorId, currentEmail);
-            personId = FireBaseHandling.getInstance().storePersonOnDatabase(newPerson);
-            personList.add(personId);
+            Person newPerson = new Person(userNameString, chosenColorId, householdId, currentEmail);
+            String personId = FireBaseHandling.getInstance().storePerson(householdId, newPerson);
 
-            Household household = new Household(houseHoldNameString, personList, shoppingLists);
-            householdId = FireBaseHandling.getInstance().storeNewHousehold(household);
+            // create default ShoppingListActivity when household created
+            String category = null;
+            ShoppingList defaultList = new ShoppingList(getString(R.string.defaultShoppingList), category, householdId);
+            FireBaseHandling.getInstance().storeShoppingList(householdId, defaultList);
+
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
             preferences.storePreferences(this, getString(R.string.recentShoppingListNamePreference), defaultList.getListName());

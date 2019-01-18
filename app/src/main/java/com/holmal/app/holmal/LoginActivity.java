@@ -19,11 +19,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.ReferencesHandling;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -32,6 +36,7 @@ import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener{
 
+    private static final String TAG = LoginActivity.class.getName();
 
     FirebaseAuth fireAuth;
     FirebaseDatabase database;
@@ -63,6 +68,8 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
     @BindView(R.id.error_message3)
     TextView errorMessage3;
 
+    private HashMap<String, Person> joiningPerson = new HashMap<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +83,25 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         passwortInputWdh.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
 
-        FireBaseHandling.getInstance().startPersonValueEventListener();
+        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "listener in onCreate...");
+                joiningPerson.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Personen durchgehen");
+                    String id = child.getKey();
+                    Person value = child.getValue(Person.class);
+                    Log.i(TAG, "Person: " + value);
+                    joiningPerson.put(id, value);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -113,8 +138,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         Log.i(LoginActivity.class.getName(), "Login successful");
-                        HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
-                        Person person = referencesHandling.findPersonWithEmail(email, personHash);
+                        Person person = referencesHandling.findPersonWithEmail(email, joiningPerson);
                         if(person != null) {
                             Toast.makeText(getApplicationContext(), person.toString(), Toast.LENGTH_SHORT).show();
                         }

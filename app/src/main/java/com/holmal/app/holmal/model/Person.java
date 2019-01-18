@@ -8,13 +8,17 @@ public class Person {
     /**@color */
     private int color;
 
+    private String idBelongingTo;
     private String email;
 
-    public Person(String personName, int color, String email){
+    public Person(String personName, int color, String idBelongingTo, String email) {
         this.personName = personName;
         this.color = color;
+        this.idBelongingTo = idBelongingTo;
         this.email = email;
     }
+
+    public Person(String personName, int color){}
 
     public Person() {
     }
@@ -39,10 +43,20 @@ public class Person {
 
     public void setEmail(String email){this.email = email;}
 
+    public String getIdBelongingTo() {
+        return idBelongingTo;
+    }
+
+    public void setIdBelongingTo(String idBelongingTo) {
+        this.idBelongingTo = idBelongingTo;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
                 "personName='" + personName + '\'' +
+                ", color=" + color +
+                ", idBelongingTo='" + idBelongingTo + '\'' +
                 ", color=" + color + '\'' +
                 ", email=" + email +
                 '}';

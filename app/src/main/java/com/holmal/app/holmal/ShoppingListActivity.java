@@ -1,6 +1,8 @@
 package com.holmal.app.holmal;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -8,19 +10,27 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
-import com.holmal.app.holmal.utils.ShoppingListListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -28,27 +38,94 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     private static final String TAG = ShoppingListActivity.class.getName();
 
-    private DrawerLayout mDrawerLayout;
-    com.holmal.app.holmal.model.ShoppingList currentShoppingList;
+    private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
 
+    private DrawerLayout mDrawerLayout;
+    ShoppingList currentShoppingList;
+
+    PreferencesAccess preferences = new PreferencesAccess();
+    String householdId;
+    String recentShoppingListName;
+
+    String shoppingListId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
         ButterKnife.bind(this);
 
+        householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
 
-        try {
-            getCurrentShoppingList();
-            PreferencesAccess preferences = new PreferencesAccess();
-            setTitle(preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference)));
-        } catch (Throwable e) {
-            Log.e(TAG, "Error " + e);
-            e.printStackTrace();
-            setTitle(R.string.shoppingList);
-        }
+        FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "listener in onCreate...");
+                listsOfThisHousehold.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Listen durchgehen");
+                    String id = child.getKey();
+                    ShoppingList value = child.getValue(ShoppingList.class);
+                    Log.i(TAG, "ShoppingList: " + value);
+                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
+                    if (value.getIdBelongingTo() != null) {
+                        if (value.getIdBelongingTo().equals(householdId)) {
+                            Log.i(TAG, "Liste gehört zu diesem Haushalt.");
+                            listsOfThisHousehold.put(id, value);
+                        }
+                    }
+                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
+                }
+                getCurrentShoppingList();
+                if(recentShoppingListName != null){
+                    setTitle(recentShoppingListName);
+                }
+                else{
+                    setTitle(R.string.shoppingList);
+                }
 
+                Log.i("fürSvenja", ":" + listsOfThisHousehold);
+                //Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
+                //fill List with the items with an adapter
+                /**  Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
+                 //TODO abfrage welche shopping list man erhält!! wichtig
+                 //TODO auskommentieren um items anzuzeigen, wenn liste der listen nicht [] ist
+                 ItemsAdapter adapter = new ItemsAdapter(this, items);
+                 ListView list = findViewById(R.id.list);
+                 list.setAdapter(adapter);*/
 
+                /**
+                 * //handles click on item to see detailed information
+                 * list.setOnClickListener(new AdapterView.OnItemClickListener() {
+                 *              @Override
+                 *              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                 *              if(item an der stelle hat info){
+                 *              starte ItemInformationFragment
+                 * });}
+                 */
+                /**
+                 * //handles double click on item -> makes item assigned to self
+                 * list.setOnTouchListener(new OnTouchListener() {
+                 *     private GestureDetector gestureDetector = new GestureDetector(ShoppingListActivity.this, new GestureDetector.SimpleOnGestureListener() {
+                 *         @Override
+                 *         public boolean onDoubleTap(MotionEvent e) {
+                 *         if(item an der stelle ist nicht assigned){
+                 *         assined add person
+                 *         }else{
+                 *         assigned remove person
+                 *         }
+                 *             return super.onDoubleTap(e);
+                 *         }
+                 *     });
+                 *     onSwipeRight()
+                 *
+                 */
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
@@ -130,7 +207,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
         );
 
-      /**  navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        /*navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 int id = item.getItemId();
@@ -144,69 +221,35 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
                 return true;
             }});*/
-
-        Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
-        //fill List with the items with an adapter
-      /**  Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
-        //TODO abfrage welche shopping list man erhält!! wichtig
-       //TODO auskommentieren um items anzuzeigen, wenn liste der listen nicht [] ist
-        ItemsAdapter adapter = new ItemsAdapter(this, items);
-        ListView list = findViewById(R.id.list);
-        list.setAdapter(adapter);*/
-
-        /**
-         * //handles click on item to see detailed information
-         * list.setOnClickListener(new AdapterView.OnItemClickListener() {
-         *              @Override
-         *              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-         *              if(item an der stelle hat info){
-         *              starte ItemInformationFragment
-         * });}
-         */
-        /**
-         * //handles double click on item -> makes item assigned to self
-         * list.setOnTouchListener(new OnTouchListener() {
-         *     private GestureDetector gestureDetector = new GestureDetector(ShoppingListActivity.this, new GestureDetector.SimpleOnGestureListener() {
-         *         @Override
-         *         public boolean onDoubleTap(MotionEvent e) {
-         *         if(item an der stelle ist nicht assigned){
-         *         assined add person
-         *         }else{
-         *         assigned remove person
-         *         }
-         *             return super.onDoubleTap(e);
-         *         }
-         *     });
-         *     onSwipeRight()
-         *
-         */
         }
 
     private void getCurrentShoppingList() {
         Log.i(TAG, "getCurrentShoppingList called");
 
-
-        // von Haushalt -> Listen -> Liste mit namen aus Preferences
-        PreferencesAccess preferences = new PreferencesAccess();
-        String recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
-        List<com.holmal.app.holmal.model.ShoppingList> shoppingLists =
-                FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
-        Log.i(TAG, "shoppingLists " + shoppingLists);
-
-        if(recentShoppingListName == null){
-            Log.i(TAG, "no recent shoppingListName");
-            //recentShoppingListName = shoppingLists.get(0).getListName();
-            if(shoppingLists.isEmpty()){
-                Log.i(TAG, "shoppingList is empty");
-            }
+        Log.i(TAG, "shoppingLists " + listsOfThisHousehold);
+        // TODO kann dann auch wieder raus, ist aber gut zum testen
+        if (listsOfThisHousehold.isEmpty()) {
+            Log.i(TAG, "shoppingList is empty");
         }
-        Log.i(TAG, "recentShoppingListName: " + recentShoppingListName);
+        // von Haushalt -> Listen -> Liste mit namen aus Preferences
+        recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
 
-        for (com.holmal.app.holmal.model.ShoppingList shoppingList : shoppingLists) {
-            if (recentShoppingListName.equals(shoppingList.getListName())) {
-                currentShoppingList = shoppingList;
-                Log.i(TAG, "currentShoppingList: " + currentShoppingList);
-                break;
+        // TODO kann dann auch wieder raus, ist aber gut zum testen
+        if (recentShoppingListName == null) {
+            Log.i(TAG, "no recent shoppingListName");
+        }
+        // get object of the recent ShoppingList
+        else{
+            Log.i(TAG, "recentShoppingListName: " + recentShoppingListName);
+            String[] keys = listsOfThisHousehold.keySet().toArray(new String[listsOfThisHousehold.size()]);
+            for(int i=0; i < keys.length; i++){
+                ShoppingList list = listsOfThisHousehold.get(keys[i]);
+                if(recentShoppingListName.equals(list.getListName())){
+                    currentShoppingList = list;
+                    shoppingListId = keys[i];
+                    Log.i(TAG, "currentShoppingList: " + currentShoppingList);
+                    break;
+                }
             }
         }
     }
@@ -228,6 +271,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     public void addItemOnClicked(){
         //TODO this does nothing so I did something wrong. Needs to be done correctly (but it doesn't hurt the program so I left it)
         Intent intent = new Intent(this, CreateItemActivity.class);
+        intent.putExtra("shoppingListId", shoppingListId);
         startActivity(intent);
     }
 }

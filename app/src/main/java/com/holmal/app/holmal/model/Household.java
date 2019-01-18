@@ -18,6 +18,10 @@ public class Household {
         this.shoppingLists = new ArrayList<ShoppingList>();
     }
 
+    public Household(String householdName) {
+        this.householdName = householdName;
+    }
+
     public Household(String householdName, ArrayList<String> personInHousehold, ArrayList<ShoppingList> shoppingLists) {
         this.householdName = householdName;
         this.personInHousehold = personInHousehold;

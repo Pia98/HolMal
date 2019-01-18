@@ -2,42 +2,64 @@ package com.holmal.app.holmal;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
-import com.holmal.app.holmal.utils.ReferencesHandling;
 import com.holmal.app.holmal.utils.SettingsAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SettingsActivity extends AppCompatActivity {
+    private static final String TAG = SettingsActivity.class.getName();
 
+
+    // TODO set text, so that it is not hardcoded anymore!
+    @BindView(R.id.householdName)
+    TextView householdNameText;
+
+    // TODO set text, so that it is not hardcoded anymore!
+    @BindView(R.id.thisHouseholdId)
+    TextView householdIdText;
+
+    String householdId;
     private DrawerLayout mDrawerLayout;
-    ReferencesHandling referencesHandling = new ReferencesHandling();
+
+    private HashMap<String, Person> joiningPerson = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
+
+        PreferencesAccess preferencesAccess = new PreferencesAccess();
+        householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
+
 
         //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
@@ -111,15 +133,36 @@ public class SettingsActivity extends AppCompatActivity {
         );
 
 
-        //show members in household
-        //gets the person listener from firebase
-        List<String> personIDList = FireBaseHandling.getInstance().getPersonIDListener().getPersonList();
-        HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
-        ArrayList<Person> personInHousehold = referencesHandling.getAllMembersOfOneHousehold(personIDList, personHash);
+        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "listener in onCreate...");
+                joiningPerson.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Personen durchgehen");
+                    String id = child.getKey();
+                    Person value = child.getValue(Person.class);
+                    Log.i(TAG, "Person: " + value + "householdId: " + householdId);
+                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
+                    if (value.getIdBelongingTo() != null) {
+                        if (value.getIdBelongingTo().equals(householdId)) {
+                            Log.i(TAG, "Person gehört zu diesem Haushalt (householdId: " + householdId + ")");
+                            joiningPerson.put(id, value);
+                        }
+                    }
+                    Log.i(TAG, "joiningPerson in for Schleife bei listener: " + joiningPerson);
+                }
+                SettingsAdapter adapter = new SettingsAdapter(SettingsActivity.this, joiningPerson);
+                ListView list = findViewById(R.id.listOfHouseholdMembers);
+                list.setAdapter(adapter);
+            }
 
-        SettingsAdapter adapter = new SettingsAdapter(this, personInHousehold);
-        ListView list = findViewById(R.id.listOfHouseholdMembers);
-        list.setAdapter(adapter);
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        Log.i(TAG, "joiningPerson nach listener: " + joiningPerson);
     }
 
 
@@ -132,7 +175,6 @@ public class SettingsActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 
 
@@ -155,12 +197,8 @@ public class SettingsActivity extends AppCompatActivity {
 
                         FireBaseHandling.getInstance().removePersonFromHousehold(householdID,personID);
                         //delete household if household is empty now
-                        List<String> personIDList = FireBaseHandling.getInstance().getPersonIDListener().getPersonList();
-                        HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
-                        ArrayList<Person> personInHousehold = referencesHandling.getAllMembersOfOneHousehold(personIDList, personHash);
-
                         //hasn't synchronized by then so use former size - 1
-                        if(personInHousehold.size() -1 == 0){
+                        if(joiningPerson.size() -1 == 0){
                             Log.e("deleteHousehold", householdID + " has been deleted");
                             FireBaseHandling.getInstance().deleteHousehold(householdID);
                         }

@@ -3,6 +3,7 @@ package com.holmal.app.holmal;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,6 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
@@ -35,8 +40,14 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
     ReferencesHandling referencesHandling = new ReferencesHandling();
     FirebaseAuth fireAuth;
 
+    private ArrayList<Person> joiningPerson = new ArrayList<>();
+
     @BindView(R.id.householdIDAsText)
     TextView householdIdAsText;
+
+    // TODO set text, so that it is not hardcoded anymore!
+    @BindView(R.id.householdNameFromIDAsText)
+    TextView householdNameAsText;
 
     String householdId;
 
@@ -57,8 +68,33 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
         Bundle extras = getIntent().getExtras();
         householdId = extras.getString("inputId");
 
-        // listener fuer personen starten, gleich bei erzeugen, bevor Person gespeichert, wegen Abfragen ob bereits in Haushalt vorhanden
-        FireBaseHandling.getInstance().startPersonIDValueEventListener(householdId);
+        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "listener in onCreate...");
+                joiningPerson.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Personen durchgehen");
+                    String id = child.getKey();
+                    Person value = child.getValue(Person.class);
+                    Log.i(TAG, "Person: " + value);
+                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
+                    if (value.getIdBelongingTo() != null) {
+                        if (value.getIdBelongingTo().equals(householdId)) {
+                            Log.i(TAG, "Person gehört zu diesem Haushalt.");
+                            joiningPerson.add(value);
+                        }
+                    }
+                    Log.i(TAG, "joiningPerson in for Schleife bei listener: " + joiningPerson);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        Log.i(TAG, "joiningPerson nach listener: " + joiningPerson);
 
         householdIdAsText.setText(householdId);
 
@@ -75,16 +111,18 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
             PreferencesAccess preferences = new PreferencesAccess();
 
             String currentEmail = fireAuth.getCurrentUser().getEmail();
-            Person person = new Person(userNameString, chosenColorId, currentEmail);
-            Intent intent = new Intent(this, ShoppingListActivity.class); // decide if main (screen 11) or screen 5 (shoppingList), then change here
-            startActivity(intent);
+            Person person = new Person(userNameString, chosenColorId, householdId, currentEmail);
 
             // TODO check first if not taken yet in the household
             Log.i(TAG, String.format("'%s' (color: %s) wants to move in '%s'", userNameString, chosenColorId, householdId));
-            String personId = FireBaseHandling.getInstance().storeMoveInPersonInHousehold(householdId, person);
+            String personId = FireBaseHandling.getInstance().storePerson(householdId, person);
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
             preferences.storePreferences(this, getString(R.string.personIDPreference), personId);
+
+            // activity erst starten wenn Speicherung vorgenommen wurde
+            Intent intent = new Intent(this, AllShoppingListsActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -94,11 +132,9 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
      * @return if all inputs are valid
      */
     private boolean validate() {
-        List<String> personIDList = FireBaseHandling.getInstance().getPersonIDListener().getPersonList();
-        HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
-        ArrayList<Person> personenInCurrentHousehold = referencesHandling.getAllMembersOfOneHousehold(personIDList, personHash);
-        if (checkUserName(personenInCurrentHousehold)) {
-            return checkColours(personenInCurrentHousehold);
+        Log.i(TAG, "validate called");
+        if (checkUserName(joiningPerson)) {
+            return checkColours(joiningPerson);
         } else return false;
     }
 
@@ -108,6 +144,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
      * @return if input is valid
      */
     private boolean checkUserName(ArrayList<Person> personList) {
+        Log.i(TAG, "uebergebene Liste (sollte vom Listener befuellt worden sein): " + personList);
         //TODO validate Button 5
         EditText userName = (EditText) findViewById(R.id.userNameInput);
         userNameString = userName.getText().toString();
