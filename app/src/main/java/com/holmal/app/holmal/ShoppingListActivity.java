@@ -130,7 +130,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
         );
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+      /**  navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 int id = item.getItemId();
@@ -143,7 +143,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                 //give resulting list to adapter
                 }
                 return true;
-            }});
+            }});*/
 
         Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
         //fill List with the items with an adapter
