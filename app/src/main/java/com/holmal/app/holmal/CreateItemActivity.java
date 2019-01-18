@@ -48,6 +48,7 @@ public class CreateItemActivity extends AppCompatActivity {
         PreferencesAccess preferences = new PreferencesAccess();
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
 
+        // Listener to get all IDs of the items that belongs to the list with id = shoppingListId
         FirebaseDatabase.getInstance().getReference().child("shoppingList").child(shoppingListId).child("itemsOfThisList").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -66,6 +67,8 @@ public class CreateItemActivity extends AppCompatActivity {
 
             }
         });
+
+        // Listener to get all items that are in the list
         FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -90,7 +93,7 @@ public class CreateItemActivity extends AppCompatActivity {
         });
     }
 
-    //pressing this button takes you back to the general view of the shopping list
+    //pressing this button takes you back to the general view of the shopping list -> nothing happens
     @OnClick(R.id.cancelButton)
     public void cancelButtonClicked() {
         Intent intent = new Intent(this, ShoppingListActivity.class);
@@ -106,10 +109,7 @@ public class CreateItemActivity extends AppCompatActivity {
     @OnClick(R.id.add)
     public void itemCreationOnClicked() {
         if (validate()) {
-            //TODO implement functionality aka actually add item to list
-
             Item item = new Item(itemName, quantity, important, favorite, additionalInfo);
-            //FireBaseHandling.getInstance().storeShoppingListItem(householdId, shoppingListId, item);
             FireBaseHandling.getInstance().storeItem(shoppingListId, item);
 
             //maybe also check whether item is a favourite here and add to favourites
@@ -120,7 +120,7 @@ public class CreateItemActivity extends AppCompatActivity {
         }
     }
 
-    //Validation: add button can only be pressed if a name has been given
+    // Validation: add button can only be pressed if a name has been given
     private boolean validate() {
         EditText itemInput = findViewById(R.id.whatInput);
         itemName = itemInput.getText().toString();
@@ -137,6 +137,7 @@ public class CreateItemActivity extends AppCompatActivity {
         if (saveAsFavoriteInput.isChecked()) {
             favorite = true;
         }
+
         // Bezeichnung ist eingegeben
         if (!itemName.isEmpty()) {
             return checkItemNameTaken(itemName);
