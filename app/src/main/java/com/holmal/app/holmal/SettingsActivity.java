@@ -175,7 +175,6 @@ public class SettingsActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 
 
