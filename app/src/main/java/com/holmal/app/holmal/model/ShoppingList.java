@@ -1,11 +1,10 @@
 package com.holmal.app.holmal.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 
 public class ShoppingList {
     private String listName;
-    private ArrayList<Item> itemsOfThisList;
+    private HashMap<String, String> itemsOfThisList;
     private String category;
 
     private String idBelongingTo;
@@ -25,10 +24,10 @@ public class ShoppingList {
     public ShoppingList(String listName, String category) {
         this.listName = listName;
         this.category = category;
-        this.itemsOfThisList = new ArrayList<Item>();
+        this.itemsOfThisList = new HashMap<String, String>();
     }
 
-    public ShoppingList(String listName, ArrayList<Item> itemsOfThisList, String category) {
+    public ShoppingList(String listName, HashMap<String, String> itemsOfThisList, String category) {
         this.listName = listName;
         this.itemsOfThisList = itemsOfThisList;
         this.category = category;
@@ -42,11 +41,11 @@ public class ShoppingList {
         this.listName = listName;
     }
 
-    public ArrayList<Item> getItemsOfThisList() {
+    public HashMap<String, String> getItemsOfThisList() {
         return itemsOfThisList;
     }
 
-    public void setItemsOfThisList(ArrayList<Item> itemsOfThisList) {
+    public void setItemsOfThisList(HashMap<String, String> itemsOfThisList) {
         this.itemsOfThisList = itemsOfThisList;
     }
 
