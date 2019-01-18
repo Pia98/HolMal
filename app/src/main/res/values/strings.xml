@@ -50,7 +50,7 @@
 
     <!--ShoppingListActivity-->
     <string name="noOpenItems">Keine offenen Items</string>
-    <string name="openItems">offene Items</string>
+    <string name="openItems">Offene Items: </string>
 
     <string name="createShoppingListHeader">Neuen Einkaufszettel erstellen:</string>
     <string name="shoppingListName">Bezeichnung</string>
@@ -64,7 +64,7 @@
 
     <string name="leaveConfirmation">Möchtest Du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
     <string name="yes">Ja</string>
-    <string name="no">No</string>
+    <string name="no">Nein</string>
 
 
     <string name="ErrorLoginFailed">Login fehlgeschlagen: Bitte überprüfe deine Email und dein Passwort</string>
