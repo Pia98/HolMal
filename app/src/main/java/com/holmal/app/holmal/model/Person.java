@@ -9,21 +9,16 @@ public class Person {
     private int color;
 
     private String idBelongingTo;
+    private String email;
 
-    public Person(String personName, int color, String idBelongingTo) {
+    public Person(String personName, int color, String idBelongingTo, String email) {
         this.personName = personName;
         this.color = color;
         this.idBelongingTo = idBelongingTo;
-    }
-
-    public Person(String personName, int color){
-    private String email;
-
-    public Person(String personName, int color, String email){
-        this.personName = personName;
-        this.color = color;
         this.email = email;
     }
+
+    public Person(String personName, int color){}
 
     public Person() {
     }

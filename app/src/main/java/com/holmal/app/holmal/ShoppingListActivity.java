@@ -40,10 +40,6 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
 
-    // TODO set text, so that it is not hardcoded anymore!
-    @BindView(R.id.householdName)
-    TextView householdNameText;
-
     private DrawerLayout mDrawerLayout;
     ShoppingList currentShoppingList;
 
@@ -51,7 +47,6 @@ public class ShoppingListActivity extends AppCompatActivity {
     String householdId;
     String recentShoppingListName;
 
-    // TODO change hardcoded id
     String shoppingListId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +101,23 @@ public class ShoppingListActivity extends AppCompatActivity {
                  *              if(item an der stelle hat info){
                  *              starte ItemInformationFragment
                  * });}
+                 */
+                /**
+                 * //handles double click on item -> makes item assigned to self
+                 * list.setOnTouchListener(new OnTouchListener() {
+                 *     private GestureDetector gestureDetector = new GestureDetector(ShoppingListActivity.this, new GestureDetector.SimpleOnGestureListener() {
+                 *         @Override
+                 *         public boolean onDoubleTap(MotionEvent e) {
+                 *         if(item an der stelle ist nicht assigned){
+                 *         assined add person
+                 *         }else{
+                 *         assigned remove person
+                 *         }
+                 *             return super.onDoubleTap(e);
+                 *         }
+                 *     });
+                 *     onSwipeRight()
+                 *
                  */
             }
 
@@ -195,7 +207,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
         );
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        /*navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 int id = item.getItemId();
@@ -208,43 +220,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                 //give resulting list to adapter
                 }
                 return true;
-            }});
-
-        Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
-        //fill List with the items with an adapter
-      /**  Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
-        //TODO abfrage welche shopping list man erhält!! wichtig
-       //TODO auskommentieren um items anzuzeigen, wenn liste der listen nicht [] ist
-        ItemsAdapter adapter = new ItemsAdapter(this, items);
-        ListView list = findViewById(R.id.list);
-        list.setAdapter(adapter);*/
-
-        /**
-         * //handles click on item to see detailed information
-         * list.setOnClickListener(new AdapterView.OnItemClickListener() {
-         *              @Override
-         *              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-         *              if(item an der stelle hat info){
-         *              starte ItemInformationFragment
-         * });}
-         */
-        /**
-         * //handles double click on item -> makes item assigned to self
-         * list.setOnTouchListener(new OnTouchListener() {
-         *     private GestureDetector gestureDetector = new GestureDetector(ShoppingListActivity.this, new GestureDetector.SimpleOnGestureListener() {
-         *         @Override
-         *         public boolean onDoubleTap(MotionEvent e) {
-         *         if(item an der stelle ist nicht assigned){
-         *         assined add person
-         *         }else{
-         *         assigned remove person
-         *         }
-         *             return super.onDoubleTap(e);
-         *         }
-         *     });
-         *     onSwipeRight()
-         *
-         */
+            }});*/
         }
 
     private void getCurrentShoppingList() {

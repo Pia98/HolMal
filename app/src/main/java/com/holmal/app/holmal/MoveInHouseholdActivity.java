@@ -110,11 +110,8 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
         if (validate()) {
             PreferencesAccess preferences = new PreferencesAccess();
 
-            Person person = new Person(userNameString, chosenColorId, householdId);
             String currentEmail = fireAuth.getCurrentUser().getEmail();
-            Person person = new Person(userNameString, chosenColorId, currentEmail);
-            Intent intent = new Intent(this, ShoppingListActivity.class); // decide if main (screen 11) or screen 5 (shoppingList), then change here
-            startActivity(intent);
+            Person person = new Person(userNameString, chosenColorId, householdId, currentEmail);
 
             // TODO check first if not taken yet in the household
             Log.i(TAG, String.format("'%s' (color: %s) wants to move in '%s'", userNameString, chosenColorId, householdId));

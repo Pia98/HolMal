@@ -80,7 +80,7 @@ public class ShoppingListsAdapter extends BaseAdapter {
                 || shoppinglists.get(listKeys[position]).getItemsOfThisList().size() == 0) {
             descriptionView.setText("Keine offenen Items");
         } else {
-            descriptionView.setText(shoppinglists.get(listKeys[position]).getItemsOfThisList().size());
+            descriptionView.setText(String.valueOf(shoppinglists.get(listKeys[position]).getItemsOfThisList().size()));
             descriptionView.append(openItems);
         }
 

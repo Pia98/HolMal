@@ -8,7 +8,6 @@ import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
-import com.holmal.app.holmal.model.User;
 import com.holmal.app.holmal.utils.listener.ItemListener;
 import com.holmal.app.holmal.utils.listener.PersonIDListener;
 import com.holmal.app.holmal.utils.listener.PersonListener;
