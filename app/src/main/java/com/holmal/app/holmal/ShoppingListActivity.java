@@ -24,6 +24,7 @@ import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -35,30 +36,70 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     private static final String TAG = ShoppingListActivity.class.getName();
 
+    private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
+
     // TODO set text, so that it is not hardcoded anymore!
     @BindView(R.id.householdName)
     TextView householdNameText;
 
     private DrawerLayout mDrawerLayout;
     ShoppingList currentShoppingList;
+
+    String householdId;
+    String recentShoppingListName;
+
     // TODO change hardcoded id
-    String shoppingListId = "0";
+    String shoppingListId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
         ButterKnife.bind(this);
 
+        PreferencesAccess preferences = new PreferencesAccess();
+        householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
+        // von Haushalt -> Listen -> Liste mit namen aus Preferences
+        recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
 
+        FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "listener in onCreate...");
+                listsOfThisHousehold.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Listen durchgehen");
+                    String id = child.getKey();
+                    ShoppingList value = child.getValue(ShoppingList.class);
+                    Log.i(TAG, "ShoppingList: " + value);
+                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
+                    if (value.getIdBelongingTo() != null) {
+                        if (value.getIdBelongingTo().equals(householdId)) {
+                            Log.i(TAG, "Liste gehört zu diesem Haushalt.");
+                            listsOfThisHousehold.put(id, value);
+                        }
+                    }
+                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
+                }
+                getCurrentShoppingList();
+                setTitle(recentShoppingListName);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+/*
         try {
             getCurrentShoppingList();
-            PreferencesAccess preferences = new PreferencesAccess();
-            setTitle(preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference)));
+            setTitle(recentShoppingListName);
         } catch (Throwable e) {
             Log.e(TAG, "Error " + e);
             e.printStackTrace();
             setTitle(R.string.shoppingList);
         }
+*/
 
         //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
@@ -136,7 +177,8 @@ public class ShoppingListActivity extends AppCompatActivity {
         );
 
 
-        Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
+        Log.i("fürSvenja", ":" + listsOfThisHousehold);
+        //Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
         //fill List with the items with an adapter
       /**  Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
         //TODO abfrage welche shopping list man erhält!! wichtig
@@ -159,11 +201,29 @@ public class ShoppingListActivity extends AppCompatActivity {
     private void getCurrentShoppingList() {
         Log.i(TAG, "getCurrentShoppingList called");
 
+        Log.i(TAG, "shoppingLists " + listsOfThisHousehold);
+        if (listsOfThisHousehold.isEmpty()) {
+            Log.i(TAG, "shoppingList is empty");
+            //shoppingLists = FireBaseHandling.getInstance().initializeShoppingList(householdId);
+        }
+        if (recentShoppingListName == null) {
+            Log.i(TAG, "no recent shoppingListName");
+        }
+        else{
+            Log.i(TAG, "recentShoppingListName: " + recentShoppingListName);
+            String[] keys = listsOfThisHousehold.keySet().toArray(new String[listsOfThisHousehold.size()]);
+            for(int i=0; i < keys.length; i++){
+                ShoppingList list = listsOfThisHousehold.get(keys[i]);
+                if(recentShoppingListName.equals(list.getListName())){
+                    currentShoppingList = list;
+                    shoppingListId = keys[i];
+                    Log.i(TAG, "currentShoppingList: " + currentShoppingList);
+                    break;
+                }
+            }
+        }
 
-        // von Haushalt -> Listen -> Liste mit namen aus Preferences
-        PreferencesAccess preferences = new PreferencesAccess();
-        String householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
-        String recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
+/*
         //List<ShoppingList> shoppingLists =
         //        FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
         final List<ShoppingList> shoppingLists = new ArrayList<>();
@@ -210,7 +270,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                 Log.i(TAG, "currentShoppingList: " + currentShoppingList);
                 break;
             }
-        }
+        }*/
     }
 
     //Menu is opened

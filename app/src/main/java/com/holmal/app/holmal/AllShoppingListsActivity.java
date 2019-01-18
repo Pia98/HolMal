@@ -2,6 +2,7 @@ package com.holmal.app.holmal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +16,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
@@ -30,6 +35,7 @@ public class AllShoppingListsActivity extends AppCompatActivity {
     private static final String TAG = AllShoppingListsActivity.class.getName();
 
     private DrawerLayout mDrawerLayout;
+    private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,12 +112,55 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                 }
         );
 
+        PreferencesAccess preferencesAccess = new PreferencesAccess();
+        final String householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
+
+
+        FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "listener in onCreate...");
+                listsOfThisHousehold.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Listen durchgehen");
+                    String id = child.getKey();
+                    ShoppingList value = child.getValue(ShoppingList.class);
+                    Log.i(TAG, "ShoppingList: " + value);
+                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
+                    if (value.getIdBelongingTo() != null) {
+                        if (value.getIdBelongingTo().equals(householdId)) {
+                            Log.i(TAG, "Liste gehört zu diesem Haushalt.");
+                            listsOfThisHousehold.put(id, value);
+                        }
+                    }
+                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
+                }
+                ShoppingListsAdapter adapter = new ShoppingListsAdapter(AllShoppingListsActivity.this, listsOfThisHousehold);
+                GridView lists = findViewById(R.id.allShoppingLists);
+                lists.setAdapter(adapter);
+
+                lists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Log.i("FürSvenja", "Open list from allshoppinglists");
+                        //TODO open correct shopping list (-> set activeShoppingList to that one)
+                        //Intent intent = new Intent(AllShoppingLists.this, ShoppingList.class);
+                        //startActivity(intent);
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         //fill with lists with an adapter
-        HashMap<String, ShoppingList> shoppingLists = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
+        /*HashMap<String, ShoppingList> shoppingLists = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList();
         String[] keys = shoppingLists.keySet().toArray(new String[shoppingLists.size()]);
         HashMap<String, ShoppingList> listsOfCurrentHousehold = new HashMap<>();
-        PreferencesAccess preferencesAccess = new PreferencesAccess();
-        String householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
 
         for(int i = 0; i < shoppingLists.size(); i++){
             Log.i(TAG, "alle Listen durchgehen...");
@@ -125,14 +174,14 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                     Log.i(TAG, "add to listsOfCurrentHousehold: " + listsOfCurrentHousehold);
                 }
             }
-        }
+        }*/
 
-        ShoppingListsAdapter adapter = new ShoppingListsAdapter(this, listsOfCurrentHousehold);
+        /*ShoppingListsAdapter adapter = new ShoppingListsAdapter(this, listsOfCurrentHousehold);
         GridView lists = findViewById(R.id.allShoppingLists);
-        lists.setAdapter(adapter);
+        lists.setAdapter(adapter);*/
 
         //handle clicks on the lists
-        lists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*lists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -141,7 +190,7 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                 //Intent intent = new Intent(AllShoppingLists.this, ShoppingList.class);
                 //startActivity(intent);
             }
-        });
+        });*/
     }
 
     //Menu is opened

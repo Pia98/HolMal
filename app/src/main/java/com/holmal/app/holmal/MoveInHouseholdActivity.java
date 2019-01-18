@@ -3,6 +3,7 @@ package com.holmal.app.holmal;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,6 +12,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
@@ -32,6 +37,8 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
     Fragment currentFragment;
     FragmentHandling fragmentHandling = new FragmentHandling();
     ReferencesHandling referencesHandling = new ReferencesHandling();
+
+    private ArrayList<Person> joiningPerson = new ArrayList<>();
 
     @BindView(R.id.householdIDAsText)
     TextView householdIdAsText;
@@ -60,7 +67,35 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
         householdId = extras.getString("inputId");
 
         // listener fuer personen starten, gleich bei erzeugen, bevor Person gespeichert, wegen Abfragen ob bereits in Haushalt vorhanden
-        FireBaseHandling.getInstance().startPersonIDValueEventListener(householdId);
+        //FireBaseHandling.getInstance().startPersonIDValueEventListener(householdId);
+
+        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "listener in onCreate...");
+                joiningPerson.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Personen durchgehen");
+                    String id = child.getKey();
+                    Person value = child.getValue(Person.class);
+                    Log.i(TAG, "Person: " + value);
+                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
+                    if (value.getIdBelongingTo() != null) {
+                        if (value.getIdBelongingTo().equals(householdId)) {
+                            Log.i(TAG, "Person gehört zu diesem Haushalt.");
+                            joiningPerson.add(value);
+                        }
+                    }
+                    Log.i(TAG, "joiningPerson in for Schleife bei listener: " + joiningPerson);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        Log.i(TAG, "joiningPerson nach listener: " + joiningPerson);
 
         householdIdAsText.setText(householdId);
 
@@ -96,9 +131,10 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
      * @return if all inputs are valid
      */
     private boolean validate() {
-        List<String> personIDList = FireBaseHandling.getInstance().getPersonIDListener().getPersonList();
-        HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
-        //ArrayList<Person> personenInCurrentHousehold = referencesHandling.getAllMembersOfOneHousehold(personIDList, personHash);
+        Log.i(TAG, "validate called");
+        //List<String> personIDList = FireBaseHandling.getInstance().getPersonIDListener().getPersonList();
+        /*HashMap<String, Person> personHash = FireBaseHandling.getInstance().getPersonListener().getPersonHash();
+        ArrayList<Person> personenInCurrentHousehold = referencesHandling.getAllMembersOfOneHousehold(personIDList, personHash);
         ArrayList<Person> personenInCurrentHousehold = new ArrayList<>();
         String[] keys = personHash.keySet().toArray(new String[personHash.size()]);
         Log.i(TAG, "personenInCurrentHousehold: " + personenInCurrentHousehold);
@@ -118,10 +154,13 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
         }
 
         Log.i(TAG, "personenInCurrentHousehold wird dann so uebergeben: " + personenInCurrentHousehold);
+*/
 
-
-        if (checkUserName(personenInCurrentHousehold)) {
+        /*if (checkUserName(personenInCurrentHousehold)) {
             return checkColours(personenInCurrentHousehold);
+        } else return false;*/
+        if (checkUserName(joiningPerson)) {
+            return checkColours(joiningPerson);
         } else return false;
     }
 
@@ -131,6 +170,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
      * @return if input is valid
      */
     private boolean checkUserName(ArrayList<Person> personList) {
+        Log.i(TAG, "uebergebene Liste (sollte vom Listener befuellt worden sein): " + personList);
         //TODO validate Button 5
         EditText userName = (EditText) findViewById(R.id.userNameInput);
         userNameString = userName.getText().toString();
