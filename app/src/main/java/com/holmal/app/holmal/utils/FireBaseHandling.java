@@ -8,10 +8,6 @@ import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
-import com.holmal.app.holmal.utils.listener.ItemListener;
-import com.holmal.app.holmal.utils.listener.PersonIDListener;
-import com.holmal.app.holmal.utils.listener.PersonListener;
-import com.holmal.app.holmal.utils.listener.ShoppingListListener;
 
 //Class for handling references to the firebase database
 //that are used in multiple other classes
@@ -25,11 +21,6 @@ public class FireBaseHandling {
         return firebaseHandling;
     }
     private static FireBaseHandling firebaseHandling = new FireBaseHandling();
-
-    private PersonIDListener personIDListener = new PersonIDListener();
-    private PersonListener personListener = new PersonListener();
-    private ShoppingListListener shoppingListListener = new ShoppingListListener();
-    private ItemListener itemListener = new ItemListener();
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference reference = firebaseDatabase.getReference();
