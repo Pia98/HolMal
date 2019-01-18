@@ -48,11 +48,6 @@ public class FireBaseHandling {
         return storeId;
     }
 
-
-    public void storeUserOnDatabase(User user) {
-        reference.child("user").push().setValue(user);
-    }
-
     public void deleteHousehold(String householdId){
         reference.child(householdRubric).child(householdId).removeValue();
     }

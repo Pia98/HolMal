@@ -29,7 +29,7 @@ public class PersonIDListener implements ValueEventListener {
             String value = (String) iterator.next().getValue();
             personList.add(value);
         }
-        Log.i("PersonListener", "personList: " + personList);
+        Log.i("PersonIDListener", "personList: " + personList);
     }
 
     @Override

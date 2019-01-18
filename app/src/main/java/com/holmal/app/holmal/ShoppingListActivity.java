@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -122,6 +124,11 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
+        //tab layout for open and done items
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -187,6 +194,57 @@ public class ShoppingListActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.openItemsTab) {
+                //check items that are on list and not done
+                //give this list to adapter and set adapter
+                    getCurrentShoppingList();
+                } else if (id == R.id.doneItemsTab) {
+                //check items that are on list and done
+                //give resulting list to adapter
+                }
+                return true;
+            }});
+
+        Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
+        //fill List with the items with an adapter
+      /**  Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
+        //TODO abfrage welche shopping list man erhält!! wichtig
+       //TODO auskommentieren um items anzuzeigen, wenn liste der listen nicht [] ist
+        ItemsAdapter adapter = new ItemsAdapter(this, items);
+        ListView list = findViewById(R.id.list);
+        list.setAdapter(adapter);*/
+
+        /**
+         * //handles click on item to see detailed information
+         * list.setOnClickListener(new AdapterView.OnItemClickListener() {
+         *              @Override
+         *              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+         *              if(item an der stelle hat info){
+         *              starte ItemInformationFragment
+         * });}
+         */
+        /**
+         * //handles double click on item -> makes item assigned to self
+         * list.setOnTouchListener(new OnTouchListener() {
+         *     private GestureDetector gestureDetector = new GestureDetector(ShoppingListActivity.this, new GestureDetector.SimpleOnGestureListener() {
+         *         @Override
+         *         public boolean onDoubleTap(MotionEvent e) {
+         *         if(item an der stelle ist nicht assigned){
+         *         assined add person
+         *         }else{
+         *         assigned remove person
+         *         }
+         *             return super.onDoubleTap(e);
+         *         }
+         *     });
+         *     onSwipeRight()
+         *
+         */
         }
 
     private void getCurrentShoppingList() {

@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -37,6 +38,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
     Fragment currentFragment;
     FragmentHandling fragmentHandling = new FragmentHandling();
     ReferencesHandling referencesHandling = new ReferencesHandling();
+    FirebaseAuth fireAuth;
 
     private ArrayList<Person> joiningPerson = new ArrayList<>();
 
@@ -96,6 +98,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
 
         householdIdAsText.setText(householdId);
 
+        fireAuth = FirebaseAuth.getInstance();
     }
 
     /**
@@ -108,6 +111,10 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
             PreferencesAccess preferences = new PreferencesAccess();
 
             Person person = new Person(userNameString, chosenColorId, householdId);
+            String currentEmail = fireAuth.getCurrentUser().getEmail();
+            Person person = new Person(userNameString, chosenColorId, currentEmail);
+            Intent intent = new Intent(this, ShoppingListActivity.class); // decide if main (screen 11) or screen 5 (shoppingList), then change here
+            startActivity(intent);
 
             // TODO check first if not taken yet in the household
             Log.i(TAG, String.format("'%s' (color: %s) wants to move in '%s'", userNameString, chosenColorId, householdId));

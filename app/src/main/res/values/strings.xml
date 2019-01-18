@@ -15,8 +15,15 @@
     <string name="id">ID</string>
     <string name="done">Fertig</string> <!-- alternativ: bei haushalt erstellen: bauen?, bei beitreten: einziehen? -->
     <string name="copy">kopieren</string>
-    <string name="invite">Personen einladen</string> <!-- Familienmitglieder einladen -->
+    <string name="invite">Personen einladen</string>
+    <string name="inviteExplanation">Jemand möchte mit dir eine Einkaufsliste schreiben. Trete jetzt dem Haushalt bei.
+    Dafür brauchst du nur noch die Hol Mal.. App.</string>
+    <!-- Familienmitglieder einladen -->
     <string name="moveInWithID">Haushalt über ID beitreten</string>
+
+    <string name="openItemsTabs">offen</string>
+    <string name="doneItemsTabs">erledigt</string>
+
 
     <string name="username">Benutzername</string>
     <string name="color">Farbe</string>
@@ -40,6 +47,10 @@
     <string name="favorites">Favoriten</string>
 
     <string name="shoppingList">Einkaufszettel</string>
+
+    <!--ShoppingListActivity-->
+    <string name="noOpenItems">Keine offenen Items</string>
+    <string name="openItems">offene Items</string>
 
     <string name="createShoppingListHeader">Neuen Einkaufszettel erstellen:</string>
     <string name="shoppingListName">Bezeichnung</string>
@@ -81,8 +92,20 @@
 
     <!-- TODO raus schmeissen, nur zum testen fuer ShoppingList Kategorie -->
     <string-array name="spinner">
-        <item>eins</item>
-        <item>zwei</item>
+        <item></item>
+        <item>Apotheke</item>
+        <item>Bäcker</item>
+        <item>Baumarkt</item>
+        <item>Biomarkt</item>
+        <item>Drogerie</item>
+        <item>Elektronikgeschäft</item>
+        <item>Gärtnerei</item>
+        <item>Gemüsemarkt</item>
+        <item>Markt</item>
+        <item>Metzger</item>
+        <item>Rund ums Tier</item>
+        <item>Schreibwaren</item>
+        <item>Supermarkt</item>
     </string-array>
 
 

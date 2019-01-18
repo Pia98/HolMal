@@ -19,4 +19,7 @@
     <style name="blueActionBar" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <item name="android:background">@color/colorPrimary</item>
     </style>
+    <style name="blueTabsBar" parent="@style/Widget.AppCompat.ActionBar.TabBar">
+        <item name="android:background">@color/colorTabs</item>
+    </style>
 </resources>

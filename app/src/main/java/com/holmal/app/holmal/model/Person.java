@@ -17,8 +17,12 @@ public class Person {
     }
 
     public Person(String personName, int color){
+    private String email;
+
+    public Person(String personName, int color, String email){
         this.personName = personName;
         this.color = color;
+        this.email = email;
     }
 
     public Person() {
@@ -40,6 +44,10 @@ public class Person {
         this.color = color;
     }
 
+    public String getEmail(){return email;}
+
+    public void setEmail(String email){this.email = email;}
+
     public String getIdBelongingTo() {
         return idBelongingTo;
     }
@@ -54,6 +62,8 @@ public class Person {
                 "personName='" + personName + '\'' +
                 ", color=" + color +
                 ", idBelongingTo='" + idBelongingTo + '\'' +
+                ", color=" + color + '\'' +
+                ", email=" + email +
                 '}';
     }
 }
