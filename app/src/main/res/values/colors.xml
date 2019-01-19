@@ -24,5 +24,6 @@
     <!-- Suggestion: this color for input fields (line and cursor) -->
     <color name="colorAccent">@color/colorAccentColor</color>
     <color name="colorTabs">#3FA19C</color>
+    <color name="navigationBarColor">#ffffff</color>
     <!--#41A9A3-->
 </resources>

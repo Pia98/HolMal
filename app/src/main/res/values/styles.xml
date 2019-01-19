@@ -21,5 +21,6 @@
     </style>
     <style name="blueTabsBar" parent="@style/Widget.AppCompat.ActionBar.TabBar">
         <item name="android:background">@color/colorTabs</item>
+        <item name="tabSelectedTextColor">@color/colorBackground</item>
     </style>
 </resources>

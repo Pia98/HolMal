@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,8 +22,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.ItemsAdapter;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 
 import java.util.ArrayList;
@@ -56,6 +59,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
 
+        //Listener for the shopping lists of this household
         FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -86,7 +90,18 @@ public class ShoppingListActivity extends AppCompatActivity {
                 Log.i("fürSvenja", ":" + listsOfThisHousehold);
 
                 //fill List with the items with an adapter
-
+                //get items of current list
+                String[] listsHouseholdKeys = listsOfThisHousehold.keySet().toArray(new String[listsOfThisHousehold.size()]);
+                for(int i=0; i<listsOfThisHousehold.size(); i++) {
+                    //checks for correct list
+                    if (listsHouseholdKeys[i].equals(shoppingListId)) {
+                        //check for done vs open items here
+                        HashMap<String, String> items = listsOfThisHousehold.get(listsHouseholdKeys[i]).getItemsOfThisList();
+                       // ItemsAdapter adapter = new ItemsAdapter(this, items);
+                        ListView list = findViewById(R.id.list);
+                       // list.setAdapter(adapter);
+                    }
+                }
 
 
                 /**  Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
