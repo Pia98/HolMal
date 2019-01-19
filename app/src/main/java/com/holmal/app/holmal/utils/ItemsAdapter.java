@@ -5,41 +5,43 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.model.Item;
 
+import java.util.HashMap;
 
 
-public class ItemsAdapter extends ArrayAdapter<Item> {
+public class ItemsAdapter extends BaseAdapter {
 
     private Context context;
-    private Item[] items;
+    private HashMap<String, Item> items;
+    private String[] itemKeys;
 
     //constructor
-    public ItemsAdapter(Context context, Item[] items){
-        super(context, R.layout.single_item_layout);
+    public ItemsAdapter(Context context, HashMap<String, Item> items){
         this.context = context;
         this.items = items;
+        this.itemKeys = items.keySet().toArray(new String[items.size()]);
 
     }
 
     @Override
     public int getCount() {
-        if(items.length== 0) {
-            return 0;
-        }
-        else{
-            return items.length;
-        }
+        return items.size();
     }
 
     @Override
     public Item getItem(int i) {
-        return items[i];
+        return items.get(itemKeys[i]);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
     }
 
 
@@ -59,37 +61,35 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
 
         //iterates over the items and gets name and quantitiy of each one
 
-           String itemName = items[position].getItemName();
-           nameView.setText(itemName);
+        String itemName = items.get(itemKeys[position]).getItemName();
+        nameView.setText(itemName);
 
-           String itemQuantity = items[position].getQuantity();
-           descriptionView.setText(itemQuantity);
+        String itemQuantity = items.get(itemKeys[position]).getQuantity();
+        descriptionView.setText(itemQuantity);
 
-            //shows ! if the item is urgent
-            if(items[position].isImportant()){
-                urgencyView.setImageAlpha(255);
-                }
-            else{
-                 urgencyView.setImageAlpha(0);
-                }
+        //shows ! if the item is urgent
+        if(items.get(itemKeys[position]).isImportant()){
+            urgencyView.setImageAlpha(255);
+        }
+        else{
+            urgencyView.setImageAlpha(0);
+        }
 
-            //shows an i if there is additional information to this item
-            if(items[position].getAdditionalInfo().isEmpty()){
-                infoView.setImageAlpha(0);
-                }
-            else{
-                 infoView.setImageAlpha(255);
-                }
+        //shows an i if there is additional information to this item
+        if(items.get(itemKeys[position]).getAdditionalInfo().isEmpty()){
+            infoView.setImageAlpha(0);
+        }
+        else{
+            infoView.setImageAlpha(255);
+        }
 
-            //shows a colored bar accordiing to the person who took on this item as a task
-            if(items[position].getItsTask() == null){
-                assignedView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorBackground));
-            }
-            else{
-                assignedView.setBackgroundColor(ContextCompat.getColor(context, items[position].getItsTask().getColor()));
-            }
+        //shows a colored bar accordiing to the person who took on this item as a task
+        if(items.get(itemKeys[position]).getItsTask() == null){
+            assignedView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorBackground));
+        }
+        else{
+            assignedView.setBackgroundColor(ContextCompat.getColor(context, items.get(itemKeys[position]).getItsTask().getColor()));
+        }
 
-    return rowView;
-    }
-
-}
+        return rowView;
+    }}

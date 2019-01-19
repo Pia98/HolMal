@@ -42,6 +42,8 @@ public class ShoppingListActivity extends AppCompatActivity {
     private static final String TAG = ShoppingListActivity.class.getName();
 
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
+    private HashMap<String, Item> itemsOfTheList = new HashMap<>();
+    private ArrayList<String> itemIds = new ArrayList<>();
 
     private DrawerLayout mDrawerLayout;
     ShoppingList currentShoppingList;
@@ -89,27 +91,6 @@ public class ShoppingListActivity extends AppCompatActivity {
 
                 Log.i("fürSvenja", ":" + listsOfThisHousehold);
 
-                //fill List with the items with an adapter
-                //get items of current list
-                String[] listsHouseholdKeys = listsOfThisHousehold.keySet().toArray(new String[listsOfThisHousehold.size()]);
-                for(int i=0; i<listsOfThisHousehold.size(); i++) {
-                    //checks for correct list
-                    if (listsHouseholdKeys[i].equals(shoppingListId)) {
-                        //check for done vs open items here
-                        HashMap<String, String> items = listsOfThisHousehold.get(listsHouseholdKeys[i]).getItemsOfThisList();
-                       // ItemsAdapter adapter = new ItemsAdapter(this, items);
-                        ListView list = findViewById(R.id.list);
-                       // list.setAdapter(adapter);
-                    }
-                }
-
-
-                /**  Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
-                 //TODO abfrage welche shopping list man erhält!! wichtig
-                 //TODO auskommentieren um items anzuzeigen, wenn liste der listen nicht [] ist
-                 ItemsAdapter adapter = new ItemsAdapter(this, items);
-                 ListView list = findViewById(R.id.list);
-                 list.setAdapter(adapter);*/
 
                 /**
                  * //handles click on item to see detailed information
@@ -144,6 +125,35 @@ public class ShoppingListActivity extends AppCompatActivity {
 
             }
         });
+
+        // Listener to get all items that are in the list
+        FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "item listener in onCreate...");
+                itemsOfTheList.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    String id = child.getKey();
+                    Item value = child.getValue(Item.class);
+                    Log.i(TAG, "item: " + value);
+                    for (int i = 0; i < itemIds.size(); i++) {
+                        if (id.equals(itemIds.get(i))) {
+                            itemsOfTheList.put(id, value);
+                        }
+                    }
+                }
+            //adapter
+            ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, itemsOfTheList);
+            ListView list = findViewById(R.id.list);
+            list.setAdapter(adapter);
+
+            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
 
         //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
@@ -268,6 +278,15 @@ public class ShoppingListActivity extends AppCompatActivity {
                     Log.i(TAG, "currentShoppingList: " + currentShoppingList);
                     break;
                 }
+            }
+        }
+
+        Log.i("FürSvenja", "current" + currentShoppingList.toString());
+        HashMap<String, String> ids = currentShoppingList.getItemsOfThisList();
+        if(ids != null) {
+            String[] idsKeys = ids.keySet().toArray(new String[ids.size()]);
+            for (int i = 0; i < ids.size(); i++) {
+                itemIds.add(ids.get(idsKeys[i]));
             }
         }
     }
