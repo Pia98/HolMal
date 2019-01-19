@@ -78,10 +78,12 @@ public class ShoppingListsAdapter extends BaseAdapter {
 
         if (shoppinglists.get(listKeys[position]).getItemsOfThisList() == null
                 || shoppinglists.get(listKeys[position]).getItemsOfThisList().size() == 0) {
-            descriptionView.setText("Keine offenen Items");
+            descriptionView.setText(R.string.noOpenItems);
         } else {
-            descriptionView.setText(String.valueOf(shoppinglists.get(listKeys[position]).getItemsOfThisList().size()));
-            descriptionView.append(openItems);
+            //descriptionView.setText(String.valueOf(shoppinglists.get(listKeys[position]).getItemsOfThisList().size()));
+            descriptionView.setText(R.string.openItems);
+            //descriptionView.append(openItems);
+            descriptionView.append(String.valueOf(shoppinglists.get(listKeys[position]).getItemsOfThisList().size()));
         }
 
         return convertView;

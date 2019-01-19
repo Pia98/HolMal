@@ -238,10 +238,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         //pop up that asks the user if they are sure
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Möchtest du wirklich den Haushalt verlassen?");
+        builder.setMessage(R.string.leaveConfirmation);
         builder.setCancelable(true);
         builder.setPositiveButton(
-                "Ja",
+                R.string.yes,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //remove member from household
@@ -285,7 +285,7 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 });
         builder.setNegativeButton(
-                "Nein",
+                R.string.no,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
