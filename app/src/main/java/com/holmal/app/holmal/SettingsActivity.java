@@ -22,7 +22,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
+import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.SettingsAdapter;
@@ -50,6 +52,8 @@ public class SettingsActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
 
     private HashMap<String, Person> joiningPerson = new HashMap<>();
+    private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
+    private  HashMap<String, Item> itemsOfThisHousehold = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,6 +167,57 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         Log.i(TAG, "joiningPerson nach listener: " + joiningPerson);
+
+        //Listener for shopping list
+        FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "listener in onCreate...");
+                listsOfThisHousehold.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Listen durchgehen");
+                    String id = child.getKey();
+                    ShoppingList value = child.getValue(ShoppingList.class);
+                    Log.i(TAG, "ShoppingList: " + value);
+                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
+                    if (value.getIdBelongingTo() != null) {
+                        if (value.getIdBelongingTo().equals(householdId)) {
+                            Log.i(TAG, "Liste gehört zu diesem Haushalt.");
+                            listsOfThisHousehold.put(id, value);
+                        }
+                    }
+                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        //Listener for items
+        FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "listener in onCreate...");
+                itemsOfThisHousehold.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Listen durchgehen");
+                    String id = child.getKey();
+                    Item value = child.getValue(Item.class);
+                    Log.i(TAG, "Item: " + value);
+                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
+                    itemsOfThisHousehold.put(id, value);
+                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + itemsOfThisHousehold);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
@@ -195,13 +250,35 @@ public class SettingsActivity extends AppCompatActivity {
                         String personID = preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.personIDPreference));
                         preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.householdIDPreference), null);
 
-                        FireBaseHandling.getInstance().removePersonFromHousehold(householdID,personID);
+                        FireBaseHandling.getInstance().removePersonFromHousehold(personID);
                         //delete household if household is empty now
                         //hasn't synchronized by then so use former size - 1
                         if(joiningPerson.size() -1 == 0){
                             Log.e("deleteHousehold", householdID + " has been deleted");
                             FireBaseHandling.getInstance().deleteHousehold(householdID);
+
+                            //delete all shopping Lists belonging to this household
+                            //and corresponding items
+                            for (int i = 0; i < listsOfThisHousehold.size(); i++) {
+                                String[] keys = listsOfThisHousehold.keySet().toArray(new String[listsOfThisHousehold.size()]);
+                                ShoppingList shoppingList = listsOfThisHousehold.get(keys[i]);
+                                HashMap<String, String> itemsToDelete = shoppingList.getItemsOfThisList();
+
+                                FireBaseHandling.getInstance().deleteAllShoppingLists(keys[i]);
+                                /**
+                                for(int j = 0; j<itemsOfThisHousehold.size(); j++){
+                                    String[] itemkeys = itemsOfThisHousehold.keySet().toArray(new String[itemsOfThisHousehold.size()]);
+                                    if(itemkeys[j].equals(itemsToDelete)){
+
+                                    }
+                                }*/
+
+
+                               // FireBaseHandling.getInstance().deleteAllItems(keys[i]);
+
+                            }
                         }
+
                         FirebaseAuth.getInstance().signOut();
                         Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
                         startActivity(intentout);

@@ -84,8 +84,11 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
 
                 Log.i("fürSvenja", ":" + listsOfThisHousehold);
-                //Log.i("fürSvenja", FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().toString());
+
                 //fill List with the items with an adapter
+
+
+
                 /**  Item[] items = FireBaseHandling.getInstance().getShoppingListListener().getShoppingListList().get(0).getItemsOfThisList();
                  //TODO abfrage welche shopping list man erhält!! wichtig
                  //TODO auskommentieren um items anzuzeigen, wenn liste der listen nicht [] ist

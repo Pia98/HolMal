@@ -38,12 +38,25 @@ public class FireBaseHandling {
         return storeId;
     }
 
+    //Method to delete data from firebase when the person leaves the household in settings
     public void deleteHousehold(String householdId){
         reference.child(householdRubric).child(householdId).removeValue();
     }
-    public void removePersonFromHousehold(String householdId, String person){
-        reference.child(householdRubric).child(householdId).child("personInHousehold").child(person).removeValue();
+    public void removePersonFromHousehold(String personId){
+        reference.child(personRubric).child(personId).removeValue();
     }
+    public void deleteAllShoppingLists(String shoppingListId){
+        reference.child(shoppingListRubric).child(shoppingListId).removeValue();
+    }
+   public void deleteAllItems(String itemId){
+        reference.child(itemRubric).child(itemId);
+    }
+  /** public void deleteAllItems(String shoppingListId){
+       reference.child(shoppingListRubric).child(shoppingListId).child("itemsOfThisList").removeValue();
+   }*/
+
+
+
 
     public String storePerson(String householdId, Person person) {
         String storeId = reference.push().getKey();
