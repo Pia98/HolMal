@@ -49,7 +49,7 @@ public class FireBaseHandling {
         reference.child(shoppingListRubric).child(shoppingListId).removeValue();
     }
    public void deleteAllItems(String itemId){
-        reference.child(itemRubric).child(itemId);
+        reference.child(itemRubric).child(itemId).removeValue();
     }
   /** public void deleteAllItems(String shoppingListId){
        reference.child(shoppingListRubric).child(shoppingListId).child("itemsOfThisList").removeValue();

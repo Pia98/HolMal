@@ -262,20 +262,20 @@ public class SettingsActivity extends AppCompatActivity {
                             for (int i = 0; i < listsOfThisHousehold.size(); i++) {
                                 String[] keys = listsOfThisHousehold.keySet().toArray(new String[listsOfThisHousehold.size()]);
                                 ShoppingList shoppingList = listsOfThisHousehold.get(keys[i]);
+                                //list of items (id) that belong to household
                                 HashMap<String, String> itemsToDelete = shoppingList.getItemsOfThisList();
-
                                 FireBaseHandling.getInstance().deleteAllShoppingLists(keys[i]);
-                                /**
+
+                                //iterates over all items
+                                String[] allItemsKeys = itemsOfThisHousehold.keySet().toArray(new String[itemsOfThisHousehold.size()]);
+                                String[] itemDeleteKeys = itemsToDelete.keySet().toArray(new String[itemsToDelete.size()]);
                                 for(int j = 0; j<itemsOfThisHousehold.size(); j++){
-                                    String[] itemkeys = itemsOfThisHousehold.keySet().toArray(new String[itemsOfThisHousehold.size()]);
-                                    if(itemkeys[j].equals(itemsToDelete)){
-
+                                    for(int k = 0; k<itemsToDelete.size(); k++) {
+                                        if (allItemsKeys[j].equals(itemsToDelete.get(itemDeleteKeys[k]))) {
+                                            FireBaseHandling.getInstance().deleteAllItems(allItemsKeys[j]);
+                                        }
                                     }
-                                }*/
-
-
-                               // FireBaseHandling.getInstance().deleteAllItems(keys[i]);
-
+                                }
                             }
                         }
 
