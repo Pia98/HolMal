@@ -12,8 +12,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Item;
+import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.ItemsAdapter;
@@ -44,6 +48,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
     private HashMap<String, Item> itemsOfTheList = new HashMap<>();
     private ArrayList<String> itemIds = new ArrayList<>();
+    private HashMap<String, Person> personInHousehold = new HashMap<>();
 
     private DrawerLayout mDrawerLayout;
     ShoppingList currentShoppingList;
@@ -90,34 +95,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
 
                 Log.i("fürSvenja", ":" + listsOfThisHousehold);
-
-
-                /**
-                 * //handles click on item to see detailed information
-                 * list.setOnClickListener(new AdapterView.OnItemClickListener() {
-                 *              @Override
-                 *              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                 *              if(item an der stelle hat info){
-                 *              starte ItemInformationFragment
-                 * });}
-                 */
-                /**
-                 * //handles double click on item -> makes item assigned to self
-                 * list.setOnTouchListener(new OnTouchListener() {
-                 *     private GestureDetector gestureDetector = new GestureDetector(ShoppingListActivity.this, new GestureDetector.SimpleOnGestureListener() {
-                 *         @Override
-                 *         public boolean onDoubleTap(MotionEvent e) {
-                 *         if(item an der stelle ist nicht assigned){
-                 *         assined add person
-                 *         }else{
-                 *         assigned remove person
-                 *         }
-                 *             return super.onDoubleTap(e);
-                 *         }
-                 *     });
-                 *     onSwipeRight()
-                 *
-                 */
             }
 
             @Override
@@ -142,11 +119,65 @@ public class ShoppingListActivity extends AppCompatActivity {
                         }
                     }
                 }
-            //adapter
-            ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, itemsOfTheList);
-            ListView list = findViewById(R.id.list);
-            list.setAdapter(adapter);
+                //adapter
+                ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, itemsOfTheList);
+                ListView list = findViewById(R.id.list);
+                list.setAdapter(adapter);
 
+                //handles click on item to see detailed information
+                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Item clickedItem = (Item) parent.getItemAtPosition(position);
+                        if (!clickedItem.getAdditionalInfo().isEmpty()) {
+                            //TODO starte ItemInformationFragment
+
+                        }
+                    }
+
+
+                });
+                //assigns the item to the person who clicked on it
+                list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                        Item clickedItem = (Item) parent.getItemAtPosition(position);
+                        if (clickedItem.getItsTask() == null) {
+
+                            PreferencesAccess preferencesAccess = new PreferencesAccess();
+                            String ownPersonID = preferencesAccess.readPreferences(ShoppingListActivity.this, "personID");
+                            String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();
+                            clickedItem.setItsTask(personInHousehold.get(ownPersonKey));
+                        }
+                        else{
+                            clickedItem.setItsTask(null);
+                        }
+                        return false;
+                    }
+                });
+
+
+
+
+            //handles double click on item -> makes item assigned to self
+
+                /**
+                 * //handles double click on item -> makes item assigned to self
+                 * list.setOnTouchListener(new OnTouchListener() {
+                 *     private GestureDetector gestureDetector = new GestureDetector(ShoppingListActivity.this, new GestureDetector.SimpleOnGestureListener() {
+                 *         @Override
+                 *         public boolean onDoubleTap(MotionEvent e) {
+                 *         if(item an der stelle ist nicht assigned){
+                 *         assined add person
+                 *         }else{
+                 *         assigned remove person
+                 *         }
+                 *             return super.onDoubleTap(e);
+                 *         }
+                 *     });
+                 *     onSwipeRight()
+                 *
+                 */
             }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -154,6 +185,33 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
             });
 
+        //person Listener
+        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "listener in onCreate...");
+                personInHousehold.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Personen durchgehen");
+                    String id = child.getKey();
+                    Person value = child.getValue(Person.class);
+                    Log.i(TAG, "Person: " + value);
+                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
+                    if (value.getIdBelongingTo() != null) {
+                        if (value.getIdBelongingTo().equals(householdId)) {
+                            Log.i(TAG, "Person gehört zu diesem Haushalt.");
+                            personInHousehold.put(id, value);
+                        }
+                    }
+                    Log.i(TAG, "joiningPerson in for Schleife bei listener: " + personInHousehold);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
