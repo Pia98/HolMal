@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
@@ -68,6 +69,11 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
     @BindView(R.id.error_message3)
     TextView errorMessage3;
 
+    String email;
+    PreferencesAccess preferences = new PreferencesAccess();
+    private HashMap<String, Household> haushalte= new HashMap<>();
+    private ArrayList<Person> personen = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +86,45 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
 
         passwortInputWdh.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
+
+        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "person listener in onCreate: LoginActivity");
+                personen.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Personen durchgehen");
+                    Person value = child.getValue(Person.class);
+                    Log.i(TAG, "Person: " + value);
+                    personen.add(value);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        FirebaseDatabase.getInstance().getReference().child("household").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "household listener in onCreate: LoginActivity");
+                haushalte.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Haushalte durchgehen");
+                    String id = child.getKey();
+                    Household value = child.getValue(Household.class);
+                    Log.i(TAG, "Haushalt: " + value);
+                    haushalte.put(id, value);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -87,10 +132,12 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if(user != null) {
             Toast.makeText(getApplicationContext(), "Logged in as: " + user.getEmail(), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(LoginActivity.this, StartActivity.class);
-            startActivity(intent);
+            email = fireAuth.getCurrentUser().getEmail();
+            navigateToHousehold(email);
         }
-        else Toast.makeText(getApplicationContext(), "Not logged in", Toast.LENGTH_SHORT).show();
+        else{
+            Toast.makeText(getApplicationContext(), "Not logged in", Toast.LENGTH_SHORT).show();
+        }
     }
 
     protected void onResume() {
@@ -191,6 +238,38 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
             return false;
         }else{
             return true;
+        }
+    }
+
+    /**
+     *
+     * @param email
+     * checks if there is an householdId for a person with the given email exists
+     * navigates to it
+     */
+    public void navigateToHousehold(String email){
+        Log.i(TAG, "Searched email: " +  email);
+        String result = null;
+        preferences.storePreferences(this, getString(R.string.householdIDPreference), null);
+        for(Person entry : personen){
+            Log.i(TAG, "persons email: " + entry.getEmail());
+            if(entry.getEmail().equals(email)){
+                result = entry.getIdBelongingTo();
+                Log.i(TAG, "Person found! Belongs to Household: " + result + "; Storing in preferences");
+                preferences.storePreferences(this, getString(R.string.householdIDPreference), result);
+                break;
+            }
+        }
+
+        if(result != null){
+            String haushaltname = haushalte.get(result).getHouseholdName();
+            Toast.makeText(getApplicationContext(), "Navigiere zu Haushalt: " + haushaltname, Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "already registered in an household");
+            Intent intent = new Intent(this, ShoppingListActivity.class);
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(this, StartActivity.class);
+            startActivity(intent);
         }
     }
 }
