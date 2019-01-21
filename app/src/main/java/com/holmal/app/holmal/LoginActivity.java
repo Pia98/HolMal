@@ -17,7 +17,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,9 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
-import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
-import com.holmal.app.holmal.utils.ReferencesHandling;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -115,7 +112,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                     Log.i(TAG, "alle Haushalte durchgehen");
                     String id = child.getKey();
                     Household value = child.getValue(Household.class);
-                    Log.i(TAG, "Haushalt: " + value);
+                    Log.i(TAG, "Haushalt: " + value.getHouseholdName());
                     haushalte.put(id, value);
                 }
             }
@@ -132,8 +129,27 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if(user != null) {
             Toast.makeText(getApplicationContext(), "Logged in as: " + user.getEmail(), Toast.LENGTH_SHORT).show();
-            email = fireAuth.getCurrentUser().getEmail();
-            navigateToHousehold(email);
+
+            while(personen.isEmpty() && haushalte.isEmpty()){
+                try {
+                    wait(100);
+                } catch (InterruptedException e) {
+                    Log.e(TAG, "can't wait");
+                }
+            }
+            email = user.getEmail();
+            String householdID = checkIfPersonIsInHousehold(email);
+
+            if(householdID != null){
+                String haushaltname = haushalte.get(householdID).getHouseholdName();
+                Toast.makeText(getApplicationContext(), "Navigiere zu Haushalt: " + haushaltname, Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "already registered in an household");
+                Intent intent = new Intent(this, ShoppingListActivity.class);
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+            }
         }
         else{
             Toast.makeText(getApplicationContext(), "Not logged in", Toast.LENGTH_SHORT).show();
@@ -247,7 +263,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
      * checks if there is an householdId for a person with the given email exists
      * navigates to it
      */
-    public void navigateToHousehold(String email){
+    public String checkIfPersonIsInHousehold(String email){
         Log.i(TAG, "Searched email: " +  email);
         String result = null;
         preferences.storePreferences(this, getString(R.string.householdIDPreference), null);
@@ -260,16 +276,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                 break;
             }
         }
-
-        if(result != null){
-            String haushaltname = haushalte.get(result).getHouseholdName();
-            Toast.makeText(getApplicationContext(), "Navigiere zu Haushalt: " + haushaltname, Toast.LENGTH_SHORT).show();
-            Log.i(TAG, "already registered in an household");
-            Intent intent = new Intent(this, ShoppingListActivity.class);
-            startActivity(intent);
-        }else{
-            Intent intent = new Intent(this, StartActivity.class);
-            startActivity(intent);
-        }
+      return result;
     }
 }
