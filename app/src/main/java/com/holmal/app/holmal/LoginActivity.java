@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.ReferencesHandling;
 
 import java.util.ArrayList;
@@ -40,7 +41,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
 
     FirebaseAuth fireAuth;
     FirebaseDatabase database;
-    ReferencesHandling referencesHandling = new ReferencesHandling();
 
     @BindView(R.id.emailInput)
     EditText emailInput;
@@ -68,8 +68,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
     @BindView(R.id.error_message3)
     TextView errorMessage3;
 
-    private HashMap<String, Person> joiningPerson = new HashMap<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,26 +80,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
 
         passwortInputWdh.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
-
-        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
-                joiningPerson.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Personen durchgehen");
-                    String id = child.getKey();
-                    Person value = child.getValue(Person.class);
-                    Log.i(TAG, "Person: " + value);
-                    joiningPerson.put(id, value);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @Override
@@ -138,10 +116,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         Log.i(LoginActivity.class.getName(), "Login successful");
-                        Person person = referencesHandling.findPersonWithEmail(email, joiningPerson);
-                        if(person != null) {
-                            Toast.makeText(getApplicationContext(), person.toString(), Toast.LENGTH_SHORT).show();
-                        }
                         finish();}
                     else {
                         progressBar.setVisibility(View.INVISIBLE);
