@@ -291,6 +291,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 }
                             }
                         }
+                        //TODO: items itsTask
 
                         FirebaseAuth.getInstance().signOut();
                         Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);

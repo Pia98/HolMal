@@ -303,7 +303,7 @@ public class ShoppingListActivity extends AppCompatActivity {
             }
         }
 
-        Log.i("FürSvenja", "current" + currentShoppingList.toString());
+        //Log.i("FürSvenja", "current" + currentShoppingList.toString());
         HashMap<String, String> ids = currentShoppingList.getItemsOfThisList();
         if(ids != null) {
             String[] idsKeys = ids.keySet().toArray(new String[ids.size()]);
