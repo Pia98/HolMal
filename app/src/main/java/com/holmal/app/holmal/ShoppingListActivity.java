@@ -131,17 +131,17 @@ public class ShoppingListActivity extends AppCompatActivity {
                         Item clickedItem = (Item) parent.getItemAtPosition(position);
                         if (!clickedItem.getAdditionalInfo().isEmpty()) {
                             //TODO starte ItemInformationFragment
-
+                            Log.i("FürSvenja", "clicked item -> open info");
                         }
                     }
 
 
                 });
-                //assigns the item to the person who clicked on it
                 list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                         Item clickedItem = (Item) parent.getItemAtPosition(position);
+                        Log.i("FürSvenja", "assign person");
                         if (clickedItem.getItsTask() == null) {
 
                             PreferencesAccess preferencesAccess = new PreferencesAccess();
