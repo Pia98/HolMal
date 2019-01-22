@@ -17,15 +17,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
-import com.holmal.app.holmal.utils.FireBaseHandling;
-import com.holmal.app.holmal.utils.ReferencesHandling;
+import com.holmal.app.holmal.utils.PreferencesAccess;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +39,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
 
     FirebaseAuth fireAuth;
     FirebaseDatabase database;
-    ReferencesHandling referencesHandling = new ReferencesHandling();
 
     @BindView(R.id.emailInput)
     EditText emailInput;
@@ -68,7 +66,10 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
     @BindView(R.id.error_message3)
     TextView errorMessage3;
 
-    private HashMap<String, Person> joiningPerson = new HashMap<>();
+    String email;
+    PreferencesAccess preferences = new PreferencesAccess();
+    private HashMap<String, Household> haushalte= new HashMap<>();
+    private ArrayList<Person> personen = new ArrayList<>();
 
 
     @Override
@@ -86,14 +87,33 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
-                joiningPerson.clear();
+                Log.i(TAG, "person listener in onCreate: LoginActivity");
+                personen.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Log.i(TAG, "alle Personen durchgehen");
-                    String id = child.getKey();
                     Person value = child.getValue(Person.class);
                     Log.i(TAG, "Person: " + value);
-                    joiningPerson.put(id, value);
+                    personen.add(value);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        FirebaseDatabase.getInstance().getReference().child("household").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "household listener in onCreate: LoginActivity");
+                haushalte.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Haushalte durchgehen");
+                    String id = child.getKey();
+                    Household value = child.getValue(Household.class);
+                    Log.i(TAG, "Haushalt: " + value.getHouseholdName());
+                    haushalte.put(id, value);
                 }
             }
 
@@ -106,13 +126,34 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
 
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+        Log.i(TAG, "called onAuthStateChange");
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if(user != null) {
+            Log.i(TAG, "Logged in as: " + user.getEmail());
             Toast.makeText(getApplicationContext(), "Logged in as: " + user.getEmail(), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(LoginActivity.this, StartActivity.class);
-            startActivity(intent);
+
+            String householdID = preferences.readPreferences(this, getString(R.string.householdIDPreference));
+
+            if(householdID != null){
+           //     String haushaltname = haushalte.get(householdID).getHouseholdName();
+           //     Toast.makeText(getApplicationContext(), "Navigiere zu Haushalt: " + haushaltname, Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "already registered in an household");
+
+                Intent intent;
+                if(preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference)) != null) {
+                    intent = new Intent(this, ShoppingListActivity.class);
+                }else{
+                    intent = new Intent(this, AllShoppingListsActivity.class);
+                }
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+            }
         }
-        else Toast.makeText(getApplicationContext(), "Not logged in", Toast.LENGTH_SHORT).show();
+        else{
+            Toast.makeText(getApplicationContext(), "Not logged in", Toast.LENGTH_SHORT).show();
+        }
     }
 
     protected void onResume() {
@@ -132,16 +173,14 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         String password = passwordInput.getText().toString();
         if(validate()){
             progressBar.setVisibility(View.VISIBLE);
+            String householdID = checkIfPersonIsInHousehold(email);
+
 
             fireAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         Log.i(LoginActivity.class.getName(), "Login successful");
-                        Person person = referencesHandling.findPersonWithEmail(email, joiningPerson);
-                        if(person != null) {
-                            Toast.makeText(getApplicationContext(), person.toString(), Toast.LENGTH_SHORT).show();
-                        }
                         finish();}
                     else {
                         progressBar.setVisibility(View.INVISIBLE);
@@ -218,5 +257,28 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         }else{
             return true;
         }
+    }
+
+    /**
+     *
+     * @param email
+     * checks if there is an householdId for a person with the given email exists
+     * navigates to it
+     */
+    public String checkIfPersonIsInHousehold(String email){
+        Log.i(TAG, "Searched email: " +  email);
+        String result = null;
+        preferences.storePreferences(this, getString(R.string.householdIDPreference), null);
+        preferences.storePreferences(this, getString(R.string.recentShoppingListNamePreference), null);
+        for(Person entry : personen){
+            Log.i(TAG, "persons email: " + entry.getEmail());
+            if(entry.getEmail().equals(email)){
+                result = entry.getIdBelongingTo();
+                Log.i(TAG, "Person found! Belongs to Household: " + result + "; Storing in preferences");
+                preferences.storePreferences(this, getString(R.string.householdIDPreference), result);
+                break;
+            }
+        }
+      return result;
     }
 }
