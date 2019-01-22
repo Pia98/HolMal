@@ -127,7 +127,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
 
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-        Log.i(TAG, "called onAuthStateChange");
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if(user != null) {
             Log.i(TAG, "Logged in as: " + user.getEmail());
@@ -136,9 +135,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
             String householdID = preferences.readPreferences(this, getString(R.string.householdIDPreference));
 
             if(householdID != null){
-           //     String haushaltname = haushalte.get(householdID).getHouseholdName();
-           //     Toast.makeText(getApplicationContext(), "Navigiere zu Haushalt: " + haushaltname, Toast.LENGTH_SHORT).show();
-                Log.i(TAG, "already registered in an household");
 
                 Intent intent;
                 if(preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference)) != null) {
@@ -277,26 +273,13 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         while (it.hasNext()){
             Map.Entry entry = (Map.Entry) it.next();
             Person person = (Person) entry.getValue();
-            Log.i(TAG, "persons email: " + person.getEmail());
             if(person.getEmail().equals(email)){
                 result = person.getIdBelongingTo();
-                Log.i(TAG, "Person found! Belongs to Household: " + result + "; Storing in preferences");
                 preferences.storePreferences(this, getString(R.string.householdIDPreference), result);
-                Log.i(TAG, "Persons id: " + (String) entry.getKey());
                 preferences.storePreferences(this, getString(R.string.personIDPreference), (String) entry.getKey());
                 break;
             }
         }
-
-        /*for(Person entry : personen.values()){
-            Log.i(TAG, "persons email: " + entry.getEmail());
-            if(entry.getEmail().equals(email)){
-                result = entry.getIdBelongingTo();
-                Log.i(TAG, "Person found! Belongs to Household: " + result + "; Storing in preferences");
-                preferences.storePreferences(this, getString(R.string.householdIDPreference), result);
-                break;
-            }
-        }*/
       return result;
     }
 }
