@@ -48,7 +48,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
     private HashMap<String, Item> itemsOfTheList = new HashMap<>();
     private ArrayList<String> itemIds = new ArrayList<>();
-    private HashMap<String, Person> personInHousehold = new HashMap<>();
+    private HashMap<String, Person> person = new HashMap<>();
 
     private DrawerLayout mDrawerLayout;
     ShoppingList currentShoppingList;
@@ -65,6 +65,26 @@ public class ShoppingListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
+
+        // Listener for person
+        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                person.clear();
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    String id = child.getKey();
+                    Person value = child.getValue(Person.class);
+                    if(value.getIdBelongingTo().equals(householdId)){
+                        person.put(id, value);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //Listener for the shopping lists of this household
         FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
@@ -95,6 +115,34 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
 
                 Log.i("fürSvenja", ":" + listsOfThisHousehold);
+
+
+                /**
+                 * //handles click on item to see detailed information
+                 * list.setOnClickListener(new AdapterView.OnItemClickListener() {
+                 *              @Override
+                 *              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                 *              if(item an der stelle hat info){
+                 *              starte ItemInformationFragment
+                 * });}
+                 */
+                /**
+                 * //handles double click on item -> makes item assigned to self
+                 * list.setOnTouchListener(new OnTouchListener() {
+                 *     private GestureDetector gestureDetector = new GestureDetector(ShoppingListActivity.this, new GestureDetector.SimpleOnGestureListener() {
+                 *         @Override
+                 *         public boolean onDoubleTap(MotionEvent e) {
+                 *         if(item an der stelle ist nicht assigned){
+                 *         assined add person
+                 *         }else{
+                 *         assigned remove person
+                 *         }
+                 *             return super.onDoubleTap(e);
+                 *         }
+                 *     });
+                 *     onSwipeRight()
+                 *
+                 */
             }
 
             @Override
@@ -119,10 +167,10 @@ public class ShoppingListActivity extends AppCompatActivity {
                         }
                     }
                 }
-                //adapter
-                ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, itemsOfTheList);
-                ListView list = findViewById(R.id.list);
-                list.setAdapter(adapter);
+            //adapter
+            ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, itemsOfTheList, person);
+            ListView list = findViewById(R.id.list);
+            list.setAdapter(adapter);
 
                 //handles click on item to see detailed information
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -147,7 +195,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                             PreferencesAccess preferencesAccess = new PreferencesAccess();
                             String ownPersonID = preferencesAccess.readPreferences(ShoppingListActivity.this, "personID");
                             String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();
-                            clickedItem.setItsTask(personInHousehold.get(ownPersonKey));
+                            clickedItem.setItsTask(person.get(ownPersonKey));
                         }
                         else{
                             clickedItem.setItsTask(null);
@@ -190,7 +238,7 @@ public class ShoppingListActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.i(TAG, "listener in onCreate...");
-                personInHousehold.clear();
+                person.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Log.i(TAG, "alle Personen durchgehen");
                     String id = child.getKey();
@@ -200,18 +248,19 @@ public class ShoppingListActivity extends AppCompatActivity {
                     if (value.getIdBelongingTo() != null) {
                         if (value.getIdBelongingTo().equals(householdId)) {
                             Log.i(TAG, "Person gehört zu diesem Haushalt.");
-                            personInHousehold.put(id, value);
+                            person.put(id, value);
                         }
                     }
-                    Log.i(TAG, "joiningPerson in for Schleife bei listener: " + personInHousehold);
+                    Log.i(TAG, "joiningPerson in for Schleife bei listener: " + person);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+
 
         //menu that appears from the left
         Toolbar toolbar = findViewById(R.id.menu);
