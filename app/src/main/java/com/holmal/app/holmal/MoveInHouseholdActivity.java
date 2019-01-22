@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
@@ -45,7 +46,6 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
     @BindView(R.id.householdIDAsText)
     TextView householdIdAsText;
 
-    // TODO set text, so that it is not hardcoded anymore!
     @BindView(R.id.householdNameFromIDAsText)
     TextView householdNameAsText;
 
@@ -94,9 +94,20 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
 
             }
         });
-        Log.i(TAG, "joiningPerson nach listener: " + joiningPerson);
 
-        householdIdAsText.setText(householdId);
+        FirebaseDatabase.getInstance().getReference().child("household").child(householdId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Household thisHousehold = dataSnapshot.getValue(Household.class);
+                householdNameAsText.setText(thisHousehold.getHouseholdName());
+                householdIdAsText.setText(dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         fireAuth = FirebaseAuth.getInstance();
     }

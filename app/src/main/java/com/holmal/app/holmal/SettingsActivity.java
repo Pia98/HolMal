@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
@@ -40,11 +41,9 @@ public class SettingsActivity extends AppCompatActivity {
     private static final String TAG = SettingsActivity.class.getName();
 
 
-    // TODO set text, so that it is not hardcoded anymore!
     @BindView(R.id.householdName)
     TextView householdNameText;
 
-    // TODO set text, so that it is not hardcoded anymore!
     @BindView(R.id.thisHouseholdId)
     TextView householdIdText;
 
@@ -63,6 +62,20 @@ public class SettingsActivity extends AppCompatActivity {
 
         PreferencesAccess preferencesAccess = new PreferencesAccess();
         householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
+
+        FirebaseDatabase.getInstance().getReference().child("household").child(householdId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Household thisHousehold = dataSnapshot.getValue(Household.class);
+                householdNameText.setText(thisHousehold.getHouseholdName());
+                householdIdText.setText(dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
         //menu that appears from the left
