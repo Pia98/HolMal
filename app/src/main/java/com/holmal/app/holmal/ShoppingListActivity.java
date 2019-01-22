@@ -195,7 +195,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                             PreferencesAccess preferencesAccess = new PreferencesAccess();
                             String ownPersonID = preferencesAccess.readPreferences(ShoppingListActivity.this, "personID");
                             String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();
-                            clickedItem.setItsTask(person.get(ownPersonKey));
+                            clickedItem.setItsTask(ownPersonID);
                         }
                         else{
                             clickedItem.setItsTask(null);
