@@ -21,7 +21,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.ShoppingList;
-import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.ShoppingListsAdapter;
 
@@ -126,10 +125,10 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                     String id = child.getKey();
                     ShoppingList value = child.getValue(ShoppingList.class);
                     Log.i(TAG, "ShoppingList: " + value);
-                        if (value.getIdBelongingTo().equals(householdId)) {
-                            Log.i(TAG, "Liste gehört zu diesem Haushalt.");
-                            listsOfThisHousehold.put(id, value);
-                        }
+                    if (value.getIdBelongingTo().equals(householdId)) {
+                        Log.i(TAG, "Liste gehört zu diesem Haushalt.");
+                        listsOfThisHousehold.put(id, value);
+                    }
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
                 //fill with lists with an adapter

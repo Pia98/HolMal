@@ -1,11 +1,8 @@
 package com.holmal.app.holmal.model;
 
-import java.util.ArrayList;
-
 public class Person {
     private String personName;
 
-    /**@color */
     private int color;
 
     private String idBelongingTo;
@@ -18,7 +15,6 @@ public class Person {
         this.email = email;
     }
 
-    public Person(String personName, int color){}
 
     public Person() {
     }
@@ -39,9 +35,13 @@ public class Person {
         this.color = color;
     }
 
-    public String getEmail(){return email;}
+    public String getEmail() {
+        return email;
+    }
 
-    public void setEmail(String email){this.email = email;}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getIdBelongingTo() {
         return idBelongingTo;
@@ -57,8 +57,7 @@ public class Person {
                 "personName='" + personName + '\'' +
                 ", color=" + color +
                 ", idBelongingTo='" + idBelongingTo + '\'' +
-                ", color=" + color + '\'' +
-                ", email=" + email +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

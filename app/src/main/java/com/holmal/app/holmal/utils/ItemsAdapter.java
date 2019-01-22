@@ -2,7 +2,6 @@ package com.holmal.app.holmal.utils;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,7 @@ public class ItemsAdapter extends BaseAdapter {
     private HashMap<String, Person> person;
 
     //constructor
-    public ItemsAdapter(Context context, HashMap<String, Item> items, HashMap<String, Person> person){
+    public ItemsAdapter(Context context, HashMap<String, Item> items, HashMap<String, Person> person) {
         this.context = context;
         this.items = items;
         this.person = person;
@@ -51,7 +50,7 @@ public class ItemsAdapter extends BaseAdapter {
 
     //method that actually adapts the view to show the items on the list
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -72,18 +71,16 @@ public class ItemsAdapter extends BaseAdapter {
         descriptionView.setText(itemQuantity);
 
         //shows ! if the item is urgent
-        if(items.get(itemKeys[position]).isImportant()){
+        if (items.get(itemKeys[position]).isImportant()) {
             urgencyView.setImageAlpha(255);
-        }
-        else{
+        } else {
             urgencyView.setImageAlpha(0);
         }
 
         //shows an i if there is additional information to this item
-        if(items.get(itemKeys[position]).getAdditionalInfo().isEmpty()){
+        if (items.get(itemKeys[position]).getAdditionalInfo().isEmpty()) {
             infoView.setImageAlpha(0);
-        }
-        else{
+        } else {
             infoView.setImageAlpha(255);
         }
 
@@ -113,4 +110,5 @@ public class ItemsAdapter extends BaseAdapter {
         }
 
         return rowView;
-    }}
+    }
+}

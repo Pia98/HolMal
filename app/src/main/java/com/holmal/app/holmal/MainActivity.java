@@ -1,16 +1,14 @@
 package com.holmal.app.holmal;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    //hey there :)
-    //testing push
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.addItem)
-    public void addItemClicked(){
+    public void addItemClicked() {
         Intent intent = new Intent(this, CreateItemActivity.class);
         startActivity(intent);
     }

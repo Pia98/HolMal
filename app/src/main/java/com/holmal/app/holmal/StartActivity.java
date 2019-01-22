@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class  StartActivity extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity {
     private static final String TAG = StartActivity.class.getName();
 
     @Override
@@ -19,7 +19,7 @@ public class  StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
         ButterKnife.bind(this);
 
-        Log.e(TAG,"opened onCreate method");
+        Log.e(TAG, "opened onCreate method");
     }
 
     @OnClick(R.id.createHousehold)
@@ -39,7 +39,7 @@ public class  StartActivity extends AppCompatActivity {
     }
 
     @OnClick({R.id.logoutButton})
-    public void logoutStart(){
+    public void logoutStart() {
         Log.i(TAG, "Logout button clicked");
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(StartActivity.this, LoginActivity.class);

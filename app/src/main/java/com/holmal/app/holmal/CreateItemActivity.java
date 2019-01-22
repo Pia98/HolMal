@@ -81,8 +81,8 @@ public class CreateItemActivity extends AppCompatActivity {
                     String id = child.getKey();
                     Item value = child.getValue(Item.class);
                     Log.i(TAG, "item: " + value);
-                    for(int i = 0; i < itemIds.size(); i++){
-                        if(id.equals(itemIds.get(i))){
+                    for (int i = 0; i < itemIds.size(); i++) {
+                        if (id.equals(itemIds.get(i))) {
                             itemsOfTheList.put(id, value);
                         }
                     }
@@ -150,7 +150,7 @@ public class CreateItemActivity extends AppCompatActivity {
         }
     }
 
-    private boolean checkItemNameTaken(String itemName){
+    private boolean checkItemNameTaken(String itemName) {
         for (int i = 0; i < itemsOfTheList.size(); i++) {
             String[] keys = itemsOfTheList.keySet().toArray(new String[itemsOfTheList.size()]);
             String name = itemsOfTheList.get(keys[i]).getItemName();

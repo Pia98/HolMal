@@ -4,10 +4,7 @@ package com.holmal.app.holmal.model;
 public class Household {
     private String householdName;
 
-    /**
-     * Used for creating a new household
-     */
-    public Household(String householdName){
+    public Household(String householdName) {
         this.householdName = householdName;
     }
 

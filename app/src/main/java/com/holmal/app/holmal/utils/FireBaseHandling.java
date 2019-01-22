@@ -12,14 +12,15 @@ import com.holmal.app.holmal.model.ShoppingList;
 //Class for handling references to the firebase database
 //that are used in multiple other classes
 public class FireBaseHandling {
-    //private static final String TAG = FireBaseHandling.class.getName();
+    private static final String TAG = FireBaseHandling.class.getName();
 
 
     // to get access to a FireBaseHandling instance
     public static FireBaseHandling getInstance() {
-        Log.i("FireBaseHandling", "getInstance() " + firebaseHandling);
+        Log.i(TAG, "getInstance() " + firebaseHandling);
         return firebaseHandling;
     }
+
     private static FireBaseHandling firebaseHandling = new FireBaseHandling();
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -39,23 +40,27 @@ public class FireBaseHandling {
     }
 
     //Method to delete data from firebase when the person leaves the household in settings
-    public void deleteHousehold(String householdId){
+    public void deleteHousehold(String householdId) {
         reference.child(householdRubric).child(householdId).removeValue();
     }
-    public void removePersonFromHousehold(String personId){
+
+    public void removePersonFromHousehold(String personId) {
         reference.child(personRubric).child(personId).removeValue();
     }
-    public void deleteAllShoppingLists(String shoppingListId){
+
+    public void deleteAllShoppingLists(String shoppingListId) {
         reference.child(shoppingListRubric).child(shoppingListId).removeValue();
     }
-   public void deleteAllItems(String itemId){
+
+    public void deleteAllItems(String itemId) {
         reference.child(itemRubric).child(itemId).removeValue();
     }
-  /** public void deleteAllItems(String shoppingListId){
-       reference.child(shoppingListRubric).child(shoppingListId).child("itemsOfThisList").removeValue();
-   }*/
 
-
+    /**
+     * public void deleteAllItems(String shoppingListId){
+     * reference.child(shoppingListRubric).child(shoppingListId).child("itemsOfThisList").removeValue();
+     * }
+     */
 
 
     public String storePerson(String householdId, Person person) {
@@ -64,13 +69,12 @@ public class FireBaseHandling {
         return storeId;
     }
 
-    public void storeShoppingList(String householdId, ShoppingList shoppingList){
+    public void storeShoppingList(String householdId, ShoppingList shoppingList) {
         String storeId = reference.push().getKey();
         reference.child(shoppingListRubric).child(storeId).setValue(shoppingList);
     }
 
-
-    public String storeItem(String shoppingListId, Item item){
+    public String storeItem(String shoppingListId, Item item) {
         String storeId = reference.push().getKey();
         reference.child(itemRubric).child(storeId).setValue(item);
         reference.child(shoppingListRubric + "/" + shoppingListId + "/itemsOfThisList").push().setValue(storeId);

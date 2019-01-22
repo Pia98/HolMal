@@ -1,9 +1,9 @@
 package com.holmal.app.holmal;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.PreferencesAccess;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -33,7 +34,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener{
+public class LoginActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener {
 
     private static final String TAG = LoginActivity.class.getName();
 
@@ -68,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
 
     String email;
     PreferencesAccess preferences = new PreferencesAccess();
-    private HashMap<String, Household> haushalte= new HashMap<>();
+    private HashMap<String, Household> haushalte = new HashMap<>();
     private HashMap<String, Person> personen = new HashMap<>();
 
 
@@ -128,27 +129,26 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        if(user != null) {
+        if (user != null) {
             Log.i(TAG, "Logged in as: " + user.getEmail());
             Toast.makeText(getApplicationContext(), "Logged in as: " + user.getEmail(), Toast.LENGTH_SHORT).show();
 
             String householdID = preferences.readPreferences(this, getString(R.string.householdIDPreference));
 
-            if(householdID != null){
+            if (householdID != null) {
 
                 Intent intent;
-                if(preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference)) != null) {
+                if (preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference)) != null) {
                     intent = new Intent(this, ShoppingListActivity.class);
-                }else{
+                } else {
                     intent = new Intent(this, AllShoppingListsActivity.class);
                 }
                 startActivity(intent);
-            }else{
+            } else {
                 Intent intent = new Intent(this, StartActivity.class);
                 startActivity(intent);
             }
-        }
-        else{
+        } else {
             Toast.makeText(getApplicationContext(), "Not logged in", Toast.LENGTH_SHORT).show();
         }
     }
@@ -165,21 +165,21 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
     }
 
     @OnClick(R.id.loginButton)
-    public void login(){
+    public void login() {
         final String email = emailInput.getText().toString();
         String password = passwordInput.getText().toString();
-        if(validate()){
+        if (validate()) {
             progressBar.setVisibility(View.VISIBLE);
             String householdID = checkIfPersonIsInHousehold(email);
 
 
-            fireAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            fireAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         Log.i(LoginActivity.class.getName(), "Login successful");
-                        finish();}
-                    else {
+                        finish();
+                    } else {
                         progressBar.setVisibility(View.INVISIBLE);
                         errorMessage2.setText(R.string.ErrorLoginFailed);
                         Log.e(LoginActivity.class.getName(), "Login failed");
@@ -190,31 +190,30 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
     }
 
     @OnClick(R.id.registrationButton)
-    public void register(){
+    public void register() {
         errorMessage2.setText("");
-        if(isRegistration){
-            if(validate()){
+        if (isRegistration) {
+            if (validate()) {
                 String email = emailInput.getText().toString();
                 String password = passwordInput.getText().toString();
                 progressBar.setVisibility(View.VISIBLE);
 
-                fireAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fireAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
                             Log.i(LoginActivity.class.getName(), "Registration successful");
-                        }
-                        else{
+                        } else {
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                 errorMessage1.setText(R.string.ErrorLoginAlreadyExists);
                             }
-                            Log.e(LoginActivity.class.getName(), "Registration failed: "+  task.getException().getMessage());
+                            Log.e(LoginActivity.class.getName(), "Registration failed: " + task.getException().getMessage());
                             progressBar.setVisibility(View.INVISIBLE);
                         }
                     }
                 });
             }
-        }else{
+        } else {
             passwortInputWdh.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.INVISIBLE);
             this.isRegistration = true;
@@ -222,64 +221,61 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
     }
 
     //for later maybe a field in menu?
-    public void logout(FirebaseAuth myAuth){
+    public void logout(FirebaseAuth myAuth) {
         myAuth.signOut();
         Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
     }
 
     /**
-     *
      * @return firebaseAuthentication instance
      */
     public FirebaseAuth getFireAuth() {
         return fireAuth;
     }
 
-    public Boolean validate(){
+    public Boolean validate() {
         String email = emailInput.getText().toString();
         String password = passwordInput.getText().toString();
         String passwortWdh = passwortInputWdh.getText().toString();
-        if(email.isEmpty() && password.isEmpty()){
+        if (email.isEmpty() && password.isEmpty()) {
             errorMessage3.setText(R.string.ErrorLoginNotEntered);
             return false;
-        }else if(password.length()<6 ){
+        } else if (password.length() < 6) {
             errorMessage2.setText(R.string.ErrorLoginShortPW);
             return false;
-        }else if(isRegistration && passwortWdh.isEmpty()){
+        } else if (isRegistration && passwortWdh.isEmpty()) {
             errorMessage3.setText(R.string.ErrorLoginRepeatPW);
             return false;
-        }else if(isRegistration && !(passwortWdh.equals(password))){
+        } else if (isRegistration && !(passwortWdh.equals(password))) {
             errorMessage3.setText(R.string.ErrorLoginCheckPW);
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
     /**
-     *
-     * @param email
-     * checks if there is an householdId for a person with the given email exists
-     * navigates to it
+     * @param email checks if there is an householdId for a person with the given email exists
+     *              navigates to it
      */
-    public String checkIfPersonIsInHousehold(String email){
-        Log.i(TAG, "Searched email: " +  email);
+    public String checkIfPersonIsInHousehold(String email) {
+        Log.i(TAG, "Searched email: " + email);
         String result = null;
         preferences.storePreferences(this, getString(R.string.householdIDPreference), null);
         preferences.storePreferences(this, getString(R.string.recentShoppingListNamePreference), null);
         preferences.storePreferences(this, getString(R.string.personIDPreference), null);
 
         Iterator it = personen.entrySet().iterator();
-        while (it.hasNext()){
+        while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
             Person person = (Person) entry.getValue();
-            if(person.getEmail().equals(email)){
+            if (person.getEmail().equals(email)) {
                 result = person.getIdBelongingTo();
                 preferences.storePreferences(this, getString(R.string.householdIDPreference), result);
                 preferences.storePreferences(this, getString(R.string.personIDPreference), (String) entry.getKey());
                 break;
             }
         }
-      return result;
+        return result;
     }
 }

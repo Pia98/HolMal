@@ -30,7 +30,6 @@ import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.SettingsAdapter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -52,7 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private HashMap<String, Person> joiningPerson = new HashMap<>();
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
-    private  HashMap<String, Item> itemsOfThisHousehold = new HashMap<>();
+    private HashMap<String, Item> itemsOfThisHousehold = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,19 +99,19 @@ public class SettingsActivity extends AppCompatActivity {
 
                         // Add code here to update the UI based on the item selected
                         //if my assignments is pressed in the menu you will be lead there
-                        if(menuItem.getItemId() == R.id.nav_my_tasks){
+                        if (menuItem.getItemId() == R.id.nav_my_tasks) {
                             Intent intentT = new Intent(SettingsActivity.this, MyTasksActivity.class);
                             startActivity(intentT);
                             return true;
                         }
                         //if all shopping lists is pressed in the menu you will be lead there
-                        else if (menuItem.getItemId()==R.id.nav_shopping_lists){
+                        else if (menuItem.getItemId() == R.id.nav_shopping_lists) {
                             Intent intentLists = new Intent(SettingsActivity.this, AllShoppingListsActivity.class);
                             startActivity(intentLists);
                             return true;
                         }
                         //Logout
-                        else if (menuItem.getItemId()==R.id.logout){
+                        else if (menuItem.getItemId() == R.id.logout) {
                             Log.i("TAG", "Logout button clicked");
                             FirebaseAuth.getInstance().signOut();
                             Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
@@ -160,10 +159,10 @@ public class SettingsActivity extends AppCompatActivity {
                     String id = child.getKey();
                     Person value = child.getValue(Person.class);
                     Log.i(TAG, "Person: " + value + "householdId: " + householdId);
-                        if (value.getIdBelongingTo().equals(householdId)) {
-                            Log.i(TAG, "Person gehört zu diesem Haushalt (householdId: " + householdId + ")");
-                            joiningPerson.put(id, value);
-                        }
+                    if (value.getIdBelongingTo().equals(householdId)) {
+                        Log.i(TAG, "Person gehört zu diesem Haushalt (householdId: " + householdId + ")");
+                        joiningPerson.put(id, value);
+                    }
 
                     Log.i(TAG, "joiningPerson in for Schleife bei listener: " + joiningPerson);
                 }
@@ -190,10 +189,10 @@ public class SettingsActivity extends AppCompatActivity {
                     String id = child.getKey();
                     ShoppingList value = child.getValue(ShoppingList.class);
                     Log.i(TAG, "ShoppingList: " + value);
-                        if (value.getIdBelongingTo().equals(householdId)) {
-                            Log.i(TAG, "Liste gehört zu diesem Haushalt.");
-                            listsOfThisHousehold.put(id, value);
-                        }
+                    if (value.getIdBelongingTo().equals(householdId)) {
+                        Log.i(TAG, "Liste gehört zu diesem Haushalt.");
+                        listsOfThisHousehold.put(id, value);
+                    }
 
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
@@ -242,7 +241,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     @OnClick(R.id.leaveHousehold)
-    public void leaveHouseholdClicked(){
+    public void leaveHouseholdClicked() {
 
         //pop up that asks the user if they are sure
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -261,7 +260,7 @@ public class SettingsActivity extends AppCompatActivity {
                         FireBaseHandling.getInstance().removePersonFromHousehold(personID);
                         //delete household if household is empty now
                         //hasn't synchronized by then so use former size - 1
-                        if(joiningPerson.size() -1 == 0){
+                        if (joiningPerson.size() - 1 == 0) {
                             Log.e("deleteHousehold", householdID + " has been deleted");
                             FireBaseHandling.getInstance().deleteHousehold(householdID);
 
@@ -277,8 +276,8 @@ public class SettingsActivity extends AppCompatActivity {
                                 //iterates over all items
                                 String[] allItemsKeys = itemsOfThisHousehold.keySet().toArray(new String[itemsOfThisHousehold.size()]);
                                 String[] itemDeleteKeys = itemsToDelete.keySet().toArray(new String[itemsToDelete.size()]);
-                                for(int j = 0; j<itemsOfThisHousehold.size(); j++){
-                                    for(int k = 0; k<itemsToDelete.size(); k++) {
+                                for (int j = 0; j < itemsOfThisHousehold.size(); j++) {
+                                    for (int k = 0; k < itemsToDelete.size(); k++) {
                                         if (allItemsKeys[j].equals(itemsToDelete.get(itemDeleteKeys[k]))) {
                                             FireBaseHandling.getInstance().deleteAllItems(allItemsKeys[j]);
                                         }
@@ -303,7 +302,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         AlertDialog alert = builder.create();
         alert.show();
-
 
 
     }

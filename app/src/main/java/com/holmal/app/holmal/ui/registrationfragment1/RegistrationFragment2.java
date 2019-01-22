@@ -43,8 +43,8 @@ public class RegistrationFragment2 extends Fragment {
     }
 
     @OnClick(R.id.idInputDone)
-    public void idInputDoneClick(){
-        if(validate()) {
+    public void idInputDoneClick() {
+        if (validate()) {
             Intent intent = new Intent(getActivity(), MoveInHouseholdActivity.class);
             intent.putExtra("inputId", inputId);
             startActivity(intent);
@@ -58,8 +58,8 @@ public class RegistrationFragment2 extends Fragment {
         if (inputId.isEmpty()) {
             Toast.makeText(getActivity(), R.string.ErrorChooseHousehold, Toast.LENGTH_SHORT).show();
             return false;
-        }
-        else{
+        } else {
             return true;
         }
-    }}
+    }
+}

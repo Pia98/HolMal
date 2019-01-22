@@ -11,7 +11,6 @@ import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.model.ShoppingList;
 
 import java.util.HashMap;
-import java.util.List;
 
 
 //this class is responsible for displaying the lists in the list overview

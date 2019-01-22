@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,16 +24,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
-import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.ItemsAdapter;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -55,6 +50,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     String recentShoppingListName;
 
     String shoppingListId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,10 +64,10 @@ public class ShoppingListActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 person.clear();
-                for(DataSnapshot child : dataSnapshot.getChildren()){
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
                     String id = child.getKey();
                     Person value = child.getValue(Person.class);
-                    if(value.getIdBelongingTo().equals(householdId)){
+                    if (value.getIdBelongingTo().equals(householdId)) {
                         person.put(id, value);
                     }
                 }
@@ -94,18 +90,17 @@ public class ShoppingListActivity extends AppCompatActivity {
                     String id = child.getKey();
                     ShoppingList value = child.getValue(ShoppingList.class);
                     Log.i(TAG, "ShoppingList: " + value);
-                        if (value.getIdBelongingTo().equals(householdId)) {
-                            Log.i(TAG, "Liste gehört zu diesem Haushalt.");
-                            listsOfThisHousehold.put(id, value);
-                        }
+                    if (value.getIdBelongingTo().equals(householdId)) {
+                        Log.i(TAG, "Liste gehört zu diesem Haushalt.");
+                        listsOfThisHousehold.put(id, value);
+                    }
 
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
                 getCurrentShoppingList();
-                if(recentShoppingListName != null){
+                if (recentShoppingListName != null) {
                     setTitle(recentShoppingListName);
-                }
-                else{
+                } else {
                     setTitle(R.string.shoppingList);
                 }
 
@@ -162,17 +157,18 @@ public class ShoppingListActivity extends AppCompatActivity {
                         }
                     }
                 }
-            //adapter
-            ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, itemsOfTheList, person);
-            ListView list = findViewById(R.id.list);
-            list.setAdapter(adapter);
+                //adapter
+                ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, itemsOfTheList, person);
+                ListView list = findViewById(R.id.list);
+                list.setAdapter(adapter);
 
             }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
         //menu that appears from the left
@@ -192,43 +188,42 @@ public class ShoppingListActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
-                        @Override
-                        public boolean onNavigationItemSelected(MenuItem menuItem) {
-                            // set item as selected to persist highlight
-                            menuItem.setChecked(true);
-                            // close drawer when item is tapped
-                            mDrawerLayout.closeDrawers();
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        // set item as selected to persist highlight
+                        menuItem.setChecked(true);
+                        // close drawer when item is tapped
+                        mDrawerLayout.closeDrawers();
 
-                            // Add code here to update the UI based on the item selected
-                            //if my assignments is pressed in the menu you will be lead there
-                            if(menuItem.getItemId() == R.id.nav_my_tasks){
-                                Intent intentT = new Intent(ShoppingListActivity.this, MyTasksActivity.class);
-                                startActivity(intentT);
-                                return true;
-                            }
-                            //if all shopping lists is pressed in the menu you will be lead there
-                            else if (menuItem.getItemId()==R.id.nav_shopping_lists){
-                                Intent intentLists = new Intent(ShoppingListActivity.this, AllShoppingListsActivity.class);
-                                startActivity(intentLists);
-                                return true;
-                            }
-                            else if (menuItem.getItemId()==R.id.nav_settings){
-                                Intent intentnav = new Intent(ShoppingListActivity.this, SettingsActivity.class);
-                                startActivity(intentnav);
-                                return true;
-                            }
-                            //Logout
-                            else if (menuItem.getItemId()==R.id.logout){
-                                Log.i(TAG, "Logout button clicked");
-                                FirebaseAuth.getInstance().signOut();
-                                Intent intentout = new Intent(ShoppingListActivity.this, LoginActivity.class);
-                                startActivity(intentout);
-                                return true;
-                            }
-
+                        // Add code here to update the UI based on the item selected
+                        //if my assignments is pressed in the menu you will be lead there
+                        if (menuItem.getItemId() == R.id.nav_my_tasks) {
+                            Intent intentT = new Intent(ShoppingListActivity.this, MyTasksActivity.class);
+                            startActivity(intentT);
                             return true;
                         }
-                    });
+                        //if all shopping lists is pressed in the menu you will be lead there
+                        else if (menuItem.getItemId() == R.id.nav_shopping_lists) {
+                            Intent intentLists = new Intent(ShoppingListActivity.this, AllShoppingListsActivity.class);
+                            startActivity(intentLists);
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.nav_settings) {
+                            Intent intentnav = new Intent(ShoppingListActivity.this, SettingsActivity.class);
+                            startActivity(intentnav);
+                            return true;
+                        }
+                        //Logout
+                        else if (menuItem.getItemId() == R.id.logout) {
+                            Log.i(TAG, "Logout button clicked");
+                            FirebaseAuth.getInstance().signOut();
+                            Intent intentout = new Intent(ShoppingListActivity.this, LoginActivity.class);
+                            startActivity(intentout);
+                            return true;
+                        }
+
+                        return true;
+                    }
+                });
 
         //listener so that the menu opens and closes
         mDrawerLayout.addDrawerListener(
@@ -269,7 +264,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
                 return true;
             }});*/
-        }
+    }
 
     private void getCurrentShoppingList() {
         Log.i(TAG, "getCurrentShoppingList called");
@@ -280,12 +275,12 @@ public class ShoppingListActivity extends AppCompatActivity {
         recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
 
         // get object of the recent ShoppingList
-        if(recentShoppingListName != null){
+        if (recentShoppingListName != null) {
             Log.i(TAG, "recentShoppingListName: " + recentShoppingListName);
             String[] keys = listsOfThisHousehold.keySet().toArray(new String[listsOfThisHousehold.size()]);
-            for(int i=0; i < keys.length; i++){
+            for (int i = 0; i < keys.length; i++) {
                 ShoppingList list = listsOfThisHousehold.get(keys[i]);
-                if(recentShoppingListName.equals(list.getListName())){
+                if (recentShoppingListName.equals(list.getListName())) {
                     currentShoppingList = list;
                     shoppingListId = keys[i];
                     Log.i(TAG, "currentShoppingList: " + currentShoppingList);
@@ -296,7 +291,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         //Log.i("FürSvenja", "current" + currentShoppingList.toString());
         HashMap<String, String> ids = currentShoppingList.getItemsOfThisList();
-        if(ids != null) {
+        if (ids != null) {
             String[] idsKeys = ids.keySet().toArray(new String[ids.size()]);
             for (int i = 0; i < ids.size(); i++) {
                 itemIds.add(ids.get(idsKeys[i]));
@@ -305,20 +300,20 @@ public class ShoppingListActivity extends AppCompatActivity {
     }
 
     //Menu is opened
-     @Override
-     public boolean onOptionsItemSelected(MenuItem item) {
-         switch (item.getItemId()) {
-             case android.R.id.home:
-                 mDrawerLayout.openDrawer(GravityCompat.START);
-                 return true;
-         }
-         return super.onOptionsItemSelected(item);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
 
     }
 
     //Button that lets you add an item to the shopping list
-    @OnClick (R.id.addItem)
-    public void addItemOnClicked(){
+    @OnClick(R.id.addItem)
+    public void addItemOnClicked() {
         Intent intent = new Intent(this, CreateItemActivity.class);
         intent.putExtra("shoppingListId", shoppingListId);
         startActivity(intent);

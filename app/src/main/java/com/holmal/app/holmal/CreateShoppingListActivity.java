@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -19,7 +16,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
-import com.holmal.app.holmal.utils.ShoppingListsAdapter;
 
 import java.util.HashMap;
 
@@ -56,10 +52,10 @@ public class CreateShoppingListActivity extends AppCompatActivity {
                     String id = child.getKey();
                     ShoppingList value = child.getValue(ShoppingList.class);
                     Log.i(TAG, "ShoppingList: " + value);
-                        if (value.getIdBelongingTo().equals(householdId)) {
-                            Log.i(TAG, "Liste gehört zu diesem Haushalt.");
-                            listsOfThisHousehold.put(id, value);
-                        }
+                    if (value.getIdBelongingTo().equals(householdId)) {
+                        Log.i(TAG, "Liste gehört zu diesem Haushalt.");
+                        listsOfThisHousehold.put(id, value);
+                    }
 
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }

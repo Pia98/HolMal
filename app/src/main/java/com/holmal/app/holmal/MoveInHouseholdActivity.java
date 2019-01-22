@@ -75,10 +75,10 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
                     String id = child.getKey();
                     Person value = child.getValue(Person.class);
                     Log.i(TAG, "Person: " + value);
-                        if (value.getIdBelongingTo().equals(householdId)) {
-                            Log.i(TAG, "Person gehört zu diesem Haushalt.");
-                            joiningPerson.add(value);
-                        }
+                    if (value.getIdBelongingTo().equals(householdId)) {
+                        Log.i(TAG, "Person gehört zu diesem Haushalt.");
+                        joiningPerson.add(value);
+                    }
 
                     Log.i(TAG, "joiningPerson in for Schleife bei listener: " + joiningPerson);
                 }
@@ -145,6 +145,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
 
     /**
      * Check if userName input is valid
+     *
      * @param personList List of all members
      * @return if input is valid
      */

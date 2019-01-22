@@ -33,17 +33,11 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
      */
     Fragment currentFragment;
 
-    /**
-     * Strings
-     */
     String userNameString;
     String houseHoldNameString;
     int chosenColorId;
     String householdId;
 
-    /**
-     * Handling classes
-     */
     FragmentHandling fragmentHandling = new FragmentHandling();
 
     PreferencesAccess preferences = new PreferencesAccess();
@@ -113,8 +107,7 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
         if (userNameString.isEmpty()) {
             Toast.makeText(getApplicationContext(), R.string.ErrorEnterName, Toast.LENGTH_LONG).show();
             return false;
-        }
-        else return checkColours();
+        } else return checkColours();
 
     }
 
