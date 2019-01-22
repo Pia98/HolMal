@@ -87,7 +87,8 @@ public class ItemsAdapter extends BaseAdapter {
             infoView.setImageAlpha(255);
         }
 
-        //shows a colored bar accordiing to the person who took on this item as a task
+        //shows a colored bar according to the person who took on this item as a task
+        // when it is noones task set backgroundColor, else the color of the person
         if (items.get(itemKeys[position]).getItsTask() == null || items.get(itemKeys[position]).getItsTask().isEmpty()) {
             assignedView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorBackground));
         } else {
