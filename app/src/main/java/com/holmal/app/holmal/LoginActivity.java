@@ -25,9 +25,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.PreferencesAccess;
-
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
     String email;
     PreferencesAccess preferences = new PreferencesAccess();
     private HashMap<String, Household> haushalte= new HashMap<>();
-    private ArrayList<Person> personen = new ArrayList<>();
+    private HashMap<String, Person> personen = new HashMap<>();
 
 
     @Override
@@ -91,9 +91,10 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                 personen.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Log.i(TAG, "alle Personen durchgehen");
+                    String id = child.getKey();
                     Person value = child.getValue(Person.class);
                     Log.i(TAG, "Person: " + value);
-                    personen.add(value);
+                    personen.put(id, value);
                 }
             }
 
@@ -126,7 +127,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
 
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-        Log.i(TAG, "called onAuthStateChange");
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if(user != null) {
             Log.i(TAG, "Logged in as: " + user.getEmail());
@@ -135,9 +135,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
             String householdID = preferences.readPreferences(this, getString(R.string.householdIDPreference));
 
             if(householdID != null){
-           //     String haushaltname = haushalte.get(householdID).getHouseholdName();
-           //     Toast.makeText(getApplicationContext(), "Navigiere zu Haushalt: " + haushaltname, Toast.LENGTH_SHORT).show();
-                Log.i(TAG, "already registered in an household");
 
                 Intent intent;
                 if(preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference)) != null) {
@@ -270,12 +267,16 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         String result = null;
         preferences.storePreferences(this, getString(R.string.householdIDPreference), null);
         preferences.storePreferences(this, getString(R.string.recentShoppingListNamePreference), null);
-        for(Person entry : personen){
-            Log.i(TAG, "persons email: " + entry.getEmail());
-            if(entry.getEmail().equals(email)){
-                result = entry.getIdBelongingTo();
-                Log.i(TAG, "Person found! Belongs to Household: " + result + "; Storing in preferences");
+        preferences.storePreferences(this, getString(R.string.personIDPreference), null);
+
+        Iterator it = personen.entrySet().iterator();
+        while (it.hasNext()){
+            Map.Entry entry = (Map.Entry) it.next();
+            Person person = (Person) entry.getValue();
+            if(person.getEmail().equals(email)){
+                result = person.getIdBelongingTo();
                 preferences.storePreferences(this, getString(R.string.householdIDPreference), result);
+                preferences.storePreferences(this, getString(R.string.personIDPreference), (String) entry.getKey());
                 break;
             }
         }

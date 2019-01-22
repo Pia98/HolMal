@@ -21,10 +21,8 @@ import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
-import com.holmal.app.holmal.utils.ReferencesHandling;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,7 +35,6 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
 
     Fragment currentFragment;
     FragmentHandling fragmentHandling = new FragmentHandling();
-    ReferencesHandling referencesHandling = new ReferencesHandling();
     FirebaseAuth fireAuth;
 
     private ArrayList<Person> joiningPerson = new ArrayList<>();
