@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Item;
+import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.ItemsAdapter;
@@ -44,6 +45,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
     private HashMap<String, Item> itemsOfTheList = new HashMap<>();
     private ArrayList<String> itemIds = new ArrayList<>();
+    private HashMap<String, Person> person = new HashMap<>();
 
     private DrawerLayout mDrawerLayout;
     ShoppingList currentShoppingList;
@@ -60,6 +62,26 @@ public class ShoppingListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
+
+        // Listener for person
+        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                person.clear();
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    String id = child.getKey();
+                    Person value = child.getValue(Person.class);
+                    if(value.getIdBelongingTo().equals(householdId)){
+                        person.put(id, value);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //Listener for the shopping lists of this household
         FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
@@ -143,7 +165,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                     }
                 }
             //adapter
-            ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, itemsOfTheList);
+            ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, itemsOfTheList, person);
             ListView list = findViewById(R.id.list);
             list.setAdapter(adapter);
 

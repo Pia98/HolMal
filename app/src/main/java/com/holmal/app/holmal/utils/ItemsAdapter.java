@@ -2,6 +2,7 @@ package com.holmal.app.holmal.utils;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.model.Item;
+import com.holmal.app.holmal.model.Person;
 
 import java.util.HashMap;
 
@@ -20,11 +22,13 @@ public class ItemsAdapter extends BaseAdapter {
     private Context context;
     private HashMap<String, Item> items;
     private String[] itemKeys;
+    private HashMap<String, Person> person;
 
     //constructor
-    public ItemsAdapter(Context context, HashMap<String, Item> items){
+    public ItemsAdapter(Context context, HashMap<String, Item> items, HashMap<String, Person> person){
         this.context = context;
         this.items = items;
+        this.person = person;
         this.itemKeys = items.keySet().toArray(new String[items.size()]);
 
     }
@@ -83,12 +87,29 @@ public class ItemsAdapter extends BaseAdapter {
             infoView.setImageAlpha(255);
         }
 
-        //shows a colored bar accordiing to the person who took on this item as a task
-        if(items.get(itemKeys[position]).getItsTask() == null){
+        //shows a colored bar according to the person who took on this item as a task
+        // when it is noones task set backgroundColor, else the color of the person
+        if (items.get(itemKeys[position]).getItsTask() == null || items.get(itemKeys[position]).getItsTask().isEmpty()) {
             assignedView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorBackground));
-        }
-        else{
-            assignedView.setBackgroundColor(ContextCompat.getColor(context, items.get(itemKeys[position]).getItsTask().getColor()));
+        } else {
+            Person thisPerson = person.get(items.get(itemKeys[position]).getItsTask());
+            if (thisPerson.getColor() == R.id.color1) {
+                assignedView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonLightGreen));
+            } else if (thisPerson.getColor() == R.id.color2) {
+                assignedView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonGreen));
+            } else if (thisPerson.getColor() == R.id.color3) {
+                assignedView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonBlue));
+            } else if (thisPerson.getColor() == R.id.color4) {
+                assignedView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonLightBlue));
+            } else if (thisPerson.getColor() == R.id.color5) {
+                assignedView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonOrange));
+            } else if (thisPerson.getColor() == R.id.color6) {
+                assignedView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonRed));
+            } else if (thisPerson.getColor() == R.id.color7) {
+                assignedView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonPink));
+            } else if (thisPerson.getColor() == R.id.color8) {
+                assignedView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonPurple));
+            }
         }
 
         return rowView;

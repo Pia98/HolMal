@@ -34,6 +34,9 @@ public class CreateItemActivity extends AppCompatActivity {
     boolean important;
     boolean favorite;
     String additionalInfo;
+    String itsTask = "";
+    boolean done = false;
+    int timeDone = 0;
 
     String householdId;
     String shoppingListId;
@@ -109,7 +112,7 @@ public class CreateItemActivity extends AppCompatActivity {
     @OnClick(R.id.add)
     public void itemCreationOnClicked() {
         if (validate()) {
-            Item item = new Item(itemName, quantity, important, favorite, additionalInfo);
+            Item item = new Item(itemName, quantity, important, favorite, itsTask, additionalInfo, done, timeDone);
             FireBaseHandling.getInstance().storeItem(shoppingListId, item);
 
             //maybe also check whether item is a favourite here and add to favourites
