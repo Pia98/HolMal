@@ -60,118 +60,35 @@ public class ShoppingListActivity extends AppCompatActivity {
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
 
         // Listener for person
-        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                person.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    String id = child.getKey();
-                    Person value = child.getValue(Person.class);
-                    if (value.getIdBelongingTo().equals(householdId)) {
-                        person.put(id, value);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        startPersonListener();
 
         //Listener for the shopping lists of this household
-        FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
-                listsOfThisHousehold.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Listen durchgehen");
-                    String id = child.getKey();
-                    ShoppingList value = child.getValue(ShoppingList.class);
-                    Log.i(TAG, "ShoppingList: " + value);
-                    if (value.getIdBelongingTo().equals(householdId)) {
-                        Log.i(TAG, "Liste gehört zu diesem Haushalt.");
-                        listsOfThisHousehold.put(id, value);
-                    }
-
-                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
-                }
-                getCurrentShoppingList();
-                if (recentShoppingListName != null) {
-                    setTitle(recentShoppingListName);
-                } else {
-                    setTitle(R.string.shoppingList);
-                }
-
-                Log.i("fürSvenja", ":" + listsOfThisHousehold);
-
-
-                /**
-                 * //handles click on item to see detailed information
-                 * list.setOnClickListener(new AdapterView.OnItemClickListener() {
-                 *              @Override
-                 *              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                 *              if(item an der stelle hat info){
-                 *              starte ItemInformationFragment
-                 * });}
-                 */
-                /**
-                 * //handles double click on item -> makes item assigned to self
-                 * list.setOnTouchListener(new OnTouchListener() {
-                 *     private GestureDetector gestureDetector = new GestureDetector(ShoppingListActivity.this, new GestureDetector.SimpleOnGestureListener() {
-                 *         @Override
-                 *         public boolean onDoubleTap(MotionEvent e) {
-                 *         if(item an der stelle ist nicht assigned){
-                 *         assined add person
-                 *         }else{
-                 *         assigned remove person
-                 *         }
-                 *             return super.onDoubleTap(e);
-                 *         }
-                 *     });
-                 *     onSwipeRight()
-                 *
-                 */
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        startShoppingListListener();
 
         // Listener to get all items that are in the list
-        FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "item listener in onCreate...");
-                itemsOfTheList.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    String id = child.getKey();
-                    Item value = child.getValue(Item.class);
-                    Log.i(TAG, "item: " + value);
-                    for (int i = 0; i < itemIds.size(); i++) {
-                        if (id.equals(itemIds.get(i))) {
-                            itemsOfTheList.put(id, value);
-                        }
-                    }
-                }
-                //adapter
-                ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, itemsOfTheList, person);
-                ListView list = findViewById(R.id.list);
-                list.setAdapter(adapter);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        startItemListener();
 
 
         //menu that appears from the left
+        menu();
+
+        /*navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.openItemsTab) {
+                //check items that are on list and not done
+                //give this list to adapter and set adapter
+                    getCurrentShoppingList();
+                } else if (id == R.id.doneItemsTab) {
+                //check items that are on list and done
+                //give resulting list to adapter
+                }
+                return true;
+            }});*/
+    }
+
+    private void menu() {
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -249,21 +166,120 @@ public class ShoppingListActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
 
-        /*navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+    private void startItemListener() {
+        FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.openItemsTab) {
-                //check items that are on list and not done
-                //give this list to adapter and set adapter
-                    getCurrentShoppingList();
-                } else if (id == R.id.doneItemsTab) {
-                //check items that are on list and done
-                //give resulting list to adapter
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "item listener in onCreate...");
+                itemsOfTheList.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    String id = child.getKey();
+                    Item value = child.getValue(Item.class);
+                    Log.i(TAG, "item: " + value);
+                    for (int i = 0; i < itemIds.size(); i++) {
+                        if (id.equals(itemIds.get(i))) {
+                            itemsOfTheList.put(id, value);
+                        }
+                    }
                 }
-                return true;
-            }});*/
+                //adapter
+                ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, itemsOfTheList, person);
+                ListView list = findViewById(R.id.list);
+                list.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void startShoppingListListener() {
+        FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "listener in onCreate...");
+                listsOfThisHousehold.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Listen durchgehen");
+                    String id = child.getKey();
+                    ShoppingList value = child.getValue(ShoppingList.class);
+                    Log.i(TAG, "ShoppingList: " + value);
+                    if (value.getIdBelongingTo().equals(householdId)) {
+                        Log.i(TAG, "Liste gehört zu diesem Haushalt.");
+                        listsOfThisHousehold.put(id, value);
+                    }
+
+                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
+                }
+                getCurrentShoppingList();
+                if (recentShoppingListName != null) {
+                    setTitle(recentShoppingListName);
+                } else {
+                    setTitle(R.string.shoppingList);
+                }
+
+                Log.i("fürSvenja", ":" + listsOfThisHousehold);
+
+
+                /**
+                 * //handles click on item to see detailed information
+                 * list.setOnClickListener(new AdapterView.OnItemClickListener() {
+                 *              @Override
+                 *              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                 *              if(item an der stelle hat info){
+                 *              starte ItemInformationFragment
+                 * });}
+                 */
+                /**
+                 * //handles double click on item -> makes item assigned to self
+                 * list.setOnTouchListener(new OnTouchListener() {
+                 *     private GestureDetector gestureDetector = new GestureDetector(ShoppingListActivity.this, new GestureDetector.SimpleOnGestureListener() {
+                 *         @Override
+                 *         public boolean onDoubleTap(MotionEvent e) {
+                 *         if(item an der stelle ist nicht assigned){
+                 *         assined add person
+                 *         }else{
+                 *         assigned remove person
+                 *         }
+                 *             return super.onDoubleTap(e);
+                 *         }
+                 *     });
+                 *     onSwipeRight()
+                 *
+                 */
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void startPersonListener() {
+        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                person.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    String id = child.getKey();
+                    Person value = child.getValue(Person.class);
+                    if (value.getIdBelongingTo().equals(householdId)) {
+                        person.put(id, value);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void getCurrentShoppingList() {

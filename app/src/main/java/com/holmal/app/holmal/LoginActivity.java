@@ -85,26 +85,12 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         passwortInputWdh.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
 
-        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "person listener in onCreate: LoginActivity");
-                personen.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Personen durchgehen");
-                    String id = child.getKey();
-                    Person value = child.getValue(Person.class);
-                    Log.i(TAG, "Person: " + value);
-                    personen.put(id, value);
-                }
-            }
+        startPersonListener();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+        startHouseholdListener();
+    }
 
-            }
-        });
-
+    private void startHouseholdListener() {
         FirebaseDatabase.getInstance().getReference().child("household").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -116,6 +102,28 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                     Household value = child.getValue(Household.class);
                     Log.i(TAG, "Haushalt: " + value.getHouseholdName());
                     haushalte.put(id, value);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void startPersonListener() {
+        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "person listener in onCreate: LoginActivity");
+                personen.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Personen durchgehen");
+                    String id = child.getKey();
+                    Person value = child.getValue(Person.class);
+                    Log.i(TAG, "Person: " + value);
+                    personen.put(id, value);
                 }
             }
 

@@ -62,12 +62,34 @@ public class SettingsActivity extends AppCompatActivity {
         PreferencesAccess preferencesAccess = new PreferencesAccess();
         householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
 
-        FirebaseDatabase.getInstance().getReference().child("household").child(householdId).addListenerForSingleValueEvent(new ValueEventListener() {
+        startHouseholdListener();
+
+        //menu that appears from the left
+        menu();
+
+        startPersonListener();
+
+        //Listener for shopping list
+        startShoppingListListener();
+
+        //Listener for items
+        startItemListener();
+    }
+
+    private void startItemListener() {
+        FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Household thisHousehold = dataSnapshot.getValue(Household.class);
-                householdNameText.setText(thisHousehold.getHouseholdName());
-                householdIdText.setText(dataSnapshot.getKey());
+                Log.i(TAG, "listener in onCreate...");
+                itemsOfThisHousehold.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Listen durchgehen");
+                    String id = child.getKey();
+                    Item value = child.getValue(Item.class);
+                    Log.i(TAG, "Item: " + value);
+                    itemsOfThisHousehold.put(id, value);
+                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + itemsOfThisHousehold);
+                }
             }
 
             @Override
@@ -75,9 +97,66 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void startShoppingListListener() {
+        FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "listener in onCreate...");
+                listsOfThisHousehold.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Listen durchgehen");
+                    String id = child.getKey();
+                    ShoppingList value = child.getValue(ShoppingList.class);
+                    Log.i(TAG, "ShoppingList: " + value);
+                    if (value.getIdBelongingTo().equals(householdId)) {
+                        Log.i(TAG, "Liste gehört zu diesem Haushalt.");
+                        listsOfThisHousehold.put(id, value);
+                    }
 
-        //menu that appears from the left
+                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void startPersonListener() {
+        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "listener in onCreate...");
+                joiningPerson.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Personen durchgehen");
+                    String id = child.getKey();
+                    Person value = child.getValue(Person.class);
+                    Log.i(TAG, "Person: " + value + "householdId: " + householdId);
+                    if (value.getIdBelongingTo().equals(householdId)) {
+                        Log.i(TAG, "Person gehört zu diesem Haushalt (householdId: " + householdId + ")");
+                        joiningPerson.put(id, value);
+                    }
+
+                    Log.i(TAG, "joiningPerson in for Schleife bei listener: " + joiningPerson);
+                }
+                SettingsAdapter adapter = new SettingsAdapter(SettingsActivity.this, joiningPerson);
+                ListView list = findViewById(R.id.listOfHouseholdMembers);
+                list.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void menu() {
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -147,77 +226,15 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
 
-
-        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
+    private void startHouseholdListener() {
+        FirebaseDatabase.getInstance().getReference().child("household").child(householdId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
-                joiningPerson.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Personen durchgehen");
-                    String id = child.getKey();
-                    Person value = child.getValue(Person.class);
-                    Log.i(TAG, "Person: " + value + "householdId: " + householdId);
-                    if (value.getIdBelongingTo().equals(householdId)) {
-                        Log.i(TAG, "Person gehört zu diesem Haushalt (householdId: " + householdId + ")");
-                        joiningPerson.put(id, value);
-                    }
-
-                    Log.i(TAG, "joiningPerson in for Schleife bei listener: " + joiningPerson);
-                }
-                SettingsAdapter adapter = new SettingsAdapter(SettingsActivity.this, joiningPerson);
-                ListView list = findViewById(R.id.listOfHouseholdMembers);
-                list.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        Log.i(TAG, "joiningPerson nach listener: " + joiningPerson);
-
-        //Listener for shopping list
-        FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
-                listsOfThisHousehold.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Listen durchgehen");
-                    String id = child.getKey();
-                    ShoppingList value = child.getValue(ShoppingList.class);
-                    Log.i(TAG, "ShoppingList: " + value);
-                    if (value.getIdBelongingTo().equals(householdId)) {
-                        Log.i(TAG, "Liste gehört zu diesem Haushalt.");
-                        listsOfThisHousehold.put(id, value);
-                    }
-
-                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        //Listener for items
-        FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
-                itemsOfThisHousehold.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Listen durchgehen");
-                    String id = child.getKey();
-                    Item value = child.getValue(Item.class);
-                    Log.i(TAG, "Item: " + value);
-                    itemsOfThisHousehold.put(id, value);
-                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + itemsOfThisHousehold);
-                }
+                Household thisHousehold = dataSnapshot.getValue(Household.class);
+                householdNameText.setText(thisHousehold.getHouseholdName());
+                householdIdText.setText(dataSnapshot.getKey());
             }
 
             @Override

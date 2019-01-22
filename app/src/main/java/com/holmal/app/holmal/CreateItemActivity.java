@@ -52,26 +52,13 @@ public class CreateItemActivity extends AppCompatActivity {
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
 
         // Listener to get all IDs of the items that belongs to the list with id = shoppingListId
-        FirebaseDatabase.getInstance().getReference().child("shoppingList").child(shoppingListId).child("itemsOfThisList").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                itemIds.clear();
-                Log.i(TAG, "list listener in onCreate...");
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    String id = child.getKey();
-                    String value = (String) child.getValue();
-                    Log.i(TAG, "id: " + value);
-                    itemIds.add(value);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        startShoppingListItemListener();
 
         // Listener to get all items that are in the list
+        startItemListener();
+    }
+
+    private void startItemListener() {
         FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -86,6 +73,27 @@ public class CreateItemActivity extends AppCompatActivity {
                             itemsOfTheList.put(id, value);
                         }
                     }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void startShoppingListItemListener() {
+        FirebaseDatabase.getInstance().getReference().child("shoppingList").child(shoppingListId).child("itemsOfThisList").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                itemIds.clear();
+                Log.i(TAG, "list listener in onCreate...");
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    String id = child.getKey();
+                    String value = (String) child.getValue();
+                    Log.i(TAG, "id: " + value);
+                    itemIds.add(value);
                 }
             }
 

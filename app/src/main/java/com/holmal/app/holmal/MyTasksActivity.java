@@ -29,6 +29,10 @@ public class MyTasksActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         //menu that appears from the left
+        menu();
+    }
+
+    private void menu() {
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
         setTitle(R.string.myJobs);

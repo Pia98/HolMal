@@ -43,6 +43,16 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         //menu that appears from the left
+        menu();
+
+        PreferencesAccess preferencesAccess = new PreferencesAccess();
+        final String householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
+
+
+        startShoppingListListener(householdId);
+    }
+
+    private void menu() {
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -110,11 +120,9 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
 
-        PreferencesAccess preferencesAccess = new PreferencesAccess();
-        final String householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
-
-
+    private void startShoppingListListener(final String householdId) {
         FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

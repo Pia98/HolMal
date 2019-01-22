@@ -65,6 +65,30 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
         Bundle extras = getIntent().getExtras();
         householdId = extras.getString("inputId");
 
+        startPersonListener();
+
+        startHouseholdListener();
+
+        fireAuth = FirebaseAuth.getInstance();
+    }
+
+    private void startHouseholdListener() {
+        FirebaseDatabase.getInstance().getReference().child("household").child(householdId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Household thisHousehold = dataSnapshot.getValue(Household.class);
+                householdNameAsText.setText(thisHousehold.getHouseholdName());
+                householdIdAsText.setText(dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void startPersonListener() {
         FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -89,22 +113,6 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
 
             }
         });
-
-        FirebaseDatabase.getInstance().getReference().child("household").child(householdId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Household thisHousehold = dataSnapshot.getValue(Household.class);
-                householdNameAsText.setText(thisHousehold.getHouseholdName());
-                householdIdAsText.setText(dataSnapshot.getKey());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        fireAuth = FirebaseAuth.getInstance();
     }
 
     /**

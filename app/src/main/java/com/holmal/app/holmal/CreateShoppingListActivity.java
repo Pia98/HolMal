@@ -42,6 +42,10 @@ public class CreateShoppingListActivity extends AppCompatActivity {
         PreferencesAccess preferences = new PreferencesAccess();
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
 
+        startShoppingListListener();
+    }
+
+    private void startShoppingListListener() {
         FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
