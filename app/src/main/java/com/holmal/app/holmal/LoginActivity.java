@@ -126,25 +126,25 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
 
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+        Log.i(TAG, "called onAuthStateChange");
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if(user != null) {
+            Log.i(TAG, "Logged in as: " + user.getEmail());
             Toast.makeText(getApplicationContext(), "Logged in as: " + user.getEmail(), Toast.LENGTH_SHORT).show();
 
-            while(personen.isEmpty() && haushalte.isEmpty()){
-                try {
-                    wait(100);
-                } catch (InterruptedException e) {
-                    Log.e(TAG, "can't wait");
-                }
-            }
-            email = user.getEmail();
-            String householdID = checkIfPersonIsInHousehold(email);
+            String householdID = preferences.readPreferences(this, getString(R.string.householdIDPreference));
 
             if(householdID != null){
-                String haushaltname = haushalte.get(householdID).getHouseholdName();
-                Toast.makeText(getApplicationContext(), "Navigiere zu Haushalt: " + haushaltname, Toast.LENGTH_SHORT).show();
+           //     String haushaltname = haushalte.get(householdID).getHouseholdName();
+           //     Toast.makeText(getApplicationContext(), "Navigiere zu Haushalt: " + haushaltname, Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "already registered in an household");
-                Intent intent = new Intent(this, ShoppingListActivity.class);
+
+                Intent intent;
+                if(preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference)) != null) {
+                    intent = new Intent(this, ShoppingListActivity.class);
+                }else{
+                    intent = new Intent(this, AllShoppingListsActivity.class);
+                }
                 startActivity(intent);
             }else{
                 Intent intent = new Intent(this, StartActivity.class);
@@ -173,6 +173,8 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         String password = passwordInput.getText().toString();
         if(validate()){
             progressBar.setVisibility(View.VISIBLE);
+            String householdID = checkIfPersonIsInHousehold(email);
+
 
             fireAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -267,6 +269,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         Log.i(TAG, "Searched email: " +  email);
         String result = null;
         preferences.storePreferences(this, getString(R.string.householdIDPreference), null);
+        preferences.storePreferences(this, getString(R.string.recentShoppingListNamePreference), null);
         for(Person entry : personen){
             Log.i(TAG, "persons email: " + entry.getEmail());
             if(entry.getEmail().equals(email)){
