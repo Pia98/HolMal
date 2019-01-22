@@ -29,7 +29,17 @@ public class StartActivity extends AppCompatActivity {
         String householdID = preferences.readPreferences(this, getString(R.string.householdIDPreference));
         if(householdID != null){
             Log.i(TAG, "already registered in an household");
-            Intent intent = new Intent(this, ShoppingListActivity.class);
+
+            Intent intent;
+            String recentShoppingList = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
+            if(recentShoppingList == null){
+                Log.i(TAG, "no recentShoppingList -> allShoppingLists");
+                intent = new Intent(this, AllShoppingListsActivity.class);
+            }
+            else{
+                Log.i(TAG, "recentShoppingList -> this ShoppingList");
+                intent = new Intent(this, ShoppingListActivity.class);
+            }
             startActivity(intent);
         }
     }
