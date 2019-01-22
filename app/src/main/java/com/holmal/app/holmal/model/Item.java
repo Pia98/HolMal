@@ -5,7 +5,7 @@ public class Item {
     private String quantity;
     private boolean important;
     private boolean favorite;
-    private Person itsTask;
+    private String itsTask;
     private String additionalInfo;
 
     private boolean done;
@@ -18,7 +18,7 @@ public class Item {
     public Item() {
     }
 
-    public Item(String itemName, String quantity, boolean important, boolean favorite, Person itsTask, String additionalInfo, boolean done, int timeDone) {
+    public Item(String itemName, String quantity, boolean important, boolean favorite, String itsTask, String additionalInfo, boolean done, int timeDone) {
         this.itemName = itemName;
         this.quantity = quantity;
         this.important = important;
@@ -69,11 +69,11 @@ public class Item {
         this.favorite = favorite;
     }
 
-    public Person getItsTask() {
+    public String getItsTask() {
         return itsTask;
     }
 
-    public void setItsTask(Person itsTask) {
+    public void setItsTask(String itsTask) {
         this.itsTask = itsTask;
     }
 
