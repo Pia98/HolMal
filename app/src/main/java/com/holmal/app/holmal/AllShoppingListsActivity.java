@@ -126,13 +126,10 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                     String id = child.getKey();
                     ShoppingList value = child.getValue(ShoppingList.class);
                     Log.i(TAG, "ShoppingList: " + value);
-                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
-                    if (value.getIdBelongingTo() != null) {
                         if (value.getIdBelongingTo().equals(householdId)) {
                             Log.i(TAG, "Liste gehört zu diesem Haushalt.");
                             listsOfThisHousehold.put(id, value);
                         }
-                    }
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
                 //fill with lists with an adapter

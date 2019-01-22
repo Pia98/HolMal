@@ -160,13 +160,11 @@ public class SettingsActivity extends AppCompatActivity {
                     String id = child.getKey();
                     Person value = child.getValue(Person.class);
                     Log.i(TAG, "Person: " + value + "householdId: " + householdId);
-                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
-                    if (value.getIdBelongingTo() != null) {
                         if (value.getIdBelongingTo().equals(householdId)) {
                             Log.i(TAG, "Person gehört zu diesem Haushalt (householdId: " + householdId + ")");
                             joiningPerson.put(id, value);
                         }
-                    }
+
                     Log.i(TAG, "joiningPerson in for Schleife bei listener: " + joiningPerson);
                 }
                 SettingsAdapter adapter = new SettingsAdapter(SettingsActivity.this, joiningPerson);
@@ -192,13 +190,11 @@ public class SettingsActivity extends AppCompatActivity {
                     String id = child.getKey();
                     ShoppingList value = child.getValue(ShoppingList.class);
                     Log.i(TAG, "ShoppingList: " + value);
-                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
-                    if (value.getIdBelongingTo() != null) {
                         if (value.getIdBelongingTo().equals(householdId)) {
                             Log.i(TAG, "Liste gehört zu diesem Haushalt.");
                             listsOfThisHousehold.put(id, value);
                         }
-                    }
+
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
             }
@@ -220,7 +216,6 @@ public class SettingsActivity extends AppCompatActivity {
                     String id = child.getKey();
                     Item value = child.getValue(Item.class);
                     Log.i(TAG, "Item: " + value);
-                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
                     itemsOfThisHousehold.put(id, value);
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + itemsOfThisHousehold);
                 }

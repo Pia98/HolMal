@@ -114,12 +114,6 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
             Toast.makeText(getApplicationContext(), R.string.ErrorEnterName, Toast.LENGTH_LONG).show();
             return false;
         }
-        //TODO check if name is not taken;
-        /*
-        if (userName.getText.toString() is in List of Names in Household)
-         Toast.makeText(this, ErrorNameTaken, Toast.LENGTH_SHORT).show();
-         return false;
-         */
         else return checkColours();
 
     }

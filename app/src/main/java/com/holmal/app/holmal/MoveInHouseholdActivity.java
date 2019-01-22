@@ -75,13 +75,11 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
                     String id = child.getKey();
                     Person value = child.getValue(Person.class);
                     Log.i(TAG, "Person: " + value);
-                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
-                    if (value.getIdBelongingTo() != null) {
                         if (value.getIdBelongingTo().equals(householdId)) {
                             Log.i(TAG, "Person gehört zu diesem Haushalt.");
                             joiningPerson.add(value);
                         }
-                    }
+
                     Log.i(TAG, "joiningPerson in for Schleife bei listener: " + joiningPerson);
                 }
             }
@@ -121,7 +119,6 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
             String currentEmail = fireAuth.getCurrentUser().getEmail();
             Person person = new Person(userNameString, chosenColorId, householdId, currentEmail);
 
-            // TODO check first if not taken yet in the household
             Log.i(TAG, String.format("'%s' (color: %s) wants to move in '%s'", userNameString, chosenColorId, householdId));
             String personId = FireBaseHandling.getInstance().storePerson(householdId, person);
             // HaushaltID in preferences speichern
@@ -153,7 +150,6 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
      */
     private boolean checkUserName(ArrayList<Person> personList) {
         Log.i(TAG, "uebergebene Liste (sollte vom Listener befuellt worden sein): " + personList);
-        //TODO validate Button 5
         EditText userName = (EditText) findViewById(R.id.userNameInput);
         userNameString = userName.getText().toString();
         if (!userNameString.isEmpty()) {
@@ -165,7 +161,6 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
     }
 
     /**
-     * TODO: check if id is in outher list
      * Check if there is a household member with the same userName
      *
      * @param personList List of all household members

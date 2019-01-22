@@ -94,13 +94,11 @@ public class ShoppingListActivity extends AppCompatActivity {
                     String id = child.getKey();
                     ShoppingList value = child.getValue(ShoppingList.class);
                     Log.i(TAG, "ShoppingList: " + value);
-                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
-                    if (value.getIdBelongingTo() != null) {
                         if (value.getIdBelongingTo().equals(householdId)) {
                             Log.i(TAG, "Liste gehört zu diesem Haushalt.");
                             listsOfThisHousehold.put(id, value);
                         }
-                    }
+
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
                 getCurrentShoppingList();
@@ -277,19 +275,12 @@ public class ShoppingListActivity extends AppCompatActivity {
         Log.i(TAG, "getCurrentShoppingList called");
 
         Log.i(TAG, "shoppingLists " + listsOfThisHousehold);
-        // TODO kann dann auch wieder raus, ist aber gut zum testen
-        if (listsOfThisHousehold.isEmpty()) {
-            Log.i(TAG, "shoppingList is empty");
-        }
+
         // von Haushalt -> Listen -> Liste mit namen aus Preferences
         recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
 
-        // TODO kann dann auch wieder raus, ist aber gut zum testen
-        if (recentShoppingListName == null) {
-            Log.i(TAG, "no recent shoppingListName");
-        }
         // get object of the recent ShoppingList
-        else{
+        if(recentShoppingListName != null){
             Log.i(TAG, "recentShoppingListName: " + recentShoppingListName);
             String[] keys = listsOfThisHousehold.keySet().toArray(new String[listsOfThisHousehold.size()]);
             for(int i=0; i < keys.length; i++){
@@ -328,7 +319,6 @@ public class ShoppingListActivity extends AppCompatActivity {
     //Button that lets you add an item to the shopping list
     @OnClick (R.id.addItem)
     public void addItemOnClicked(){
-        //TODO this does nothing so I did something wrong. Needs to be done correctly (but it doesn't hurt the program so I left it)
         Intent intent = new Intent(this, CreateItemActivity.class);
         intent.putExtra("shoppingListId", shoppingListId);
         startActivity(intent);
