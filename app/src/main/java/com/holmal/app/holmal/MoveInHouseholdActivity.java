@@ -120,7 +120,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
             Person person = new Person(userNameString, chosenColorId, householdId, currentEmail);
 
             Log.i(TAG, String.format("'%s' (color: %s) wants to move in '%s'", userNameString, chosenColorId, householdId));
-            String personId = FireBaseHandling.getInstance().storePerson(householdId, person);
+            String personId = FireBaseHandling.getInstance().storePerson(person);
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
             preferences.storePreferences(this, getString(R.string.personIDPreference), personId);

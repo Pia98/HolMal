@@ -257,7 +257,7 @@ public class SettingsActivity extends AppCompatActivity {
                         String personID = preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.personIDPreference));
                         preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.householdIDPreference), null);
 
-                        FireBaseHandling.getInstance().removePersonFromHousehold(personID);
+                        FireBaseHandling.getInstance().deletePerson(personID);
                         //delete household if household is empty now
                         //hasn't synchronized by then so use former size - 1
                         if (joiningPerson.size() - 1 == 0) {
@@ -271,7 +271,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 ShoppingList shoppingList = listsOfThisHousehold.get(keys[i]);
                                 //list of items (id) that belong to household
                                 HashMap<String, String> itemsToDelete = shoppingList.getItemsOfThisList();
-                                FireBaseHandling.getInstance().deleteAllShoppingLists(keys[i]);
+                                FireBaseHandling.getInstance().deleteShoppingList(keys[i]);
 
                                 //iterates over all items
                                 String[] allItemsKeys = itemsOfThisHousehold.keySet().toArray(new String[itemsOfThisHousehold.size()]);
@@ -279,7 +279,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 for (int j = 0; j < itemsOfThisHousehold.size(); j++) {
                                     for (int k = 0; k < itemsToDelete.size(); k++) {
                                         if (allItemsKeys[j].equals(itemsToDelete.get(itemDeleteKeys[k]))) {
-                                            FireBaseHandling.getInstance().deleteAllItems(allItemsKeys[j]);
+                                            FireBaseHandling.getInstance().deleteItem(allItemsKeys[j]);
                                         }
                                     }
                                 }

@@ -20,8 +20,8 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
 
 
     private Context context;
-    HashMap<String, Person> personInHousehold;
-    String[] keys;
+    private HashMap<String, Person> personInHousehold;
+    private String[] keys;
 
     //constructor
     public SettingsAdapter(Context context, HashMap<String, Person> personInHousehold) {

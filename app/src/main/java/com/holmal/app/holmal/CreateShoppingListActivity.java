@@ -68,25 +68,21 @@ public class CreateShoppingListActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * When 'close' button is clicked, do nothing and go back to the overview of all shopping lists
-     */
+    // When 'close' button is clicked, do nothing and go back to the overview of all shopping lists
     @OnClick(R.id.close)
     public void goBack() {
         Intent intent = new Intent(this, AllShoppingListsActivity.class);
         startActivity(intent);
     }
 
-    /**
-     * When 'create' button is clicekd and all input is valid,
-     * create a shoppingList and store this on database,
-     * then go back to the overview of all shopping lists
-     */
+    /* When 'create' button is clicekd and all input is valid,
+    create a shoppingList and store this on database,
+    then go back to the overview of all shopping lists */
     @OnClick(R.id.createShoppingList)
     public void createShoppingListClicked() {
         if (validate()) {
             ShoppingList shoppingList = new ShoppingList(shoppingListNameString, shoppingListCategoryString, householdId);
-            FireBaseHandling.getInstance().storeShoppingList(householdId, shoppingList);
+            FireBaseHandling.getInstance().storeShoppingList(shoppingList);
             Log.i(TAG, String.format("store shoppingList with name: '%s' and category: '%s'",
                     shoppingListNameString, shoppingListCategoryString));
 
@@ -140,6 +136,4 @@ public class CreateShoppingListActivity extends AppCompatActivity {
         Log.i("CrateShoppingList", "all right");
         return true;
     }
-
-
 }

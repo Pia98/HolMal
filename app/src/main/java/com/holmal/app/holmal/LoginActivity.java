@@ -233,7 +233,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         return fireAuth;
     }
 
-    public Boolean validate() {
+    private boolean validate() {
         String email = emailInput.getText().toString();
         String password = passwordInput.getText().toString();
         String passwortWdh = passwortInputWdh.getText().toString();
@@ -258,7 +258,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
      * @param email checks if there is an householdId for a person with the given email exists
      *              navigates to it
      */
-    public String checkIfPersonIsInHousehold(String email) {
+    private String checkIfPersonIsInHousehold(String email) {
         Log.i(TAG, "Searched email: " + email);
         String result = null;
         preferences.storePreferences(this, getString(R.string.householdIDPreference), null);
