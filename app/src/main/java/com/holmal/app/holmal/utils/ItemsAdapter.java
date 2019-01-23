@@ -150,7 +150,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             public void onClick(View v) {
                 Item clickedItem = items.get(itemKeys[position]);
                 if (!clickedItem.getAdditionalInfo().isEmpty()) {
-                    //TODO starte ItemInformationFragment
                     Log.i("FürSvenja", "clicked item -> open info");
                     Intent intent = new Intent(context, ItemInformationActivity.class);
                     v.getContext().startActivity(intent);
@@ -164,7 +163,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
                 Item clickedItem = items.get(itemKeys[position]);
                 Log.i("FürSvenja", "assign person");
                 if (clickedItem.getItsTask().isEmpty()) {
-
+                    //TODO gets ownPersonID correctly, but itsTask is not changed on database??
                     PreferencesAccess preferencesAccess = new PreferencesAccess();
                     String ownPersonID = preferencesAccess.readPreferences(context, "personID");
                     String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();

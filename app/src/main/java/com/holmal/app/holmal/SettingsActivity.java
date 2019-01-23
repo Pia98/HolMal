@@ -278,6 +278,15 @@ public class SettingsActivity extends AppCompatActivity {
                                 }
                             }
                         }
+                        else{
+                            //unassign tasks that this user has taken on
+                            for (int i = 0; i<itemsOfThisHousehold.size(); i++){
+                                String[] allItemsKeys = itemsOfThisHousehold.keySet().toArray(new String[itemsOfThisHousehold.size()]);
+                                if(personID.equals(itemsOfThisHousehold.get(allItemsKeys[i]).getItsTask())){
+                                    itemsOfThisHousehold.get(allItemsKeys[i]).setItsTask("");
+                                }
+                            }
+                        }
 
                         FirebaseAuth.getInstance().signOut();
                         Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
