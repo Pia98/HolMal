@@ -128,4 +128,13 @@ public class FireBaseHandling {
         reference.child(shoppingListRubric + "/" + shoppingListId + "/itemsOfThisList").push().setValue(storeId);
         return storeId;
     }
+
+    /**
+     * edits the name of an household on the database
+     * @param newName   The new Name
+     * @param householdId The id of the household that shell be edited
+     */
+    public void editHousholdName(String newName, String householdId){
+        reference.child(householdRubric + "/" + householdId + "/householdName").setValue(newName);
+    }
 }

@@ -14,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,6 +29,7 @@ import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.FragmentHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.SettingsAdapter;
 
@@ -46,6 +49,12 @@ public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.thisHouseholdId)
     TextView householdIdText;
 
+    @BindView(R.id.editHouseholdNameText)
+    EditText editHousholdNameText;
+
+    @BindView(R.id.editHouseholdNameDone)
+    ImageButton editHouseholdNameDone;
+
     String householdId;
     private DrawerLayout mDrawerLayout;
 
@@ -58,6 +67,9 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
+
+        editHousholdNameText.setVisibility(View.INVISIBLE);
+        editHouseholdNameDone.setVisibility(View.INVISIBLE);
 
         PreferencesAccess preferencesAccess = new PreferencesAccess();
         householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
@@ -254,6 +266,27 @@ public class SettingsActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.editHouseholdName)
+    public void editHouseholdNameClicked(){
+        editHousholdNameText.setVisibility(View.VISIBLE);
+        editHouseholdNameDone.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.editHouseholdNameDone)
+    public void setEditHouseholdNameDone(){
+        String newName = editHousholdNameText.getText().toString();
+        String id = householdIdText.getText().toString();
+        if(!newName.isEmpty()){
+            FireBaseHandling.getInstance().editHousholdName(newName, id);
+            editHousholdNameText.setVisibility(View.INVISIBLE);
+            editHouseholdNameDone.setVisibility(View.INVISIBLE);
+            householdNameText.setText(newName);
+        }else{
+            editHousholdNameText.setVisibility(View.INVISIBLE);
+            editHouseholdNameDone.setVisibility(View.INVISIBLE);
+        }
     }
 
 
