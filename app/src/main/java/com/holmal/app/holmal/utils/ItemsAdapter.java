@@ -8,17 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.firebase.database.FirebaseDatabase;
 import com.holmal.app.holmal.R;
-import com.holmal.app.holmal.ShoppingListActivity;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
-
 import java.util.HashMap;
 
 
@@ -49,9 +43,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
 
     /**
      * constructor for ItemsAdapter
-     * @param context
-     * @param items
-     * @param person
+     * @param context ShoppingListActivity context is provided
+     * @param items the items to be displayed on the list
+     * @param person the people of the household are given to enable the display of the assignment of tasks
      */
     public ItemsAdapter(Context context, HashMap<String, Item> items, HashMap<String, Person> person){
         this.context = context;
@@ -61,16 +55,12 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
 
     }
 
-    /*@Override
-    public int getCount() {
-        return items.size();
-    }*/
-
-/*
-    public Item getItem(int i) {
-        return items.get(itemKeys[i]);
-    }*/
-
+    /**
+     * Method that creates views for items including part-views for all their data whose layout is specified in single_item_layout
+     * @param parent the parent view
+     * @param viewType the type of view
+     * @return the item view holder
+     */
     @NonNull
     @Override
     public ItemsAdapter.ItemsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -90,6 +80,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
     }
 
 
+    /**
+     * Method that fills the items of the viewholder with appropriate content
+     * @param itemsViewHolder the viewHolder
+     * @param position the position at which an item is in the list
+     */
     @Override
     public void onBindViewHolder(@NonNull ItemsViewHolder itemsViewHolder, final int position) {
        //adapts view to show items on list
@@ -158,11 +153,20 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
     }
 
 
+    /**
+     * getter for the itemid that isn't used
+     * @param position position of the item
+     * @return the itemid
+     */
     @Override
     public long getItemId(int position) {
         return 0;
     }
 
+    /**
+     * getter for the length of the hashmap that contains the items to be displayed
+     * @return amount of dispayed items
+     */
     @Override
     public int getItemCount() {
         return itemKeys.length;
@@ -204,6 +208,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         }
     });*/
 
+    /**
+     * the viewHolder for this recyclerview
+     * contains the views that the content is displayed upon
+     */
     public class ItemViewHolder extends RecyclerView.ViewHolder{
 
         public ItemViewHolder(@NonNull View itemView) {
