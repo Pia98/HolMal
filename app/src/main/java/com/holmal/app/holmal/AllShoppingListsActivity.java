@@ -21,7 +21,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.ShoppingList;
-import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.ShoppingListsAdapter;
 
@@ -44,6 +43,16 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         //menu that appears from the left
+        menu();
+
+        PreferencesAccess preferencesAccess = new PreferencesAccess();
+        final String householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
+
+
+        startShoppingListListener(householdId);
+    }
+
+    private void menu() {
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -111,11 +120,9 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
 
-        PreferencesAccess preferencesAccess = new PreferencesAccess();
-        final String householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
-
-
+    private void startShoppingListListener(final String householdId) {
         FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -126,12 +133,9 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                     String id = child.getKey();
                     ShoppingList value = child.getValue(ShoppingList.class);
                     Log.i(TAG, "ShoppingList: " + value);
-                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
-                    if (value.getIdBelongingTo() != null) {
-                        if (value.getIdBelongingTo().equals(householdId)) {
-                            Log.i(TAG, "Liste gehört zu diesem Haushalt.");
-                            listsOfThisHousehold.put(id, value);
-                        }
+                    if (value.getIdBelongingTo().equals(householdId)) {
+                        Log.i(TAG, "Liste gehört zu diesem Haushalt.");
+                        listsOfThisHousehold.put(id, value);
                     }
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }

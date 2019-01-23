@@ -23,27 +23,15 @@ import butterknife.OnClick;
 
 public class CreateHouseholdActivity extends AppCompatActivity implements PersonalInputFragment.OnFragmentInteractionListener {
 
-    /**
-     * LOG_TAG
-     */
     private static final String TAG = CreateHouseholdActivity.class.getName();
 
-    /**
-     * fragments
-     */
     Fragment currentFragment;
 
-    /**
-     * Strings
-     */
     String userNameString;
     String houseHoldNameString;
     int chosenColorId;
     String householdId;
 
-    /**
-     * Handling classes
-     */
     FragmentHandling fragmentHandling = new FragmentHandling();
 
     PreferencesAccess preferences = new PreferencesAccess();
@@ -72,12 +60,12 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
 
             String currentEmail = fireAuth.getCurrentUser().getEmail();
             Person newPerson = new Person(userNameString, chosenColorId, householdId, currentEmail);
-            String personId = FireBaseHandling.getInstance().storePerson(householdId, newPerson);
+            String personId = FireBaseHandling.getInstance().storePerson(newPerson);
 
             // create default ShoppingListActivity when household created
             String category = null;
             ShoppingList defaultList = new ShoppingList(getString(R.string.defaultShoppingList), category, householdId);
-            FireBaseHandling.getInstance().storeShoppingList(householdId, defaultList);
+            FireBaseHandling.getInstance().storeShoppingList(defaultList);
 
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
@@ -100,8 +88,7 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
         }
     }
 
-    //checks to see if a household name was chosen, a name was chosen that is unique and if a colour was chosen
-    public Boolean validate() {
+    private boolean validate() {
         EditText userName = (EditText) findViewById(R.id.userNameInput);
         EditText householdName = (EditText) findViewById(R.id.householdNameInput);
         userNameString = userName.getText().toString();
@@ -113,21 +100,12 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
         if (userNameString.isEmpty()) {
             Toast.makeText(getApplicationContext(), R.string.ErrorEnterName, Toast.LENGTH_LONG).show();
             return false;
-        }
-        //TODO check if name is not taken;
-        /*
-        if (userName.getText.toString() is in List of Names in Household)
-         Toast.makeText(this, ErrorNameTaken, Toast.LENGTH_SHORT).show();
-         return false;
-         */
-        else return checkColours();
+        } else return checkColours();
 
     }
 
-    /*
-    Method that checks if a colour button has been chosen. Users must choose a colour before entering a household.
-     */
-    public Boolean checkColours() {
+    // Method that checks if a colour button has been chosen. Users must choose a colour before entering a household.
+    private boolean checkColours() {
 
         RadioGroup colourChooser = findViewById(R.id.colorChoice);
         //check if a button was chosen

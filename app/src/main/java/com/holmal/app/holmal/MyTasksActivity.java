@@ -20,15 +20,19 @@ import butterknife.ButterKnife;
 //class that shows the users assignments
 public class MyTasksActivity extends AppCompatActivity {
 
-        private DrawerLayout mDrawerLayout;
+    private DrawerLayout mDrawerLayout;
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_tasks);
         ButterKnife.bind(this);
 
-       //menu that appears from the left
+        //menu that appears from the left
+        menu();
+    }
+
+    private void menu() {
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
         setTitle(R.string.myJobs);
@@ -51,24 +55,23 @@ public class MyTasksActivity extends AppCompatActivity {
 
                         // Add code here to update the UI based on the item selected
                         //if all shopping lists is pressed in the menu you will be lead there
-                            if (menuItem.getItemId()==R.id.nav_shopping_lists){
-                                Intent intentLists = new Intent(MyTasksActivity.this, AllShoppingListsActivity.class);
-                                startActivity(intentLists);
-                                return true;
-                            }
-                            else if (menuItem.getItemId()==R.id.nav_settings){
-                                Intent intentLists = new Intent(MyTasksActivity.this, SettingsActivity.class);
-                                startActivity(intentLists);
-                                return true;
-                            }
-                            //Logout
-                            else if (menuItem.getItemId()==R.id.logout){
-                                Log.i("TAG", "Logout button clicked");
-                                FirebaseAuth.getInstance().signOut();
-                                Intent intentout = new Intent(MyTasksActivity.this, LoginActivity.class);
-                                startActivity(intentout);
-                                return true;
-                            }
+                        if (menuItem.getItemId() == R.id.nav_shopping_lists) {
+                            Intent intentLists = new Intent(MyTasksActivity.this, AllShoppingListsActivity.class);
+                            startActivity(intentLists);
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.nav_settings) {
+                            Intent intentLists = new Intent(MyTasksActivity.this, SettingsActivity.class);
+                            startActivity(intentLists);
+                            return true;
+                        }
+                        //Logout
+                        else if (menuItem.getItemId() == R.id.logout) {
+                            Log.i("TAG", "Logout button clicked");
+                            FirebaseAuth.getInstance().signOut();
+                            Intent intentout = new Intent(MyTasksActivity.this, LoginActivity.class);
+                            startActivity(intentout);
+                            return true;
+                        }
 
                         return true;
                     }
@@ -100,9 +103,9 @@ public class MyTasksActivity extends AppCompatActivity {
         );
     }
 
-        //Menu is opened
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
+    //Menu is opened
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);

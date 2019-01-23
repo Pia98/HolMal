@@ -52,7 +52,7 @@ public class PersonalInputFragment extends Fragment {
     }
 
 
-    public static PersonalInputFragment newInstance(){
+    public static PersonalInputFragment newInstance() {
         return new PersonalInputFragment();
     }
 

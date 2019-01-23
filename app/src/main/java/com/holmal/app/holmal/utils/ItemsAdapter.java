@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.holmal.app.holmal.ItemInformationActivity;
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
+
 import java.util.HashMap;
 
 /**
@@ -84,9 +86,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         assignedView = (ImageView) rowView.findViewById(R.id.assignedTo);
         singleItemView = (RecyclerView) rowView.findViewById(R.id.list) ;
 
-        ItemsViewHolder viewHolder = new ItemsViewHolder(rowView);
-        return viewHolder;
-    }
+        ImageView urgencyView = (ImageView) rowView.findViewById(R.id.urgent);
+        ImageView infoView = (ImageView) rowView.findViewById(R.id.infoAvailable);
+        ImageView assignedView = (ImageView) rowView.findViewById(R.id.assignedTo);
 
 
     /**

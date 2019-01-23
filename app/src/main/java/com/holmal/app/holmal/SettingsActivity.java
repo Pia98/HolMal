@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
@@ -53,7 +54,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private HashMap<String, Person> joiningPerson = new HashMap<>();
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
-    private  HashMap<String, Item> itemsOfThisHousehold = new HashMap<>();
+    private HashMap<String, Item> itemsOfThisHousehold = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +65,101 @@ public class SettingsActivity extends AppCompatActivity {
         PreferencesAccess preferencesAccess = new PreferencesAccess();
         householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
 
+        startHouseholdListener();
 
         //menu that appears from the left
+        menu();
+
+        startPersonListener();
+
+        //Listener for shopping list
+        startShoppingListListener();
+
+        //Listener for items
+        startItemListener();
+    }
+
+    private void startItemListener() {
+        FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "listener in onCreate...");
+                itemsOfThisHousehold.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Listen durchgehen");
+                    String id = child.getKey();
+                    Item value = child.getValue(Item.class);
+                    Log.i(TAG, "Item: " + value);
+                    itemsOfThisHousehold.put(id, value);
+                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + itemsOfThisHousehold);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void startShoppingListListener() {
+        FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "listener in onCreate...");
+                listsOfThisHousehold.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Listen durchgehen");
+                    String id = child.getKey();
+                    ShoppingList value = child.getValue(ShoppingList.class);
+                    Log.i(TAG, "ShoppingList: " + value);
+                    if (value.getIdBelongingTo().equals(householdId)) {
+                        Log.i(TAG, "Liste gehört zu diesem Haushalt.");
+                        listsOfThisHousehold.put(id, value);
+                    }
+
+                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void startPersonListener() {
+        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "listener in onCreate...");
+                joiningPerson.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Personen durchgehen");
+                    String id = child.getKey();
+                    Person value = child.getValue(Person.class);
+                    Log.i(TAG, "Person: " + value + "householdId: " + householdId);
+                    if (value.getIdBelongingTo().equals(householdId)) {
+                        Log.i(TAG, "Person gehört zu diesem Haushalt (householdId: " + householdId + ")");
+                        joiningPerson.put(id, value);
+                    }
+
+                    Log.i(TAG, "joiningPerson in for Schleife bei listener: " + joiningPerson);
+                }
+                SettingsAdapter adapter = new SettingsAdapter(SettingsActivity.this, joiningPerson);
+                ListView list = findViewById(R.id.listOfHouseholdMembers);
+                list.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void menu() {
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -87,19 +181,19 @@ public class SettingsActivity extends AppCompatActivity {
 
                         // Add code here to update the UI based on the item selected
                         //if my assignments is pressed in the menu you will be lead there
-                        if(menuItem.getItemId() == R.id.nav_my_tasks){
+                        if (menuItem.getItemId() == R.id.nav_my_tasks) {
                             Intent intentT = new Intent(SettingsActivity.this, MyTasksActivity.class);
                             startActivity(intentT);
                             return true;
                         }
                         //if all shopping lists is pressed in the menu you will be lead there
-                        else if (menuItem.getItemId()==R.id.nav_shopping_lists){
+                        else if (menuItem.getItemId() == R.id.nav_shopping_lists) {
                             Intent intentLists = new Intent(SettingsActivity.this, AllShoppingListsActivity.class);
                             startActivity(intentLists);
                             return true;
                         }
                         //Logout
-                        else if (menuItem.getItemId()==R.id.logout){
+                        else if (menuItem.getItemId() == R.id.logout) {
                             Log.i("TAG", "Logout button clicked");
                             FirebaseAuth.getInstance().signOut();
                             Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
@@ -135,82 +229,15 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
 
-
-        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
+    private void startHouseholdListener() {
+        FirebaseDatabase.getInstance().getReference().child("household").child(householdId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
-                joiningPerson.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Personen durchgehen");
-                    String id = child.getKey();
-                    Person value = child.getValue(Person.class);
-                    Log.i(TAG, "Person: " + value + "householdId: " + householdId);
-                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
-                    if (value.getIdBelongingTo() != null) {
-                        if (value.getIdBelongingTo().equals(householdId)) {
-                            Log.i(TAG, "Person gehört zu diesem Haushalt (householdId: " + householdId + ")");
-                            joiningPerson.put(id, value);
-                        }
-                    }
-                    Log.i(TAG, "joiningPerson in for Schleife bei listener: " + joiningPerson);
-                }
-                SettingsAdapter adapter = new SettingsAdapter(SettingsActivity.this, joiningPerson);
-                ListView list = findViewById(R.id.listOfHouseholdMembers);
-                list.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        Log.i(TAG, "joiningPerson nach listener: " + joiningPerson);
-
-        //Listener for shopping list
-        FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
-                listsOfThisHousehold.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Listen durchgehen");
-                    String id = child.getKey();
-                    ShoppingList value = child.getValue(ShoppingList.class);
-                    Log.i(TAG, "ShoppingList: " + value);
-                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
-                    if (value.getIdBelongingTo() != null) {
-                        if (value.getIdBelongingTo().equals(householdId)) {
-                            Log.i(TAG, "Liste gehört zu diesem Haushalt.");
-                            listsOfThisHousehold.put(id, value);
-                        }
-                    }
-                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        //Listener for items
-        FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
-                itemsOfThisHousehold.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Listen durchgehen");
-                    String id = child.getKey();
-                    Item value = child.getValue(Item.class);
-                    Log.i(TAG, "Item: " + value);
-                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
-                    itemsOfThisHousehold.put(id, value);
-                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + itemsOfThisHousehold);
-                }
+                Household thisHousehold = dataSnapshot.getValue(Household.class);
+                householdNameText.setText(thisHousehold.getHouseholdName());
+                householdIdText.setText(dataSnapshot.getKey());
             }
 
             @Override
@@ -234,7 +261,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     @OnClick(R.id.leaveHousehold)
-    public void leaveHouseholdClicked(){
+    public void leaveHouseholdClicked() {
 
         //pop up that asks the user if they are sure
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -250,10 +277,10 @@ public class SettingsActivity extends AppCompatActivity {
                         String personID = preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.personIDPreference));
                         preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.householdIDPreference), null);
 
-                        FireBaseHandling.getInstance().removePersonFromHousehold(personID);
+                        FireBaseHandling.getInstance().deletePerson(personID);
                         //delete household if household is empty now
                         //hasn't synchronized by then so use former size - 1
-                        if(joiningPerson.size() -1 == 0){
+                        if (joiningPerson.size() - 1 == 0) {
                             Log.e("deleteHousehold", householdID + " has been deleted");
                             FireBaseHandling.getInstance().deleteHousehold(householdID);
 
@@ -264,15 +291,15 @@ public class SettingsActivity extends AppCompatActivity {
                                 ShoppingList shoppingList = listsOfThisHousehold.get(keys[i]);
                                 //list of items (id) that belong to household
                                 HashMap<String, String> itemsToDelete = shoppingList.getItemsOfThisList();
-                                FireBaseHandling.getInstance().deleteAllShoppingLists(keys[i]);
+                                FireBaseHandling.getInstance().deleteShoppingList(keys[i]);
 
                                 //iterates over all items
                                 String[] allItemsKeys = itemsOfThisHousehold.keySet().toArray(new String[itemsOfThisHousehold.size()]);
                                 String[] itemDeleteKeys = itemsToDelete.keySet().toArray(new String[itemsToDelete.size()]);
-                                for(int j = 0; j<itemsOfThisHousehold.size(); j++){
-                                    for(int k = 0; k<itemsToDelete.size(); k++) {
+                                for (int j = 0; j < itemsOfThisHousehold.size(); j++) {
+                                    for (int k = 0; k < itemsToDelete.size(); k++) {
                                         if (allItemsKeys[j].equals(itemsToDelete.get(itemDeleteKeys[k]))) {
-                                            FireBaseHandling.getInstance().deleteAllItems(allItemsKeys[j]);
+                                            FireBaseHandling.getInstance().deleteItem(allItemsKeys[j]);
                                         }
                                     }
                                 }

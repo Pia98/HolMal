@@ -52,6 +52,38 @@ public class CreateItemActivity extends AppCompatActivity {
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
 
         // Listener to get all IDs of the items that belongs to the list with id = shoppingListId
+        startShoppingListItemListener();
+
+        // Listener to get all items that are in the list
+        startItemListener();
+    }
+
+    private void startItemListener() {
+        FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "item listener in onCreate...");
+                itemsOfTheList.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    String id = child.getKey();
+                    Item value = child.getValue(Item.class);
+                    Log.i(TAG, "item: " + value);
+                    for (int i = 0; i < itemIds.size(); i++) {
+                        if (id.equals(itemIds.get(i))) {
+                            itemsOfTheList.put(id, value);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void startShoppingListItemListener() {
         FirebaseDatabase.getInstance().getReference().child("shoppingList").child(shoppingListId).child("itemsOfThisList").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -62,30 +94,6 @@ public class CreateItemActivity extends AppCompatActivity {
                     String value = (String) child.getValue();
                     Log.i(TAG, "id: " + value);
                     itemIds.add(value);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        // Listener to get all items that are in the list
-        FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "item listener in onCreate...");
-                itemsOfTheList.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    String id = child.getKey();
-                    Item value = child.getValue(Item.class);
-                    Log.i(TAG, "item: " + value);
-                    for(int i = 0; i < itemIds.size(); i++){
-                        if(id.equals(itemIds.get(i))){
-                            itemsOfTheList.put(id, value);
-                        }
-                    }
                 }
             }
 
@@ -150,7 +158,7 @@ public class CreateItemActivity extends AppCompatActivity {
         }
     }
 
-    private boolean checkItemNameTaken(String itemName){
+    private boolean checkItemNameTaken(String itemName) {
         for (int i = 0; i < itemsOfTheList.size(); i++) {
             String[] keys = itemsOfTheList.keySet().toArray(new String[itemsOfTheList.size()]);
             String name = itemsOfTheList.get(keys[i]).getItemName();

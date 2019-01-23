@@ -11,14 +11,10 @@ import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.model.ShoppingList;
 
 import java.util.HashMap;
-import java.util.List;
 
 
 //this class is responsible for displaying the lists in the list overview
 public class ShoppingListsAdapter extends BaseAdapter {
-    // Todo hier das dann wieder raus hauen:
-    // https://stackoverflow.com/questions/5234576/what-adapter-shall-i-use-to-use-hashmap-in-a-listview
-
     private Context context;
     private HashMap<String, ShoppingList> shoppinglists;
     private String[] listKeys;

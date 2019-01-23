@@ -2,7 +2,6 @@ package com.holmal.app.holmal.utils;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,22 +9,22 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.model.Person;
 
 import java.util.HashMap;
-import java.util.List;
 
 
 public class SettingsAdapter extends ArrayAdapter<Person> {
 
 
     private Context context;
-    HashMap<String, Person> personInHousehold;
-    String[] keys;
+    private HashMap<String, Person> personInHousehold;
+    private String[] keys;
 
     //constructor
-    public SettingsAdapter(Context context, HashMap<String, Person> personInHousehold){
+    public SettingsAdapter(Context context, HashMap<String, Person> personInHousehold) {
         super(context, R.layout.single_household_member_settings);
         this.context = context;
         this.personInHousehold = personInHousehold;
@@ -35,11 +34,10 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
 
     @Override
     public int getCount() {
-        Log.i("personInHousehold", "count: "+personInHousehold);
-        if(personInHousehold.size()== 0) {
+        Log.i("personInHousehold", "count: " + personInHousehold);
+        if (personInHousehold.size() == 0) {
             return 0;
-        }
-        else{
+        } else {
             return personInHousehold.size();
         }
     }
@@ -51,7 +49,7 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
 
     //method that actually adapts the view to show the household members
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -63,25 +61,25 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
         Person person = personInHousehold.get(keys[position]);
         Log.i("personInHousehold", "person: " + person);
 
-            if (person.getColor() == R.id.color1){
-                colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonLightGreen));
-            }else if (person.getColor() == R.id.color2){
-                colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonGreen));
-            }else if (person.getColor() == R.id.color3){
-                colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonBlue));
-            }else if (person.getColor() == R.id.color4) {
-                colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonLightBlue));
-            }else if (person.getColor() == R.id.color5) {
-                colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonOrange));
-            }else if (person.getColor() == R.id.color6) {
-                colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonRed));
-            }else if (person.getColor() == R.id.color7) {
-                colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonPink));
-            }else{
-                colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonPurple));
-            }
+        if (person.getColor() == R.id.color1) {
+            colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonLightGreen));
+        } else if (person.getColor() == R.id.color2) {
+            colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonGreen));
+        } else if (person.getColor() == R.id.color3) {
+            colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonBlue));
+        } else if (person.getColor() == R.id.color4) {
+            colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonLightBlue));
+        } else if (person.getColor() == R.id.color5) {
+            colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonOrange));
+        } else if (person.getColor() == R.id.color6) {
+            colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonRed));
+        } else if (person.getColor() == R.id.color7) {
+            colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonPink));
+        } else {
+            colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonPurple));
+        }
 
-            name.setText(person.getPersonName());
+        name.setText(person.getPersonName());
 
         return rowView;
     }

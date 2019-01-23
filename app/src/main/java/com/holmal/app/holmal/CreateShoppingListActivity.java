@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -19,7 +16,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
-import com.holmal.app.holmal.utils.ShoppingListsAdapter;
 
 import java.util.HashMap;
 
@@ -46,6 +42,10 @@ public class CreateShoppingListActivity extends AppCompatActivity {
         PreferencesAccess preferences = new PreferencesAccess();
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
 
+        startShoppingListListener();
+    }
+
+    private void startShoppingListListener() {
         FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -56,13 +56,11 @@ public class CreateShoppingListActivity extends AppCompatActivity {
                     String id = child.getKey();
                     ShoppingList value = child.getValue(ShoppingList.class);
                     Log.i(TAG, "ShoppingList: " + value);
-                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
-                    if (value.getIdBelongingTo() != null) {
-                        if (value.getIdBelongingTo().equals(householdId)) {
-                            Log.i(TAG, "Liste gehört zu diesem Haushalt.");
-                            listsOfThisHousehold.put(id, value);
-                        }
+                    if (value.getIdBelongingTo().equals(householdId)) {
+                        Log.i(TAG, "Liste gehört zu diesem Haushalt.");
+                        listsOfThisHousehold.put(id, value);
                     }
+
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
             }
@@ -74,25 +72,21 @@ public class CreateShoppingListActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * When 'close' button is clicked, do nothing and go back to the overview of all shopping lists
-     */
+    // When 'close' button is clicked, do nothing and go back to the overview of all shopping lists
     @OnClick(R.id.close)
     public void goBack() {
         Intent intent = new Intent(this, AllShoppingListsActivity.class);
         startActivity(intent);
     }
 
-    /**
-     * When 'create' button is clicekd and all input is valid,
-     * create a shoppingList and store this on database,
-     * then go back to the overview of all shopping lists
-     */
+    /* When 'create' button is clicekd and all input is valid,
+    create a shoppingList and store this on database,
+    then go back to the overview of all shopping lists */
     @OnClick(R.id.createShoppingList)
     public void createShoppingListClicked() {
         if (validate()) {
             ShoppingList shoppingList = new ShoppingList(shoppingListNameString, shoppingListCategoryString, householdId);
-            FireBaseHandling.getInstance().storeShoppingList(householdId, shoppingList);
+            FireBaseHandling.getInstance().storeShoppingList(shoppingList);
             Log.i(TAG, String.format("store shoppingList with name: '%s' and category: '%s'",
                     shoppingListNameString, shoppingListCategoryString));
 
@@ -146,6 +140,4 @@ public class CreateShoppingListActivity extends AppCompatActivity {
         Log.i("CrateShoppingList", "all right");
         return true;
     }
-
-
 }

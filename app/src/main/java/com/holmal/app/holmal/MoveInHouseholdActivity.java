@@ -17,14 +17,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
-import com.holmal.app.holmal.utils.ReferencesHandling;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,7 +36,6 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
 
     Fragment currentFragment;
     FragmentHandling fragmentHandling = new FragmentHandling();
-    ReferencesHandling referencesHandling = new ReferencesHandling();
     FirebaseAuth fireAuth;
 
     private ArrayList<Person> joiningPerson = new ArrayList<>();
@@ -45,7 +43,6 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
     @BindView(R.id.householdIDAsText)
     TextView householdIdAsText;
 
-    // TODO set text, so that it is not hardcoded anymore!
     @BindView(R.id.householdNameFromIDAsText)
     TextView householdNameAsText;
 
@@ -68,6 +65,30 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
         Bundle extras = getIntent().getExtras();
         householdId = extras.getString("inputId");
 
+        startPersonListener();
+
+        startHouseholdListener();
+
+        fireAuth = FirebaseAuth.getInstance();
+    }
+
+    private void startHouseholdListener() {
+        FirebaseDatabase.getInstance().getReference().child("household").child(householdId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Household thisHousehold = dataSnapshot.getValue(Household.class);
+                householdNameAsText.setText(thisHousehold.getHouseholdName());
+                householdIdAsText.setText(dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void startPersonListener() {
         FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -78,13 +99,11 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
                     String id = child.getKey();
                     Person value = child.getValue(Person.class);
                     Log.i(TAG, "Person: " + value);
-                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
-                    if (value.getIdBelongingTo() != null) {
-                        if (value.getIdBelongingTo().equals(householdId)) {
-                            Log.i(TAG, "Person gehört zu diesem Haushalt.");
-                            joiningPerson.add(value);
-                        }
+                    if (value.getIdBelongingTo().equals(householdId)) {
+                        Log.i(TAG, "Person gehört zu diesem Haushalt.");
+                        joiningPerson.add(value);
                     }
+
                     Log.i(TAG, "joiningPerson in for Schleife bei listener: " + joiningPerson);
                 }
             }
@@ -94,11 +113,6 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
 
             }
         });
-        Log.i(TAG, "joiningPerson nach listener: " + joiningPerson);
-
-        householdIdAsText.setText(householdId);
-
-        fireAuth = FirebaseAuth.getInstance();
     }
 
     /**
@@ -113,9 +127,8 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
             String currentEmail = fireAuth.getCurrentUser().getEmail();
             Person person = new Person(userNameString, chosenColorId, householdId, currentEmail);
 
-            // TODO check first if not taken yet in the household
             Log.i(TAG, String.format("'%s' (color: %s) wants to move in '%s'", userNameString, chosenColorId, householdId));
-            String personId = FireBaseHandling.getInstance().storePerson(householdId, person);
+            String personId = FireBaseHandling.getInstance().storePerson(person);
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
             preferences.storePreferences(this, getString(R.string.personIDPreference), personId);
@@ -140,12 +153,12 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
 
     /**
      * Check if userName input is valid
+     *
      * @param personList List of all members
      * @return if input is valid
      */
     private boolean checkUserName(ArrayList<Person> personList) {
         Log.i(TAG, "uebergebene Liste (sollte vom Listener befuellt worden sein): " + personList);
-        //TODO validate Button 5
         EditText userName = (EditText) findViewById(R.id.userNameInput);
         userNameString = userName.getText().toString();
         if (!userNameString.isEmpty()) {
@@ -157,7 +170,6 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
     }
 
     /**
-     * TODO: check if id is in outher list
      * Check if there is a household member with the same userName
      *
      * @param personList List of all household members
