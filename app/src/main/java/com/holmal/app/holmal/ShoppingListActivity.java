@@ -40,6 +40,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ShoppingListActivity extends AppCompatActivity {
+    // TODO raus
 
     private static final String TAG = ShoppingListActivity.class.getName();
 
