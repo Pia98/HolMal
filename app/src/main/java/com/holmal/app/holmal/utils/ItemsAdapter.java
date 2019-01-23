@@ -64,9 +64,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
     /*@Override
     public int getCount() {
         return items.size();
-    }
+    }*/
 
-    @Override
+/*
     public Item getItem(int i) {
         return items.get(itemKeys[i]);
     }*/
@@ -91,7 +91,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
 
 
     @Override
-    public void onBindViewHolder(@NonNull ItemsViewHolder itemsViewHolder, int position) {
+    public void onBindViewHolder(@NonNull ItemsViewHolder itemsViewHolder, final int position) {
        //adapts view to show items on list
         //iterates over the items and gets name and quantitiy of each one
 
@@ -141,6 +141,19 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
                 assignedView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonPurple));
             }
         }
+
+        //handles click on item to see detailed information
+        itemsViewHolder.rowView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Item clickedItem = items.get(itemKeys[position]);
+                if (!clickedItem.getAdditionalInfo().isEmpty()) {
+                    //TODO starte ItemInformationFragment
+                    Log.i("FürSvenja", "clicked item -> open info");
+                }
+            }
+        });
+
 
     }
 
