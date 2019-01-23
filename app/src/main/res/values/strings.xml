@@ -110,7 +110,6 @@
     </string-array>
 
 
-
     <!-- strings used to store something -->
     <string name="householdIDPreference">householdID</string>
     <string name="recentShoppingListNamePreference">recentShoppingListName</string>

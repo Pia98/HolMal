@@ -1,7 +1,11 @@
 package com.holmal.app.holmal.utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,23 +13,52 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.FirebaseDatabase;
+import com.holmal.app.holmal.ItemInformationActivity;
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 
 import java.util.HashMap;
 
-
-public class ItemsAdapter extends BaseAdapter {
-    // TODO raus
+/**
+ * Items Adapter is the adapter that sets the items on the shopping list.
+ * It fills the content of every single item and sets it on the list and also enables interactions by providing a click-
+ * and a long-click listener.
+ * The items adapter is set in ShoppingListActivity.
+ */
+public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder> {
 
     private Context context;
     private HashMap<String, Item> items;
     private String[] itemKeys;
     private HashMap<String, Person> person;
 
-    //constructor
-    public ItemsAdapter(Context context, HashMap<String, Item> items, HashMap<String, Person> person) {
+    private TextView nameView;
+    private TextView descriptionView;
+    private ImageView urgencyView;
+    private ImageView infoView;
+    private ImageView assignedView;
+    RecyclerView singleItemView;
+
+    /**
+     * Provide a reference to the views for each data item
+     */
+    public static class ItemsViewHolder extends RecyclerView.ViewHolder {
+        private View rowView;
+        private ItemsViewHolder(View view) {
+            super(view);
+            rowView = view;
+        }
+    }
+
+    /**
+     * constructor for ItemsAdapter
+     * @param context ShoppingListActivity context is provided
+     * @param items the items to be displayed on the list
+     * @param person the people of the household are given to enable the display of the assignment of tasks
+     */
+    public ItemsAdapter(Context context, HashMap<String, Item> items, HashMap<String, Person> person){
         this.context = context;
         this.items = items;
         this.person = person;
@@ -33,36 +66,38 @@ public class ItemsAdapter extends BaseAdapter {
 
     }
 
+    /**
+     * Method that creates views for items including part-views for all their data whose layout is specified in single_item_layout
+     * @param parent the parent view
+     * @param viewType the type of view
+     * @return the item view holder
+     */
+    @NonNull
     @Override
-    public int getCount() {
-        return items.size();
-    }
-
-    @Override
-    public Item getItem(int i) {
-        return items.get(itemKeys[i]);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-
-    //method that actually adapts the view to show the items on the list
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
+    public ItemsAdapter.ItemsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.single_item_layout, parent, false);
-        TextView nameView = (TextView) rowView.findViewById(R.id.itemName);
-        TextView descriptionView = (TextView) rowView.findViewById(R.id.itemAmount);
 
-        ImageView urgencyView = (ImageView) rowView.findViewById(R.id.urgent);
-        ImageView infoView = (ImageView) rowView.findViewById(R.id.infoAvailable);
-        ImageView assignedView = (ImageView) rowView.findViewById(R.id.assignedTo);
+        nameView = (TextView) rowView.findViewById(R.id.itemName);
+        descriptionView = (TextView) rowView.findViewById(R.id.itemAmount);
+        urgencyView = (ImageView) rowView.findViewById(R.id.urgent);
+        infoView = (ImageView) rowView.findViewById(R.id.infoAvailable);
+        assignedView = (ImageView) rowView.findViewById(R.id.assignedTo);
+        singleItemView = (RecyclerView) rowView.findViewById(R.id.list);
 
+        ItemsViewHolder viewHolder = new ItemsViewHolder(rowView);
+        return viewHolder;
+    }
+
+    /**
+     * Method that fills the items of the viewholder with appropriate content
+     * @param itemsViewHolder the viewHolder
+     * @param position the position at which an item is in the list
+     */
+    @Override
+    public void onBindViewHolder(@NonNull ItemsViewHolder itemsViewHolder, final int position) {
+        //adapts view to show items on list
         //iterates over the items and gets name and quantitiy of each one
 
         String itemName = items.get(itemKeys[position]).getItemName();
@@ -110,6 +145,45 @@ public class ItemsAdapter extends BaseAdapter {
             }
         }
 
-        return rowView;
+        //handles click on item to see detailed information
+        itemsViewHolder.rowView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Item clickedItem = items.get(itemKeys[position]);
+                if (!clickedItem.getAdditionalInfo().isEmpty()) {
+                    Log.i("FürSvenja", "clicked item -> open info");
+                    Intent intent = new Intent(context, ItemInformationActivity.class);
+                    v.getContext().startActivity(intent);
+                }
+            }
+        });
+        //handles long click on item to assign the item to oneself (and colour them)
+        itemsViewHolder.rowView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Item clickedItem = items.get(itemKeys[position]);
+                Log.i("FürSvenja", "assign person");
+                if (clickedItem.getItsTask().isEmpty()) {
+                    //TODO gets ownPersonID correctly, but itsTask is not changed on database??
+                    PreferencesAccess preferencesAccess = new PreferencesAccess();
+                    String ownPersonID = preferencesAccess.readPreferences(context, "personID");
+                    String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();
+                    clickedItem.setItsTask(ownPersonID);
+                } else {
+                    clickedItem.setItsTask(null);
+                }
+                return false;
+            }
+        });
+
     }
-}
+        /**
+         * getter for the length of the hashmap that contains the items to be displayed
+         *
+         * @return amount of dispayed items
+         */
+        public int getItemCount () {
+            return itemKeys.length;
+        }
+
+    }
