@@ -1,6 +1,7 @@
 package com.holmal.app.holmal.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.FirebaseDatabase;
+import com.holmal.app.holmal.ItemInformationActivity;
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
@@ -150,6 +152,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
                 if (!clickedItem.getAdditionalInfo().isEmpty()) {
                     //TODO starte ItemInformationFragment
                     Log.i("FürSvenja", "clicked item -> open info");
+                    Intent intent = new Intent(context, ItemInformationActivity.class);
+                    v.getContext().startActivity(intent);
                 }
             }
         });
@@ -181,4 +185,5 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         public int getItemCount () {
             return itemKeys.length;
         }
+
     }
