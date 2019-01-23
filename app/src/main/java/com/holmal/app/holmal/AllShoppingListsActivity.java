@@ -31,6 +31,7 @@ import butterknife.OnClick;
 
 //Overview over all the shopping lists
 public class AllShoppingListsActivity extends AppCompatActivity {
+    // TODO raus
     private static final String TAG = AllShoppingListsActivity.class.getName();
 
     private DrawerLayout mDrawerLayout;
