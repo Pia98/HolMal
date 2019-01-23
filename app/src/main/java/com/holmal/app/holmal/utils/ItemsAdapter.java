@@ -8,8 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.database.FirebaseDatabase;
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
@@ -87,7 +90,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
      */
     @Override
     public void onBindViewHolder(@NonNull ItemsViewHolder itemsViewHolder, final int position) {
-       //adapts view to show items on list
+        //adapts view to show items on list
         //iterates over the items and gets name and quantitiy of each one
 
         String itemName = items.get(itemKeys[position]).getItemName();
@@ -97,18 +100,16 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         descriptionView.setText(itemQuantity);
 
         //shows ! if the item is urgent
-        if(items.get(itemKeys[position]).isImportant()){
+        if (items.get(itemKeys[position]).isImportant()) {
             urgencyView.setImageAlpha(255);
-        }
-        else{
+        } else {
             urgencyView.setImageAlpha(0);
         }
 
         //shows an i if there is additional information to this item
-        if(items.get(itemKeys[position]).getAdditionalInfo().isEmpty()){
+        if (items.get(itemKeys[position]).getAdditionalInfo().isEmpty()) {
             infoView.setImageAlpha(0);
-        }
-        else{
+        } else {
             infoView.setImageAlpha(255);
         }
 
@@ -138,7 +139,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         }
 
         //handles click on item to see detailed information
-        itemsViewHolder.rowView.setOnClickListener(new View.OnClickListener(){
+        itemsViewHolder.rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Item clickedItem = items.get(itemKeys[position]);
@@ -148,28 +149,34 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
                 }
             }
         });
+        //handles long click on item to assign the item to oneself (and colour them)
+        itemsViewHolder.rowView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Item clickedItem = items.get(itemKeys[position]);
+                Log.i("FürSvenja", "assign person");
+                if (clickedItem.getItsTask() == null) {
 
+                    PreferencesAccess preferencesAccess = new PreferencesAccess();
+                    String ownPersonID = preferencesAccess.readPreferences(context, "personID");
+                    String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();
+                    clickedItem.setItsTask(ownPersonID);
+                } else {
+                    clickedItem.setItsTask(null);
+                }
+                return false;
+            }
+        });
 
     }
-
-
-    /**
-     * getter for the itemid that isn't used
-     * @param position position of the item
-     * @return the itemid
-     */
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    /**
-     * getter for the length of the hashmap that contains the items to be displayed
-     * @return amount of dispayed items
-     */
-    @Override
-    public int getItemCount() {
-        return itemKeys.length;
+        /**
+         * getter for the length of the hashmap that contains the items to be displayed
+         *
+         * @return amount of dispayed items
+         */
+        public int getItemCount () {
+            return itemKeys.length;
+        }
     }
 
 
@@ -208,27 +215,26 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         }
     });*/
 
-    /**
-     * the viewHolder for this recyclerview
-     * contains the views that the content is displayed upon
-     */
-    public class ItemViewHolder extends RecyclerView.ViewHolder{
+            /**
+             * the viewHolder for this recyclerview
+             * contains the views that the content is displayed upon
+             */
+           /* public class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        public ItemViewHolder(@NonNull View itemView) {
-            super(itemView);
-            nameView = (TextView) itemView.findViewById(R.id.itemName);
-            descriptionView = (TextView) itemView.findViewById(R.id.itemAmount);
-            urgencyView = (ImageView) itemView.findViewById(R.id.urgent);
-            infoView = (ImageView) itemView.findViewById(R.id.infoAvailable);
-            assignedView = (ImageView) itemView.findViewById(R.id.assignedTo);
-            singleItemView = (RecyclerView) itemView.findViewById(R.id.list) ;
-        }
-
-
-    }
+                public ItemViewHolder(@NonNull View itemView) {
+                    super(itemView);
+                    nameView = (TextView) itemView.findViewById(R.id.itemName);
+                    descriptionView = (TextView) itemView.findViewById(R.id.itemAmount);
+                    urgencyView = (ImageView) itemView.findViewById(R.id.urgent);
+                    infoView = (ImageView) itemView.findViewById(R.id.infoAvailable);
+                    assignedView = (ImageView) itemView.findViewById(R.id.assignedTo);
+                    singleItemView = (RecyclerView) itemView.findViewById(R.id.list);
+                }
 
 
+            }
+            */
 
 
-}
+
 
