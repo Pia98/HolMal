@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +17,12 @@ import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 import java.util.HashMap;
 
-
+/**
+ * Items Adapter is the adapter that sets the items on the shopping list.
+ * It fills the content of every single item and sets it on the list and also enables interactions by providing a click-
+ * and a long-click listener.
+ * The items adapter is set in ShoppingListActivity.
+ */
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder> {
 
     private Context context;
@@ -155,7 +159,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             public boolean onLongClick(View v) {
                 Item clickedItem = items.get(itemKeys[position]);
                 Log.i("FürSvenja", "assign person");
-                if (clickedItem.getItsTask() == null) {
+                if (clickedItem.getItsTask().isEmpty()) {
 
                     PreferencesAccess preferencesAccess = new PreferencesAccess();
                     String ownPersonID = preferencesAccess.readPreferences(context, "personID");
@@ -178,63 +182,3 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             return itemKeys.length;
         }
     }
-
-
-
-/*
-
-        //handles click on item to see detailed information
-        rowView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Item clickedItem = getItem(position);
-                if (!clickedItem.getAdditionalInfo().isEmpty()) {
-                    //TODO starte ItemInformationFragment
-                    Log.i("FürSvenja", "clicked item -> open info");
-                }
-            }
-        });
-
-
-        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-        @Override
-        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-            Item clickedItem = (Item) parent.getItemAtPosition(position);
-            Log.i("FürSvenja", "assign person");
-            if (clickedItem.getItsTask() == null) {
-
-                PreferencesAccess preferencesAccess = new PreferencesAccess();
-                String ownPersonID = preferencesAccess.readPreferences(ShoppingListActivity.this, "personID");
-                String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();
-                clickedItem.setItsTask(ownPersonID);
-            }
-            else{
-                clickedItem.setItsTask(null);
-            }
-            return false;
-        }
-    });*/
-
-            /**
-             * the viewHolder for this recyclerview
-             * contains the views that the content is displayed upon
-             */
-           /* public class ItemViewHolder extends RecyclerView.ViewHolder {
-
-                public ItemViewHolder(@NonNull View itemView) {
-                    super(itemView);
-                    nameView = (TextView) itemView.findViewById(R.id.itemName);
-                    descriptionView = (TextView) itemView.findViewById(R.id.itemAmount);
-                    urgencyView = (ImageView) itemView.findViewById(R.id.urgent);
-                    infoView = (ImageView) itemView.findViewById(R.id.infoAvailable);
-                    assignedView = (ImageView) itemView.findViewById(R.id.assignedTo);
-                    singleItemView = (RecyclerView) itemView.findViewById(R.id.list);
-                }
-
-
-            }
-            */
-
-
-
-
