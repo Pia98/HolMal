@@ -1,30 +1,58 @@
 package com.holmal.app.holmal.utils;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.holmal.app.holmal.R;
+import com.holmal.app.holmal.ShoppingListActivity;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 
 import java.util.HashMap;
 
 
-public class ItemsAdapter extends BaseAdapter {
+public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder> {
 
     private Context context;
     private HashMap<String, Item> items;
     private String[] itemKeys;
     private HashMap<String, Person> person;
 
-    //constructor
+    private TextView nameView;
+    private TextView descriptionView;
+    private ImageView urgencyView;
+    private ImageView infoView;
+    private ImageView assignedView;
+    RecyclerView singleItemView;
+
+    /**
+     * Provide a reference to the views for each data item
+     */
+    public static class ItemsViewHolder extends RecyclerView.ViewHolder {
+        private View rowView;
+        private ItemsViewHolder(View view) {
+            super(view);
+            rowView = view;
+        }
+    }
+
+    /**
+     * constructor for ItemsAdapter
+     * @param context
+     * @param items
+     * @param person
+     */
     public ItemsAdapter(Context context, HashMap<String, Item> items, HashMap<String, Person> person){
         this.context = context;
         this.items = items;
@@ -33,7 +61,7 @@ public class ItemsAdapter extends BaseAdapter {
 
     }
 
-    @Override
+    /*@Override
     public int getCount() {
         return items.size();
     }
@@ -41,28 +69,30 @@ public class ItemsAdapter extends BaseAdapter {
     @Override
     public Item getItem(int i) {
         return items.get(itemKeys[i]);
-    }
+    }*/
 
+    @NonNull
     @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-
-    //method that actually adapts the view to show the items on the list
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent){
-
+    public ItemsAdapter.ItemsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.single_item_layout, parent, false);
-        TextView nameView = (TextView) rowView.findViewById(R.id.itemName);
-        TextView descriptionView = (TextView) rowView.findViewById(R.id.itemAmount);
 
-        ImageView urgencyView = (ImageView) rowView.findViewById(R.id.urgent);
-        ImageView infoView = (ImageView) rowView.findViewById(R.id.infoAvailable);
-        ImageView assignedView = (ImageView) rowView.findViewById(R.id.assignedTo);
+        nameView = (TextView) rowView.findViewById(R.id.itemName);
+        descriptionView = (TextView) rowView.findViewById(R.id.itemAmount);
+        urgencyView = (ImageView) rowView.findViewById(R.id.urgent);
+        infoView = (ImageView) rowView.findViewById(R.id.infoAvailable);
+        assignedView = (ImageView) rowView.findViewById(R.id.assignedTo);
+        singleItemView = (RecyclerView) rowView.findViewById(R.id.list) ;
 
+        ItemsViewHolder viewHolder = new ItemsViewHolder(rowView);
+        return viewHolder;
+    }
+
+
+    @Override
+    public void onBindViewHolder(@NonNull ItemsViewHolder itemsViewHolder, int position) {
+       //adapts view to show items on list
         //iterates over the items and gets name and quantitiy of each one
 
         String itemName = items.get(itemKeys[position]).getItemName();
@@ -112,5 +142,72 @@ public class ItemsAdapter extends BaseAdapter {
             }
         }
 
-        return rowView;
-    }}
+    }
+
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    @Override
+    public int getItemCount() {
+        return itemKeys.length;
+    }
+
+
+
+/*
+
+        //handles click on item to see detailed information
+        rowView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Item clickedItem = getItem(position);
+                if (!clickedItem.getAdditionalInfo().isEmpty()) {
+                    //TODO starte ItemInformationFragment
+                    Log.i("FürSvenja", "clicked item -> open info");
+                }
+            }
+        });
+
+
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            Item clickedItem = (Item) parent.getItemAtPosition(position);
+            Log.i("FürSvenja", "assign person");
+            if (clickedItem.getItsTask() == null) {
+
+                PreferencesAccess preferencesAccess = new PreferencesAccess();
+                String ownPersonID = preferencesAccess.readPreferences(ShoppingListActivity.this, "personID");
+                String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();
+                clickedItem.setItsTask(ownPersonID);
+            }
+            else{
+                clickedItem.setItsTask(null);
+            }
+            return false;
+        }
+    });*/
+
+    public class ItemViewHolder extends RecyclerView.ViewHolder{
+
+        public ItemViewHolder(@NonNull View itemView) {
+            super(itemView);
+            nameView = (TextView) itemView.findViewById(R.id.itemName);
+            descriptionView = (TextView) itemView.findViewById(R.id.itemAmount);
+            urgencyView = (ImageView) itemView.findViewById(R.id.urgent);
+            infoView = (ImageView) itemView.findViewById(R.id.infoAvailable);
+            assignedView = (ImageView) itemView.findViewById(R.id.assignedTo);
+            singleItemView = (RecyclerView) itemView.findViewById(R.id.list) ;
+        }
+
+
+    }
+
+
+
+
+}
+

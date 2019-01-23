@@ -10,6 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -19,6 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +44,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+
 public class ShoppingListActivity extends AppCompatActivity {
 
     private static final String TAG = ShoppingListActivity.class.getName();
@@ -49,6 +53,8 @@ public class ShoppingListActivity extends AppCompatActivity {
     private HashMap<String, Item> itemsOfTheList = new HashMap<>();
     private ArrayList<String> itemIds = new ArrayList<>();
     private HashMap<String, Person> person = new HashMap<>();
+    private RecyclerView.LayoutManager layoutManager;
+
 
     private DrawerLayout mDrawerLayout;
     ShoppingList currentShoppingList;
@@ -56,13 +62,17 @@ public class ShoppingListActivity extends AppCompatActivity {
     PreferencesAccess preferences = new PreferencesAccess();
     String householdId;
     String recentShoppingListName;
-
+    RecyclerView list;
     String shoppingListId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
         ButterKnife.bind(this);
+        list = findViewById(R.id.list);
+        // use a linear layout manager
+        layoutManager = new LinearLayoutManager(this);
+        list.setLayoutManager(layoutManager);
 
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
 
@@ -169,40 +179,8 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
             //adapter
             ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, itemsOfTheList, person);
-            ListView list = findViewById(R.id.list);
+            //ListView list = findViewById(R.id.list);
             list.setAdapter(adapter);
-
-                //handles click on item to see detailed information
-                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Item clickedItem = (Item) parent.getItemAtPosition(position);
-                        if (!clickedItem.getAdditionalInfo().isEmpty()) {
-                            //TODO starte ItemInformationFragment
-                            Log.i("FürSvenja", "clicked item -> open info");
-                        }
-                    }
-
-
-                });
-                list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                        Item clickedItem = (Item) parent.getItemAtPosition(position);
-                        Log.i("FürSvenja", "assign person");
-                        if (clickedItem.getItsTask() == null) {
-
-                            PreferencesAccess preferencesAccess = new PreferencesAccess();
-                            String ownPersonID = preferencesAccess.readPreferences(ShoppingListActivity.this, "personID");
-                            String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();
-                            clickedItem.setItsTask(ownPersonID);
-                        }
-                        else{
-                            clickedItem.setItsTask(null);
-                        }
-                        return false;
-                    }
-                });
 
 
 
@@ -232,6 +210,40 @@ public class ShoppingListActivity extends AppCompatActivity {
 
                 }
             });
+
+        //handles click on item to see detailed information
+       /* list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Item clickedItem = (Item) parent.getItemAtPosition(position);
+                if (!clickedItem.getAdditionalInfo().isEmpty()) {
+                    //TODO starte ItemInformationFragment
+                    Log.i("FürSvenja", "clicked item -> open info");
+                }
+            }
+
+
+        });
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Item clickedItem = (Item) parent.getItemAtPosition(position);
+                Log.i("FürSvenja", "assign person");
+                if (clickedItem.getItsTask() == null) {
+
+                    PreferencesAccess preferencesAccess = new PreferencesAccess();
+                    String ownPersonID = preferencesAccess.readPreferences(ShoppingListActivity.this, "personID");
+                    String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();
+                    clickedItem.setItsTask(ownPersonID);
+                }
+                else{
+                    clickedItem.setItsTask(null);
+                }
+                return false;
+            }
+        });*/
+
+
 
         //person Listener
         FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {

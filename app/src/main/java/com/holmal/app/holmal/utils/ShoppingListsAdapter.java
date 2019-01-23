@@ -87,5 +87,7 @@ public class ShoppingListsAdapter extends BaseAdapter {
         }
 
         return convertView;
+        //convertView.setOn
     }
+
 }
