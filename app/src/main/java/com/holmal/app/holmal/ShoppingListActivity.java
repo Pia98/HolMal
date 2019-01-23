@@ -40,7 +40,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ShoppingListActivity extends AppCompatActivity {
-    // TODO raus
 
     private static final String TAG = ShoppingListActivity.class.getName();
 
@@ -99,158 +98,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                 return true;
             }});*/
     }
-                else{
-                    setTitle(R.string.shoppingList);
-                }
-
-                Log.i("fürSvenja", ":" + listsOfThisHousehold);
-
-
-                /**
-                 * //handles click on item to see detailed information
-                 * list.setOnClickListener(new AdapterView.OnItemClickListener() {
-                 *              @Override
-                 *              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                 *              if(item an der stelle hat info){
-                 *              starte ItemInformationFragment
-                 * });}
-                 */
-                /**
-                 * //handles double click on item -> makes item assigned to self
-                 * list.setOnTouchListener(new OnTouchListener() {
-                 *     private GestureDetector gestureDetector = new GestureDetector(ShoppingListActivity.this, new GestureDetector.SimpleOnGestureListener() {
-                 *         @Override
-                 *         public boolean onDoubleTap(MotionEvent e) {
-                 *         if(item an der stelle ist nicht assigned){
-                 *         assined add person
-                 *         }else{
-                 *         assigned remove person
-                 *         }
-                 *             return super.onDoubleTap(e);
-                 *         }
-                 *     });
-                 *     onSwipeRight()
-                 *
-                 */
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        // Listener to get all items that are in the list
-        FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "item listener in onCreate...");
-                itemsOfTheList.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    String id = child.getKey();
-                    Item value = child.getValue(Item.class);
-                    Log.i(TAG, "item: " + value);
-                    for (int i = 0; i < itemIds.size(); i++) {
-                        if (id.equals(itemIds.get(i))) {
-                            itemsOfTheList.put(id, value);
-                        }
-                    }
-                }
-            //adapter
-            ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, itemsOfTheList, person);
-            //ListView list = findViewById(R.id.list);
-            list.setAdapter(adapter);
-
-
-
-
-            //handles double click on item -> makes item assigned to self
-
-                /**
-                 * //handles double click on item -> makes item assigned to self
-                 * list.setOnTouchListener(new OnTouchListener() {
-                 *     private GestureDetector gestureDetector = new GestureDetector(ShoppingListActivity.this, new GestureDetector.SimpleOnGestureListener() {
-                 *         @Override
-                 *         public boolean onDoubleTap(MotionEvent e) {
-                 *         if(item an der stelle ist nicht assigned){
-                 *         assined add person
-                 *         }else{
-                 *         assigned remove person
-                 *         }
-                 *             return super.onDoubleTap(e);
-                 *         }
-                 *     });
-                 *     onSwipeRight()
-                 *
-                 */
-            }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-        //handles click on item to see detailed information
-       /* list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Item clickedItem = (Item) parent.getItemAtPosition(position);
-                if (!clickedItem.getAdditionalInfo().isEmpty()) {
-                    //TODO starte ItemInformationFragment
-                    Log.i("FürSvenja", "clicked item -> open info");
-                }
-            }
-
-
-        });
-        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Item clickedItem = (Item) parent.getItemAtPosition(position);
-                Log.i("FürSvenja", "assign person");
-                if (clickedItem.getItsTask() == null) {
-
-                    PreferencesAccess preferencesAccess = new PreferencesAccess();
-                    String ownPersonID = preferencesAccess.readPreferences(ShoppingListActivity.this, "personID");
-                    String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();
-                    clickedItem.setItsTask(ownPersonID);
-                }
-                else{
-                    clickedItem.setItsTask(null);
-                }
-                return false;
-            }
-        });*/
-
-
-
-        //person Listener
-        FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
-                person.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Personen durchgehen");
-                    String id = child.getKey();
-                    Person value = child.getValue(Person.class);
-                    Log.i(TAG, "Person: " + value);
-                    // TODO das aeussere if statement raus schmeissen sobald alle Personen mit idBelongingTo gespeichert werden
-                    if (value.getIdBelongingTo() != null) {
-                        if (value.getIdBelongingTo().equals(householdId)) {
-                            Log.i(TAG, "Person gehört zu diesem Haushalt.");
-                            person.put(id, value);
-                        }
-                    }
-                    Log.i(TAG, "joiningPerson in for Schleife bei listener: " + person);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
 
     private void menu() {
         Toolbar toolbar = findViewById(R.id.menu);
@@ -333,6 +180,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     }
 
     private void startItemListener() {
+        // Listener to get all items that are in the list
         FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -350,7 +198,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
                 //adapter
                 ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, itemsOfTheList, person);
-                ListView list = findViewById(R.id.list);
+                RecyclerView list = findViewById(R.id.list);
                 list.setAdapter(adapter);
 
             }

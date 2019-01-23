@@ -84,12 +84,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         urgencyView = (ImageView) rowView.findViewById(R.id.urgent);
         infoView = (ImageView) rowView.findViewById(R.id.infoAvailable);
         assignedView = (ImageView) rowView.findViewById(R.id.assignedTo);
-        singleItemView = (RecyclerView) rowView.findViewById(R.id.list) ;
+        singleItemView = (RecyclerView) rowView.findViewById(R.id.list);
 
-        ImageView urgencyView = (ImageView) rowView.findViewById(R.id.urgent);
-        ImageView infoView = (ImageView) rowView.findViewById(R.id.infoAvailable);
-        ImageView assignedView = (ImageView) rowView.findViewById(R.id.assignedTo);
-
+        ItemsViewHolder viewHolder = new ItemsViewHolder(rowView);
+        return viewHolder;
+    }
 
     /**
      * Method that fills the items of the viewholder with appropriate content
