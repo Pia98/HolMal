@@ -66,10 +66,11 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/tabsUtoolbarHight">
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/list"
+                android:scrollbars="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></ListView>
+                android:layout_height="match_parent"/>
 
         </android.support.constraint.ConstraintLayout>
         <!-- corresponds to button 7 in paper prototype-->

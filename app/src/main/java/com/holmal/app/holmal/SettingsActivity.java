@@ -33,6 +33,7 @@ import com.holmal.app.holmal.utils.FragmentHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.SettingsAdapter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -43,9 +44,11 @@ public class SettingsActivity extends AppCompatActivity {
     private static final String TAG = SettingsActivity.class.getName();
 
 
+    // TODO set text, so that it is not hardcoded anymore!
     @BindView(R.id.householdName)
     TextView householdNameText;
 
+    // TODO set text, so that it is not hardcoded anymore!
     @BindView(R.id.thisHouseholdId)
     TextView householdIdText;
 
@@ -335,7 +338,15 @@ public class SettingsActivity extends AppCompatActivity {
                                 }
                             }
                         }
-                        //TODO: items itsTask
+                        else{
+                            //unassign tasks that this user has taken on
+                            for (int i = 0; i<itemsOfThisHousehold.size(); i++){
+                                String[] allItemsKeys = itemsOfThisHousehold.keySet().toArray(new String[itemsOfThisHousehold.size()]);
+                                if(personID.equals(itemsOfThisHousehold.get(allItemsKeys[i]).getItsTask())){
+                                    itemsOfThisHousehold.get(allItemsKeys[i]).setItsTask("");
+                                }
+                            }
+                        }
 
                         FirebaseAuth.getInstance().signOut();
                         Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
@@ -352,6 +363,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         AlertDialog alert = builder.create();
         alert.show();
+
 
 
     }
