@@ -2,6 +2,7 @@ package com.holmal.app.holmal.utils;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +50,7 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
 
     //method that actually adapts the view to show the household members
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent){
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -79,7 +80,11 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
             colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonPurple));
         }
 
-        name.setText(person.getPersonName());
+            name.setText(personInHousehold.get(position).getPersonName());
+            PreferencesAccess preferencesAccess = new PreferencesAccess();
+            if(personInHousehold.get(position).getPersonName().equals(preferencesAccess.readPreferences(context, "personName"))){
+                name.append(" (du)");
+            }
 
         return rowView;
     }
