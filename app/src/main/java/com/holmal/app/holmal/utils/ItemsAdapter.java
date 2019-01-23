@@ -17,6 +17,7 @@ import java.util.HashMap;
 
 
 public class ItemsAdapter extends BaseAdapter {
+    // TODO raus
 
     private Context context;
     private HashMap<String, Item> items;
