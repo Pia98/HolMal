@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--TODO improve styling-->
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
-        android:layout_gravity="center"
-        android:layout_width="200dp"
+        android:layout_width="180dp"
         android:layout_height="100dp"
-        card_view:cardCornerRadius="4dp">
+        card_view:cardCornerRadius="4dp"
+        android:layout_marginStart="15dp"
+        card_view:cardBackgroundColor="@color/colorListsBackground"
+        card_view:cardUseCompatPadding="true"
+        card_view:cardElevation="2dp"
+        android:layout_gravity="center_horizontal"
+        >
     <TextView
         android:id="@+id/nameOfList"
         android:layout_width="@dimen/widthHalfScreen"
         android:layout_height="@dimen/listNameHight"
         android:text="@+id/nameOfList"
-        android:textSize="15sp"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
-        android:background="@color/colorAccentSilver"
+        android:background="@color/colorListsBackground"
+        android:layout_gravity="center_horizontal"
         />
     <TextView
         android:id="@+id/categoryOfList"
@@ -31,7 +36,10 @@
         android:text="@+id/categoryOfList"
         android:textSize="13sp"
         app:layout_constraintTop_toBottomOf="@id/nameOfList"
-        android:background="@color/colorAccentSilver"
+        android:layout_marginTop="@dimen/listNameHight"
+        android:layout_marginStart="15dp"
+        android:background="@color/colorListsBackground"
+        android:layout_gravity="center_horizontal"
         />
 
     <TextView
@@ -41,6 +49,9 @@
         android:text="@+id/amountItemsOnList"
         android:textSize="13sp"
         app:layout_constraintTop_toBottomOf="@id/categoryOfList"
-        android:background="@color/colorAccentSilver"/>
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="15dp"
+        android:background="@color/colorListsBackground"
+        android:layout_gravity="center_horizontal"/>
     </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>

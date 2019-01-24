@@ -20,6 +20,7 @@
 
 
     <color name="colorPrimaryDark">@color/colorFont</color>
+    <color name="colorListsBackground">#ffffff</color>
 
     <!-- Suggestion: this color for input fields (line and cursor) -->
     <color name="colorAccent">@color/colorAccentColor</color>

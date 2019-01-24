@@ -1,32 +1,33 @@
 package com.holmal.app.holmal.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.model.ShoppingList;
 import java.util.HashMap;
 
 
-//this class is responsible for displaying the lists in the list overview
+/**
+ * This adapter is responsible for displaying the lists of a household in an overview.
+ * Is called in AllShoppingListsActivity.
+ */
 public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdapter.ListsViewHolder>{
 
     private Context context;
     private HashMap<String, ShoppingList> shoppinglists;
     private String[] listKeys;
-    private String openItems = " offene Items";
 
     private TextView nameView;
     private TextView categoryView;
     private TextView descriptionView;
-    private RecyclerView singleShoppingListView;
-    private CardView cardView;
 
     /**
      * Provide a reference to the views for each data item
@@ -39,13 +40,23 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
         }
     }
 
-    //constructor
+    /**
+     * Constructor of the adapter
+     * @param context the context of AllShoppingLists the adapter needs
+     * @param shoppinglists a list of all shopping lists a household has
+     */
     public ShoppingListsAdapter(Context context, HashMap<String, ShoppingList> shoppinglists) {
         this.context = context;
         this.shoppinglists = shoppinglists;
         listKeys = shoppinglists.keySet().toArray(new String[shoppinglists.size()]);
     }
 
+    /**
+     * Method that creates views for the lists. Their layout is specified in single_shoppinglist_layout.
+     * @param parent viewgroup the views for the lists lay on
+     * @param i type of view
+     * @return the list view holder
+     */
     @NonNull
     @Override
     public ShoppingListsAdapter.ListsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -57,11 +68,11 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
         nameView = (TextView) gridView.findViewById(R.id.nameOfList);
         categoryView = (TextView) gridView.findViewById(R.id.categoryOfList);
         descriptionView = (TextView) gridView.findViewById(R.id.amountItemsOnList);
-        //cardView = (CardView) gridView.findViewById(R.id.card_view);
 
         ListsViewHolder viewHolder = new ListsViewHolder(gridView);
         return viewHolder;
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull ShoppingListsAdapter.ListsViewHolder listsViewHolder, int i) {
@@ -79,6 +90,16 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
             descriptionView.setText(R.string.openItems);
             descriptionView.append(String.valueOf(listAtPosition.getItemsOfThisList().size()));
         }
+
+        //handles click on list to see it in a shopping list view
+        listsViewHolder.gridView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("FürSvenja", "clicked list -> open list");
+                //Intent intent = new Intent(context, ShoppingListActivity.class);
+               // v.getContext().startActivity(intent);
+            }
+        });
 
     }
 
