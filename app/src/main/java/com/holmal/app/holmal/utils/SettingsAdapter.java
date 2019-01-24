@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.model.Person;
 
@@ -84,20 +85,9 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
 
         PreferencesAccess preferencesAccess = new PreferencesAccess();
         String ownPersonID = preferencesAccess.readPreferences(context, "personID");
-        if(person.toString().equals(ownPersonID)){
+        if(person.getPersonName().equals(personInHousehold.get(ownPersonID).getPersonName())){
             name.append(" (du)");
         }
-            Log.i("FürSvenja", person.toString());
-           // String[] personKeys = personInHousehold.keySet().toArray(new String[personInHousehold.size()]);
-            /*for(int i = 0; i<personKeys.length; i++){
-                Log.i("FürSvenja", personInHousehold.get(personKeys[i]).toString());
-                if(personInHousehold.get(personKeys[i]).toString().equals(ownPersonID)){
-                    name.append(" (du)");
-                }
-            }*/
-            /*if(personInHousehold.get(position).getPersonName().equals(preferencesAccess.readPreferences(context, "personName"))){
-                name.append(" (du)");
-            }*/
 
         return rowView;
     }
