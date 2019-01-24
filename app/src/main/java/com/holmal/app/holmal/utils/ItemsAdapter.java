@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
     private ImageView urgencyView;
     private ImageView infoView;
     private ImageView assignedView;
+    private CheckBox doneView;
     RecyclerView singleItemView;
 
     /**
@@ -84,6 +86,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         urgencyView = (ImageView) rowView.findViewById(R.id.urgent);
         infoView = (ImageView) rowView.findViewById(R.id.infoAvailable);
         assignedView = (ImageView) rowView.findViewById(R.id.assignedTo);
+        doneView = (CheckBox) rowView.findViewById(R.id.itemDone);
         singleItemView = (RecyclerView) rowView.findViewById(R.id.list);
 
         ItemsViewHolder viewHolder = new ItemsViewHolder(rowView);
@@ -120,6 +123,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             infoView.setImageAlpha(255);
         }
 
+        if (items.get(itemKeys[position]).isDone()) {
+            doneView.setChecked(true);
+        } else {
+            doneView.setChecked(false);
+        }
         //shows a colored bar according to the person who took on this item as a task
         // when it is noones task set backgroundColor, else the color of the person
         if (items.get(itemKeys[position]).getItsTask() == null || items.get(itemKeys[position]).getItsTask().isEmpty()) {
@@ -173,6 +181,20 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
                     clickedItem.setItsTask(null);
                 }
                 return false;
+            }
+        });
+
+        // handles checkBox click
+        doneView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (doneView.isChecked()){
+                    items.get(itemKeys[position]).setDone(true);
+                    Log.i("ItemsAdapter", "done isChecked -> " + items.get(itemKeys[position]).getItemName() + ": done should be set 'true'");
+                } else {
+                    items.get(itemKeys[position]).setDone(false);
+                    Log.i("ItemsAdapter", "done isChecked -> " + items.get(itemKeys[position]).getItemName() + ": done should be set 'false'");
+                }
             }
         });
 
