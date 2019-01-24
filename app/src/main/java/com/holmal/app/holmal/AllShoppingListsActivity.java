@@ -8,13 +8,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,9 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.ShoppingListsAdapter;
-
 import java.util.HashMap;
-
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -35,12 +34,18 @@ public class AllShoppingListsActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
+    private RecyclerView.LayoutManager layoutmanager;
+    private RecyclerView listsView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_shopping_lists);
         ButterKnife.bind(this);
+        listsView = findViewById(R.id.allShoppingLists);
+        layoutmanager = new GridLayoutManager(this, 2);
+        listsView.setLayoutManager(layoutmanager);
+
 
         //menu that appears from the left
         menu();
@@ -146,20 +151,21 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                 }
                 //fill with lists with an adapter
                 ShoppingListsAdapter adapter = new ShoppingListsAdapter(AllShoppingListsActivity.this, listsOfThisHousehold);
-                GridView lists = findViewById(R.id.allShoppingLists);
-                lists.setAdapter(adapter);
+                listsView.setAdapter(adapter);
+                //GridView lists = findViewById(R.id.allShoppingLists);
+               // lists.setAdapter(adapter);
 
-                //handle clicks on the lists
+              /*  //handle clicks on the lists
                 lists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Log.i("FürSvenja", "Open list from allshoppinglists");
                         //TODO open correct shopping list (-> set activeShoppingList to that one)
-                        //Intent intent = new Intent(AllShoppingLists.this, ShoppingList.class);
-                        //startActivity(intent);
+                        //Intent intent = new Intent(AllShoppingListsActivity.this, ShoppingList.class);
+                       // startActivity(intent);
                     }
-                });
+                });*/
             }
 
             @Override
