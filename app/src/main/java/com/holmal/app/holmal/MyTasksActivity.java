@@ -63,6 +63,10 @@ public class MyTasksActivity extends AppCompatActivity {
 
         startPersonListener();
 
+        startMyItemsListener(personID);
+    }
+
+    private void startMyItemsListener(String personID) {
         FirebaseDatabase.getInstance().getReference().child("item").orderByChild("itsTask").equalTo(personID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
