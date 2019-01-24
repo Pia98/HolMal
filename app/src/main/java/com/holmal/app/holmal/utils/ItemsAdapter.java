@@ -184,6 +184,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
                 } else if (!itemAtPosition.getItsTask().equals(ownPersonID)){
                     Toast.makeText(context, R.string.alreadyAssigned, Toast.LENGTH_LONG).show();
                 }
+
                 return true;
             }
         });
