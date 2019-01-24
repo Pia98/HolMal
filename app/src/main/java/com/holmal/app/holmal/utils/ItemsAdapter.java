@@ -160,8 +160,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         itemsViewHolder.rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Item clickedItem = itemAtPosition;
-                if (!clickedItem.getAdditionalInfo().isEmpty()) {
+                if (!itemAtPosition.getAdditionalInfo().isEmpty()) {
                     Log.i("FürSvenja", "clicked item -> open info");
                     Intent intent = new Intent(context, ItemInformationActivity.class);
                     v.getContext().startActivity(intent);
@@ -172,16 +171,15 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         itemsViewHolder.rowView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Item clickedItem = itemAtPosition;
                 Log.i("FürSvenja", "assign person");
-                if (clickedItem.getItsTask().isEmpty()) {
+                if (itemAtPosition.getItsTask().isEmpty()) {
                     //TODO gets ownPersonID correctly, but itsTask is not changed on database??
                     PreferencesAccess preferencesAccess = new PreferencesAccess();
                     String ownPersonID = preferencesAccess.readPreferences(context, "personID");
                     String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();
-                    clickedItem.setItsTask(ownPersonID);
+                    FirebaseDatabase.getInstance().getReference().child("item").child(itemKeys[position]).child("itsTask").setValue(ownPersonID);
                 } else {
-                    clickedItem.setItsTask(null);
+                    FirebaseDatabase.getInstance().getReference().child("item").child(itemKeys[position]).child("itsTask").setValue("");
                 }
                 return false;
             }
