@@ -104,37 +104,39 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         //adapts view to show items on list
         //iterates over the items and gets name and quantitiy of each one
 
-        String itemName = items.get(itemKeys[position]).getItemName();
+        final Item itemAtPosition = items.get(itemKeys[position]);
+
+        String itemName = itemAtPosition.getItemName();
         nameView.setText(itemName);
 
-        String itemQuantity = items.get(itemKeys[position]).getQuantity();
+        String itemQuantity = itemAtPosition.getQuantity();
         descriptionView.setText(itemQuantity);
 
         //shows ! if the item is urgent
-        if (items.get(itemKeys[position]).isImportant()) {
+        if (itemAtPosition.isImportant()) {
             urgencyView.setImageAlpha(255);
         } else {
             urgencyView.setImageAlpha(0);
         }
 
         //shows an i if there is additional information to this item
-        if (items.get(itemKeys[position]).getAdditionalInfo().isEmpty()) {
+        if (itemAtPosition.getAdditionalInfo().isEmpty()) {
             infoView.setImageAlpha(0);
         } else {
             infoView.setImageAlpha(255);
         }
 
-        if (items.get(itemKeys[position]).isDone()) {
+        if (itemAtPosition.isDone()) {
             doneView.setChecked(true);
         } else {
             doneView.setChecked(false);
         }
         //shows a colored bar according to the person who took on this item as a task
         // when it is noones task set backgroundColor, else the color of the person
-        if (items.get(itemKeys[position]).getItsTask() == null || items.get(itemKeys[position]).getItsTask().isEmpty()) {
+        if (itemAtPosition.getItsTask() == null || itemAtPosition.getItsTask().isEmpty()) {
             assignedView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorBackground));
         } else {
-            Person thisPerson = person.get(items.get(itemKeys[position]).getItsTask());
+            Person thisPerson = person.get(itemAtPosition.getItsTask());
             if (thisPerson.getColor() == R.id.color1) {
                 assignedView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonLightGreen));
             } else if (thisPerson.getColor() == R.id.color2) {
@@ -158,7 +160,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         itemsViewHolder.rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Item clickedItem = items.get(itemKeys[position]);
+                Item clickedItem = itemAtPosition;
                 if (!clickedItem.getAdditionalInfo().isEmpty()) {
                     Log.i("FürSvenja", "clicked item -> open info");
                     Intent intent = new Intent(context, ItemInformationActivity.class);
@@ -170,7 +172,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         itemsViewHolder.rowView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Item clickedItem = items.get(itemKeys[position]);
+                Item clickedItem = itemAtPosition;
                 Log.i("FürSvenja", "assign person");
                 if (clickedItem.getItsTask().isEmpty()) {
                     //TODO gets ownPersonID correctly, but itsTask is not changed on database??
@@ -191,10 +193,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     FirebaseDatabase.getInstance().getReference().child("item").child(itemKeys[position]).child("done").setValue(true);
-                    Log.i("ItemsAdapter", "done isChecked -> " + items.get(itemKeys[position]).getItemName() + ": done should be set 'true'");
+                    Log.i("ItemsAdapter", "done isChecked -> " + itemAtPosition.getItemName() + ": done should be set 'true'");
                 } else {
                     FirebaseDatabase.getInstance().getReference().child("item").child(itemKeys[position]).child("done").setValue(false);
-                    Log.i("ItemsAdapter", "done isChecked -> " + items.get(itemKeys[position]).getItemName() + ": done should be set 'false'");
+                    Log.i("ItemsAdapter", "done isChecked -> " + itemAtPosition.getItemName() + ": done should be set 'false'");
                 }
             }
         });
