@@ -189,10 +189,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             @Override
             public void onClick(View v) {
                 if (doneView.isChecked()){
-                    items.get(itemKeys[position]).setDone(true);
+                    FirebaseDatabase.getInstance().getReference().child("item").child(itemKeys[position]).child("done").setValue(true);
                     Log.i("ItemsAdapter", "done isChecked -> " + items.get(itemKeys[position]).getItemName() + ": done should be set 'true'");
                 } else {
-                    items.get(itemKeys[position]).setDone(false);
+                    FirebaseDatabase.getInstance().getReference().child("item").child(itemKeys[position]).child("done").setValue(false);
                     Log.i("ItemsAdapter", "done isChecked -> " + items.get(itemKeys[position]).getItemName() + ": done should be set 'false'");
                 }
             }
