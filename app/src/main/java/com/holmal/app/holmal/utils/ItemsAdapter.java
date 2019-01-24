@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.holmal.app.holmal.ItemInformationActivity;
@@ -126,11 +127,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             infoView.setImageAlpha(255);
         }
 
+        // checked when item is already done
         if (itemAtPosition.isDone()) {
             doneView.setChecked(true);
         } else {
             doneView.setChecked(false);
         }
+
         //shows a colored bar according to the person who took on this item as a task
         // when it is noones task set backgroundColor, else the color of the person
         if (itemAtPosition.getItsTask() == null || itemAtPosition.getItsTask().isEmpty()) {
@@ -160,11 +163,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         itemsViewHolder.rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!itemAtPosition.getAdditionalInfo().isEmpty()) {
                     Log.i("FürSvenja", "clicked item -> open info");
                     Intent intent = new Intent(context, ItemInformationActivity.class);
                     v.getContext().startActivity(intent);
-                }
             }
         });
         //handles long click on item to assign the item to oneself (and colour them)
@@ -172,16 +173,18 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             @Override
             public boolean onLongClick(View v) {
                 Log.i("FürSvenja", "assign person");
+                PreferencesAccess preferencesAccess = new PreferencesAccess();
+                String ownPersonID = preferencesAccess.readPreferences(context, "personID");
                 if (itemAtPosition.getItsTask().isEmpty()) {
                     //TODO its Task is stored correctly but there is no color
-                    PreferencesAccess preferencesAccess = new PreferencesAccess();
-                    String ownPersonID = preferencesAccess.readPreferences(context, "personID");
                     String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();
                     FirebaseDatabase.getInstance().getReference().child("item").child(itemKeys[position]).child("itsTask").setValue(ownPersonID);
-                } else {
+                } else if (itemAtPosition.getItsTask().equals(ownPersonID)){
                     FirebaseDatabase.getInstance().getReference().child("item").child(itemKeys[position]).child("itsTask").setValue("");
+                } else if (!itemAtPosition.getItsTask().equals(ownPersonID)){
+                    Toast.makeText(context, R.string.alreadyAssigned, Toast.LENGTH_LONG).show();
                 }
-                return false;
+                return true;
             }
         });
 
