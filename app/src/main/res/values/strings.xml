@@ -44,6 +44,7 @@
     <string name="addItem">Item zu Einkaufsliste hinzufügen</string>
     <string name="addShoppingList">Neue Einkaufsliste erstellen</string>
     <string name="edit">Bearbeiten</string>
+    <string name="brings">bringt %s mit</string>
 
     <string name="favorites">Favoriten</string>
 
@@ -66,6 +67,7 @@
     <string name="leaveConfirmation">Möchtest Du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
+    <string name="cancel">Abbrechen</string>
 
 
     <string name="ErrorLoginFailed">Login fehlgeschlagen: Bitte überprüfe deine Email und dein Passwort</string>

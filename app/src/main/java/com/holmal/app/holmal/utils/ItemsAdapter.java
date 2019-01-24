@@ -165,6 +165,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             public void onClick(View v) {
                     Log.i("FürSvenja", "clicked item -> open info");
                     Intent intent = new Intent(context, ItemInformationActivity.class);
+                    intent.putExtra("itemId", itemKeys[position]);
                     v.getContext().startActivity(intent);
             }
         });

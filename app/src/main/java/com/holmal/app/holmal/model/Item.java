@@ -97,4 +97,19 @@ public class Item {
     public void setBelongsTo(String belongsTo) {
         this.belongsTo = belongsTo;
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "itemName='" + itemName + '\'' +
+                ", quantity='" + quantity + '\'' +
+                ", important=" + important +
+                ", favorite=" + favorite +
+                ", itsTask='" + itsTask + '\'' +
+                ", additionalInfo='" + additionalInfo + '\'' +
+                ", belongsTo='" + belongsTo + '\'' +
+                ", done=" + done +
+                ", timeDone=" + timeDone +
+                '}';
+    }
 }
