@@ -120,7 +120,7 @@ public class CreateItemActivity extends AppCompatActivity {
     @OnClick(R.id.add)
     public void itemCreationOnClicked() {
         if (validate()) {
-            Item item = new Item(itemName, quantity, important, favorite, itsTask, additionalInfo, done, timeDone);
+            Item item = new Item(itemName, quantity, important, favorite, itsTask, additionalInfo, done, timeDone, shoppingListId);
             FireBaseHandling.getInstance().storeItem(shoppingListId, item);
 
             //maybe also check whether item is a favourite here and add to favourites

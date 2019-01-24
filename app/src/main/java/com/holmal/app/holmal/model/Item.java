@@ -7,6 +7,7 @@ public class Item {
     private boolean favorite;
     private String itsTask;
     private String additionalInfo;
+    private String belongsTo;
 
     private boolean done;
     private int timeDone;
@@ -14,7 +15,7 @@ public class Item {
     public Item() {
     }
 
-    public Item(String itemName, String quantity, boolean important, boolean favorite, String itsTask, String additionalInfo, boolean done, int timeDone) {
+    public Item(String itemName, String quantity, boolean important, boolean favorite, String itsTask, String additionalInfo, boolean done, int timeDone, String belongsTo) {
         this.itemName = itemName;
         this.quantity = quantity;
         this.important = important;
@@ -23,6 +24,7 @@ public class Item {
         this.additionalInfo = additionalInfo;
         this.done = done;
         this.timeDone = timeDone;
+        this.belongsTo = belongsTo;
     }
 
     public String getItemName() {
@@ -87,5 +89,12 @@ public class Item {
 
     public void setTimeDone(int timeDone) {
         this.timeDone = timeDone;
+    }
+    public String getBelongsTo() {
+        return belongsTo;
+    }
+
+    public void setBelongsTo(String belongsTo) {
+        this.belongsTo = belongsTo;
     }
 }
