@@ -12,16 +12,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,46 +25,46 @@ import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.ItemsAdapter;
-import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * Class that displays a single shopping list with its items.
+ * Contains a list of the items that the ItemsAdapter is set on, a button to add items to the list and access to the menu.
+ */
 public class ShoppingListActivity extends AppCompatActivity {
 
     private static final String TAG = ShoppingListActivity.class.getName();
-
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
     private HashMap<String, Item> itemsOfTheList = new HashMap<>();
     private ArrayList<String> itemIds = new ArrayList<>();
     private HashMap<String, Person> person = new HashMap<>();
     private RecyclerView.LayoutManager layoutManager;
-
-
     private DrawerLayout mDrawerLayout;
-    ShoppingList currentShoppingList;
+    private ShoppingList currentShoppingList;
+    private PreferencesAccess preferences = new PreferencesAccess();
+    private String householdId;
+    private String recentShoppingListName;
+    private RecyclerView list;
+    private String shoppingListId;
 
-    PreferencesAccess preferences = new PreferencesAccess();
-    String householdId;
-    String recentShoppingListName;
-    RecyclerView list;
-    String shoppingListId;
-
+    /**
+     * Method that initialises the class and its important features.
+     * It establishes the connection to its xml file (activity_shopping_list) and starts the listeners.
+     * @param savedInstanceState Bundle object that contains a saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
         ButterKnife.bind(this);
         list = findViewById(R.id.list);
-        // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         list.setLayoutManager(layoutManager);
-
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
 
         // Listener for person
@@ -81,7 +75,6 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         // Listener to get all items that are in the list
         startItemListener();
-
 
         //menu that appears from the left
         menu();
@@ -102,6 +95,12 @@ public class ShoppingListActivity extends AppCompatActivity {
             }});*/
     }
 
+    /**
+     * Method that adds a navigation drawer to the class. This is used as a menu to enable navigation within the app.
+     * Sets menu as a toolbar and tabs as tabs to navigate between open and done items.
+     * Uses the drawer_layout as a layout for the drawer and specifies the behaviour if an item in the navigation menu is clicked.
+     * This method also sets a listener to the navigation drawer so that it opens and closes.
+     */
     private void menu() {
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
@@ -126,7 +125,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                         // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
 
-                        // Add code here to update the UI based on the item selected
                         //if my assignments is pressed in the menu you will be lead there
                         if (menuItem.getItemId() == R.id.nav_my_tasks) {
                             Intent intentT = new Intent(ShoppingListActivity.this, MyTasksActivity.class);
@@ -151,7 +149,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                             startActivity(intentout);
                             return true;
                         }
-
                         return true;
                     }
                 });
@@ -182,6 +179,10 @@ public class ShoppingListActivity extends AppCompatActivity {
         );
     }
 
+    /**
+     * Method that starts the item listener. It gets the item data from the firebase database.
+     * Sets the items adapter to the list.
+     */
     private void startItemListener() {
         // Listener to get all items that are in the list
         FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
@@ -213,6 +214,10 @@ public class ShoppingListActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method that starts the shopping list listener and gets a list of the shopping lists of this household from the
+     * firebase database. It also sets the title of the window to the name of the displayed shopping list.
+     */
     private void startShoppingListListener() {
         FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
             @Override
@@ -237,36 +242,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                 } else {
                     setTitle(R.string.shoppingList);
                 }
-
-                Log.i("fürSvenja", ":" + listsOfThisHousehold);
-
-
-                /**
-                 * //handles click on item to see detailed information
-                 * list.setOnClickListener(new AdapterView.OnItemClickListener() {
-                 *              @Override
-                 *              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                 *              if(item an der stelle hat info){
-                 *              starte ItemInformationFragment
-                 * });}
-                 */
-                /**
-                 * //handles double click on item -> makes item assigned to self
-                 * list.setOnTouchListener(new OnTouchListener() {
-                 *     private GestureDetector gestureDetector = new GestureDetector(ShoppingListActivity.this, new GestureDetector.SimpleOnGestureListener() {
-                 *         @Override
-                 *         public boolean onDoubleTap(MotionEvent e) {
-                 *         if(item an der stelle ist nicht assigned){
-                 *         assined add person
-                 *         }else{
-                 *         assigned remove person
-                 *         }
-                 *             return super.onDoubleTap(e);
-                 *         }
-                 *     });
-                 *     onSwipeRight()
-                 *
-                 */
             }
 
             @Override
@@ -276,6 +251,9 @@ public class ShoppingListActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method that starts the person listener. Gets a list of the people in the active household from the firebase database.
+     */
     private void startPersonListener() {
         FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
             @Override
@@ -297,9 +275,12 @@ public class ShoppingListActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Getter for the current shopping list. The most recent shopping list name is stored in the preferences.
+     */
     private void getCurrentShoppingList() {
-        Log.i(TAG, "getCurrentShoppingList called");
 
+        Log.i(TAG, "getCurrentShoppingList called");
         Log.i(TAG, "shoppingLists " + listsOfThisHousehold);
 
         // von Haushalt -> Listen -> Liste mit namen aus Preferences
@@ -319,8 +300,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
             }
         }
-
-        //Log.i("FürSvenja", "current" + currentShoppingList.toString());
         HashMap<String, String> ids = currentShoppingList.getItemsOfThisList();
         if (ids != null) {
             String[] idsKeys = ids.keySet().toArray(new String[ids.size()]);
@@ -330,7 +309,11 @@ public class ShoppingListActivity extends AppCompatActivity {
         }
     }
 
-    //Menu is opened
+    /**
+     * Method that is called when the navigation drawer menu is opened to keep track on the selection of navigation items.
+     * @param item in the menu that is selected
+     * @return true
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -342,7 +325,10 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     }
 
-    //Button that lets you add an item to the shopping list
+    /**
+     * Button that lets you add an item to the shopping list. References addItem Button in activity_shopping_list.
+     * Pressing this button starts the CreateItemActivity. 
+     */
     @OnClick(R.id.addItem)
     public void addItemOnClicked() {
         Intent intent = new Intent(this, CreateItemActivity.class);

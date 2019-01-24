@@ -167,7 +167,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
                     //TODO gets ownPersonID correctly, but itsTask is not changed on database??
                     PreferencesAccess preferencesAccess = new PreferencesAccess();
                     String ownPersonID = preferencesAccess.readPreferences(context, "personID");
-                    String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();
                     clickedItem.setItsTask(ownPersonID);
                 } else {
                     clickedItem.setItsTask(null);

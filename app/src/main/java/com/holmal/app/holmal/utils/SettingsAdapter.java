@@ -80,11 +80,24 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
             colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonPurple));
         }
 
-            name.setText(personInHousehold.get(position).getPersonName());
-            PreferencesAccess preferencesAccess = new PreferencesAccess();
-            if(personInHousehold.get(position).getPersonName().equals(preferencesAccess.readPreferences(context, "personName"))){
+        name.setText(person.getPersonName());
+
+        PreferencesAccess preferencesAccess = new PreferencesAccess();
+        String ownPersonID = preferencesAccess.readPreferences(context, "personID");
+        if(person.toString().equals(ownPersonID)){
+            name.append(" (du)");
+        }
+            Log.i("FürSvenja", person.toString());
+           // String[] personKeys = personInHousehold.keySet().toArray(new String[personInHousehold.size()]);
+            /*for(int i = 0; i<personKeys.length; i++){
+                Log.i("FürSvenja", personInHousehold.get(personKeys[i]).toString());
+                if(personInHousehold.get(personKeys[i]).toString().equals(ownPersonID)){
+                    name.append(" (du)");
+                }
+            }*/
+            /*if(personInHousehold.get(position).getPersonName().equals(preferencesAccess.readPreferences(context, "personName"))){
                 name.append(" (du)");
-            }
+            }*/
 
         return rowView;
     }
