@@ -86,6 +86,11 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                         //Logout
                         else if (menuItem.getItemId() == R.id.logout) {
                             Log.i("TAG", "Logout button clicked");
+                            //delete preferences
+                            PreferencesAccess preferencesAccess = new PreferencesAccess();
+                            preferencesAccess.storePreferences(AllShoppingListsActivity.this, getString(R.string.householdIDPreference), null);
+                            preferencesAccess.storePreferences(AllShoppingListsActivity.this, getString(R.string.personIDPreference), null);
+                            preferencesAccess.storePreferences(AllShoppingListsActivity.this, getString(R.string.recentShoppingListNamePreference), null);
                             FirebaseAuth.getInstance().signOut();
                             Intent intentout = new Intent(AllShoppingListsActivity.this, LoginActivity.class);
                             startActivity(intentout);
