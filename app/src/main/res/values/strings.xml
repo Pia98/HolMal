@@ -29,6 +29,7 @@
     <string name="color">Farbe</string>
 
     <string name="myJobs">Meine Aufträge</string>
+    <string name="alreadyAssigned">Dieses Item ist bereits vergeben</string>
 
     <string name="moveInHouseholdAs">Folgendem Haushalt beitreten als:</string>
 
@@ -90,8 +91,7 @@
 
 
     <string name="defaultShoppingList">Einkaufsliste 1</string>
-
-    <!-- TODO raus schmeissen, nur zum testen fuer ShoppingList Kategorie -->
+    
     <string-array name="spinner">
         <item></item>
         <item>Apotheke</item>
