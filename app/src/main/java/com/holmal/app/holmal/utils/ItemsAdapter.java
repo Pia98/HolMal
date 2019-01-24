@@ -173,7 +173,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             public boolean onLongClick(View v) {
                 Log.i("FürSvenja", "assign person");
                 if (itemAtPosition.getItsTask().isEmpty()) {
-                    //TODO gets ownPersonID correctly, but itsTask is not changed on database??
+                    //TODO its Task is stored correctly but there is no color
                     PreferencesAccess preferencesAccess = new PreferencesAccess();
                     String ownPersonID = preferencesAccess.readPreferences(context, "personID");
                     String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();
