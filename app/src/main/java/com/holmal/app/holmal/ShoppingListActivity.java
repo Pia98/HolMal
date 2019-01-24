@@ -327,7 +327,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     /**
      * Button that lets you add an item to the shopping list. References addItem Button in activity_shopping_list.
-     * Pressing this button starts the CreateItemActivity. 
+     * Pressing this button starts the CreateItemActivity.
      */
     @OnClick(R.id.addItem)
     public void addItemOnClicked() {
