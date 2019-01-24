@@ -7,19 +7,28 @@
     >
 
     <!--TODO add hardcoded amounts to dimens-->
+    <CheckBox
+        android:id="@+id/itemDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10px" />
+
     <TextView
         android:id="@+id/itemName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10px"
+        android:layout_toEndOf="@id/itemDone"
         android:text="@+id/itemName"
         android:textSize="35px"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/itemAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10px"
+        android:layout_toEndOf="@id/itemDone"
         android:layout_marginTop="50px"
         android:text="@+id/itemAmount"
         android:textSize="35px"/>
