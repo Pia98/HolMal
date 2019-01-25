@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +41,8 @@ public class MyTasksActivity extends AppCompatActivity {
     private RecyclerView list;
 
     HashMap<String, Item> myItems = new HashMap<>();
+    private HashMap<String, Item> myOpenItemsOfTheList = new HashMap<>();
+    private HashMap<String, Item> myDoneItemsOfTheList = new HashMap<>();
     private HashMap<String, Person> person = new HashMap<>();
     String householdId;
 
@@ -59,11 +63,11 @@ public class MyTasksActivity extends AppCompatActivity {
         householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
 
         //menu that appears from the left
-        menu();
+        menu(personID);
 
         startPersonListener();
 
-        startMyItemsListener(personID);
+        //startMyItemsListener(personID);
     }
 
     private void startMyItemsListener(String personID) {
@@ -91,7 +95,7 @@ public class MyTasksActivity extends AppCompatActivity {
         });
     }
 
-    private void menu() {
+    private void menu(final String personID) {
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
         setTitle(R.string.myJobs);
@@ -101,6 +105,37 @@ public class MyTasksActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
+
+        //tab layout for open and done items
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                // items open
+                if (tab.getPosition() == 0) {
+                    // Listener to get all open items that are in the list
+                    startMyOpenItemsListener(personID);
+                }
+                // items done
+                else {
+                    // Listener to get all done items that are in the list
+                    startMyDoneItemsListener(personID);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
@@ -165,6 +200,58 @@ public class MyTasksActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    private void startMyDoneItemsListener(String personID) {
+        FirebaseDatabase.getInstance().getReference().child("item").orderByChild("itsTask").equalTo(personID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                myDoneItemsOfTheList.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    String id = child.getKey();
+                    Item value = child.getValue(Item.class);
+                    Log.i(TAG, "item: " + value);
+                    if(value.isDone()) {
+                        myDoneItemsOfTheList.put(id, value);
+                    }
+                }
+                //adapter
+                ItemsAdapter adapter = new ItemsAdapter(MyTasksActivity.this, myDoneItemsOfTheList, person);
+                RecyclerView list = findViewById(R.id.list);
+                list.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void startMyOpenItemsListener(String personID) {
+        FirebaseDatabase.getInstance().getReference().child("item").orderByChild("itsTask").equalTo(personID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                myOpenItemsOfTheList.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    String id = child.getKey();
+                    Item value = child.getValue(Item.class);
+                    Log.i(TAG, "item: " + value);
+                    if(!value.isDone()) {
+                        myOpenItemsOfTheList.put(id, value);
+                    }
+                }
+                //adapter
+                ItemsAdapter adapter = new ItemsAdapter(MyTasksActivity.this, myOpenItemsOfTheList, person);
+                RecyclerView list = findViewById(R.id.list);
+                list.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     /**
