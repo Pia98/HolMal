@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -17,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,8 +27,10 @@ import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.ItemsAdapter;
 import com.holmal.app.holmal.utils.PreferencesAccess;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -57,6 +59,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     /**
      * Method that initialises the class and its important features.
      * It establishes the connection to its xml file (activity_shopping_list) and starts the listeners.
+     *
      * @param savedInstanceState Bundle object that contains a saved instance state
      */
     @Override
@@ -76,28 +79,8 @@ public class ShoppingListActivity extends AppCompatActivity {
         //Listener for the shopping lists of this household
         startShoppingListListener();
 
-        // Listener to get all items that are in the list
-        //startItemListener();
-
         //menu that appears from the left
         menu();
-
-        /*navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.openItemsTab) {
-                //check items that are on list and not done
-                //give this list to adapter and set adapter
-                    getCurrentShoppingList();
-                } else if (id == R.id.doneItemsTab) {
-                //check items that are on list and done
-                //give resulting list to adapter
-                }
-                return true;
-            }});*/
-
-
     }
 
     /**
@@ -124,11 +107,13 @@ public class ShoppingListActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 // items open
-                if(tab.getPosition() == 0){
+                if (tab.getPosition() == 0) {
+                    // Listener to get all open items that are in the list
                     startOpenItemsListener();
                 }
                 // items done
                 else {
+                    // Listener to get all done items that are in the list
                     startDoneItemsListener();
                 }
             }
@@ -213,6 +198,10 @@ public class ShoppingListActivity extends AppCompatActivity {
         );
     }
 
+    /**
+     * Method that starts the listener for items that are already done. It gets the item data from the firebase database.
+     * Sets the items adapter to the list.
+     */
     private void startDoneItemsListener() {
         FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
             @Override
@@ -243,6 +232,10 @@ public class ShoppingListActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method that starts the listener for items that are not done. It gets the item data from the firebase database.
+     * Sets the items adapter to the list.
+     */
     private void startOpenItemsListener() {
         FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
             @Override
@@ -261,41 +254,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
                 //adapter
                 ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, openItemsOfTheList, person);
-                RecyclerView list = findViewById(R.id.list);
-                list.setAdapter(adapter);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    /**
-     * Method that starts the item listener. It gets the item data from the firebase database.
-     * Sets the items adapter to the list.
-     */
-    private void startItemListener() {
-        // Listener to get all items that are in the list
-        FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "item listener in onCreate...");
-                itemsOfTheList.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    String id = child.getKey();
-                    Item value = child.getValue(Item.class);
-                    Log.i(TAG, "item: " + value);
-                    for (int i = 0; i < itemIds.size(); i++) {
-                        if (id.equals(itemIds.get(i))) {
-                            itemsOfTheList.put(id, value);
-                        }
-                    }
-                }
-                //adapter
-                ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, itemsOfTheList, person);
                 RecyclerView list = findViewById(R.id.list);
                 list.setAdapter(adapter);
 
@@ -405,6 +363,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     /**
      * Method that is called when the navigation drawer menu is opened to keep track on the selection of navigation items.
+     *
      * @param item in the menu that is selected
      * @return true
      */
