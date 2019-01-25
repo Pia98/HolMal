@@ -309,6 +309,10 @@ public class SettingsActivity extends AppCompatActivity {
                 R.string.yes,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+
+                        Intent intentout = new Intent(SettingsActivity.this, StartActivity.class);
+                        startActivity(intentout);
+
                         //remove member from household
                         PreferencesAccess preferencesAccess = new PreferencesAccess();
                         String householdID = preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.householdIDPreference));
@@ -356,9 +360,9 @@ public class SettingsActivity extends AppCompatActivity {
                             }
                         }
 
-                        FirebaseAuth.getInstance().signOut();
+                       /* FirebaseAuth.getInstance().signOut();
                         Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
-                        startActivity(intentout);
+                        startActivity(intentout);*/
                     }
                 });
         builder.setNegativeButton(

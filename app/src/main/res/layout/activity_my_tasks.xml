@@ -15,33 +15,65 @@
         android:layout_height="match_parent"
         tools:context=".ShoppingListActivity">
 
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+            <android.support.design.widget.AppBarLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:fitsSystemWindows="true"
+                android:id="@+id/appBar_layout">
+
+                <!-- corresponds to button 9 in paper prototype-->
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    android:theme="@style/blueActionBar" />
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/blueTabsBar"
+                    >
+
+                    <android.support.design.widget.TabItem
+                        android:id="@+id/openItemsTab"
+                        android:text="@string/openItemsTabs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <android.support.design.widget.TabItem
+                        android:id="@+id/doneItemsTab"
+                        android:text="@string/doneItemsTabs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </android.support.design.widget.TabLayout>
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
+
+        </android.support.design.widget.CoordinatorLayout>
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toEndOf="@+id/leftMargin">
+            android:layout_marginTop="@dimen/tabsUtoolbarHight">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/menu"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list"
+                android:scrollbars="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                android:theme="@style/blueActionBar" />
+                android:layout_height="match_parent"/>
 
-            <TextView
-                android:id="@+id/ShoppinglistText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/amatic_sc_bold"
-                android:text="Meine Aufträge"
-                app:layout_constraintStart_toEndOf="@id/menu"
-                app:layout_constraintTop_toBottomOf="@id/householdName"/>
         </android.support.constraint.ConstraintLayout>
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Du bist in meine Aufträge"/>
 
 
 

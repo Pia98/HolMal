@@ -137,4 +137,40 @@ public class FireBaseHandling {
     public void editHousholdName(String newName, String householdId){
         reference.child(householdRubric + "/" + householdId + "/householdName").setValue(newName);
     }
+
+    /**
+     * edits the name of an item on the database
+     * @param newName
+     * @param itemId
+     */
+    public void editItemName(String newName, String itemId){
+        reference.child(itemRubric + "/" +itemId + "/itemName").setValue(newName);
+    }
+
+    /**
+     * edits the amount of an item on the database
+     * @param newAmount
+     * @param itemId
+     */
+    public void editItemAmount(String newAmount, String itemId){
+        reference.child(itemRubric + "/" +itemId + "/quantity").setValue(newAmount);
+    }
+
+    /**
+     * edits the description of an item on the database
+     * @param newDescription
+     * @param itemId
+     */
+    public void editItemDescription(String newDescription, String itemId){
+        reference.child(itemRubric + "/" + itemId + "/additionalInfo").setValue(newDescription);
+    }
+
+    /**
+     * edits the person whose task the item is
+     * @param newPersonID
+     * @param itemId
+     */
+    public void editItemPersonTask(String newPersonID, String itemId){
+        reference.child(itemRubric + "/" + itemId + "/itsTask").setValue(newPersonID);
+    }
 }

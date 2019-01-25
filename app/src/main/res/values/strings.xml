@@ -44,6 +44,7 @@
     <string name="addItem">Item zu Einkaufsliste hinzufügen</string>
     <string name="addShoppingList">Neue Einkaufsliste erstellen</string>
     <string name="edit">Bearbeiten</string>
+    <string name="brings">bringt %s mit</string>
 
     <string name="favorites">Favoriten</string>
 
@@ -64,8 +65,10 @@
     <string name="leave">Haushalt verlassen</string> <!-- ausziehen -->
 
     <string name="leaveConfirmation">Möchtest Du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
+    <string name="moveinConfirmation">Möchtest Du diesem Haushalt wirklich beitreten: </string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
+    <string name="cancel">Abbrechen</string>
 
 
     <string name="ErrorLoginFailed">Login fehlgeschlagen: Bitte überprüfe deine Email und dein Passwort</string>
@@ -80,11 +83,13 @@
     <string name="ErrorNameTaken">Dieser Name ist bereits vergeben</string>
     <string name="ErrorColorTaken">Diese Farbe ist bereits vergeben</string>
     <string name="ErrorChooseHousehold">Wähle einen Haushalt</string>
+    <string name="ErrorFindHousehold">Haushalt konnte nicht gefunden werden</string>
     <string name="ErrorEnterHouseholdName">Wähle einen Namen für den Haushalt</string>
     <string name="ErrorEnterItem">Gebe eine Bezeichnung an</string>
     <string name="ErrorEnterShoppingListName">Gib eine Bezeichnung ein</string>
     <string name="ErrorListNameTaken">Es existiert bereits eine Liste mit diesem Namen</string>
     <string name="ErrorItemTaken">In dieser Liste existiert bereits ein Item mit dieser Bezeichnung</string>
+    <string name="ErrorItemsPersonTask">Leider ist etwas schief gegangen: Die Person konnte nicht gespeichert werden</string>
 
     <!-- TODO an "shoppingList" angleichen-->
     <string name="shoppingLists">Einkaufslisten</string>
