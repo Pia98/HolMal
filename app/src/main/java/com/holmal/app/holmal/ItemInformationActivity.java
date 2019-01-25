@@ -6,9 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,7 +22,10 @@ import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,9 +65,11 @@ public class ItemInformationActivity extends AppCompatActivity {
     EditText itemEditDescription;
 
     @BindView(R.id.itemEditTask)
-    EditText itemEditTask;
+    Spinner itemEditTask;
 
     HashMap<String, Person> joiningPerson = new HashMap<>();
+    ArrayList<String> personenNamen = new ArrayList<>();
+    ArrayAdapter<String> adapter;
 
     HashMap<String, Item> item = new HashMap<>();
     Item thisItem;
@@ -86,6 +94,8 @@ public class ItemInformationActivity extends AppCompatActivity {
 
         PreferencesAccess preferencesAccess = new PreferencesAccess();
         householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
+
+        personenNamen.add(" - - - ");
 
         startPersonListener();
 
@@ -142,6 +152,7 @@ public class ItemInformationActivity extends AppCompatActivity {
                     if (value.getIdBelongingTo().equals(householdId)) {
                         Log.i(TAG, "Person gehört zu diesem Haushalt.");
                         joiningPerson.put(id, value);
+                        personenNamen.add(value.getPersonName());
                     }
 
                     Log.i(TAG, "joiningPerson in for Schleife bei listener: " + joiningPerson);
@@ -176,6 +187,9 @@ public class ItemInformationActivity extends AppCompatActivity {
         itemDescriptionText.setVisibility(View.INVISIBLE);
         itemEditTask.setVisibility(View.VISIBLE);
         itemTaskText.setVisibility(View.INVISIBLE);
+
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, personenNamen);
+        itemEditTask.setAdapter(adapter);
     }
 
     @OnClick(R.id.itemComplete)
@@ -183,6 +197,7 @@ public class ItemInformationActivity extends AppCompatActivity {
         String newName = itemEditName.getText().toString();
         String newAmount = itemEditAmount.getText().toString();
         String newDescription = itemEditDescription.getText().toString();
+        String newPersonTask = itemEditTask.getSelectedItem().toString();
         //TODO checking if person in household exits
 
         if(newName != null){
@@ -193,6 +208,22 @@ public class ItemInformationActivity extends AppCompatActivity {
         }
         if(newDescription != null){
             FireBaseHandling.getInstance().editItemDescription(newDescription, itemId);
+        }
+        if(newPersonTask != " - - - "){
+            Iterator iterator = joiningPerson.entrySet().iterator();
+            String personID = null;
+            while (iterator.hasNext()) {
+                Map.Entry entry = (Map.Entry) iterator.next();
+                Person person = (Person) entry.getValue();
+                if(person.getPersonName() == newPersonTask){
+                    personID = entry.getKey().toString();
+                }
+            }
+            if(personID != null){
+                FireBaseHandling.getInstance().editItemPersonTask(personID, itemId);
+            }else{
+                Toast.makeText(getApplicationContext(), getString(R.string.ErrorItemsPersonTask), Toast.LENGTH_SHORT);
+            }
         }
 
         itemComplete.setVisibility(View.INVISIBLE);
