@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -40,6 +41,8 @@ public class ShoppingListActivity extends AppCompatActivity {
     private static final String TAG = ShoppingListActivity.class.getName();
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
     private HashMap<String, Item> itemsOfTheList = new HashMap<>();
+    private HashMap<String, Item> openItemsOfTheList = new HashMap<>();
+    private HashMap<String, Item> doneItemsOfTheList = new HashMap<>();
     private ArrayList<String> itemIds = new ArrayList<>();
     private HashMap<String, Person> person = new HashMap<>();
     private RecyclerView.LayoutManager layoutManager;
@@ -74,7 +77,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         startShoppingListListener();
 
         // Listener to get all items that are in the list
-        startItemListener();
+        //startItemListener();
 
         //menu that appears from the left
         menu();
@@ -93,6 +96,8 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
                 return true;
             }});*/
+
+
     }
 
     /**
@@ -114,6 +119,30 @@ public class ShoppingListActivity extends AppCompatActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                // items open
+                if(tab.getPosition() == 0){
+                    startOpenItemsListener();
+                }
+                // items done
+                else {
+                    startDoneItemsListener();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
@@ -182,6 +211,66 @@ public class ShoppingListActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    private void startDoneItemsListener() {
+        FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "done item listener in onCreate...");
+                doneItemsOfTheList.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    String id = child.getKey();
+                    Item value = child.getValue(Item.class);
+                    Log.i(TAG, "item: " + value);
+                    for (int i = 0; i < itemIds.size(); i++) {
+                        if (id.equals(itemIds.get(i)) && value.isDone()) {
+                            doneItemsOfTheList.put(id, value);
+                        }
+                    }
+                }
+                //adapter
+                ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, doneItemsOfTheList, person);
+                RecyclerView list = findViewById(R.id.list);
+                list.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void startOpenItemsListener() {
+        FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "open item listener in onCreate...");
+                openItemsOfTheList.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    String id = child.getKey();
+                    Item value = child.getValue(Item.class);
+                    Log.i(TAG, "item: " + value);
+                    for (int i = 0; i < itemIds.size(); i++) {
+                        if (id.equals(itemIds.get(i)) && !value.isDone()) {
+                            openItemsOfTheList.put(id, value);
+                        }
+                    }
+                }
+                //adapter
+                ItemsAdapter adapter = new ItemsAdapter(ShoppingListActivity.this, openItemsOfTheList, person);
+                RecyclerView list = findViewById(R.id.list);
+                list.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     /**
