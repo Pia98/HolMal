@@ -65,6 +65,7 @@
     <string name="leave">Haushalt verlassen</string> <!-- ausziehen -->
 
     <string name="leaveConfirmation">Möchtest Du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
+    <string name="moveinConfirmation">Möchtest Du diesem Haushalt wirklich beitreten: </string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="cancel">Abbrechen</string>
@@ -82,6 +83,7 @@
     <string name="ErrorNameTaken">Dieser Name ist bereits vergeben</string>
     <string name="ErrorColorTaken">Diese Farbe ist bereits vergeben</string>
     <string name="ErrorChooseHousehold">Wähle einen Haushalt</string>
+    <string name="ErrorFindHousehold">Haushalt konnte nicht gefunden werden</string>
     <string name="ErrorEnterHouseholdName">Wähle einen Namen für den Haushalt</string>
     <string name="ErrorEnterItem">Gebe eine Bezeichnung an</string>
     <string name="ErrorEnterShoppingListName">Gib eine Bezeichnung ein</string>
