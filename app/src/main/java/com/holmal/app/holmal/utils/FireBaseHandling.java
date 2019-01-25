@@ -164,4 +164,13 @@ public class FireBaseHandling {
     public void editItemDescription(String newDescription, String itemId){
         reference.child(itemRubric + "/" + itemId + "/additionalInfo").setValue(newDescription);
     }
+
+    /**
+     * edits the person whose task the item is
+     * @param newPersonID
+     * @param itemId
+     */
+    public void editItemPersonTask(String newPersonID, String itemId){
+        reference.child(itemRubric + "/" + itemId + "/itsTask").setValue(newPersonID);
+    }
 }
