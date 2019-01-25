@@ -3,7 +3,6 @@ package com.holmal.app.holmal;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-
 import com.holmal.app.holmal.ui.registrationfragment1.RegistrationFragment1;
 import com.holmal.app.holmal.ui.registrationfragment1.RegistrationFragment2;
 import com.holmal.app.holmal.utils.FragmentHandling;
@@ -31,6 +30,7 @@ public class RegistrationActivity extends AppCompatActivity {
         userName = extras.getString("userName");
         householdName = extras.getString("householdName");
         householdId = extras.getString("householdId");
+
         chooseFragment(fragmentNumber);
 
 //        if (savedInstanceState == null) {
