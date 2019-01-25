@@ -66,33 +66,6 @@ public class MyTasksActivity extends AppCompatActivity {
         menu(personID);
 
         startPersonListener();
-
-        //startMyItemsListener(personID);
-    }
-
-    private void startMyItemsListener(String personID) {
-        FirebaseDatabase.getInstance().getReference().child("item").orderByChild("itsTask").equalTo(personID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                myItems.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    String id = child.getKey();
-                    Item value = child.getValue(Item.class);
-                    Log.i(TAG, "item: " + value);
-                    myItems.put(id, value);
-                }
-                Log.i(TAG, "myItems List " + myItems);
-                //adapter
-                ItemsAdapter adapter = new ItemsAdapter(MyTasksActivity.this, myItems, person);
-                RecyclerView list = findViewById(R.id.list);
-                list.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
     private void menu(final String personID) {
@@ -202,6 +175,13 @@ public class MyTasksActivity extends AppCompatActivity {
         );
     }
 
+    /**
+     * Method that starts the listener for items that are already done in the list of the person.
+     * It gets the item data from the firebase database.
+     * Sets the items adapter to the list.
+     *
+     * @param personID Person where the items belong to
+     */
     private void startMyDoneItemsListener(String personID) {
         FirebaseDatabase.getInstance().getReference().child("item").orderByChild("itsTask").equalTo(personID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -211,7 +191,7 @@ public class MyTasksActivity extends AppCompatActivity {
                     String id = child.getKey();
                     Item value = child.getValue(Item.class);
                     Log.i(TAG, "item: " + value);
-                    if(value.isDone()) {
+                    if (value.isDone()) {
                         myDoneItemsOfTheList.put(id, value);
                     }
                 }
@@ -228,6 +208,14 @@ public class MyTasksActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method that starts the listener for items that are not done in the list of the person.
+     * It gets the item data from the firebase database.
+     * Sets the items adapter to the list.
+     *
+     * @param personID Person where the items belong to
+     */
+
     private void startMyOpenItemsListener(String personID) {
         FirebaseDatabase.getInstance().getReference().child("item").orderByChild("itsTask").equalTo(personID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -237,7 +225,7 @@ public class MyTasksActivity extends AppCompatActivity {
                     String id = child.getKey();
                     Item value = child.getValue(Item.class);
                     Log.i(TAG, "item: " + value);
-                    if(!value.isDone()) {
+                    if (!value.isDone()) {
                         myOpenItemsOfTheList.put(id, value);
                     }
                 }
