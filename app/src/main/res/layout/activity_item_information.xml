@@ -10,25 +10,64 @@
         android:id="@+id/itemClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccentSilver"
         android:text="@string/cancel"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"
-        app:layout_constraintTop_toBottomOf="@id/topMargin"/>
+        app:layout_constraintTop_toBottomOf="@id/topMargin" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Was:"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/itemClose" />
 
     <TextView
         android:id="@+id/itemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="item"
-        app:layout_constraintTop_toBottomOf="@id/itemClose"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
+        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+    <EditText
+        android:id="@+id/itemEditName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/quarterLineRight"
+        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wie viel:"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/itemEditName" />
 
     <TextView
         android:id="@+id/itemAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="Anzahl"
-        app:layout_constraintTop_toBottomOf="@id/itemName"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
+        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+    <EditText
+        android:id="@+id/itemEditAmount"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/quarterLineRight"
+        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        app:layout_constraintTop_toTopOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/itemUrgent"
@@ -40,28 +79,77 @@
         app:layout_constraintEnd_toStartOf="@id/rightMargin" />
 
     <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bemerkung:"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/itemEditAmount" />
+
+    <TextView
         android:id="@+id/itemDesctiption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="Info"
-        app:layout_constraintTop_toBottomOf="@id/itemAmount"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
+        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+    <EditText
+        android:id="@+id/itemEditDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/quarterLineRight"
+        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wer bringts mit:"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/itemEditDescription" />
 
     <TextView
         android:id="@+id/itemTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="bringt Lars mit"
-        app:layout_constraintTop_toBottomOf="@id/itemDesctiption"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
+        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/itemEditTask"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/quarterLineRight"
+        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+    <Button
+        android:id="@+id/itemComplete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="fertig"
+        app:layout_constraintEnd_toStartOf="@+id/itemEdit"
+        app:layout_constraintTop_toBottomOf="@+id/itemEditTask" />
 
     <Button
         android:id="@+id/itemEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/colorPrimary"
         android:text="bearbeiten"
         app:layout_constraintEnd_toStartOf="@id/itemDelete"
-        app:layout_constraintTop_toBottomOf="@id/itemTask"/>
+        app:layout_constraintTop_toBottomOf="@+id/itemEditTask" />
 
     <Button
         android:id="@+id/itemDelete"
@@ -69,7 +157,7 @@
         android:layout_height="wrap_content"
         android:text="löschen"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"
-        app:layout_constraintTop_toBottomOf="@id/itemTask"/>
+        app:layout_constraintTop_toBottomOf="@+id/itemEditTask" />
 
     <!-- Guidelines -->
 
@@ -120,7 +208,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.26" />
 
     <android.support.constraint.Guideline
         android:id="@+id/quarterLineRight"
