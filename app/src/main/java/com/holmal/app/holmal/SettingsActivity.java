@@ -317,18 +317,10 @@ public class SettingsActivity extends AppCompatActivity {
                         PreferencesAccess preferencesAccess = new PreferencesAccess();
                         String householdID = preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.householdIDPreference));
                         String personID = preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.personIDPreference));
-                        //delete preferences
-                        preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.householdIDPreference), null);
-                        preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.personIDPreference), null);
-                        preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.recentShoppingListNamePreference), null);
 
-                        FireBaseHandling.getInstance().deletePerson(personID);
                         //delete household if household is empty now
                         //hasn't synchronized by then so use former size - 1
                         if (joiningPerson.size() - 1 == 0) {
-                            Log.e("deleteHousehold", householdID + " has been deleted");
-                            FireBaseHandling.getInstance().deleteHousehold(householdID);
-
                             //delete all shopping Lists belonging to this household
                             //and corresponding items
                             for (int i = 0; i < listsOfThisHousehold.size(); i++) {
@@ -336,8 +328,6 @@ public class SettingsActivity extends AppCompatActivity {
                                 ShoppingList shoppingList = listsOfThisHousehold.get(keys[i]);
                                 //list of items (id) that belong to household
                                 HashMap<String, String> itemsToDelete = shoppingList.getItemsOfThisList();
-                                FireBaseHandling.getInstance().deleteShoppingList(keys[i]);
-
                                 //iterates over all items
                                 String[] allItemsKeys = itemsOfThisHousehold.keySet().toArray(new String[itemsOfThisHousehold.size()]);
                                 String[] itemDeleteKeys = itemsToDelete.keySet().toArray(new String[itemsToDelete.size()]);
@@ -348,7 +338,13 @@ public class SettingsActivity extends AppCompatActivity {
                                         }
                                     }
                                 }
+                                //delete shoppingList
+                                FireBaseHandling.getInstance().deleteShoppingList(keys[i]);
                             }
+                            //deletes the household
+                            Log.e("deleteHousehold", householdID + " has been deleted");
+                            FireBaseHandling.getInstance().deleteHousehold(householdID);
+
                         }
                         else{
                             //unassign tasks that this user has taken on
@@ -359,6 +355,13 @@ public class SettingsActivity extends AppCompatActivity {
                                 }
                             }
                         }
+
+                        //delete preferences
+                        preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.householdIDPreference), null);
+                        preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.personIDPreference), null);
+                        preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.recentShoppingListNamePreference), null);
+                        //delete person
+                        FireBaseHandling.getInstance().deletePerson(personID);
 
                        /* FirebaseAuth.getInstance().signOut();
                         Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
