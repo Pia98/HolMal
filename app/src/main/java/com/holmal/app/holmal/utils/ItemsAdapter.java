@@ -177,7 +177,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
                 PreferencesAccess preferencesAccess = new PreferencesAccess();
                 String ownPersonID = preferencesAccess.readPreferences(context, "personID");
                 if (itemAtPosition.getItsTask().isEmpty()) {
-                    //TODO its Task is stored correctly but there is no color
                     String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();
                     FirebaseDatabase.getInstance().getReference().child("item").child(itemKeys[position]).child("itsTask").setValue(ownPersonID);
                 } else if (itemAtPosition.getItsTask().equals(ownPersonID)){

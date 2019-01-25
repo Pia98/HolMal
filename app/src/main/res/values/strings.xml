@@ -66,6 +66,7 @@
 
     <string name="leaveConfirmation">Möchtest Du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
     <string name="moveinConfirmation">Möchtest Du diesem Haushalt wirklich beitreten: </string>
+    <string name="deleteListConfirmation">Möchtest du diese Liste wirklich löschen?</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="cancel">Abbrechen</string>
