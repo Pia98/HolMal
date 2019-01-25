@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -14,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
+import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 
 import java.util.HashMap;
@@ -40,6 +43,24 @@ public class ItemInformationActivity extends AppCompatActivity {
     @BindView(R.id.itemUrgent)
     TextView itemUrgentText;
 
+    @BindView(R.id.itemComplete)
+    Button itemComplete;
+
+    @BindView(R.id.itemEdit)
+    Button itemEdit;
+
+    @BindView(R.id.itemEditName)
+    EditText itemEditName;
+
+    @BindView(R.id.itemEditAmount)
+    EditText itemEditAmount;
+
+    @BindView(R.id.itemEditDescription)
+    EditText itemEditDescription;
+
+    @BindView(R.id.itemEditTask)
+    EditText itemEditTask;
+
     HashMap<String, Person> joiningPerson = new HashMap<>();
 
     HashMap<String, Item> item = new HashMap<>();
@@ -53,6 +74,12 @@ public class ItemInformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_information);
         ButterKnife.bind(this);
+
+        itemComplete.setVisibility(View.INVISIBLE);
+        itemEditName.setVisibility(View.INVISIBLE);
+        itemEditAmount.setVisibility(View.INVISIBLE);
+        itemEditDescription.setVisibility(View.INVISIBLE);
+        itemEditTask.setVisibility(View.INVISIBLE);
 
         Bundle extras = getIntent().getExtras();
         itemId = extras.getString("itemId");
@@ -132,5 +159,51 @@ public class ItemInformationActivity extends AppCompatActivity {
     public void onItemCloseClicked(){
         Intent intent = new Intent(this, ShoppingListActivity.class);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.itemEdit)
+    public void editItem(){
+        itemComplete.setVisibility(View.VISIBLE);
+        itemEdit.setVisibility(View.INVISIBLE);
+        itemEditName.setVisibility(View.VISIBLE);
+        itemEditName.setText(itemNameText.getText().toString());
+        itemNameText.setVisibility(View.INVISIBLE);
+        itemEditAmount.setVisibility(View.VISIBLE);
+        itemEditAmount.setText(itemAmountText.getText().toString());
+        itemAmountText.setVisibility(View.INVISIBLE);
+        itemEditDescription.setVisibility(View.VISIBLE);
+        itemEditDescription.setText(itemDescriptionText.getText().toString());
+        itemDescriptionText.setVisibility(View.INVISIBLE);
+        itemEditTask.setVisibility(View.VISIBLE);
+        itemTaskText.setVisibility(View.INVISIBLE);
+    }
+
+    @OnClick(R.id.itemComplete)
+    public void editComplete(){
+        String newName = itemEditName.getText().toString();
+        String newAmount = itemEditAmount.getText().toString();
+        String newDescription = itemEditDescription.getText().toString();
+        //TODO checking if person in household exits
+
+        if(newName != null){
+            FireBaseHandling.getInstance().editItemName(newName, itemId);
+        }
+        if(newAmount != null){
+            FireBaseHandling.getInstance().editItemAmount(newAmount, itemId);
+        }
+        if(newDescription != null){
+            FireBaseHandling.getInstance().editItemDescription(newDescription, itemId);
+        }
+
+        itemComplete.setVisibility(View.INVISIBLE);
+        itemEdit.setVisibility(View.VISIBLE);
+        itemEditName.setVisibility(View.INVISIBLE);
+        itemNameText.setVisibility(View.VISIBLE);
+        itemEditAmount.setVisibility(View.INVISIBLE);
+        itemAmountText.setVisibility(View.VISIBLE);
+        itemEditDescription.setVisibility(View.INVISIBLE);
+        itemDescriptionText.setVisibility(View.VISIBLE);
+        itemEditTask.setVisibility(View.INVISIBLE);
+        itemTaskText.setVisibility(View.VISIBLE);
     }
 }
