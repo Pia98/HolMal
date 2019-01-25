@@ -143,16 +143,20 @@ public class ShoppingListActivity extends AppCompatActivity {
                         if (menuItem.getItemId() == R.id.nav_my_tasks) {
                             Intent intentT = new Intent(ShoppingListActivity.this, MyTasksActivity.class);
                             startActivity(intentT);
+                            finish();
                             return true;
                         }
                         //if all shopping lists is pressed in the menu you will be lead there
                         else if (menuItem.getItemId() == R.id.nav_shopping_lists) {
                             Intent intentLists = new Intent(ShoppingListActivity.this, AllShoppingListsActivity.class);
                             startActivity(intentLists);
+                            finish();
                             return true;
-                        } else if (menuItem.getItemId() == R.id.nav_settings) {
+                        }
+                        else if (menuItem.getItemId() == R.id.nav_settings) {
                             Intent intentnav = new Intent(ShoppingListActivity.this, SettingsActivity.class);
                             startActivity(intentnav);
+                            finish();
                             return true;
                         }
                         //Logout

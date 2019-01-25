@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.holmal.app.holmal.R;
+import com.holmal.app.holmal.ShoppingListActivity;
 import com.holmal.app.holmal.model.ShoppingList;
 import java.util.HashMap;
 
@@ -96,8 +97,8 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
             @Override
             public void onClick(View v) {
                 Log.i("FürSvenja", "clicked list -> open list");
-                //Intent intent = new Intent(context, ShoppingListActivity.class);
-               // v.getContext().startActivity(intent);
+                Intent intent = new Intent(context, ShoppingListActivity.class);
+                v.getContext().startActivity(intent);
             }
         });
 
