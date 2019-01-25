@@ -14,8 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,15 +26,25 @@ import java.util.HashMap;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-//Overview over all the shopping lists
-public class AllShoppingListsActivity extends AppCompatActivity {
-    private static final String TAG = AllShoppingListsActivity.class.getName();
 
+/**
+ * Overview over all the shopping lists of a household.
+ * Includes the ability to add new shoppinglists
+ */
+public class AllShoppingListsActivity extends AppCompatActivity {
+
+    private static final String TAG = AllShoppingListsActivity.class.getName();
     private DrawerLayout mDrawerLayout;
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
     private RecyclerView.LayoutManager layoutmanager;
     private RecyclerView listsView;
 
+    /**
+     * Method that initialises the class and its important features.
+     * It establishes the connection to its xml file (activity_all_shopping_lists) and starts the listeners.
+     *
+     * @param savedInstanceState Bundle object that contains a saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,17 +54,21 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         layoutmanager = new GridLayoutManager(this, 2);
         listsView.setLayoutManager(layoutmanager);
 
-
         //menu that appears from the left
         menu();
 
         PreferencesAccess preferencesAccess = new PreferencesAccess();
         final String householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
 
-
         startShoppingListListener(householdId);
     }
 
+    /**
+     * Method that adds a navigation drawer to the class. This is used as a menu to enable navigation within the app.
+     * Sets menu as a toolbar and tabs as tabs to navigate between open and done items.
+     * Uses the drawer_layout as a layout for the drawer and specifies the behaviour if an item in the navigation menu is clicked.
+     * This method also sets a listener to the navigation drawer so that it opens and closes.
+     */
     private void menu() {
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
@@ -82,10 +94,12 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                         if (menuItem.getItemId() == R.id.nav_my_tasks) {
                             Intent intentT = new Intent(AllShoppingListsActivity.this, MyTasksActivity.class);
                             startActivity(intentT);
+                            finish();
                             return true;
                         } else if (menuItem.getItemId() == R.id.nav_settings) {
                             Intent intentLists = new Intent(AllShoppingListsActivity.this, SettingsActivity.class);
                             startActivity(intentLists);
+                            finish();
                             return true;
                         }
                         //Logout
@@ -132,6 +146,10 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         );
     }
 
+    /**
+     * Method that starts the shopping list listener and gets a list of the shopping lists of this household from the
+     * firebase database.
+     */
     private void startShoppingListListener(final String householdId) {
         FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
             @Override
@@ -152,20 +170,6 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                 //fill with lists with an adapter
                 ShoppingListsAdapter adapter = new ShoppingListsAdapter(AllShoppingListsActivity.this, listsOfThisHousehold);
                 listsView.setAdapter(adapter);
-                //GridView lists = findViewById(R.id.allShoppingLists);
-               // lists.setAdapter(adapter);
-
-              /*  //handle clicks on the lists
-                lists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Log.i("FürSvenja", "Open list from allshoppinglists");
-                        //TODO open correct shopping list (-> set activeShoppingList to that one)
-                        //Intent intent = new Intent(AllShoppingListsActivity.this, ShoppingList.class);
-                       // startActivity(intent);
-                    }
-                });*/
             }
 
             @Override
@@ -175,7 +179,12 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         });
     }
 
-    //Menu is opened
+    /**
+     * Method that is called when the navigation drawer menu is opened to keep track on the selection of navigation items.
+     *
+     * @param item in the menu that is selected
+     * @return true
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -187,12 +196,12 @@ public class AllShoppingListsActivity extends AppCompatActivity {
     }
 
 
-    //Button that leads to screen 13
+    /**
+     * Button that leads to screen 13 where you can create a new shopping list
+     */
     @OnClick(R.id.addShoppingList)
     public void addShoppingListClicked() {
         Intent intent = new Intent(this, CreateShoppingListActivity.class);
         startActivity(intent);
     }
-
-
 }

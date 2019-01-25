@@ -3,7 +3,6 @@ package com.holmal.app.holmal.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +14,6 @@ import com.holmal.app.holmal.ShoppingListActivity;
 import com.holmal.app.holmal.model.ShoppingList;
 import java.util.HashMap;
 
-
 /**
  * This adapter is responsible for displaying the lists of a household in an overview.
  * Is called in AllShoppingListsActivity.
@@ -25,7 +23,6 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     private Context context;
     private HashMap<String, ShoppingList> shoppinglists;
     private String[] listKeys;
-
     private TextView nameView;
     private TextView categoryView;
     private TextView descriptionView;
@@ -74,11 +71,16 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
         return viewHolder;
     }
 
-
+    /**
+     * Method that fills the grid of the viewholder with the appropriate content.
+     * Also handles interactions with the shoppinglist items.
+     * @param listsViewHolder the viewholder
+     * @param i the position at which the list is in the list of lists
+     */
     @Override
     public void onBindViewHolder(@NonNull ShoppingListsAdapter.ListsViewHolder listsViewHolder, int i) {
 
-        ShoppingList listAtPosition = shoppinglists.get(listKeys[i]);
+        final ShoppingList listAtPosition = shoppinglists.get(listKeys[i]);
 
         nameView.setText(listAtPosition.getListName());
 
@@ -97,8 +99,18 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
             @Override
             public void onClick(View v) {
                 Log.i("FürSvenja", "clicked list -> open list");
+                PreferencesAccess preferencesAccess = new PreferencesAccess();
+                preferencesAccess.storePreferences(context,context.getString(R.string.recentShoppingListNamePreference), listAtPosition.getListName());
                 Intent intent = new Intent(context, ShoppingListActivity.class);
                 v.getContext().startActivity(intent);
+            }
+        });
+        //handles long clicks on shoppinglist which enables one to delete the shopping list
+        listsViewHolder.gridView.setOnLongClickListener(new View.OnLongClickListener(){
+            @Override
+            public boolean onLongClick(View v) {
+                //TODO
+                return false;
             }
         });
 
@@ -110,10 +122,13 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
         return 0;
     }
 
+    /**
+     * Getter for the amount of shopping lists a household has
+     * @return amount of shopping lists to be displayed
+     */
     @Override
     public int getItemCount() {
         return shoppinglists.size();
     }
-
 
 }

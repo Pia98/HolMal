@@ -196,12 +196,14 @@ public class SettingsActivity extends AppCompatActivity {
                         if (menuItem.getItemId() == R.id.nav_my_tasks) {
                             Intent intentT = new Intent(SettingsActivity.this, MyTasksActivity.class);
                             startActivity(intentT);
+                            finish();
                             return true;
                         }
                         //if all shopping lists is pressed in the menu you will be lead there
                         else if (menuItem.getItemId() == R.id.nav_shopping_lists) {
                             Intent intentLists = new Intent(SettingsActivity.this, AllShoppingListsActivity.class);
                             startActivity(intentLists);
+                            finish();
                             return true;
                         }
                         //Logout

@@ -124,10 +124,12 @@ public class MyTasksActivity extends AppCompatActivity {
                         if (menuItem.getItemId() == R.id.nav_shopping_lists) {
                             Intent intentLists = new Intent(MyTasksActivity.this, AllShoppingListsActivity.class);
                             startActivity(intentLists);
+                            finish();
                             return true;
                         } else if (menuItem.getItemId() == R.id.nav_settings) {
                             Intent intentLists = new Intent(MyTasksActivity.this, SettingsActivity.class);
                             startActivity(intentLists);
+                            finish();
                             return true;
                         }
                         //Logout
