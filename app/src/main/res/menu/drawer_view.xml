@@ -12,10 +12,7 @@
             android:title="@string/shoppingList" />
     </group>
     <group android:id="@+id/options">
-            <item
-                android:id="@+id/nav_edit"
-                android:icon="@drawable/ic_edit_black_24dp"
-                android:title="Edit" />
+
             <item
                 android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_settings_black_24dp"

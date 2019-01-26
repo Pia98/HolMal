@@ -16,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -97,6 +99,15 @@ public class ShoppingListActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
+        //fill header of the navigation view with the username and household of the user
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header);
+        TextView navUserName = headerView.findViewById(R.id.nav_user_name);
+        TextView navHousehold = headerView.findViewById(R.id.nav_household);
+        String ownPersonName = "me";
+        String ownHousehold = "who knows";
+        navUserName.setText(ownPersonName);
+        navHousehold.setText(ownHousehold);
 
         //tab layout for open and done items
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -129,7 +140,6 @@ public class ShoppingListActivity extends AppCompatActivity {
             }
         });
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override

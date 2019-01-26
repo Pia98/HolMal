@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.ShoppingListActivity;
+import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.ShoppingList;
 import java.util.HashMap;
 
@@ -25,6 +26,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     private Context context;
     private HashMap<String, ShoppingList> shoppinglists;
     private String[] listKeys;
+    private HashMap<String, Item> openItems;
     private TextView nameView;
     private TextView categoryView;
     private TextView descriptionView;
@@ -45,10 +47,11 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
      * @param context the context of AllShoppingLists the adapter needs
      * @param shoppinglists a list of all shopping lists a household has
      */
-    public ShoppingListsAdapter(Context context, HashMap<String, ShoppingList> shoppinglists) {
+    public ShoppingListsAdapter(Context context, HashMap<String, ShoppingList> shoppinglists, HashMap<String, Item> openItems) {
         this.context = context;
         this.shoppinglists = shoppinglists;
-        listKeys = shoppinglists.keySet().toArray(new String[shoppinglists.size()]);
+        this.listKeys = shoppinglists.keySet().toArray(new String[shoppinglists.size()]);
+        this.openItems = openItems;
     }
 
     /**
@@ -90,19 +93,14 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
 
         categoryView.setText(listAtPosition.getCategory());
 
+        int amountOpenItems = openItems.size();
         if (listAtPosition.getItemsOfThisList() == null
-                || listAtPosition.getItemsOfThisList().size() == 0) {
+                || listAtPosition.getItemsOfThisList().size() == 0 || amountOpenItems == 0 ) {
             descriptionView.setText(R.string.noOpenItems);
         } else {
-            HashMap<String, String> itemsOnList = listAtPosition.getItemsOfThisList();
-            int amountOpenItems = 0;
-            String[] keys = itemsOnList.keySet().toArray(new String[itemsOnList.size()]);
-            //iterates over list of items to get the amount of items that are still open
-            for(int j = 0; j<itemsOnList.size(); j++ ){
-               //if(itemsOnList.get(keys[i]))
-            }
             descriptionView.setText(R.string.openItems);
-            descriptionView.append(String.valueOf(listAtPosition.getItemsOfThisList().size()));
+            //descriptionView.append(String.valueOf(listAtPosition.getItemsOfThisList().size()));
+            descriptionView.append(String.valueOf(amountOpenItems));
         }
 
         //handles click on list to see it in a shopping list view

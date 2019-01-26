@@ -16,22 +16,19 @@ android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
 
 <TextView
+    android:id="@+id/nav_user_name"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/nav_header_vertical_spacing"
-    android:text="@string/username"
     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
     android:background="@android:color/transparent"
-    android:fontFamily="@font/amatic_sc_bold"
     />
 
 <TextView
-    android:id="@+id/textView"
+    android:id="@+id/nav_household"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="@string/householdName"
     android:background="@android:color/transparent"
-    android:fontFamily="@font/amatic_sc_bold"
     />
 
 </LinearLayout>

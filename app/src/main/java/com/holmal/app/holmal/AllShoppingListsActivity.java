@@ -19,9 +19,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.ShoppingListsAdapter;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -36,6 +39,8 @@ public class AllShoppingListsActivity extends AppCompatActivity {
     private static final String TAG = AllShoppingListsActivity.class.getName();
     private DrawerLayout mDrawerLayout;
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
+    private HashMap<String, Item> openItemsOfTheList = new HashMap<>();
+    private ArrayList<String> itemIds = new ArrayList<>();
     private RecyclerView.LayoutManager layoutmanager;
     private RecyclerView listsView;
 
@@ -61,6 +66,7 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         final String householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
 
         startShoppingListListener(householdId);
+        startOpenItemsListener();
     }
 
     /**
@@ -168,7 +174,8 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
                 //fill with lists with an adapter
-                ShoppingListsAdapter adapter = new ShoppingListsAdapter(AllShoppingListsActivity.this, listsOfThisHousehold);
+                Log.i("FürSvenja", "openItems:" + openItemsOfTheList);
+                ShoppingListsAdapter adapter = new ShoppingListsAdapter(AllShoppingListsActivity.this, listsOfThisHousehold, openItemsOfTheList);
                 listsView.setAdapter(adapter);
             }
 
@@ -178,6 +185,34 @@ public class AllShoppingListsActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Method that starts the listener for items that are not done. It gets the item data from the firebase database.
+     * This is needed for the display of the amount of open items on the lists.
+     */
+    private void startOpenItemsListener() {
+        FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "open item listener in onCreate...");
+                openItemsOfTheList.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    String id = child.getKey();
+                    Item value = child.getValue(Item.class);
+                    Log.i(TAG, "item: " + value);
+                    for (int i = 0; i < itemIds.size(); i++) {
+                        if (id.equals(itemIds.get(i)) && !value.isDone()) {
+                            openItemsOfTheList.put(id, value);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        }); }
 
     /**
      * Method that is called when the navigation drawer menu is opened to keep track on the selection of navigation items.
