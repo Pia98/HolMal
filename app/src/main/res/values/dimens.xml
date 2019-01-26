@@ -6,6 +6,8 @@
 <dimen name="nav_header_vertical_spacing">8dp</dimen>
 <dimen name="nav_header_height">100dp</dimen>
 <dimen name="fab_margin">16dp</dimen>
+<dimen name="big_top_margin">32dp</dimen>
+<dimen name="medium_top_margin">24dp</dimen>
 
     <dimen name="text_margin">8dp</dimen>
     <dimen name="noWidth">0dp</dimen>
@@ -29,5 +31,8 @@
     <dimen name="loadingCircleWidth">246dp</dimen>
     <dimen name="loadingCircleHight">190dp</dimen>
     <dimen name="loadingCircleMarginTop">24dp</dimen>
+
+    <!--text sizes-->
+    <dimen name="textSizeSmall">12sp</dimen>
 
 </resources>
