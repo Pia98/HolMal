@@ -8,7 +8,6 @@ import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -16,33 +15,41 @@ import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * Class that handles adding an item to a shopping list. Accessed via the addItem button in ShoppingListActivity.
+ * Uses the activity_create_item layout.
+ */
 public class CreateItemActivity extends AppCompatActivity {
-    private static final String TAG = CreateItemActivity.class.getName();
 
+    private static final String TAG = CreateItemActivity.class.getName();
     private HashMap<String, Item> itemsOfTheList = new HashMap<>();
     private ArrayList<String> itemIds = new ArrayList<>();
 
-    String itemName;
-    String quantity;
-    boolean important;
-    boolean favorite;
-    String additionalInfo;
-    String itsTask = "";
-    boolean done = false;
-    int timeDone = 0;
+    private String itemName;
+    private String quantity;
+    private boolean important;
+    private boolean favorite;
+    private String additionalInfo;
+    private String itsTask = "";
+    private boolean done = false;
+    private int timeDone = 0;
 
-    String householdId;
-    String shoppingListId;
+    private String householdId;
+    private String shoppingListId;
 
+    /**
+     * Method that initialises the class and its important features and starts listeners.
+     *
+     * @param savedInstanceState Bundle object that contains a saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_item);
         ButterKnife.bind(this);
@@ -58,6 +65,12 @@ public class CreateItemActivity extends AppCompatActivity {
         startItemListener();
     }
 
+    /**
+     * Method that starts the item listener and gets a list of the items of this household from the
+     * firebase database.
+     * Is needed in the create item activity to validate if no other item with that name already
+     * exists on the list.
+     */
     private void startItemListener() {
         FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
             @Override
@@ -104,19 +117,33 @@ public class CreateItemActivity extends AppCompatActivity {
         });
     }
 
-    //pressing this button takes you back to the general view of the shopping list -> nothing happens
+
+    /**
+     * Method that handles the press of the cancel button.
+     * Pressing this button takes you back to the general view of the shopping list. Nothing happens.
+     */
     @OnClick(R.id.cancelButton)
     public void cancelButtonClicked() {
         Intent intent = new Intent(this, ShoppingListActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Method that handles the press of the favourites button.
+     * Leads you to favourites activity where you can choose an item from your favourites to add to the list.
+     * //TODO remove this or not?
+     */
     @OnClick(R.id.fromFavorites)
     public void fromFavoritesButtonClicked() {
         Intent intent = new Intent(this, FavoritesActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Method that handles the press of the add button.
+     * If the validation is successful this method creates a new item, stores it in the database
+     * and takes you back to the ShoppingListActivity.
+     */
     @OnClick(R.id.add)
     public void itemCreationOnClicked() {
         if (validate()) {
@@ -132,6 +159,13 @@ public class CreateItemActivity extends AppCompatActivity {
     }
 
     // Validation: add button can only be pressed if a name has been given
+
+    /**
+     * Validation for the add button.
+     * A name needs to be given to an item.
+     * Also reads the input for the new item from the edit texts and checkbox.
+     * @return if input is valid
+     */
     private boolean validate() {
         EditText itemInput = findViewById(R.id.whatInput);
         itemName = itemInput.getText().toString();
@@ -158,6 +192,11 @@ public class CreateItemActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method that checks if an item name has been given. This is necessary for the validation.
+     * @param itemName input for the name
+     * @return true or false
+     */
     private boolean checkItemNameTaken(String itemName) {
         for (int i = 0; i < itemsOfTheList.size(); i++) {
             String[] keys = itemsOfTheList.keySet().toArray(new String[itemsOfTheList.size()]);
