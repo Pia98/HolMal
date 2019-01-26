@@ -25,7 +25,8 @@
         android:layout_marginLeft="20dp"
         android:text="@+id/itemName"
         android:textSize="17sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:paddingTop="3dp"/>
 
     <TextView
         android:id="@+id/itemAmount"
@@ -33,9 +34,9 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/itemDone"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="24dp"
         android:text="@+id/itemAmount"
-        android:textSize="15sp"/>
+        android:textSize="14sp"/>
 
     <TextView
         android:id="@+id/itemInformation"
@@ -45,7 +46,7 @@
         android:layout_toEndOf="@id/itemDone"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
-        android:textSize="15sp"
+        android:textSize="14sp"
         />
     <ImageView
         android:id="@+id/urgent"
@@ -53,6 +54,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_urgent"
         android:layout_marginLeft="280dp"
+        android:paddingTop="6dp"
         />
     <ImageView
         android:id="@+id/assignedTo"
@@ -60,7 +62,10 @@
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        />
+        android:layout_alignParentBottom="true"/>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAccentSilver" />
 
 </RelativeLayout>
