@@ -86,7 +86,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         nameView = (TextView) rowView.findViewById(R.id.itemName);
         descriptionView = (TextView) rowView.findViewById(R.id.itemAmount);
         urgencyView = (ImageView) rowView.findViewById(R.id.urgent);
-        infoView = (ImageView) rowView.findViewById(R.id.infoAvailable);
+        //infoView = (ImageView) rowView.findViewById(R.id.infoAvailable);
         assignedView = (ImageView) rowView.findViewById(R.id.assignedTo);
         doneView = (CheckBox) rowView.findViewById(R.id.itemDone);
         singleItemView = (RecyclerView) rowView.findViewById(R.id.list);
@@ -120,12 +120,12 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             urgencyView.setImageAlpha(0);
         }
 
-        //shows an i if there is additional information to this item
+        /*//shows an i if there is additional information to this item
         if (itemAtPosition.getAdditionalInfo().isEmpty()) {
             infoView.setImageAlpha(0);
         } else {
             infoView.setImageAlpha(255);
-        }
+        }*/
 
         // checked when item is already done
         if (itemAtPosition.isDone()) {
