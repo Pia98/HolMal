@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,31 +28,32 @@ import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.FireBaseHandling;
-import com.holmal.app.holmal.utils.FragmentHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.SettingsAdapter;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * In the settings a user can change the household name and has access to the household id in case
+ * they want to invite someone to the household. There is an overview of the people in the
+ * household including their colours. Additionally the settings activity provides a possibility to
+ * leave the household for good.
+ * Is accessed via the menu. Uses the activity_settings layout and the SettingsAdapter.
+ */
 public class SettingsActivity extends AppCompatActivity {
+
     private static final String TAG = SettingsActivity.class.getName();
 
-
-    // TODO set text, so that it is not hardcoded anymore!
     @BindView(R.id.householdName)
     TextView householdNameText;
 
-    // TODO set text, so that it is not hardcoded anymore!
     @BindView(R.id.thisHouseholdId)
     TextView householdIdText;
 
     @BindView(R.id.editHouseholdNameText)
-    EditText editHousholdNameText;
+    EditText editHouseholdNameText;
 
     @BindView(R.id.editHouseholdNameDone)
     ImageButton editHouseholdNameDone;
@@ -65,32 +65,46 @@ public class SettingsActivity extends AppCompatActivity {
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
     private HashMap<String, Item> itemsOfThisHousehold = new HashMap<>();
 
+    /**
+     * Method that initialises the class and its important features.
+     * Starts all listeners and sets menu.
+     *
+     * @param savedInstanceState Bundle object that contains a saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
 
-        editHousholdNameText.setVisibility(View.INVISIBLE);
+        editHouseholdNameText.setVisibility(View.INVISIBLE);
         editHouseholdNameDone.setVisibility(View.INVISIBLE);
 
         PreferencesAccess preferencesAccess = new PreferencesAccess();
         householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
 
-        startHouseholdListener();
-
-        //menu that appears from the left
-        menu();
-
-        startPersonListener();
+        //Listener for items
+        startItemListener();
 
         //Listener for shopping list
         startShoppingListListener();
 
-        //Listener for items
-        startItemListener();
+        //Listener for person
+        startPersonListener();
+
+        //Listener for household
+        startHouseholdListener();
+
+        //menu that appears from the left
+        menu();
     }
 
+    /**
+     * Method that starts the item listener and gets a list of the items of this household from the
+     * firebase database.
+     * Is needed in the settings to delete all items in case the last member leaves the household.
+     */
     private void startItemListener() {
         FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
             @Override
@@ -114,6 +128,12 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method that starts the shopping list listener and gets a list of the shopping lists of this
+     * household from the firebase database.
+     * Is needed in the settings to delete all shopping lists in case the last member leaves
+     * the household.
+     */
     private void startShoppingListListener() {
         FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
             @Override
@@ -141,6 +161,12 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method that starts the person listener and gets a list of the members of this
+     * household from the firebase database.
+     * Is needed in the settings to delete a person and unassign their tasks in case they leave the
+     * household.
+     */
     private void startPersonListener() {
         FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
             @Override
@@ -171,6 +197,32 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method that starts the household listener and gets the household name from the firebase database.
+     */
+    private void startHouseholdListener() {
+        FirebaseDatabase.getInstance().getReference().child("household").child(householdId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Household thisHousehold = dataSnapshot.getValue(Household.class);
+                householdNameText.setText(thisHousehold.getHouseholdName());
+                householdIdText.setText(dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    /**
+     * Method that adds a navigation drawer to the class. This is used as a menu to enable
+     * navigation within the app. Sets menu as a toolbar.
+     * Uses the drawer_layout as a layout for the drawer and specifies the behaviour if an item
+     * in the navigation menu is clicked.
+     * This method also sets a listener to the navigation drawer so that it opens and closes.
+     */
     private void menu() {
         Toolbar toolbar = findViewById(R.id.menu);
         setSupportActionBar(toolbar);
@@ -250,24 +302,11 @@ public class SettingsActivity extends AppCompatActivity {
         );
     }
 
-    private void startHouseholdListener() {
-        FirebaseDatabase.getInstance().getReference().child("household").child(householdId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Household thisHousehold = dataSnapshot.getValue(Household.class);
-                householdNameText.setText(thisHousehold.getHouseholdName());
-                householdIdText.setText(dataSnapshot.getKey());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-
-    //Menu is opened
+    /**
+     * Method that is called when the navigation drawer menu is opened to keep track on the selection of navigation items.
+     * @param item in the menu that is selected
+     * @return true
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -278,28 +317,43 @@ public class SettingsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    /**
+     * Button that lets you change the name of the household.
+     * Sets edit text for this visible.
+     */
     @OnClick(R.id.editHouseholdName)
     public void editHouseholdNameClicked(){
-        editHousholdNameText.setVisibility(View.VISIBLE);
+        editHouseholdNameText.setVisibility(View.VISIBLE);
         editHouseholdNameDone.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Button that indicates that the user is done changing the household name.
+     * Changes are saved and displayed and the edit text is set invisible again.
+     */
     @OnClick(R.id.editHouseholdNameDone)
     public void setEditHouseholdNameDone(){
-        String newName = editHousholdNameText.getText().toString();
+        String newName = editHouseholdNameText.getText().toString();
         String id = householdIdText.getText().toString();
         if(!newName.isEmpty()){
             FireBaseHandling.getInstance().editHousholdName(newName, id);
-            editHousholdNameText.setVisibility(View.INVISIBLE);
+            editHouseholdNameText.setVisibility(View.INVISIBLE);
             editHouseholdNameDone.setVisibility(View.INVISIBLE);
             householdNameText.setText(newName);
         }else{
-            editHousholdNameText.setVisibility(View.INVISIBLE);
+            editHouseholdNameText.setVisibility(View.INVISIBLE);
             editHouseholdNameDone.setVisibility(View.INVISIBLE);
         }
     }
 
 
+    /**
+     * Button that lets a user leave the household.
+     * Includes a pop up that asks for verification. If the user is sure they are deleted from the
+     * household and their tasks are unassigned.
+     * In case the household is empty then the household, its lists and its items are deleted as well.
+     */
     @OnClick(R.id.leaveHousehold)
     public void leaveHouseholdClicked() {
 
@@ -380,8 +434,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         AlertDialog alert = builder.create();
         alert.show();
-
-
-
+        
     }
 }

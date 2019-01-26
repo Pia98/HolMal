@@ -9,19 +9,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.database.FirebaseDatabase;
 import com.holmal.app.holmal.ItemInformationActivity;
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
-
 import java.util.HashMap;
 
 /**
@@ -86,7 +83,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         nameView = (TextView) rowView.findViewById(R.id.itemName);
         descriptionView = (TextView) rowView.findViewById(R.id.itemAmount);
         urgencyView = (ImageView) rowView.findViewById(R.id.urgent);
-        //infoView = (ImageView) rowView.findViewById(R.id.infoAvailable);
         infoView = (TextView) rowView.findViewById(R.id.itemInformation);
         assignedView = (ImageView) rowView.findViewById(R.id.assignedTo);
         doneView = (CheckBox) rowView.findViewById(R.id.itemDone);
@@ -97,15 +93,14 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
     }
 
     /**
-     * Method that fills the items of the viewholder with appropriate content
+     * Method that fills the items of the viewholder with appropriate content. Actually adapts the view to show items on the list.
      * @param itemsViewHolder the viewHolder
      * @param position the position at which an item is in the list
      */
     @Override
     public void onBindViewHolder(@NonNull ItemsViewHolder itemsViewHolder, final int position) {
-        //adapts view to show items on list
-        //iterates over the items and gets name and quantitiy of each one
 
+        //iterates over the items and gets name and quantitiy of each one
         final Item itemAtPosition = items.get(itemKeys[position]);
 
         String itemName = itemAtPosition.getItemName();
@@ -114,7 +109,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         String itemQuantity = itemAtPosition.getQuantity();
         descriptionView.setText(itemQuantity);
 
-        //only shows first 25 letters of the message
+        //only shows first 30 letters of the additional info
         String itemInformation = itemAtPosition.getAdditionalInfo();
         if (itemInformation.length()> 30){
             String itemInformationPreview = itemInformation.substring(0, 30);
@@ -130,13 +125,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         } else {
             urgencyView.setImageAlpha(0);
         }
-
-        /*//shows an i if there is additional information to this item
-        if (itemAtPosition.getAdditionalInfo().isEmpty()) {
-            infoView.setImageAlpha(0);
-        } else {
-            infoView.setImageAlpha(255);
-        }*/
 
         // checked when item is already done
         if (itemAtPosition.isDone()) {

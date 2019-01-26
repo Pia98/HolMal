@@ -23,7 +23,6 @@ import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.ShoppingListsAdapter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import butterknife.ButterKnife;
