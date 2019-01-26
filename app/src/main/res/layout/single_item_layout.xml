@@ -13,7 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="10px" />
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:layout_marginLeft="13dp" />
 
     <TextView
         android:id="@+id/itemName"
