@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/itemDone"
+        android:layout_marginLeft="20dp"
         android:text="@+id/itemName"
         android:textSize="17sp"
         android:textStyle="bold" />
@@ -31,7 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/itemDone"
-        android:layout_marginTop="17sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="23dp"
         android:text="@+id/itemAmount"
         android:textSize="15sp"/>
 
@@ -41,6 +43,7 @@
         android:layout_height="wrap_content"
         android:text="@+id/itemInformation"
         android:layout_toEndOf="@id/itemDone"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
         android:textSize="15sp"
         />
@@ -54,7 +57,7 @@
     <ImageView
         android:id="@+id/assignedTo"
         android:layout_width="65dp"
-        android:layout_height="50dp"
+        android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"

@@ -116,8 +116,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
 
         //only shows first 25 letters of the message
         String itemInformation = itemAtPosition.getAdditionalInfo();
-        if (itemInformation.length()> 25){
-            String itemInformationPreview = itemInformation.substring(0, 25);
+        if (itemInformation.length()> 30){
+            String itemInformationPreview = itemInformation.substring(0, 30);
             infoView.setText(itemInformationPreview + "...");
         }
         else{

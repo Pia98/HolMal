@@ -10,7 +10,7 @@
     <!--activity_shopping_list-->
 <dimen name="toolbarHight">50dp</dimen>
 <dimen name="tabsUtoolbarHight">105dp</dimen>
-<dimen name="ButtonPositionX">280dp</dimen>
+<dimen name="ButtonPositionX">300dp</dimen>
 <dimen name="ButtonPositionY">500dp</dimen>
 
 <!--single_shopping_list-->
