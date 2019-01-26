@@ -1,13 +1,22 @@
 package com.holmal.app.holmal.model;
 
+/**
+ * Model for the person.
+ */
 public class Person {
+
     private String personName;
-
     private int color;
-
     private String idBelongingTo;
     private String email;
 
+    /**
+     * Constructor for the person
+     * @param personName every user chooses a name (that is unique within the household)
+     * @param color every person chooses one of eight colours
+     * @param idBelongingTo every person belongs to a household
+     * @param email a person needs an email address to log in
+     */
     public Person(String personName, int color, String idBelongingTo, String email) {
         this.personName = personName;
         this.color = color;
@@ -15,8 +24,7 @@ public class Person {
         this.email = email;
     }
 
-
-    public Person() {
+    public Person(){
     }
 
     public String getPersonName() {

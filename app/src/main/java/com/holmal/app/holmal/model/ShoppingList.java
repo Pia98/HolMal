@@ -2,20 +2,29 @@ package com.holmal.app.holmal.model;
 
 import java.util.HashMap;
 
+/**
+ * Model for the shopping list
+ */
 public class ShoppingList {
+
     private String listName;
     private HashMap<String, String> itemsOfThisList;
     private String category;
-
     private String idBelongingTo;
 
-    public ShoppingList() {
-    }
-
+    /**
+     * Constructor for a shopping list
+     * @param listName every list has a name.
+     * @param category lists can belong to a category. some categories are provided.
+     * @param idBelongingTo a shopping list belongs to a household.
+     */
     public ShoppingList(String listName, String category, String idBelongingTo) {
         this.listName = listName;
         this.category = category;
         this.idBelongingTo = idBelongingTo;
+    }
+
+    public ShoppingList(){
     }
 
     public String getListName() {
