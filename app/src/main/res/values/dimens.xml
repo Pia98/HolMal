@@ -18,19 +18,22 @@
 <dimen name="ButtonPositionX">300dp</dimen>
 <dimen name="ButtonPositionY">500dp</dimen>
 
-<!--single_shopping_list-->
+    <!--single_shopping_list-->
     <!--combined hight: 100dp-->
     <dimen name ="listNameHight">40dp</dimen>
     <dimen name ="listAmountHight">20dp</dimen>
     <dimen name ="widthHalfScreen">150dp</dimen>
 
-    <!--activity_all_shoppinh_lists-->
+    <!--activity_all_shopping_lists-->
     <dimen name="ListsButtonPositionY">450dp</dimen>
 
     <!--activity_login-->
     <dimen name="loadingCircleWidth">246dp</dimen>
     <dimen name="loadingCircleHight">190dp</dimen>
     <dimen name="loadingCircleMarginTop">24dp</dimen>
+
+    <!--activity_settings-->
+    <dimen name="householdMemberListX">200dp</dimen>
 
     <!--text sizes-->
     <dimen name="textSizeSmall">12sp</dimen>
