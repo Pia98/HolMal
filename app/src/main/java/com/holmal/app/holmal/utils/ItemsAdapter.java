@@ -40,7 +40,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
     private TextView nameView;
     private TextView descriptionView;
     private ImageView urgencyView;
-    private ImageView infoView;
+    private TextView infoView;
     private ImageView assignedView;
     private CheckBox doneView;
     RecyclerView singleItemView;
@@ -87,6 +87,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         descriptionView = (TextView) rowView.findViewById(R.id.itemAmount);
         urgencyView = (ImageView) rowView.findViewById(R.id.urgent);
         //infoView = (ImageView) rowView.findViewById(R.id.infoAvailable);
+        infoView = (TextView) rowView.findViewById(R.id.itemInformation);
         assignedView = (ImageView) rowView.findViewById(R.id.assignedTo);
         doneView = (CheckBox) rowView.findViewById(R.id.itemDone);
         singleItemView = (RecyclerView) rowView.findViewById(R.id.list);
@@ -112,6 +113,16 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
 
         String itemQuantity = itemAtPosition.getQuantity();
         descriptionView.setText(itemQuantity);
+
+        //only shows first 25 letters of the message
+        String itemInformation = itemAtPosition.getAdditionalInfo();
+        if (itemInformation.length()> 25){
+            String itemInformationPreview = itemInformation.substring(0, 25);
+            infoView.setText(itemInformationPreview + "...");
+        }
+        else{
+            infoView.setText(itemInformation);
+        }
 
         //shows ! if the item is urgent
         if (itemAtPosition.isImportant()) {
