@@ -158,7 +158,6 @@ public class CreateItemActivity extends AppCompatActivity {
         }
     }
 
-    // Validation: add button can only be pressed if a name has been given
 
     /**
      * Validation for the add button.

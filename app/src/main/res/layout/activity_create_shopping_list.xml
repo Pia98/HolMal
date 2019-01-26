@@ -34,9 +34,9 @@
 
     <EditText
         android:id="@+id/shoppingListNameInput"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/noWidth"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/text_margin"
         app:layout_constraintEnd_toStartOf="@+id/thirdLineBottom"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/shoppingListName" />
@@ -51,9 +51,9 @@
 
     <Spinner
         android:id="@+id/shoppingListCategoryDropDown"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/noWidth"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/text_margin"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toStartOf="@+id/thirdLineBottom"
         app:layout_constraintStart_toEndOf="@id/leftMargin"

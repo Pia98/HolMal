@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
     @BindView(R.id.passwortInput)
     EditText passwordInput;
 
-    @BindView(R.id.passwortInputWdh)
+    @BindView(R.id.passwordInputWdh)
     EditText passwortInputWdh;
 
     @BindView(R.id.loginButton)

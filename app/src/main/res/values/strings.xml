@@ -70,6 +70,8 @@
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="cancel">Abbrechen</string>
+    <!--info-->
+    <string name="whatInfo">Was:</string>
 
 
     <string name="ErrorLoginFailed">Login fehlgeschlagen: Bitte überprüfe deine Email und dein Passwort</string>

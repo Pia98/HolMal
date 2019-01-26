@@ -28,14 +28,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:theme="@style/blueActionBar" />
-        <TextView
-            android:id="@+id/ShoppinglistText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/amatic_sc_bold"
-            android:text="Alle Listen"
-            app:layout_constraintStart_toEndOf="@id/menu"
-            />
+
     </android.support.constraint.ConstraintLayout>
 
         <!--display of the shopping lists-->

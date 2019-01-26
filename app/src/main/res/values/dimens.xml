@@ -6,7 +6,10 @@
 <dimen name="nav_header_vertical_spacing">8dp</dimen>
 <dimen name="nav_header_height">100dp</dimen>
 <dimen name="fab_margin">16dp</dimen>
+
     <dimen name="text_margin">8dp</dimen>
+    <dimen name="noWidth">0dp</dimen>
+
     <!--activity_shopping_list-->
 <dimen name="toolbarHight">56dp</dimen>
 <dimen name="tabsUtoolbarHight">105dp</dimen>
@@ -21,4 +24,10 @@
 
     <!--activity_all_shoppinh_lists-->
     <dimen name="ListsButtonPositionY">450dp</dimen>
+
+    <!--activity_login-->
+    <dimen name="loadingCircleWidth">246dp</dimen>
+    <dimen name="loadingCircleHight">190dp</dimen>
+    <dimen name="loadingCircleMarginTop">24dp</dimen>
+
 </resources>
