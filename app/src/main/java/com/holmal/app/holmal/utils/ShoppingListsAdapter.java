@@ -27,7 +27,6 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     private HashMap<String, ShoppingList> shoppinglists;
     private String[] listKeys;
     private HashMap<String, Item> itemsOfHousehold;
-    private String[] itemsKeys;
     private TextView nameView;
     private TextView categoryView;
     private TextView descriptionView;
@@ -54,8 +53,6 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
         this.shoppinglists = shoppinglists;
         this.listKeys = shoppinglists.keySet().toArray(new String[shoppinglists.size()]);
         this.itemsOfHousehold = itemsOfHousehold;
-        this.itemsKeys = itemsOfHousehold.keySet().toArray(new String[itemsOfHousehold.size()]);
-        Log.i("FürSvenja", itemsKeys.toString() );
     }
 
     /**
@@ -100,30 +97,18 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
         //add the amount of open items to the card
         int amountOpenItems = 0;
         //iterates over all items
-        for(int j = 0; j< itemsKeys.length; j++){
+        String [] itemsKeys = itemsOfHousehold.keySet().toArray(new String[itemsOfHousehold.size()]);
+
+        for(int j = 0; j< itemsKeys.length-1; j++){
             //checks if the item is on the currently looked at list
-            Log.i("FürSvenja", "is item on list of household" +(itemsOfHousehold.get(itemsKeys[j]).getBelongsTo() == listAtPositionKey ));
-            if(itemsOfHousehold.get(itemsKeys[j]).getBelongsTo() == listAtPositionKey){
+            String itemListID = itemsOfHousehold.get(itemsKeys[j]).getBelongsTo();
+            if(itemListID.equals(listAtPositionKey)){
                 if(!itemsOfHousehold.get(itemsKeys[j]).isDone()){
                     amountOpenItems += 1;
                 }
             }
         }
-
-
-       /* HashMap<String, String> currentItem = listAtPosition.getItemsOfThisList();
-        String[] keysItems = currentItem.keySet().toArray(new String[currentItem.size()]);
-        //iterate over items of this list
-        for(int j = 0; j < keysItems.length; j++){
-            if(itemsOfHousehold.)
-
-            if(itemsOfHousehold.containsKey(keysItems[j])){
-                if(!itemsOfHousehold.get(keysItems[j]).isDone() &&
-                        itemsOfHousehold.get(keysItems[j]).getBelongsTo().equals(listAtPositionKey)){
-                    amountOpenItems += 1;
-                }
-            }
-        }*/
+        
         //sets the number of items into the descriptionView
         if (listAtPosition.getItemsOfThisList() == null
                 || listAtPosition.getItemsOfThisList().size() == 0 || amountOpenItems == 0 ) {
