@@ -26,10 +26,12 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     private Context context;
     private HashMap<String, ShoppingList> shoppinglists;
     private String[] listKeys;
-    private HashMap<String, Item> openItems;
+    private HashMap<String, Item> itemsOfHousehold;
+    private String[] itemsKeys;
     private TextView nameView;
     private TextView categoryView;
     private TextView descriptionView;
+    String listAtPositionKey;
 
     /**
      * Provide a reference to the views for each data item
@@ -47,11 +49,12 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
      * @param context the context of AllShoppingLists the adapter needs
      * @param shoppinglists a list of all shopping lists a household has
      */
-    public ShoppingListsAdapter(Context context, HashMap<String, ShoppingList> shoppinglists, HashMap<String, Item> openItems) {
+    public ShoppingListsAdapter(Context context, HashMap<String, ShoppingList> shoppinglists, HashMap<String, Item> itemsOfHousehold) {
         this.context = context;
         this.shoppinglists = shoppinglists;
         this.listKeys = shoppinglists.keySet().toArray(new String[shoppinglists.size()]);
-        this.openItems = openItems;
+        this.itemsOfHousehold = itemsOfHousehold;
+        this.itemsKeys = itemsOfHousehold.keySet().toArray(new String[itemsOfHousehold.size()]);
     }
 
     /**
@@ -86,14 +89,41 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     public void onBindViewHolder(@NonNull ShoppingListsAdapter.ListsViewHolder listsViewHolder, int i) {
 
         final ShoppingList listAtPosition = shoppinglists.get(listKeys[i]);
-        final String[] keysShoppingLists = shoppinglists.keySet().toArray(new String[shoppinglists.size()]);
-        final String listAtPositionKey = keysShoppingLists[i];
+        listAtPositionKey = listKeys[i];
+        Log.i("FürSvenja", "keysShoppingLists" + listAtPositionKey);
 
         nameView.setText(listAtPosition.getListName());
 
         categoryView.setText(listAtPosition.getCategory());
 
-        int amountOpenItems = openItems.size();
+        //add the amount of open items to the card
+        int amountOpenItems = 0;
+        //iterates over all items
+        for(int j = 0; j< itemsKeys.length; j++){
+            //checks if the item is on the currently looked at list
+            if(itemsOfHousehold.get(itemsKeys[j]).getBelongsTo() == listAtPositionKey){
+                    //.equals(listAtPositionKey)){
+                if(!itemsOfHousehold.get(itemsKeys[j]).isDone()){
+                    amountOpenItems += 1;
+                }
+            }
+        }
+
+
+       /* HashMap<String, String> currentItem = listAtPosition.getItemsOfThisList();
+        String[] keysItems = currentItem.keySet().toArray(new String[currentItem.size()]);
+        //iterate over items of this list
+        for(int j = 0; j < keysItems.length; j++){
+            if(itemsOfHousehold.)
+
+            if(itemsOfHousehold.containsKey(keysItems[j])){
+                if(!itemsOfHousehold.get(keysItems[j]).isDone() &&
+                        itemsOfHousehold.get(keysItems[j]).getBelongsTo().equals(listAtPositionKey)){
+                    amountOpenItems += 1;
+                }
+            }
+        }*/
+        //sets the number of items into the descriptionView
         if (listAtPosition.getItemsOfThisList() == null
                 || listAtPosition.getItemsOfThisList().size() == 0 || amountOpenItems == 0 ) {
             descriptionView.setText(R.string.noOpenItems);
