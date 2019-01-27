@@ -65,6 +65,9 @@ public class SettingsActivity extends AppCompatActivity {
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
     private HashMap<String, Item> itemsOfThisHousehold = new HashMap<>();
 
+    PreferencesAccess preferencesAccess = new PreferencesAccess();
+
+
     /**
      * Method that initialises the class and its important features.
      * Starts all listeners and sets menu.
@@ -81,7 +84,6 @@ public class SettingsActivity extends AppCompatActivity {
         editHouseholdNameText.setVisibility(View.INVISIBLE);
         editHouseholdNameDone.setVisibility(View.INVISIBLE);
 
-        PreferencesAccess preferencesAccess = new PreferencesAccess();
         householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
 
         //Listener for items
@@ -233,7 +235,39 @@ public class SettingsActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
+        //fill header of the navigation view with the username and household of the user
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header);
+        final TextView navUserName = headerView.findViewById(R.id.nav_user_name);
+        final TextView navHousehold = headerView.findViewById(R.id.nav_household);
+        String personId = preferencesAccess.readPreferences(this, getString(R.string.personIDPreference));
+
+        FirebaseDatabase.getInstance().getReference().child("person").child(personId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Person thisPerson = dataSnapshot.getValue(Person.class);
+                navUserName.setText(thisPerson.getPersonName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        FirebaseDatabase.getInstance().getReference().child("household").child(householdId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Household thisHousehold = dataSnapshot.getValue(Household.class);
+                navHousehold.setText(thisHousehold.getHouseholdName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -262,7 +296,6 @@ public class SettingsActivity extends AppCompatActivity {
                         else if (menuItem.getItemId() == R.id.logout) {
                             Log.i("TAG", "Logout button clicked");
                             //delete preferences
-                            PreferencesAccess preferencesAccess = new PreferencesAccess();
                             preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.householdIDPreference), null);
                             preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.personIDPreference), null);
                             preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.recentShoppingListNamePreference), null);

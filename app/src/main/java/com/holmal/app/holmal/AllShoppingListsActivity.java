@@ -14,12 +14,16 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Item;
+import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.ShoppingListsAdapter;
@@ -42,6 +46,9 @@ public class AllShoppingListsActivity extends AppCompatActivity {
     private ArrayList<String> itemIds = new ArrayList<>();
     private RecyclerView.LayoutManager layoutmanager;
     private RecyclerView listsView;
+    private String householdId;
+    PreferencesAccess preferencesAccess = new PreferencesAccess();
+
 
     /**
      * Method that initialises the class and its important features.
@@ -58,11 +65,10 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         layoutmanager = new GridLayoutManager(this, 2);
         listsView.setLayoutManager(layoutmanager);
 
+        householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
+
         //menu that appears from the left
         menu();
-
-        PreferencesAccess preferencesAccess = new PreferencesAccess();
-        final String householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
 
         startShoppingListListener(householdId);
         startOpenItemsListener();
@@ -84,7 +90,40 @@ public class AllShoppingListsActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
+        //fill header of the navigation view with the username and household of the user
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header);
+        final TextView navUserName = headerView.findViewById(R.id.nav_user_name);
+        final TextView navHousehold = headerView.findViewById(R.id.nav_household);
+        String personId = preferencesAccess.readPreferences(this, getString(R.string.personIDPreference));
+
+        FirebaseDatabase.getInstance().getReference().child("person").child(personId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Person thisPerson = dataSnapshot.getValue(Person.class);
+                navUserName.setText(thisPerson.getPersonName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        FirebaseDatabase.getInstance().getReference().child("household").child(householdId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Household thisHousehold = dataSnapshot.getValue(Household.class);
+                navHousehold.setText(thisHousehold.getHouseholdName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -111,7 +150,6 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                         else if (menuItem.getItemId() == R.id.logout) {
                             Log.i("TAG", "Logout button clicked");
                             //delete preferences
-                            PreferencesAccess preferencesAccess = new PreferencesAccess();
                             preferencesAccess.storePreferences(AllShoppingListsActivity.this, getString(R.string.householdIDPreference), null);
                             preferencesAccess.storePreferences(AllShoppingListsActivity.this, getString(R.string.personIDPreference), null);
                             preferencesAccess.storePreferences(AllShoppingListsActivity.this, getString(R.string.recentShoppingListNamePreference), null);
