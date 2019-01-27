@@ -38,7 +38,8 @@
     <string name="what">Was</string>
     <string name="fromFavorites">aus Favoriten</string>
     <string name="amount">Wie viel</string>
-    <string name="info">Info</string>
+    <string name="info">Bemerkung</string>
+    <string name="who">Wer bringt\'s mit</string>
     <string name="urgent">dringend</string>
     <string name="saveAsFavorite">als Favorit speichern</string>
     <string name="add">Hinzufügen</string>

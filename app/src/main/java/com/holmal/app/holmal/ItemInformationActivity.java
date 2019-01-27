@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -67,6 +68,9 @@ public class ItemInformationActivity extends AppCompatActivity {
     @BindView(R.id.itemEditTask)
     Spinner itemEditTask;
 
+    @BindView(R.id.itemUrgentCheck)
+    CheckBox itemUrgentCheck;
+
     HashMap<String, Person> joiningPerson = new HashMap<>();
     ArrayList<String> personenNamen = new ArrayList<>();
     ArrayAdapter<String> adapter;
@@ -76,6 +80,7 @@ public class ItemInformationActivity extends AppCompatActivity {
     String itemId;
 
     String householdId;
+    Boolean itemUrgent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +93,7 @@ public class ItemInformationActivity extends AppCompatActivity {
         itemEditAmount.setVisibility(View.INVISIBLE);
         itemEditDescription.setVisibility(View.INVISIBLE);
         itemEditTask.setVisibility(View.INVISIBLE);
+        itemUrgentCheck.setVisibility(View.INVISIBLE);
 
         Bundle extras = getIntent().getExtras();
         itemId = extras.getString("itemId");
@@ -113,7 +119,7 @@ public class ItemInformationActivity extends AppCompatActivity {
                 String itemAmount = thisItem.getQuantity();
                 String itemDescription = thisItem.getAdditionalInfo();
                 String itemTask = thisItem.getItsTask();
-                Boolean itemUrgent = thisItem.isImportant();
+                itemUrgent = thisItem.isImportant();
 
                 itemNameText.setText(itemName);
                 itemAmountText.setText(itemAmount);
@@ -187,6 +193,8 @@ public class ItemInformationActivity extends AppCompatActivity {
         itemDescriptionText.setVisibility(View.INVISIBLE);
         itemEditTask.setVisibility(View.VISIBLE);
         itemTaskText.setVisibility(View.INVISIBLE);
+        itemUrgentCheck.setVisibility(View.VISIBLE);
+        itemUrgentCheck.setChecked(itemUrgent);
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, personenNamen);
         itemEditTask.setAdapter(adapter);
@@ -198,6 +206,7 @@ public class ItemInformationActivity extends AppCompatActivity {
         String newAmount = itemEditAmount.getText().toString();
         String newDescription = itemEditDescription.getText().toString();
         String newPersonTask = itemEditTask.getSelectedItem().toString();
+        Boolean newUrgent = itemUrgentCheck.isChecked();
         //TODO checking if person in household exits
 
         if(newName != null){
@@ -224,6 +233,9 @@ public class ItemInformationActivity extends AppCompatActivity {
             }else{
                 Toast.makeText(getApplicationContext(), getString(R.string.ErrorItemsPersonTask), Toast.LENGTH_SHORT);
             }
+        }
+        if(itemUrgent != newUrgent){
+            FireBaseHandling.getInstance().editItemUrgent(newUrgent, itemId);
         }
 
         itemComplete.setVisibility(View.INVISIBLE);
