@@ -434,6 +434,7 @@ public class SettingsActivity extends AppCompatActivity {
                        /* FirebaseAuth.getInstance().signOut();
                         Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
                         startActivity(intentout);*/
+                       finish();
                     }
                 });
         builder.setNegativeButton(
