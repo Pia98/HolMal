@@ -249,5 +249,9 @@ public class ItemInformationActivity extends AppCompatActivity {
         itemDescriptionText.setVisibility(View.VISIBLE);
         itemEditTask.setVisibility(View.INVISIBLE);
         itemTaskText.setVisibility(View.VISIBLE);
+        itemUrgentCheck.setVisibility(View.INVISIBLE);
+        if(newUrgent){
+            itemUrgentText.setVisibility(View.VISIBLE);
+        }
     }
 }
