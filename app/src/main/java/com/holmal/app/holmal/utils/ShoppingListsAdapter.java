@@ -108,7 +108,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
                 }
             }
         }
-        
+
         //sets the number of items into the descriptionView
         if (listAtPosition.getItemsOfThisList() == null
                 || listAtPosition.getItemsOfThisList().size() == 0 || amountOpenItems == 0 ) {
