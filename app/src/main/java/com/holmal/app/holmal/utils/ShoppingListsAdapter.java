@@ -90,7 +90,15 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
         listAtPositionKey = listKeys[i];
         Log.i("FürSvenja", "keysShoppingLists" + listAtPositionKey);
 
-        nameView.setText(listAtPosition.getListName());
+        //only shows first letters of the name
+        String listName = listAtPosition.getListName();
+        if (listName.length()> 11){
+            String listNamePreview = listName.substring(0, 10);
+            nameView.setText(listNamePreview + "...");
+        }
+        else{
+            nameView.setText(listName);
+        }
 
         categoryView.setText(listAtPosition.getCategory());
 
