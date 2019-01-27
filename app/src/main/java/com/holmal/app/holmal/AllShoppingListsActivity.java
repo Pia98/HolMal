@@ -96,7 +96,6 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         final TextView navUserName = headerView.findViewById(R.id.nav_user_name);
         final TextView navHousehold = headerView.findViewById(R.id.nav_household);
         String personId = preferencesAccess.readPreferences(this, getString(R.string.personIDPreference));
-
         FirebaseDatabase.getInstance().getReference().child("person").child(personId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
