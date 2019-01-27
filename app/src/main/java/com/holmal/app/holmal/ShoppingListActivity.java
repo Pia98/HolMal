@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
@@ -56,6 +57,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     private String recentShoppingListName;
     private RecyclerView list;
     private String shoppingListId;
+    private Household household;
 
     /**
      * Method that initialises the class and its important features.
@@ -102,12 +104,35 @@ public class ShoppingListActivity extends AppCompatActivity {
         //fill header of the navigation view with the username and household of the user
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header);
-        TextView navUserName = headerView.findViewById(R.id.nav_user_name);
-        TextView navHousehold = headerView.findViewById(R.id.nav_household);
-        String ownPersonName = "me";
-        String ownHousehold = "who knows";
-        navUserName.setText(ownPersonName);
-        navHousehold.setText(ownHousehold);
+        final TextView navUserName = headerView.findViewById(R.id.nav_user_name);
+        final TextView navHousehold = headerView.findViewById(R.id.nav_household);
+        String personId = preferences.readPreferences(this, getString(R.string.personIDPreference));
+
+        FirebaseDatabase.getInstance().getReference().child("person").child(personId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Person thisPerson = dataSnapshot.getValue(Person.class);
+                navUserName.setText(thisPerson.getPersonName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        FirebaseDatabase.getInstance().getReference().child("household").child(householdId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Household thisHousehold = dataSnapshot.getValue(Household.class);
+                navHousehold.setText(thisHousehold.getHouseholdName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //tab layout for open and done items
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
