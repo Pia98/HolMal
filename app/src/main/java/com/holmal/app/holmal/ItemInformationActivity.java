@@ -195,6 +195,7 @@ public class ItemInformationActivity extends AppCompatActivity {
         itemTaskText.setVisibility(View.INVISIBLE);
         itemUrgentCheck.setVisibility(View.VISIBLE);
         itemUrgentCheck.setChecked(itemUrgent);
+        itemUrgentText.setVisibility(View.INVISIBLE);
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, personenNamen);
         itemEditTask.setAdapter(adapter);
