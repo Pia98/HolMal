@@ -22,14 +22,14 @@
             android:layout_height="match_parent"
             app:layout_constraintStart_toEndOf="@+id/leftMargin">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/menu"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/blueActionBar" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/menu"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/blueActionBar" />
 
-    </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
 
         <!--display of the shopping lists-->
         <android.support.constraint.ConstraintLayout
@@ -43,21 +43,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
-        </android.support.constraint.ConstraintLayout>
-
 
     <!-- corresponds to button 13 in paper prototype-->
 
-        <ImageButton
-            android:id="@+id/addShoppingList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/addShoppingList"
-            android:src="@drawable/ic_add_circle"
-            android:translationX="@dimen/ButtonPositionX"
-            android:translationY="@dimen/ListsButtonPositionY"
-            android:background="@android:color/transparent"
-            />
+            <ImageButton
+                android:id="@+id/addShoppingList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="32dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/addShoppingList"
+                android:src="@drawable/ic_add_circle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
     </android.widget.FrameLayout>
 
