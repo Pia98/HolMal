@@ -7,21 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".RegistrationActivity">
 
-    <!-- TODO Replace with Logo/App Name-->
-    <!--<ImageView-->
-        <!--android:id="@+id/dummyLogo"-->
-        <!--android:layout_width="70dp"-->
-        <!--android:layout_height="70dp"-->
-        <!--android:src="@drawable/dummy_logo"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/thirdLineLeft"-->
-        <!--app:layout_constraintEnd_toStartOf="@+id/rightMargin"-->
-        <!--app:layout_constraintStart_toStartOf="@+id/leftMargin"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/topMargin" />-->
-
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="246dp"
-        android:layout_height="190dp"
+        android:layout_width="@dimen/loadingCircleWidth"
+        android:layout_height="@dimen/loadingCircleHight"
         android:src="@drawable/logo_hol_mal"
         app:layout_constraintEnd_toStartOf="@+id/rightMargin"
         app:layout_constraintStart_toEndOf="@+id/leftMargin"

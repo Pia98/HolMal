@@ -1,5 +1,8 @@
 package com.holmal.app.holmal;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -347,6 +350,15 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method that puts the household ID into the ClipData. This makes it easier to invite people.
+     */
+    @OnClick(R.id.copyHouseholdId)
+    public void copyHouseholdId() {
+        ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clipData = ClipData.newPlainText("Hol Mal household id", householdId);
+        clipboardManager.setPrimaryClip(clipData);
+    }
 
     /**
      * Button that lets a user leave the household.
