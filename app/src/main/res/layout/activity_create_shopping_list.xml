@@ -6,13 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".CreateShoppingListActivity">
 
-    <Button
+
+    <ImageButton
         android:id="@+id/close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/cancel"
+        android:src="@drawable/ic_close"
+        android:background="@color/colorBackground"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"
-        app:layout_constraintTop_toBottomOf="@id/topMargin" />
+        app:layout_constraintTop_toBottomOf="@id/topMargin"
+        />
 
     <TextView
         android:id="@+id/createShoppingListHeader"
