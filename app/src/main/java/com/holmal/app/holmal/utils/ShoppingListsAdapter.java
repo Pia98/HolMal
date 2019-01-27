@@ -31,7 +31,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     private TextView nameView;
     private TextView categoryView;
     private TextView descriptionView;
-    String listAtPositionKey;
+    private String listAtPositionKey;
 
     /**
      * Provide a reference to the views for each data item
@@ -55,6 +55,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
         this.listKeys = shoppinglists.keySet().toArray(new String[shoppinglists.size()]);
         this.itemsOfHousehold = itemsOfHousehold;
         this.itemsKeys = itemsOfHousehold.keySet().toArray(new String[itemsOfHousehold.size()]);
+        Log.i("FürSvenja", itemsKeys.toString() );
     }
 
     /**
@@ -101,8 +102,8 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
         //iterates over all items
         for(int j = 0; j< itemsKeys.length; j++){
             //checks if the item is on the currently looked at list
+            Log.i("FürSvenja", "is item on list of household" +(itemsOfHousehold.get(itemsKeys[j]).getBelongsTo() == listAtPositionKey ));
             if(itemsOfHousehold.get(itemsKeys[j]).getBelongsTo() == listAtPositionKey){
-                    //.equals(listAtPositionKey)){
                 if(!itemsOfHousehold.get(itemsKeys[j]).isDone()){
                     amountOpenItems += 1;
                 }
