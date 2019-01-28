@@ -52,16 +52,13 @@
             android:layout_height="37dp"
             android:text="@string/color"
             android:textSize="18sp" />
-            <RadioGroup
-                android:id="@+id/colorChoice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            <RadioGroup
-                android:id="@+id/colorChoice1"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
 
+        <com.holmal.app.holmal.ui.registrationfragment1.RadioGridGroup
+            android:id="@+id/colorChoice"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
+
+            <TableRow>
                 <RadioButton
                     android:id="@+id/color1"
                     android:layout_width="wrap_content"
@@ -85,13 +82,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPersonLightBlue" />
-            </RadioGroup>
-            <RadioGroup
-                android:id="@+id/colorChoice2"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
+            </TableRow>
+            <TableRow>
                 <RadioButton
                     android:id="@+id/color5"
                     android:layout_width="wrap_content"
@@ -117,9 +109,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPersonPurple" />
+            </TableRow>
 
-            </RadioGroup>
-            </RadioGroup>
+        </com.holmal.app.holmal.ui.registrationfragment1.RadioGridGroup>
 
     </LinearLayout>
 
