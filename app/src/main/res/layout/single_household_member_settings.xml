@@ -6,6 +6,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:padding="6dip"
+    android:theme="@style/whiteConstraintlAyout"
     >
 
     <ImageView
@@ -13,7 +14,8 @@
         android:layout_height="30dp"
         android:id="@+id/personColour"
         android:src="@drawable/ic_square_settings"
-        android:layout_marginLeft="10px"/>
+        android:layout_marginLeft="10px"
+        android:background="@color/colorListsBackground"/>
     <!--TODO add hardcoded amounts to dimens-->
 
     <TextView
@@ -23,5 +25,6 @@
         android:layout_marginLeft="100px"
         android:text="@+id/itemName"
         android:textSize="40px"
+        android:background="@color/colorListsBackground"
         />
 </RelativeLayout>
