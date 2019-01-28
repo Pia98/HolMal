@@ -24,8 +24,6 @@ import butterknife.OnClick;
 
 public class RegistrationFragment1 extends Fragment {
 
-    private RegistrationFragment1ViewModel mViewModel;
-
     public static RegistrationFragment1 newInstance() {
         return new RegistrationFragment1();
     }
@@ -57,11 +55,11 @@ public class RegistrationFragment1 extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(RegistrationFragment1ViewModel.class);
-        // TODO: Use the ViewModel
     }
 
-    //Haushalts ID in die Zwischenablage (ClipData)
+    /**
+     * Haushalts ID in die Zwischenablage (ClipData) kopieren
+     */
     @OnClick(R.id.copy)
     public void copyHouseholdId() {
 
@@ -72,7 +70,9 @@ public class RegistrationFragment1 extends Fragment {
 
     }
 
-    //invite someone to your household
+    /**
+     * invite someone to your household
+     */
     @OnClick(R.id.invite)
     public void inviteToApp() {
         try {
@@ -88,9 +88,13 @@ public class RegistrationFragment1 extends Fragment {
         }
     }
 
+    /**
+     * onClickListener for 'done' button
+     */
     @OnClick(R.id.registrationCreateDone)
     public void registrationCreateButtonDoneClick() {
         Intent intent = new Intent(getActivity(), ShoppingListActivity.class);
         startActivity(intent);
+        getActivity().finish();
     }
 }

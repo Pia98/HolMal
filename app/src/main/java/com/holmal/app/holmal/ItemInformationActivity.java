@@ -1,13 +1,16 @@
 package com.holmal.app.holmal;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -67,6 +70,9 @@ public class ItemInformationActivity extends AppCompatActivity {
     @BindView(R.id.itemEditTask)
     Spinner itemEditTask;
 
+    @BindView(R.id.itemUrgentCheck)
+    CheckBox itemUrgentCheck;
+
     HashMap<String, Person> joiningPerson = new HashMap<>();
     ArrayList<String> personenNamen = new ArrayList<>();
     ArrayAdapter<String> adapter;
@@ -76,6 +82,7 @@ public class ItemInformationActivity extends AppCompatActivity {
     String itemId;
 
     String householdId;
+    Boolean itemUrgent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +95,7 @@ public class ItemInformationActivity extends AppCompatActivity {
         itemEditAmount.setVisibility(View.INVISIBLE);
         itemEditDescription.setVisibility(View.INVISIBLE);
         itemEditTask.setVisibility(View.INVISIBLE);
+        itemUrgentCheck.setVisibility(View.INVISIBLE);
 
         Bundle extras = getIntent().getExtras();
         itemId = extras.getString("itemId");
@@ -108,26 +116,28 @@ public class ItemInformationActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.i(TAG, "item listener in onCreate...");
                 thisItem = dataSnapshot.getValue(Item.class);
-                Log.i(TAG, "thisItem " + thisItem);
-                String itemName = thisItem.getItemName();
-                String itemAmount = thisItem.getQuantity();
-                String itemDescription = thisItem.getAdditionalInfo();
-                String itemTask = thisItem.getItsTask();
-                Boolean itemUrgent = thisItem.isImportant();
+                if (thisItem != null){
+                    Log.i(TAG, "thisItem " + thisItem);
+                    String itemName = thisItem.getItemName();
+                    String itemAmount = thisItem.getQuantity();
+                    String itemDescription = thisItem.getAdditionalInfo();
+                    String itemTask = thisItem.getItsTask();
+                    itemUrgent = thisItem.isImportant();
 
-                itemNameText.setText(itemName);
-                itemAmountText.setText(itemAmount);
-                itemDescriptionText.setText(itemDescription);
-                if(!itemTask.isEmpty()){
-                    String personName = joiningPerson.get(itemTask).getPersonName();
-                    itemTaskText.setText(String.format(getString(R.string.brings), personName));
-                } else {
-                    itemTaskText.setText(itemTask);
-                }
-                if(itemUrgent){
-                    itemUrgentText.setVisibility(View.VISIBLE);
-                } else{
-                    itemUrgentText.setVisibility(View.INVISIBLE);
+                    itemNameText.setText(itemName);
+                    itemAmountText.setText(itemAmount);
+                    itemDescriptionText.setText(itemDescription);
+                    if (!itemTask.isEmpty()) {
+                        String personName = joiningPerson.get(itemTask).getPersonName();
+                        itemTaskText.setText(String.format(getString(R.string.brings), personName));
+                    } else {
+                        itemTaskText.setText(itemTask);
+                    }
+                    if (itemUrgent) {
+                        itemUrgentText.setVisibility(View.VISIBLE);
+                    } else {
+                        itemUrgentText.setVisibility(View.INVISIBLE);
+                    }
                 }
             }
 
@@ -170,6 +180,7 @@ public class ItemInformationActivity extends AppCompatActivity {
     public void onItemCloseClicked(){
         Intent intent = new Intent(this, ShoppingListActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @OnClick(R.id.itemEdit)
@@ -187,6 +198,9 @@ public class ItemInformationActivity extends AppCompatActivity {
         itemDescriptionText.setVisibility(View.INVISIBLE);
         itemEditTask.setVisibility(View.VISIBLE);
         itemTaskText.setVisibility(View.INVISIBLE);
+        itemUrgentCheck.setVisibility(View.VISIBLE);
+        itemUrgentCheck.setChecked(itemUrgent);
+        itemUrgentText.setVisibility(View.INVISIBLE);
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, personenNamen);
         itemEditTask.setAdapter(adapter);
@@ -198,6 +212,7 @@ public class ItemInformationActivity extends AppCompatActivity {
         String newAmount = itemEditAmount.getText().toString();
         String newDescription = itemEditDescription.getText().toString();
         String newPersonTask = itemEditTask.getSelectedItem().toString();
+        Boolean newUrgent = itemUrgentCheck.isChecked();
         //TODO checking if person in household exits
 
         if(newName != null){
@@ -225,6 +240,9 @@ public class ItemInformationActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), getString(R.string.ErrorItemsPersonTask), Toast.LENGTH_SHORT);
             }
         }
+        if(itemUrgent != newUrgent){
+            FireBaseHandling.getInstance().editItemUrgent(newUrgent, itemId);
+        }
 
         itemComplete.setVisibility(View.INVISIBLE);
         itemEdit.setVisibility(View.VISIBLE);
@@ -236,5 +254,41 @@ public class ItemInformationActivity extends AppCompatActivity {
         itemDescriptionText.setVisibility(View.VISIBLE);
         itemEditTask.setVisibility(View.INVISIBLE);
         itemTaskText.setVisibility(View.VISIBLE);
+        itemUrgentCheck.setVisibility(View.INVISIBLE);
+        if(newUrgent){
+            itemUrgentText.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @OnClick(R.id.itemDelete)
+    public void deleteItem(){
+        if(itemId != null){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            String message = getString(R.string.deleteItemConfirmation) + "\n" + itemNameText.getText().toString();
+            builder.setMessage(message);
+            builder.setCancelable(true);
+            builder.setPositiveButton(
+                    R.string.yes,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            String tempItemId = itemId;
+                            itemId = null;
+                            FireBaseHandling.getInstance().deleteItem(tempItemId);
+                            Intent intent = new Intent(ItemInformationActivity.this, ShoppingListActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+            builder.setNegativeButton(
+                    R.string.no,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 }

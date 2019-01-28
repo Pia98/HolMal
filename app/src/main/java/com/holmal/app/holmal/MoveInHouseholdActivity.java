@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
+import com.holmal.app.holmal.ui.registrationfragment1.RadioGridGroup;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
@@ -192,7 +192,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
      * @return if input is valid
      */
     private boolean checkColours(List<Person> personList) {
-        RadioGroup colourChooser = findViewById(R.id.colorChoice);
+        RadioGridGroup colourChooser = findViewById(R.id.colorChoice);
         //check if a button was chosen
         if (colourChooser.getCheckedRadioButtonId() != -1) {
             chosenColorId = colourChooser.getCheckedRadioButtonId();

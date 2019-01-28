@@ -181,7 +181,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
                 } else if (itemAtPosition.getItsTask().equals(ownPersonID)){
                     FirebaseDatabase.getInstance().getReference().child("item").child(itemKeys[position]).child("itsTask").setValue("");
                 } else if (!itemAtPosition.getItsTask().equals(ownPersonID)){
-                    Toast.makeText(context, R.string.alreadyAssigned, Toast.LENGTH_LONG).show();
+                    Toast.makeText(context.getApplicationContext(), R.string.alreadyAssigned, Toast.LENGTH_LONG).show();
                 }
 
                 return true;

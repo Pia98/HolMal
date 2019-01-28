@@ -1,6 +1,5 @@
 package com.holmal.app.holmal.ui.registrationfragment1;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,10 +27,12 @@ import java.util.HashMap;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * used when a user wants to move into an household
+ */
 public class RegistrationFragment2 extends Fragment {
     private static final String TAG = RegistrationFragment2.class.getName();
 
-    private RegistrationFragment2ViewModel mViewModel;
     String inputId;
     private HashMap<String, Household> haushalte = new HashMap<>();
 
@@ -51,16 +52,17 @@ public class RegistrationFragment2 extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(RegistrationFragment2ViewModel.class);
-        // TODO: Use the ViewModel
     }
 
+    /**
+     * gives an alert if the user really wants to move into that household
+     */
     @OnClick(R.id.idInputDone)
     public void idInputDoneClick() {
         if (validate()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             String haushaltName = haushalte.get(inputId).getHouseholdName();
-            String message = R.string.moveinConfirmation + "\nID: " + inputId + "\nName: " + haushaltName;
+            String message = getString(R.string.moveinConfirmation) + "\nID: " + inputId + "\nName: " + haushaltName;
             builder.setMessage(message);
             builder.setCancelable(true);
             builder.setPositiveButton(
@@ -85,6 +87,9 @@ public class RegistrationFragment2 extends Fragment {
         }
     }
 
+    /**
+     * starts the listener on the child "household" on the database
+     */
     private void startHouseholdListener() {
         FirebaseDatabase.getInstance().getReference().child("household").addValueEventListener(new ValueEventListener() {
             @Override
@@ -107,7 +112,10 @@ public class RegistrationFragment2 extends Fragment {
         });
     }
 
-    //checks for input
+    /**
+     * checks if the user edited sth
+     * checks if the id that is given by the user really exists
+     */
     public Boolean validate() {
         EditText householdId = (EditText) getView().findViewById(R.id.idInput);
         inputId = householdId.getText().toString();
