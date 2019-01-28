@@ -90,6 +90,9 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         startHouseholdListener();
     }
 
+    /**
+     * this method starts an listener on "household" on the database
+     */
     private void startHouseholdListener() {
         FirebaseDatabase.getInstance().getReference().child("household").addValueEventListener(new ValueEventListener() {
             @Override
@@ -112,6 +115,9 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         });
     }
 
+    /**
+     * this method starts an listener on "person" on the database
+     */
     private void startPersonListener() {
         FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
             @Override
@@ -134,6 +140,10 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         });
     }
 
+    /**
+     * This method handles the changing status of an user (logged in or not logged in)
+     * @param firebaseAuth
+     */
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -163,17 +173,26 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         }
     }
 
+    /**
+     * starts authentication listener
+     */
     protected void onResume() {
         super.onResume();
         fireAuth.addAuthStateListener(this);
     }
 
+    /**
+     * removes authentication listener
+     */
     @Override
     protected void onPause() {
         super.onPause();
         fireAuth.removeAuthStateListener(this);
     }
 
+    /**
+     * OnClickListener for the "login" button
+     */
     @OnClick(R.id.loginButton)
     public void login() {
         final String email = emailInput.getText().toString();
@@ -199,6 +218,9 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         }
     }
 
+    /**
+     * OnClickListener for the "registration" button
+     */
     @OnClick(R.id.registrationButton)
     public void register() {
         errorMessage2.setText("");
@@ -230,19 +252,19 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         }
     }
 
-    //for later maybe a field in menu?
+    /**
+     * Handles the Logout of an user
+     * @param myAuth
+     */
     public void logout(FirebaseAuth myAuth) {
         myAuth.signOut();
         Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
     }
 
     /**
-     * @return firebaseAuthentication instance
+     * validation of the editTexts for the 'login' and 'registration' button
+     * @return
      */
-    public FirebaseAuth getFireAuth() {
-        return fireAuth;
-    }
-
     private boolean validate() {
         String email = emailInput.getText().toString();
         String password = passwordInput.getText().toString();
