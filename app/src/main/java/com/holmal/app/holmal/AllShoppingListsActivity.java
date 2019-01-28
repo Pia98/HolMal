@@ -277,5 +277,6 @@ public class AllShoppingListsActivity extends AppCompatActivity {
     public void addShoppingListClicked() {
         Intent intent = new Intent(this, CreateShoppingListActivity.class);
         startActivity(intent);
+        finish();
     }
 }

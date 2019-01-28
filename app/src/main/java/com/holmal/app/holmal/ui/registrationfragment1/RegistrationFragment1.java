@@ -92,5 +92,6 @@ public class RegistrationFragment1 extends Fragment {
     public void registrationCreateButtonDoneClick() {
         Intent intent = new Intent(getActivity(), ShoppingListActivity.class);
         startActivity(intent);
+        getActivity().finish();
     }
 }

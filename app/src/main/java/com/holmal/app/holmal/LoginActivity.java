@@ -152,9 +152,11 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                     intent = new Intent(this, AllShoppingListsActivity.class);
                 }
                 startActivity(intent);
+                finish();
             } else {
                 Intent intent = new Intent(this, StartActivity.class);
                 startActivity(intent);
+                finish();
             }
         } else {
             Toast.makeText(getApplicationContext(), "Not logged in", Toast.LENGTH_SHORT).show();
