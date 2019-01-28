@@ -13,6 +13,10 @@ import butterknife.OnClick;
 public class StartActivity extends AppCompatActivity {
     private static final String TAG = StartActivity.class.getName();
 
+    /**
+     * Is called when StartActivity is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +26,10 @@ public class StartActivity extends AppCompatActivity {
         Log.e(TAG, "opened onCreate method");
     }
 
+    /**
+     * OnClickListener on the create Button
+     * Navigates to the CreateHousholdActivity
+     */
     @OnClick(R.id.createHousehold)
     public void createHouseholdButtonClick() {
         Log.i(TAG, "CreateHousehold button clicked");
@@ -29,6 +37,10 @@ public class StartActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * OnClickListener on the moveIn Button
+     * Navigates to the RegistrationActivity
+     */
     @OnClick(R.id.moveIn)
     public void moveInButtonClick() {
         Log.i(TAG, "MoveIn button clicked");
@@ -38,6 +50,10 @@ public class StartActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * OnClickListener on the logout button
+     * logs the user out
+     */
     @OnClick({R.id.logoutButton})
     public void logoutStart() {
         Log.i(TAG, "Logout button clicked");
