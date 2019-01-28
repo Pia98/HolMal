@@ -10,7 +10,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 /**
- * for colourChoice in personalInput
+ * this class is needed for the color choice in registration
+ * enables more rows for radiogroup than one
  * look at : https://stackoverflow.com/questions/2381560/how-to-group-a-3x3-grid-of-radio-buttons/2383978
  */
 
@@ -34,6 +35,10 @@ public class RadioGridGroup extends TableLayout implements View.OnClickListener 
         super(context, attrs);
     }
 
+    /**
+     * onClickListener
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         final RadioButton clickedButton = (RadioButton) v;
@@ -44,18 +49,35 @@ public class RadioGridGroup extends TableLayout implements View.OnClickListener 
         activeRadionButton = clickedButton;
     }
 
+    /**
+     * from TableLayout
+     * adds the clickListener to every child in our case a radio button
+     * @param child
+     * @param index
+     * @param params
+     */
     @Override
     public void addView(View child, int index, android.view.ViewGroup.LayoutParams params) {
         super.addView(child, index, params);
         setChildrenOnClickListener((TableRow)child);
     }
 
+    /**
+     * from TableLayout
+     * adds the clickListener to every child in our case a radio button
+     * @param child
+     * @param params
+     */
     @Override
     public void addView(View child, android.view.ViewGroup.LayoutParams params){
         super.addView(child, params);
         setChildrenOnClickListener((TableRow) child);
     }
 
+    /**
+     * stets the onClickListener on the children of a row
+     * @param tableRow
+     */
     public void setChildrenOnClickListener(TableRow tableRow){
         final int count = tableRow.getChildCount();
         for(int i = 0; i < count; i++){
@@ -66,6 +88,10 @@ public class RadioGridGroup extends TableLayout implements View.OnClickListener 
         }
     }
 
+    /**
+     *
+     * @return the clicked button
+     */
     public int getCheckedRadioButtonId(){
         if(activeRadionButton != null){
             return activeRadionButton.getId();
