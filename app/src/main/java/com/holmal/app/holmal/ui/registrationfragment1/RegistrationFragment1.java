@@ -24,8 +24,6 @@ import butterknife.OnClick;
 
 public class RegistrationFragment1 extends Fragment {
 
-    private RegistrationFragment1ViewModel mViewModel;
-
     public static RegistrationFragment1 newInstance() {
         return new RegistrationFragment1();
     }
@@ -57,8 +55,6 @@ public class RegistrationFragment1 extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(RegistrationFragment1ViewModel.class);
-        // TODO: Use the ViewModel
     }
 
     //Haushalts ID in die Zwischenablage (ClipData)

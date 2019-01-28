@@ -108,6 +108,7 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
     private boolean checkColours() {
 
         RadioGroup colourChooser = findViewById(R.id.colorChoice);
+
         //check if a button was chosen
         if (colourChooser.getCheckedRadioButtonId() == -1) {
             Toast.makeText(getApplicationContext(), R.string.ErrorChoseColor, Toast.LENGTH_LONG).show();
