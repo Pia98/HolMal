@@ -43,8 +43,8 @@ import butterknife.OnClick;
 public class ShoppingListActivity extends AppCompatActivity {
 
     private static final String TAG = ShoppingListActivity.class.getName();
-    private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
-    private HashMap<String, Item> itemsOfTheList = new HashMap<>();
+    //private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
+   // private HashMap<String, Item> itemsOfTheList = new HashMap<>();
     private HashMap<String, Item> openItemsOfTheList = new HashMap<>();
     private HashMap<String, Item> doneItemsOfTheList = new HashMap<>();
     private ArrayList<String> itemIds = new ArrayList<>();
@@ -57,7 +57,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     private String recentShoppingListName;
     private RecyclerView list;
     private String shoppingListId;
-    private Household household;
+   // private Household household;
 
     /**
      * Method that initialises the class and its important features.
