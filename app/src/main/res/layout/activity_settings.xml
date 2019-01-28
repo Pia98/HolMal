@@ -68,7 +68,7 @@
                 android:layout_width="@dimen/noWidth"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/text_margin"
-                android:layout_marginEnd="@dimen/big_top_margin"
+                android:layout_marginEnd="@dimen/big_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/editHouseholdName"
                 app:layout_constraintTop_toBottomOf="@+id/householdNameTitle" />
