@@ -1,6 +1,5 @@
 package com.holmal.app.holmal.ui.registrationfragment1;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +27,9 @@ import java.util.HashMap;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * used when a user wants to move into an household
+ */
 public class RegistrationFragment2 extends Fragment {
     private static final String TAG = RegistrationFragment2.class.getName();
 
@@ -52,6 +54,9 @@ public class RegistrationFragment2 extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
+    /**
+     * gives an alert if the user really wants to move into that household
+     */
     @OnClick(R.id.idInputDone)
     public void idInputDoneClick() {
         if (validate()) {
@@ -82,6 +87,9 @@ public class RegistrationFragment2 extends Fragment {
         }
     }
 
+    /**
+     * starts the listener on the child "household" on the database
+     */
     private void startHouseholdListener() {
         FirebaseDatabase.getInstance().getReference().child("household").addValueEventListener(new ValueEventListener() {
             @Override
@@ -104,7 +112,10 @@ public class RegistrationFragment2 extends Fragment {
         });
     }
 
-    //checks for input
+    /**
+     * checks if the user edited sth
+     * checks if the id that is given by the user really exists
+     */
     public Boolean validate() {
         EditText householdId = (EditText) getView().findViewById(R.id.idInput);
         inputId = householdId.getText().toString();
