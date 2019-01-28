@@ -123,6 +123,7 @@
 
     <!-- strings used to store something -->
     <string name="householdIDPreference">householdID</string>
+    <string name="recentShoppingListIDPreference">recentShoppingListId</string>
     <string name="recentShoppingListNamePreference">recentShoppingListName</string>
     <string name="personIDPreference">personID</string>
     <string name="personNamePreference">personName</string>

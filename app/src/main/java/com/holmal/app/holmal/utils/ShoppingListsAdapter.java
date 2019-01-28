@@ -134,6 +134,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
                 Log.i("FürSvenja", "clicked list -> open list");
                 PreferencesAccess preferencesAccess = new PreferencesAccess();
                 preferencesAccess.storePreferences(context,context.getString(R.string.recentShoppingListNamePreference), listAtPosition.getListName());
+                preferencesAccess.storePreferences(context, context.getString(R.string.recentShoppingListIDPreference), listAtPositionKey);
                 Intent intent = new Intent(context, ShoppingListActivity.class);
                 v.getContext().startActivity(intent);
             }

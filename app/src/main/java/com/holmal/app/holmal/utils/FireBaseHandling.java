@@ -68,9 +68,10 @@ public class FireBaseHandling {
      *
      * @param shoppingList The ShoppingList object that has to be stored
      */
-    public void storeShoppingList(ShoppingList shoppingList) {
+    public String storeShoppingList(ShoppingList shoppingList) {
         String storeId = reference.push().getKey();
         reference.child(shoppingListRubric).child(storeId).setValue(shoppingList);
+        return storeId;
     }
 
     /**

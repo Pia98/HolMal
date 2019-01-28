@@ -152,6 +152,7 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                             preferencesAccess.storePreferences(AllShoppingListsActivity.this, getString(R.string.householdIDPreference), null);
                             preferencesAccess.storePreferences(AllShoppingListsActivity.this, getString(R.string.personIDPreference), null);
                             preferencesAccess.storePreferences(AllShoppingListsActivity.this, getString(R.string.recentShoppingListNamePreference), null);
+                            preferencesAccess.storePreferences(AllShoppingListsActivity.this, getString(R.string.recentShoppingListIDPreference), null);
                             FirebaseAuth.getInstance().signOut();
                             Intent intentout = new Intent(AllShoppingListsActivity.this, LoginActivity.class);
                             startActivity(intentout);

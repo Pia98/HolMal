@@ -176,6 +176,7 @@ public class MyTasksActivity extends AppCompatActivity {
                             preferencesAccess.storePreferences(MyTasksActivity.this, getString(R.string.householdIDPreference), null);
                             preferencesAccess.storePreferences(MyTasksActivity.this, getString(R.string.personIDPreference), null);
                             preferencesAccess.storePreferences(MyTasksActivity.this, getString(R.string.recentShoppingListNamePreference), null);
+                            preferencesAccess.storePreferences(MyTasksActivity.this, getString(R.string.recentShoppingListIDPreference), null);
                             FirebaseAuth.getInstance().signOut();
                             Intent intentout = new Intent(MyTasksActivity.this, LoginActivity.class);
                             startActivity(intentout);
