@@ -36,6 +36,8 @@ public class FireBaseHandling {
     private String itemRubric = "item";
 
 
+
+    // ------------------ Store methods --------------------------------------------
     /**
      * Stores a household on the database
      *
@@ -49,7 +51,43 @@ public class FireBaseHandling {
         return storeId;
     }
 
-    //Method to delete data from firebase when the person leaves the household in settings
+    /**
+     * Stores a person on the database
+     *
+     * @param person The Person object that has to be stored
+     * @return ID of the stored person
+     */
+    public String storePerson(Person person) {
+        String storeId = reference.push().getKey();
+        reference.child(personRubric).child(storeId).setValue(person);
+        return storeId;
+    }
+
+    /**
+     * Stores a shoppinglist on the database
+     *
+     * @param shoppingList The ShoppingList object that has to be stored
+     */
+    public void storeShoppingList(ShoppingList shoppingList) {
+        String storeId = reference.push().getKey();
+        reference.child(shoppingListRubric).child(storeId).setValue(shoppingList);
+    }
+
+    /**
+     * Stores an item on the database
+     *
+     * @param shoppingListId The ID of the shoppinglist where the item belongs to
+     * @param item           The Item object that has to be stored
+     * @return ID of the stored item
+     */
+    public String storeItem(String shoppingListId, Item item) {
+        String storeId = reference.push().getKey();
+        reference.child(itemRubric).child(storeId).setValue(item);
+        reference.child(shoppingListRubric + "/" + shoppingListId + "/itemsOfThisList").push().setValue(storeId);
+        return storeId;
+    }
+
+    //----------------- delete methods ------------------------------------------
 
     /**
      * Removes an household from the database
@@ -93,42 +131,7 @@ public class FireBaseHandling {
      * }
      */
 
-    /**
-     * Stores a person on the database
-     *
-     * @param person The Person object that has to be stored
-     * @return ID of the stored person
-     */
-    public String storePerson(Person person) {
-        String storeId = reference.push().getKey();
-        reference.child(personRubric).child(storeId).setValue(person);
-        return storeId;
-    }
-
-    /**
-     * Stores a shoppinglist on the database
-     *
-     * @param shoppingList The ShoppingList object that has to be stored
-     */
-    public void storeShoppingList(ShoppingList shoppingList) {
-        String storeId = reference.push().getKey();
-        reference.child(shoppingListRubric).child(storeId).setValue(shoppingList);
-    }
-
-    /**
-     * Stores an item on the database
-     *
-     * @param shoppingListId The ID of the shoppinglist where the item belongs to
-     * @param item           The Item object that has to be stored
-     * @return ID of the stored item
-     */
-    public String storeItem(String shoppingListId, Item item) {
-        String storeId = reference.push().getKey();
-        reference.child(itemRubric).child(storeId).setValue(item);
-        reference.child(shoppingListRubric + "/" + shoppingListId + "/itemsOfThisList").push().setValue(storeId);
-        return storeId;
-    }
-
+    //---------------------------- edit methods ----------------------------
     /**
      * edits the name of an household on the database
      * @param newName   The new Name
