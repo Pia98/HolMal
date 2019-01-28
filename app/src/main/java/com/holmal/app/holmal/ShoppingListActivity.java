@@ -323,7 +323,7 @@ public class ShoppingListActivity extends AppCompatActivity {
      * Method that starts the shopping list listener and gets a list of the shopping lists of this household from the
      * firebase database. It also sets the title of the window to the name of the displayed shopping list.
      */
-    private void startShoppingListListener(final boolean done) {
+    private void startShoppingListListener(final boolean open) {
         if(shoppingListId != null){
             Log.i(TAG, "searched list: " + shoppingListId);
             FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
@@ -347,7 +347,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                                 }
                             }
 
-                            if(done){
+                            if(open){
                                 startOpenItemsListener();
                             }else{
                                 startDoneItemsListener();
