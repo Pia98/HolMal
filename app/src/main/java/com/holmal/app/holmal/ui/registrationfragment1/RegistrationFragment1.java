@@ -57,7 +57,9 @@ public class RegistrationFragment1 extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    //Haushalts ID in die Zwischenablage (ClipData)
+    /**
+     * Haushalts ID in die Zwischenablage (ClipData) kopieren
+     */
     @OnClick(R.id.copy)
     public void copyHouseholdId() {
 
@@ -68,7 +70,9 @@ public class RegistrationFragment1 extends Fragment {
 
     }
 
-    //invite someone to your household
+    /**
+     * invite someone to your household
+     */
     @OnClick(R.id.invite)
     public void inviteToApp() {
         try {
@@ -84,6 +88,9 @@ public class RegistrationFragment1 extends Fragment {
         }
     }
 
+    /**
+     * onClickListener for 'done' button
+     */
     @OnClick(R.id.registrationCreateDone)
     public void registrationCreateButtonDoneClick() {
         Intent intent = new Intent(getActivity(), ShoppingListActivity.class);
