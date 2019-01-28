@@ -1,7 +1,9 @@
 package com.holmal.app.holmal;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -114,26 +116,28 @@ public class ItemInformationActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.i(TAG, "item listener in onCreate...");
                 thisItem = dataSnapshot.getValue(Item.class);
-                Log.i(TAG, "thisItem " + thisItem);
-                String itemName = thisItem.getItemName();
-                String itemAmount = thisItem.getQuantity();
-                String itemDescription = thisItem.getAdditionalInfo();
-                String itemTask = thisItem.getItsTask();
-                itemUrgent = thisItem.isImportant();
+                if (thisItem != null){
+                    Log.i(TAG, "thisItem " + thisItem);
+                    String itemName = thisItem.getItemName();
+                    String itemAmount = thisItem.getQuantity();
+                    String itemDescription = thisItem.getAdditionalInfo();
+                    String itemTask = thisItem.getItsTask();
+                    itemUrgent = thisItem.isImportant();
 
-                itemNameText.setText(itemName);
-                itemAmountText.setText(itemAmount);
-                itemDescriptionText.setText(itemDescription);
-                if(!itemTask.isEmpty()){
-                    String personName = joiningPerson.get(itemTask).getPersonName();
-                    itemTaskText.setText(String.format(getString(R.string.brings), personName));
-                } else {
-                    itemTaskText.setText(itemTask);
-                }
-                if(itemUrgent){
-                    itemUrgentText.setVisibility(View.VISIBLE);
-                } else{
-                    itemUrgentText.setVisibility(View.INVISIBLE);
+                    itemNameText.setText(itemName);
+                    itemAmountText.setText(itemAmount);
+                    itemDescriptionText.setText(itemDescription);
+                    if (!itemTask.isEmpty()) {
+                        String personName = joiningPerson.get(itemTask).getPersonName();
+                        itemTaskText.setText(String.format(getString(R.string.brings), personName));
+                    } else {
+                        itemTaskText.setText(itemTask);
+                    }
+                    if (itemUrgent) {
+                        itemUrgentText.setVisibility(View.VISIBLE);
+                    } else {
+                        itemUrgentText.setVisibility(View.INVISIBLE);
+                    }
                 }
             }
 
@@ -176,6 +180,7 @@ public class ItemInformationActivity extends AppCompatActivity {
     public void onItemCloseClicked(){
         Intent intent = new Intent(this, ShoppingListActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @OnClick(R.id.itemEdit)
@@ -252,6 +257,38 @@ public class ItemInformationActivity extends AppCompatActivity {
         itemUrgentCheck.setVisibility(View.INVISIBLE);
         if(newUrgent){
             itemUrgentText.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @OnClick(R.id.itemDelete)
+    public void deleteItem(){
+        if(itemId != null){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            String message = getString(R.string.deleteItemConfirmation) + "\n" + itemNameText.getText().toString();
+            builder.setMessage(message);
+            builder.setCancelable(true);
+            builder.setPositiveButton(
+                    R.string.yes,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            String tempItemId = itemId;
+                            itemId = null;
+                            FireBaseHandling.getInstance().deleteItem(tempItemId);
+                            Intent intent = new Intent(ItemInformationActivity.this, ShoppingListActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+            builder.setNegativeButton(
+                    R.string.no,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert = builder.create();
+            alert.show();
         }
     }
 }
