@@ -2,70 +2,71 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-
+    android:layout_height="@dimen/itemHight"
     >
 
-    <!--TODO add hardcoded amounts to dimens-->
     <CheckBox
         android:id="@+id/itemDone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/checkboxMargin"
         android:scaleX="1.5"
-        android:scaleY="1.5"
-        android:layout_marginLeft="13dp" />
+        android:scaleY="1.5" />
 
     <TextView
         android:id="@+id/itemName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginTextOnItem"
         android:layout_toEndOf="@id/itemDone"
-        android:layout_marginLeft="20dp"
+        android:paddingTop="@dimen/itemPadding"
         android:text="@+id/itemName"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        android:paddingTop="3dp"/>
+        android:textSize="@dimen/textSizeBig"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/itemAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginTextOnItem"
+        android:layout_marginTop="@dimen/itemAmountMargin"
         android:layout_toEndOf="@id/itemDone"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="24dp"
         android:text="@+id/itemAmount"
-        android:textSize="14sp"/>
+        android:textSize="@dimen/textSizeMedium" />
 
     <TextView
         android:id="@+id/itemInformation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@+id/itemInformation"
+        android:layout_alignTop="@+id/itemAmount"
+        android:layout_marginStart="@dimen/marginTextOnItem"
+        android:layout_marginTop="@dimen/itemInformationMargin"
         android:layout_toEndOf="@id/itemDone"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
-        android:textSize="14sp"
-        />
+        android:text="@+id/itemInformation"
+        android:textSize="@dimen/textSizeMedium" />
+
     <ImageView
         android:id="@+id/urgent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_urgent"
-        android:layout_marginLeft="280dp"
-        android:paddingTop="6dp"
-        />
+        android:layout_marginLeft="@dimen/itemUrgencyMargin"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_urgent" />
+
     <ImageView
         android:id="@+id/assignedTo"
-        android:layout_width="65dp"
+        android:layout_width="@dimen/itemItsTaskWidth"
         android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true" />
+
     <View
         android:layout_width="fill_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/separationLine"
         android:background="@color/colorAccentSilver" />
 
 </RelativeLayout>

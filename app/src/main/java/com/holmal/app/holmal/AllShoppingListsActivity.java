@@ -42,7 +42,7 @@ public class AllShoppingListsActivity extends AppCompatActivity {
     private static final String TAG = AllShoppingListsActivity.class.getName();
     private DrawerLayout mDrawerLayout;
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
-    private HashMap<String, Item> openItemsOfTheList = new HashMap<>();
+    private HashMap<String, Item> itemsOfThisHousehold = new HashMap<>();
     private ArrayList<String> itemIds = new ArrayList<>();
     private RecyclerView.LayoutManager layoutmanager;
     private RecyclerView listsView;
@@ -71,7 +71,7 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         menu();
 
         startShoppingListListener(householdId);
-        startOpenItemsListener();
+        startItemListener();
     }
 
     /**
@@ -96,7 +96,6 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         final TextView navUserName = headerView.findViewById(R.id.nav_user_name);
         final TextView navHousehold = headerView.findViewById(R.id.nav_household);
         String personId = preferencesAccess.readPreferences(this, getString(R.string.personIDPreference));
-
         FirebaseDatabase.getInstance().getReference().child("person").child(personId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -211,8 +210,8 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
                 //fill with lists with an adapter
-                Log.i("FürSvenja", "openItems:" + openItemsOfTheList);
-                ShoppingListsAdapter adapter = new ShoppingListsAdapter(AllShoppingListsActivity.this, listsOfThisHousehold, openItemsOfTheList);
+                Log.i("FürSvenja", "itemsOfHousehold"+ + itemsOfThisHousehold.size() +itemsOfThisHousehold.toString());
+                ShoppingListsAdapter adapter = new ShoppingListsAdapter(AllShoppingListsActivity.this, listsOfThisHousehold, itemsOfThisHousehold);
                 listsView.setAdapter(adapter);
             }
 
@@ -223,25 +222,25 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         });
     }
 
+
     /**
-     * Method that starts the listener for items that are not done. It gets the item data from the firebase database.
+     * Method that starts the item listener and gets a list of the items of this household from the
+     * firebase database.
      * This is needed for the display of the amount of open items on the lists.
      */
-    private void startOpenItemsListener() {
+    private void startItemListener() {
         FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "open item listener in onCreate...");
-                openItemsOfTheList.clear();
+                Log.i(TAG, "listener in onCreate...");
+                itemsOfThisHousehold.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, "alle Listen durchgehen");
                     String id = child.getKey();
                     Item value = child.getValue(Item.class);
-                    Log.i(TAG, "item: " + value);
-                    for (int i = 0; i < itemIds.size(); i++) {
-                        if (id.equals(itemIds.get(i)) && !value.isDone()) {
-                            openItemsOfTheList.put(id, value);
-                        }
-                    }
+                    Log.i(TAG, "Item: " + value);
+                    itemsOfThisHousehold.put(id, value);
+                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + itemsOfThisHousehold);
                 }
             }
 
@@ -249,7 +248,9 @@ public class AllShoppingListsActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        }); }
+        });
+    }
+
 
     /**
      * Method that is called when the navigation drawer menu is opened to keep track on the selection of navigation items.

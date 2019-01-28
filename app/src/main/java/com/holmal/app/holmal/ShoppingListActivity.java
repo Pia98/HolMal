@@ -146,6 +146,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                 if (tab.getPosition() == 0) {
                     // Listener to get all open items that are in the list
                     startOpenItemsListener();
+                    
                 }
                 // items done
                 else {

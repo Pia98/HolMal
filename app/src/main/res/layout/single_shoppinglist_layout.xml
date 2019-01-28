@@ -5,53 +5,56 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="180dp"
         android:layout_height="100dp"
-        card_view:cardCornerRadius="4dp"
-        android:layout_marginStart="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         card_view:cardBackgroundColor="@color/colorListsBackground"
-        card_view:cardUseCompatPadding="true"
+        card_view:cardCornerRadius="4dp"
         card_view:cardElevation="2dp"
-        android:layout_gravity="center_horizontal"
-        >
-    <TextView
-        android:id="@+id/nameOfList"
-        android:layout_width="@dimen/widthHalfScreen"
-        android:layout_height="@dimen/listNameHight"
-        android:text="@+id/nameOfList"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorListsBackground"
-        android:layout_gravity="center_horizontal"
-        />
-    <TextView
-        android:id="@+id/categoryOfList"
-        android:layout_width="@dimen/widthHalfScreen"
-        android:layout_height="@dimen/listAmountHight"
-        android:text="@+id/categoryOfList"
-        android:textSize="13sp"
-        app:layout_constraintTop_toBottomOf="@id/nameOfList"
-        android:layout_marginTop="@dimen/listNameHight"
-        android:layout_marginStart="15dp"
-        android:background="@color/colorListsBackground"
-        android:layout_gravity="center_horizontal"
-        />
+        card_view:cardUseCompatPadding="true"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/amountItemsOnList"
-        android:layout_width="@dimen/widthHalfScreen"
-        android:layout_height="@dimen/listAmountHight"
-        android:text="@+id/amountItemsOnList"
-        android:textSize="13sp"
-        app:layout_constraintTop_toBottomOf="@id/categoryOfList"
-        android:layout_marginTop="60dp"
-        android:layout_marginStart="15dp"
-        android:background="@color/colorListsBackground"
-        android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:id="@+id/nameOfList"
+            android:layout_width="@dimen/widthHalfScreen"
+            android:layout_height="@dimen/listNameHight"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorListsBackground"
+            android:text="@+id/nameOfList"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/categoryOfList"
+            android:layout_width="@dimen/widthHalfScreen"
+            android:layout_height="@dimen/listAmountHight"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="@dimen/listNameHight"
+            android:background="@color/colorListsBackground"
+            android:text="@+id/categoryOfList"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/nameOfList" />
+
+        <TextView
+            android:id="@+id/amountItemsOnList"
+            android:layout_width="@dimen/widthHalfScreen"
+            android:layout_height="@dimen/listAmountHight"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="60dp"
+            android:background="@color/colorListsBackground"
+            android:text="@+id/amountItemsOnList"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/categoryOfList" />
     </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>
