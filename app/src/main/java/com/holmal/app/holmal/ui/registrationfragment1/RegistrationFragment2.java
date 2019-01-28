@@ -60,7 +60,7 @@ public class RegistrationFragment2 extends Fragment {
         if (validate()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             String haushaltName = haushalte.get(inputId).getHouseholdName();
-            String message = R.string.moveinConfirmation + "\nID: " + inputId + "\nName: " + haushaltName;
+            String message = getString(R.string.moveinConfirmation) + "\nID: " + inputId + "\nName: " + haushaltName;
             builder.setMessage(message);
             builder.setCancelable(true);
             builder.setPositiveButton(
