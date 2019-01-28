@@ -61,18 +61,21 @@ public class RegistrationFragment1 extends Fragment {
         // TODO: Use the ViewModel
     }
 
-    //Haushalts ID in die Zwischenablage (ClipData)
+
+    /**
+     * Copies the ID of the household to {@link ClipData}
+     */
     @OnClick(R.id.copy)
     public void copyHouseholdId() {
-
         ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         String householdId = this.getArguments().getString("householdId");
         ClipData clipData = ClipData.newPlainText("Hol Mal household id", householdId);
         clipboardManager.setPrimaryClip(clipData);
-
     }
 
-    //invite someone to your household
+    /**
+     * Tries to send an invitation for the household in this app
+     */
     @OnClick(R.id.invite)
     public void inviteToApp() {
         try {
@@ -88,6 +91,9 @@ public class RegistrationFragment1 extends Fragment {
         }
     }
 
+    /**
+     * Hanndles the action when the 'done' button is clicked
+     */
     @OnClick(R.id.registrationCreateDone)
     public void registrationCreateButtonDoneClick() {
         Intent intent = new Intent(getActivity(), ShoppingListActivity.class);

@@ -55,6 +55,9 @@ public class RegistrationFragment2 extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    /**
+     * Handles the actions when 'done' button is clicked
+     */
     @OnClick(R.id.idInputDone)
     public void idInputDoneClick() {
         if (validate()) {
@@ -107,8 +110,7 @@ public class RegistrationFragment2 extends Fragment {
         });
     }
 
-    //checks for input
-    public Boolean validate() {
+    private boolean validate() {
         EditText householdId = (EditText) getView().findViewById(R.id.idInput);
         inputId = householdId.getText().toString();
         if (inputId.isEmpty()) {
