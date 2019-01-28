@@ -3,7 +3,6 @@ package com.holmal.app.holmal.ui.registrationfragment1;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.GridLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
@@ -12,7 +11,6 @@ import android.widget.TableRow;
 /**
  * this class is needed for the color choice in registration
  * enables more rows for radiogroup than one
- * look at : https://stackoverflow.com/questions/2381560/how-to-group-a-3x3-grid-of-radio-buttons/2383978
  */
 
 public class RadioGridGroup extends TableLayout implements View.OnClickListener {
