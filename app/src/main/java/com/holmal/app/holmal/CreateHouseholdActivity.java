@@ -69,7 +69,6 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
 
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
-            preferences.storePreferences(this, getString(R.string.recentShoppingListIDPreference), listId);
             preferences.storePreferences(this, getString(R.string.recentShoppingListNamePreference), defaultList.getListName());
             preferences.storePreferences(this, getString(R.string.personIDPreference), personId);
 
