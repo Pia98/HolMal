@@ -71,7 +71,6 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         menu();
 
         startShoppingListListener(householdId);
-        startItemListener();
     }
 
     /**
@@ -209,10 +208,8 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                     }
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
-                //fill with lists with an adapter
-                Log.i("FürSvenja", "itemsOfHousehold"+ + itemsOfThisHousehold.size() +itemsOfThisHousehold.toString());
-                ShoppingListsAdapter adapter = new ShoppingListsAdapter(AllShoppingListsActivity.this, listsOfThisHousehold, itemsOfThisHousehold);
-                listsView.setAdapter(adapter);
+
+                startItemListener();
             }
 
             @Override
@@ -242,6 +239,11 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                     itemsOfThisHousehold.put(id, value);
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + itemsOfThisHousehold);
                 }
+
+                //fill with lists with an adapter
+                Log.i("FürSvenja", "itemsOfHousehold"+ + itemsOfThisHousehold.size() +itemsOfThisHousehold.toString());
+                ShoppingListsAdapter adapter = new ShoppingListsAdapter(AllShoppingListsActivity.this, listsOfThisHousehold, itemsOfThisHousehold);
+                listsView.setAdapter(adapter);
             }
 
             @Override
