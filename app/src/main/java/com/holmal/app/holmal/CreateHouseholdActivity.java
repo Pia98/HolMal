@@ -65,7 +65,7 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
             // create default ShoppingListActivity when household created
             String category = null;
             ShoppingList defaultList = new ShoppingList(getString(R.string.defaultShoppingList), category, householdId);
-            String listId = FireBaseHandling.getInstance().storeShoppingList(defaultList);
+            FireBaseHandling.getInstance().storeShoppingList(defaultList);
 
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
