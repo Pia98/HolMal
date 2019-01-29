@@ -7,13 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
+import com.holmal.app.holmal.ui.registrationfragment1.RadioGridGroup;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.FragmentHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
@@ -65,10 +65,11 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
             // create default ShoppingListActivity when household created
             String category = null;
             ShoppingList defaultList = new ShoppingList(getString(R.string.defaultShoppingList), category, householdId);
-            FireBaseHandling.getInstance().storeShoppingList(defaultList);
+            String listId = FireBaseHandling.getInstance().storeShoppingList(defaultList);
 
             // HaushaltID in preferences speichern
             preferences.storePreferences(this, getString(R.string.householdIDPreference), householdId);
+            preferences.storePreferences(this, getString(R.string.recentShoppingListIDPreference), listId);
             preferences.storePreferences(this, getString(R.string.recentShoppingListNamePreference), defaultList.getListName());
             preferences.storePreferences(this, getString(R.string.personIDPreference), personId);
 
@@ -106,7 +107,8 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
     // Method that checks if a colour button has been chosen. Users must choose a colour before entering a household.
     private boolean checkColours() {
 
-        RadioGroup colourChooser = findViewById(R.id.colorChoice);
+        RadioGridGroup colourChooser = findViewById(R.id.colorChoice);
+
         //check if a button was chosen
         if (colourChooser.getCheckedRadioButtonId() == -1) {
             Toast.makeText(getApplicationContext(), R.string.ErrorChoseColor, Toast.LENGTH_LONG).show();
@@ -115,33 +117,6 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
             chosenColorId = colourChooser.getCheckedRadioButtonId();
 
             Log.i(TAG, "Chosen color ID: " + chosenColorId);
-            // just to get the id of the color
-//            switch(chosenColorId){
-//                case R.id.color1:
-//                    Log.i(TAG, "Color to ID color1: " + chosenColorId);
-//                    break;
-//                case R.id.color2:
-//                    Log.i(TAG, "Color to ID color2: " + chosenColorId);
-//                    break;
-//                case R.id.color3:
-//                    Log.i(TAG, "Color to ID color3: " + chosenColorId);
-//                    break;
-//                case R.id.color4:
-//                    Log.i(TAG, "Color to ID color4: " + chosenColorId);
-//                    break;
-//                case R.id.color5:
-//                    Log.i(TAG, "Color to ID color5: " + chosenColorId);
-//                    break;
-//                case R.id.color6:
-//                    Log.i(TAG, "Color to ID color6: " + chosenColorId);
-//                    break;
-//                case R.id.color7:
-//                    Log.i(TAG, "Color to ID color7: " + chosenColorId);
-//                    break;
-//                case R.id.color8:
-//                    Log.i(TAG, "Color to ID color8: " + chosenColorId);
-//                    break;
-//            }
             return true;
         }
     }

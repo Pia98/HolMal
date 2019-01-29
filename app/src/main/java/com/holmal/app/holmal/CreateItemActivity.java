@@ -126,6 +126,7 @@ public class CreateItemActivity extends AppCompatActivity {
     public void cancelButtonClicked() {
         Intent intent = new Intent(this, ShoppingListActivity.class);
         startActivity(intent);
+        finish();
     }
 
     /**
@@ -137,6 +138,7 @@ public class CreateItemActivity extends AppCompatActivity {
     public void fromFavoritesButtonClicked() {
         Intent intent = new Intent(this, FavoritesActivity.class);
         startActivity(intent);
+        finish();
     }
 
     /**
@@ -155,6 +157,7 @@ public class CreateItemActivity extends AppCompatActivity {
             //and lead back to general view of the shopping list
             Intent intent = new Intent(this, ShoppingListActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 

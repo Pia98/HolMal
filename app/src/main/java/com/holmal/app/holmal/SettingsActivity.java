@@ -302,6 +302,7 @@ public class SettingsActivity extends AppCompatActivity {
                             preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.householdIDPreference), null);
                             preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.personIDPreference), null);
                             preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.recentShoppingListNamePreference), null);
+                            preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.recentShoppingListIDPreference), null);
                             FirebaseAuth.getInstance().signOut();
                             Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
                             startActivity(intentout);
@@ -412,7 +413,6 @@ public class SettingsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
 
                         Intent intentout = new Intent(SettingsActivity.this, StartActivity.class);
-                        startActivity(intentout);
 
                         //remove member from household
                         PreferencesAccess preferencesAccess = new PreferencesAccess();
@@ -461,12 +461,11 @@ public class SettingsActivity extends AppCompatActivity {
                         preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.householdIDPreference), null);
                         preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.personIDPreference), null);
                         preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.recentShoppingListNamePreference), null);
+                        preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.recentShoppingListIDPreference), null);
                         //delete person
                         FireBaseHandling.getInstance().deletePerson(personID);
 
-                       /* FirebaseAuth.getInstance().signOut();
-                        Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
-                        startActivity(intentout);*/
+                        startActivity(intentout);
                        finish();
                     }
                 });

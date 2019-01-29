@@ -87,6 +87,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     public void onBindViewHolder(@NonNull ShoppingListsAdapter.ListsViewHolder listsViewHolder, int i) {
 
         final ShoppingList listAtPosition = shoppinglists.get(listKeys[i]);
+        final String listsID = listKeys[i];
         listAtPositionKey = listKeys[i];
         Log.i("FürSvenja", "keysShoppingLists" + listAtPositionKey);
 
@@ -134,6 +135,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
                 Log.i("FürSvenja", "clicked list -> open list");
                 PreferencesAccess preferencesAccess = new PreferencesAccess();
                 preferencesAccess.storePreferences(context,context.getString(R.string.recentShoppingListNamePreference), listAtPosition.getListName());
+                preferencesAccess.storePreferences(context, context.getString(R.string.recentShoppingListIDPreference), listsID);
                 Intent intent = new Intent(context, ShoppingListActivity.class);
                 v.getContext().startActivity(intent);
             }
