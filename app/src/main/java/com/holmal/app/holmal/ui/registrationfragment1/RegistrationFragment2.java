@@ -55,10 +55,8 @@ public class RegistrationFragment2 extends Fragment {
     }
 
     /**
-     * gives an alert if the user really wants to move into that household
-     */
-    /**
      * Handles the actions when 'done' button is clicked
+     * Gives an alert if the user really wants to move into that household
      */
     @OnClick(R.id.idInputDone)
     public void idInputDoneClick() {
@@ -126,10 +124,9 @@ public class RegistrationFragment2 extends Fragment {
             Toast.makeText(getActivity().getApplicationContext(), R.string.ErrorChooseHousehold, Toast.LENGTH_SHORT).show();
             return false;
         } else {
-            if(haushalte.containsKey(inputId)){
+            if (haushalte.containsKey(inputId)) {
                 return true;
-            }
-            else{
+            } else {
                 Toast.makeText(getActivity().getApplicationContext(), R.string.ErrorFindHousehold, Toast.LENGTH_SHORT).show();
                 return false;
             }
