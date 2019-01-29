@@ -45,13 +45,15 @@
         app:layout_constraintTop_toBottomOf="@id/what" />
 
     <!-- Button 10 of prototype -->
+    <!-- not used in our first version -->
     <Button
         android:id="@+id/fromFavorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fromFavorites"
         app:layout_constraintStart_toEndOf="@id/whatInput"
-        app:layout_constraintTop_toBottomOf="@id/what"/>
+        app:layout_constraintTop_toBottomOf="@id/what"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/amount"
@@ -95,13 +97,15 @@
         app:layout_constraintTop_toBottomOf="@id/infoInput"
         app:layout_constraintStart_toEndOf="@id/leftMargin"/>
 
+    <!-- not used in our first version -->
     <CheckBox
         android:id="@+id/saveAsFavoriteChecked"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/saveAsFavorite"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/urgentChecked"/>
+        app:layout_constraintTop_toBottomOf="@id/urgentChecked"
+        android:visibility="invisible"/>
 
     <Button
         android:id="@+id/add"
