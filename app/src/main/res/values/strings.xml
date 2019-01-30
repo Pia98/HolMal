@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Hol Mal</string>
 
+    <!-- login -->
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="registration">Registrieren</string>
@@ -8,9 +9,11 @@
     <string name="passwort">Passwort</string>
     <string name="passwortWdh">Passwort wdh.</string>
 
+    <!-- startActivity -->
     <string name="createHousehold">neuen Haushalt erstellen</string> <!-- alrenativ: Haus bauen? -->
     <string name="moveIn">in bestehenden Haushalt einziehen</string>
 
+    <!-- RegistrationFragment1 (after create) -->
     <string name="householdName">Name des Haushalts</string>
     <string name="id">ID:</string>
     <string name="done">Fertig</string> <!-- alternativ: bei haushalt erstellen: bauen?, bei beitreten: einziehen? -->
@@ -20,21 +23,26 @@
     <string name="inviteExplanation">Jemand möchte mit dir eine Einkaufsliste teilen. Trete jetzt dem Haushalt bei.
     Dafür brauchst du nur noch die HolMal-App: </string>
     <!-- Familienmitglieder einladen -->
+
+    <!-- RegistrationFragment 2 -->
     <string name="moveInWithID">Haushalt über ID beitreten</string>
 
+    <!-- ShoppingLists (for items) -->
     <string name="openItemsTabs">offen</string>
     <string name="doneItemsTabs">erledigt</string>
 
-
+    <!-- personal input -->
     <string name="username">Benutzername</string>
     <string name="color">Farbe</string>
 
+    <!-- task/job stuff-->
     <string name="myJobs">Meine Aufträge</string>
     <string name="alreadyAssigned">Dieses Item ist bereits vergeben</string>
 
     <!-- TODO besseren Text ueberlegen -->
     <string name="moveInHouseholdAs">Folgendem Haushalt beitreten als:</string>
 
+    <!-- CreateItem -->
     <string name="createElementText">Neues Element auf die Liste schreiben</string>
     <string name="what">Was</string>
     <string name="fromFavorites">aus Favoriten</string>
@@ -45,8 +53,8 @@
     <string name="saveAsFavorite">als Favorit speichern</string>
     <string name="add">Hinzufügen</string>
     <string name="addItem">Item zu Einkaufsliste hinzufügen</string>
-    <string name="addShoppingList">Neue Einkaufsliste erstellen</string>
-    <string name="edit">Bearbeiten</string>
+
+    <!-- itemInformation -->
     <!-- TODO same as who?! which one should we take?-->
     <string name="brings">bringt %s mit</string>
 
@@ -58,14 +66,19 @@
     <string name="noOpenItems">Keine offenen Items</string>
     <string name="openItems">Offene Items: </string>
 
+    <!-- create ShoppingList -->
+    <!-- TODO addShoppingList und createShoppingListHeader angleichen!-->
+    <string name="addShoppingList">Neue Einkaufsliste erstellen</string>
     <string name="createShoppingListHeader">Neuen Einkaufszettel erstellen:</string>
     <string name="shoppingListName">Bezeichnung</string>
     <string name="category">Kategorie</string>
     <string name="create">erstellen</string>
 
+    <!-- settings -->
     <string name="settings">Einstellungen</string>
     <string name="members">Mitglieder</string>
     <string name="leave">Haushalt verlassen</string> <!-- ausziehen -->
+    <string name="edit">Bearbeiten</string>
 
     <!-- TODO welche Möglichkeit nehmen wir? ":" oder "?", sollte einheitlich sein!-->
     <string name="leaveConfirmation">Möchtest Du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
@@ -78,6 +91,7 @@
     <string name="whatInfo">Was:</string>
 
 
+    <!-- Errors -->
     <string name="ErrorLoginFailed">Login fehlgeschlagen: Bitte überprüfe deine Email und dein Passwort</string>
     <string name="ErrorLoginAlreadyExists">Es existiert bereits ein User mit dieser Emailadresse</string>
     <string name="ErrorLoginNotEntered">Bitte gib deine Emailadresse und dein Passwort an</string>
