@@ -13,9 +13,10 @@ public class PreferencesAccess {
 
     /**
      * Writes data to the {@link SharedPreferences}
+     *
      * @param context The {@link Context}
-     * @param key On which key the data has to be written
-     * @param value The data that has to be written
+     * @param key     On which key the data has to be written
+     * @param value   The data that has to be written
      */
     public void storePreferences(Context context, String key, String value) {
         SharedPreferences preferences = context.getSharedPreferences(filename, Context.MODE_PRIVATE);
@@ -26,8 +27,9 @@ public class PreferencesAccess {
 
     /**
      * Reads data from the {@link SharedPreferences}
+     *
      * @param context The {@link Context}
-     * @param key From which key the data has to be read
+     * @param key     From which key the data has to be read
      * @return The data/value of the key
      */
     public String readPreferences(Context context, String key) {

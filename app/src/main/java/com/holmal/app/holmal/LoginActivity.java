@@ -296,7 +296,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         preferences.storePreferences(this, getString(R.string.householdIDPreference), null);
         preferences.storePreferences(this, getString(R.string.recentShoppingListNamePreference), null);
         preferences.storePreferences(this, getString(R.string.personIDPreference), null);
-        preferences.storePreferences(this, getString(R.string.recentShoppingListIDPreference), null);
 
         Iterator it = personen.entrySet().iterator();
         while (it.hasNext()) {

@@ -1,7 +1,8 @@
 package com.holmal.app.holmal.model;
 
 /**
- * Model for the household. Shoppinglists and their items are shared between members of a household.
+ * Model for the household object.
+ * {@link ShoppingList} and their {@link Item} are shared between {@link Person} of an household.
  * A household has a name that can be changed in the settings.
  */
 public class Household {
@@ -10,13 +11,14 @@ public class Household {
 
     /**
      * Constructor for the household
+     *
      * @param householdName the name of the household
      */
     public Household(String householdName) {
         this.householdName = householdName;
     }
 
-    public Household(){
+    public Household() {
     }
 
     public String getHouseholdName() {

@@ -27,8 +27,10 @@ import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.ShoppingListsAdapter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -71,7 +73,6 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         menu();
 
         startShoppingListListener(householdId);
-        startItemListener();
     }
 
     /**
@@ -86,7 +87,7 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        setTitle(R.string.shoppingLists);
+        setTitle(R.string.shoppingList);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
@@ -152,7 +153,6 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                             preferencesAccess.storePreferences(AllShoppingListsActivity.this, getString(R.string.householdIDPreference), null);
                             preferencesAccess.storePreferences(AllShoppingListsActivity.this, getString(R.string.personIDPreference), null);
                             preferencesAccess.storePreferences(AllShoppingListsActivity.this, getString(R.string.recentShoppingListNamePreference), null);
-                            preferencesAccess.storePreferences(AllShoppingListsActivity.this, getString(R.string.recentShoppingListIDPreference), null);
                             FirebaseAuth.getInstance().signOut();
                             Intent intentout = new Intent(AllShoppingListsActivity.this, LoginActivity.class);
                             startActivity(intentout);
@@ -210,10 +210,9 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                     }
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
-                //fill with lists with an adapter
-                Log.i("FürSvenja", "itemsOfHousehold"+ + itemsOfThisHousehold.size() +itemsOfThisHousehold.toString());
-                ShoppingListsAdapter adapter = new ShoppingListsAdapter(AllShoppingListsActivity.this, listsOfThisHousehold, itemsOfThisHousehold);
-                listsView.setAdapter(adapter);
+
+                // start itemListener when shoppingListListener is ready and set adapter when bot are ready
+                startItemListener();
             }
 
             @Override
@@ -243,6 +242,11 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                     itemsOfThisHousehold.put(id, value);
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + itemsOfThisHousehold);
                 }
+
+                //fill with lists with an adapter
+                Log.i("FürSvenja", "itemsOfHousehold" + +itemsOfThisHousehold.size() + itemsOfThisHousehold.toString());
+                ShoppingListsAdapter adapter = new ShoppingListsAdapter(AllShoppingListsActivity.this, listsOfThisHousehold, itemsOfThisHousehold);
+                listsView.setAdapter(adapter);
             }
 
             @Override

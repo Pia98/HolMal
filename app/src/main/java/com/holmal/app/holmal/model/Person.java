@@ -1,7 +1,9 @@
 package com.holmal.app.holmal.model;
 
 /**
- * Model for the person.
+ * Model for a person  object.
+ * Person belongs to a {@link Household}.
+ * A Person has a name, color and email.
  */
 public class Person {
 
@@ -12,10 +14,11 @@ public class Person {
 
     /**
      * Constructor for the person
-     * @param personName every user chooses a name (that is unique within the household)
-     * @param color every person chooses one of eight colours
-     * @param idBelongingTo every person belongs to a household
-     * @param email a person needs an email address to log in
+     *
+     * @param personName    every user chooses a name (that is unique within the household)
+     * @param color         every person chooses one of eight colours (that is unique within the household)
+     * @param idBelongingTo every person belongs to a {@link Household}
+     * @param email         a person needs an email address to log in
      */
     public Person(String personName, int color, String idBelongingTo, String email) {
         this.personName = personName;
@@ -24,7 +27,7 @@ public class Person {
         this.email = email;
     }
 
-    public Person(){
+    public Person() {
     }
 
     public String getPersonName() {

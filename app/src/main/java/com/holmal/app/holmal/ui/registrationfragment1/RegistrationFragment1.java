@@ -57,21 +57,20 @@ public class RegistrationFragment1 extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
+
     /**
-     * Haushalts ID in die Zwischenablage (ClipData) kopieren
+     * Copies the ID of the household to {@link ClipData}
      */
     @OnClick(R.id.copy)
     public void copyHouseholdId() {
-
         ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         String householdId = this.getArguments().getString("householdId");
         ClipData clipData = ClipData.newPlainText("Hol Mal household id", householdId);
         clipboardManager.setPrimaryClip(clipData);
-
     }
 
     /**
-     * invite someone to your household
+     * Tries to send an invitation for the household in this app
      */
     @OnClick(R.id.invite)
     public void inviteToApp() {
@@ -89,7 +88,7 @@ public class RegistrationFragment1 extends Fragment {
     }
 
     /**
-     * onClickListener for 'done' button
+     * Hanndles the action when the 'done' button is clicked
      */
     @OnClick(R.id.registrationCreateDone)
     public void registrationCreateButtonDoneClick() {

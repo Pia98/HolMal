@@ -302,7 +302,6 @@ public class SettingsActivity extends AppCompatActivity {
                             preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.householdIDPreference), null);
                             preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.personIDPreference), null);
                             preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.recentShoppingListNamePreference), null);
-                            preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.recentShoppingListIDPreference), null);
                             FirebaseAuth.getInstance().signOut();
                             Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
                             startActivity(intentout);
@@ -461,7 +460,6 @@ public class SettingsActivity extends AppCompatActivity {
                         preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.householdIDPreference), null);
                         preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.personIDPreference), null);
                         preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.recentShoppingListNamePreference), null);
-                        preferencesAccess.storePreferences(SettingsActivity.this, getString(R.string.recentShoppingListIDPreference), null);
                         //delete person
                         FireBaseHandling.getInstance().deletePerson(personID);
 
