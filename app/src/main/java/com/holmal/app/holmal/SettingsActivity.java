@@ -412,7 +412,6 @@ public class SettingsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
 
                         Intent intentout = new Intent(SettingsActivity.this, StartActivity.class);
-                        startActivity(intentout);
 
                         //remove member from household
                         PreferencesAccess preferencesAccess = new PreferencesAccess();
@@ -464,9 +463,7 @@ public class SettingsActivity extends AppCompatActivity {
                         //delete person
                         FireBaseHandling.getInstance().deletePerson(personID);
 
-                       /* FirebaseAuth.getInstance().signOut();
-                        Intent intentout = new Intent(SettingsActivity.this, LoginActivity.class);
-                        startActivity(intentout);*/
+                        startActivity(intentout);
                        finish();
                     }
                 });

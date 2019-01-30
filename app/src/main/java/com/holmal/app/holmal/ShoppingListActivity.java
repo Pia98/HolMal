@@ -43,8 +43,6 @@ import butterknife.OnClick;
 public class ShoppingListActivity extends AppCompatActivity {
 
     private static final String TAG = ShoppingListActivity.class.getName();
-    private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
-    private HashMap<String, Item> itemsOfTheList = new HashMap<>();
     private HashMap<String, Item> openItemsOfTheList = new HashMap<>();
     private HashMap<String, Item> doneItemsOfTheList = new HashMap<>();
     private ArrayList<String> itemIds = new ArrayList<>();
@@ -57,7 +55,6 @@ public class ShoppingListActivity extends AppCompatActivity {
     private String recentShoppingListName;
     private RecyclerView list;
     private String shoppingListId;
-    private Household household;
 
     /**
      * Method that initialises the class and its important features.
@@ -80,7 +77,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         startPersonListener();
 
         //Listener for the shopping lists of this household
-        startShoppingListListener();
+        startShoppingListListener(true);
 
         //menu that appears from the left
         menu();
@@ -145,13 +142,13 @@ public class ShoppingListActivity extends AppCompatActivity {
                 // items open
                 if (tab.getPosition() == 0) {
                     // Listener to get all open items that are in the list
-                    startOpenItemsListener();
+                    startShoppingListListener(true);
                     
                 }
                 // items done
                 else {
                     // Listener to get all done items that are in the list
-                    startDoneItemsListener();
+                    startShoppingListListener(false);
                 }
             }
 
@@ -188,8 +185,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                             startActivity(intentLists);
                             finish();
                             return true;
-                        }
-                        else if (menuItem.getItemId() == R.id.nav_settings) {
+                        } else if (menuItem.getItemId() == R.id.nav_settings) {
                             Intent intentnav = new Intent(ShoppingListActivity.this, SettingsActivity.class);
                             startActivity(intentnav);
                             finish();
@@ -308,39 +304,56 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     /**
      * Method that starts the shopping list listener and gets a list of the shopping lists of this household from the
-     * firebase database. It also sets the title of the window to the name of the displayed shopping list.
+     * firebase database.
+     * It also sets the title of the window to the name of the displayed shopping list.
      */
-    private void startShoppingListListener() {
-        FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
-                listsOfThisHousehold.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Listen durchgehen");
-                    String id = child.getKey();
-                    ShoppingList value = child.getValue(ShoppingList.class);
-                    Log.i(TAG, "ShoppingList: " + value);
-                    if (value.getIdBelongingTo().equals(householdId)) {
-                        Log.i(TAG, "Liste gehört zu diesem Haushalt.");
-                        listsOfThisHousehold.put(id, value);
+    private void startShoppingListListener(final boolean open) {
+        recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
+        if (recentShoppingListName != null) {
+            setTitle(recentShoppingListName);
+            FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.i(TAG, "started listener on shoppingList");
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        String id = child.getKey();
+                        ShoppingList value = child.getValue(ShoppingList.class);
+                        if (value.getIdBelongingTo().equals(householdId) && value.getListName().equals(recentShoppingListName)) {
+                            Log.i(TAG, "FOUND!");
+                            currentShoppingList = value;
+                            shoppingListId = id;
+                            Log.i(TAG, "CurrentShoppingList Name: " + currentShoppingList.getListName());
+
+                            HashMap<String, String> ids = currentShoppingList.getItemsOfThisList();
+                            if (ids != null) {
+                                String[] idsKeys = ids.keySet().toArray(new String[ids.size()]);
+                                for (int i = 0; i < ids.size(); i++) {
+                                    itemIds.add(ids.get(idsKeys[i]));
+                                }
+                            }
+
+                            if (open) {
+                                startOpenItemsListener();
+                            } else {
+                                startDoneItemsListener();
+                            }
+                            break;
+                        }
                     }
-
-                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
-                getCurrentShoppingList();
-                if (recentShoppingListName != null) {
-                    setTitle(recentShoppingListName);
-                } else {
-                    setTitle(R.string.shoppingList);
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
                 }
-            }
+            });
+        } else {
+            Log.i(TAG, "no recentShoppingListName found!");
+            // TODO maybe toast that something went wrong
+            Intent intent = new Intent(this, AllShoppingListsActivity.class);
+            startActivity(intent);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        }
     }
 
     /**
@@ -370,7 +383,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     /**
      * Getter for the current shopping list. The most recent shopping list name is stored in the preferences.
      */
-    private void getCurrentShoppingList() {
+   /* private void getCurrentShoppingList() {
 
         Log.i(TAG, "getCurrentShoppingList called");
         Log.i(TAG, "shoppingLists " + listsOfThisHousehold);
@@ -399,7 +412,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                 itemIds.add(ids.get(idsKeys[i]));
             }
         }
-    }
+    }*/
 
     /**
      * Method that is called when the navigation drawer menu is opened to keep track on the selection of navigation items.

@@ -3,7 +3,10 @@ package com.holmal.app.holmal.model;
 import java.util.HashMap;
 
 /**
- * Model for the shopping list
+ * Model for a ShoppinList object.
+ * ShoppingList belongs to a {@link Household}.
+ * A ShoppingList has a name and references to the {@link Item}s of this list.
+ * Also it can have a category.
  */
 public class ShoppingList {
 
@@ -15,8 +18,8 @@ public class ShoppingList {
     /**
      * Constructor for a shopping list
      * @param listName every list has a name.
-     * @param category lists can belong to a category. some categories are provided.
-     * @param idBelongingTo a shopping list belongs to a household.
+     * @param category lists can belong to a category. Some categories are provided.
+     * @param idBelongingTo a shopping list belongs to a {@link Household}.
      */
     public ShoppingList(String listName, String category, String idBelongingTo) {
         this.listName = listName;

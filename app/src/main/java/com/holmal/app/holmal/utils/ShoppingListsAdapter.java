@@ -11,17 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.ShoppingListActivity;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.ShoppingList;
+
 import java.util.HashMap;
 
 /**
  * This adapter is responsible for displaying the lists of a household in an overview.
- * Is called in AllShoppingListsActivity.
+ * Is called in {@link com.holmal.app.holmal.AllShoppingListsActivity}.
  */
-public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdapter.ListsViewHolder>{
+public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdapter.ListsViewHolder> {
 
     private Context context;
     private HashMap<String, ShoppingList> shoppinglists;
@@ -35,8 +37,9 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     /**
      * Provide a reference to the views for each data item
      */
-    public static class ListsViewHolder extends RecyclerView.ViewHolder {
+    static class ListsViewHolder extends RecyclerView.ViewHolder {
         private View gridView;
+
         private ListsViewHolder(View view) {
             super(view);
             gridView = view;
@@ -45,7 +48,8 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
 
     /**
      * Constructor of the adapter
-     * @param context the context of AllShoppingLists the adapter needs
+     *
+     * @param context       the context of {@link com.holmal.app.holmal.AllShoppingListsActivity} the adapter needs
      * @param shoppinglists a list of all shopping lists a household has
      */
     public ShoppingListsAdapter(Context context, HashMap<String, ShoppingList> shoppinglists, HashMap<String, Item> itemsOfHousehold) {
@@ -57,8 +61,9 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
 
     /**
      * Method that creates views for the lists. Their layout is specified in single_shoppinglist_layout.
+     *
      * @param parent viewgroup the views for the lists lay on
-     * @param i type of view
+     * @param i      type of view
      * @return the list view holder
      */
     @NonNull
@@ -80,23 +85,24 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     /**
      * Method that fills the grid of the viewholder with the appropriate content.
      * Also handles interactions with the shoppinglist items.
+     *
      * @param listsViewHolder the viewholder
-     * @param i the position at which the list is in the list of lists
+     * @param i               the position at which the list is in the list of lists
      */
     @Override
     public void onBindViewHolder(@NonNull ShoppingListsAdapter.ListsViewHolder listsViewHolder, int i) {
 
         final ShoppingList listAtPosition = shoppinglists.get(listKeys[i]);
+        final String listsID = listKeys[i];
         listAtPositionKey = listKeys[i];
         Log.i("FürSvenja", "keysShoppingLists" + listAtPositionKey);
 
         //only shows first letters of the name
         String listName = listAtPosition.getListName();
-        if (listName.length()> 11){
+        if (listName.length() > 11) {
             String listNamePreview = listName.substring(0, 10);
             nameView.setText(listNamePreview + "...");
-        }
-        else{
+        } else {
             nameView.setText(listName);
         }
 
@@ -105,13 +111,13 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
         //add the amount of open items to the card
         int amountOpenItems = 0;
         //iterates over all items
-        String [] itemsKeys = itemsOfHousehold.keySet().toArray(new String[itemsOfHousehold.size()]);
+        String[] itemsKeys = itemsOfHousehold.keySet().toArray(new String[itemsOfHousehold.size()]);
 
-        for(int j = 0; j< itemsKeys.length-1; j++){
+        for (int j = 0; j < itemsKeys.length - 1; j++) {
             //checks if the item is on the currently looked at list
             String itemListID = itemsOfHousehold.get(itemsKeys[j]).getBelongsTo();
-            if(itemListID.equals(listAtPositionKey)){
-                if(!itemsOfHousehold.get(itemsKeys[j]).isDone()){
+            if (itemListID.equals(listAtPositionKey)) {
+                if (!itemsOfHousehold.get(itemsKeys[j]).isDone()) {
                     amountOpenItems += 1;
                 }
             }
@@ -119,7 +125,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
 
         //sets the number of items into the descriptionView
         if (listAtPosition.getItemsOfThisList() == null
-                || listAtPosition.getItemsOfThisList().size() == 0 || amountOpenItems == 0 ) {
+                || listAtPosition.getItemsOfThisList().size() == 0 || amountOpenItems == 0) {
             descriptionView.setText(R.string.noOpenItems);
         } else {
             descriptionView.setText(R.string.openItems);
@@ -133,13 +139,13 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
             public void onClick(View v) {
                 Log.i("FürSvenja", "clicked list -> open list");
                 PreferencesAccess preferencesAccess = new PreferencesAccess();
-                preferencesAccess.storePreferences(context,context.getString(R.string.recentShoppingListNamePreference), listAtPosition.getListName());
+                preferencesAccess.storePreferences(context, context.getString(R.string.recentShoppingListNamePreference), listAtPosition.getListName());
                 Intent intent = new Intent(context, ShoppingListActivity.class);
                 v.getContext().startActivity(intent);
             }
         });
         //handles long clicks on shoppinglist which enables one to delete the shopping list
-        listsViewHolder.gridView.setOnLongClickListener(new View.OnLongClickListener(){
+        listsViewHolder.gridView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
 
@@ -155,7 +161,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
                                 //delete items from the pressed list
                                 HashMap<String, String> itemsToDelete = listAtPosition.getItemsOfThisList();
                                 String[] keys = itemsToDelete.keySet().toArray(new String[itemsToDelete.size()]);
-                                for (int i = 0; i<itemsToDelete.size(); i++){
+                                for (int i = 0; i < itemsToDelete.size(); i++) {
                                     FireBaseHandling.getInstance().deleteItem(itemsToDelete.get(keys[i]));
                                 }
                                 //delete shoppingList itself
@@ -186,6 +192,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
 
     /**
      * Getter for the amount of shopping lists a household has
+     *
      * @return amount of shopping lists to be displayed
      */
     @Override

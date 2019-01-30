@@ -27,8 +27,10 @@ import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.ShoppingListsAdapter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -71,7 +73,6 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         menu();
 
         startShoppingListListener(householdId);
-        startItemListener();
     }
 
     /**
@@ -209,10 +210,9 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                     }
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
-                //fill with lists with an adapter
-                Log.i("FürSvenja", "itemsOfHousehold"+ + itemsOfThisHousehold.size() +itemsOfThisHousehold.toString());
-                ShoppingListsAdapter adapter = new ShoppingListsAdapter(AllShoppingListsActivity.this, listsOfThisHousehold, itemsOfThisHousehold);
-                listsView.setAdapter(adapter);
+
+                // start itemListener when shoppingListListener is ready and set adapter when bot are ready
+                startItemListener();
             }
 
             @Override
@@ -242,6 +242,11 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                     itemsOfThisHousehold.put(id, value);
                     Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + itemsOfThisHousehold);
                 }
+
+                //fill with lists with an adapter
+                Log.i("FürSvenja", "itemsOfHousehold" + +itemsOfThisHousehold.size() + itemsOfThisHousehold.toString());
+                ShoppingListsAdapter adapter = new ShoppingListsAdapter(AllShoppingListsActivity.this, listsOfThisHousehold, itemsOfThisHousehold);
+                listsView.setAdapter(adapter);
             }
 
             @Override
@@ -276,5 +281,6 @@ public class AllShoppingListsActivity extends AppCompatActivity {
     public void addShoppingListClicked() {
         Intent intent = new Intent(this, CreateShoppingListActivity.class);
         startActivity(intent);
+        finish();
     }
 }

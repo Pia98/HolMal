@@ -66,7 +66,7 @@ public class MyTasksActivity extends AppCompatActivity {
         //menu that appears from the left
         menu(personID);
 
-        startPersonListener();
+        startPersonListener(true, personID);
     }
 
     private void menu(final String personID) {
@@ -126,12 +126,12 @@ public class MyTasksActivity extends AppCompatActivity {
                 // items open
                 if (tab.getPosition() == 0) {
                     // Listener to get all open items that are in the list
-                    startMyOpenItemsListener(personID);
+                    startPersonListener(true, personID);
                 }
                 // items done
                 else {
                     // Listener to get all done items that are in the list
-                    startMyDoneItemsListener(personID);
+                    startPersonListener(false, personID);
                 }
             }
 
@@ -282,7 +282,7 @@ public class MyTasksActivity extends AppCompatActivity {
     /**
      * Method that starts the person listener. Gets a list of the people in the active household from the firebase database.
      */
-    private void startPersonListener() {
+    private void startPersonListener(final boolean open, final String personID) {
         FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -294,6 +294,11 @@ public class MyTasksActivity extends AppCompatActivity {
                         person.put(id, value);
                     }
                 }
+
+                if(open){
+                    startMyOpenItemsListener(personID);
+                }
+                else startMyDoneItemsListener(personID);
             }
 
             @Override

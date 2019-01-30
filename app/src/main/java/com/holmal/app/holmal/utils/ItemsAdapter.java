@@ -14,18 +14,20 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.firebase.database.FirebaseDatabase;
 import com.holmal.app.holmal.ItemInformationActivity;
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
+
 import java.util.HashMap;
 
 /**
  * Items Adapter is the adapter that sets the items on the shopping list.
  * It fills the content of every single item and sets it on the list and also enables interactions by providing a click-
  * and a long-click listener.
- * The items adapter is set in ShoppingListActivity.
+ * The items adapter is set in {@link com.holmal.app.holmal.ShoppingListActivity}.
  */
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder> {
 
@@ -40,13 +42,14 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
     private TextView infoView;
     private ImageView assignedView;
     private CheckBox doneView;
-    RecyclerView singleItemView;
+    private RecyclerView singleItemView;
 
     /**
      * Provide a reference to the views for each data item
      */
-    public static class ItemsViewHolder extends RecyclerView.ViewHolder {
+    static class ItemsViewHolder extends RecyclerView.ViewHolder {
         private View rowView;
+
         private ItemsViewHolder(View view) {
             super(view);
             rowView = view;
@@ -54,12 +57,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
     }
 
     /**
-     * constructor for ItemsAdapter
-     * @param context ShoppingListActivity context is provided
-     * @param items the items to be displayed on the list
-     * @param person the people of the household are given to enable the display of the assignment of tasks
+     * Constructor for ItemsAdapter
+     *
+     * @param context {@link com.holmal.app.holmal.ShoppingListActivity} context is provided
+     * @param items   the items to be displayed on the list
+     * @param person  the people of the household are given to enable the display of the assignment of tasks
      */
-    public ItemsAdapter(Context context, HashMap<String, Item> items, HashMap<String, Person> person){
+    public ItemsAdapter(Context context, HashMap<String, Item> items, HashMap<String, Person> person) {
         this.context = context;
         this.items = items;
         this.person = person;
@@ -69,7 +73,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
 
     /**
      * Method that creates views for items including part-views for all their data whose layout is specified in single_item_layout
-     * @param parent the parent view
+     *
+     * @param parent   the parent view
      * @param viewType the type of view
      * @return the item view holder
      */
@@ -94,8 +99,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
 
     /**
      * Method that fills the items of the viewholder with appropriate content. Actually adapts the view to show items on the list.
+     *
      * @param itemsViewHolder the viewHolder
-     * @param position the position at which an item is in the list
+     * @param position        the position at which an item is in the list
      */
     @Override
     public void onBindViewHolder(@NonNull ItemsViewHolder itemsViewHolder, final int position) {
@@ -111,11 +117,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
 
         //only shows first 30 letters of the additional info
         String itemInformation = itemAtPosition.getAdditionalInfo();
-        if (itemInformation.length()> 30){
+        if (itemInformation.length() > 30) {
             String itemInformationPreview = itemInformation.substring(0, 30);
             infoView.setText(itemInformationPreview + "...");
-        }
-        else{
+        } else {
             infoView.setText(itemInformation);
         }
 
@@ -162,10 +167,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         itemsViewHolder.rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Log.i("FürSvenja", "clicked item -> open info");
-                    Intent intent = new Intent(context, ItemInformationActivity.class);
-                    intent.putExtra("itemId", itemKeys[position]);
-                    v.getContext().startActivity(intent);
+                Log.i("FürSvenja", "clicked item -> open info");
+                Intent intent = new Intent(context, ItemInformationActivity.class);
+                intent.putExtra("itemId", itemKeys[position]);
+                v.getContext().startActivity(intent);
             }
         });
         //handles long click on item to assign the item to oneself (and colour them)
@@ -178,10 +183,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
                 if (itemAtPosition.getItsTask().isEmpty()) {
                     String ownPersonKey = FirebaseDatabase.getInstance().getReference().child("person").child(ownPersonID).getKey();
                     FirebaseDatabase.getInstance().getReference().child("item").child(itemKeys[position]).child("itsTask").setValue(ownPersonID);
-                } else if (itemAtPosition.getItsTask().equals(ownPersonID)){
+                } else if (itemAtPosition.getItsTask().equals(ownPersonID)) {
                     FirebaseDatabase.getInstance().getReference().child("item").child(itemKeys[position]).child("itsTask").setValue("");
-                } else if (!itemAtPosition.getItsTask().equals(ownPersonID)){
-                    Toast.makeText(context, R.string.alreadyAssigned, Toast.LENGTH_LONG).show();
+                } else if (!itemAtPosition.getItsTask().equals(ownPersonID)) {
+                    Toast.makeText(context.getApplicationContext(), R.string.alreadyAssigned, Toast.LENGTH_LONG).show();
                 }
 
                 return true;
@@ -192,7 +197,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         doneView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     FirebaseDatabase.getInstance().getReference().child("item").child(itemKeys[position]).child("done").setValue(true);
                     Log.i("ItemsAdapter", "done isChecked -> " + itemAtPosition.getItemName() + ": done should be set 'true'");
                 } else {
@@ -203,13 +208,14 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         });
 
     }
-        /**
-         * getter for the length of the hashmap that contains the items to be displayed
-         *
-         * @return amount of dispayed items
-         */
-        public int getItemCount () {
-            return itemKeys.length;
-        }
 
+    /**
+     * getter for the length of the hashmap that contains the items to be displayed
+     *
+     * @return amount of dispayed items
+     */
+    public int getItemCount() {
+        return itemKeys.length;
     }
+
+}

@@ -11,7 +11,7 @@
     <string name="createHousehold">neuen Haushalt erstellen</string> <!-- alrenativ: Haus bauen? -->
     <string name="moveIn">in bestehenden Haushalt einziehen</string>
 
-    <string name="householdName">Name des Haushalts:</string>
+    <string name="householdName">Name des Haushalts</string>
     <string name="id">ID:</string>
     <string name="done">Fertig</string> <!-- alternativ: bei haushalt erstellen: bauen?, bei beitreten: einziehen? -->
     <string name="copy">kopieren</string>
@@ -38,7 +38,8 @@
     <string name="what">Was</string>
     <string name="fromFavorites">aus Favoriten</string>
     <string name="amount">Wie viel</string>
-    <string name="info">Info</string>
+    <string name="info">Bemerkung</string>
+    <string name="who">Wer bringt\'s mit</string>
     <string name="urgent">dringend</string>
     <string name="saveAsFavorite">als Favorit speichern</string>
     <string name="add">Hinzufügen</string>
@@ -68,6 +69,7 @@
     <string name="leaveConfirmation">Möchtest Du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
     <string name="moveinConfirmation">Möchtest Du diesem Haushalt wirklich beitreten: </string>
     <string name="deleteListConfirmation">Möchtest du diese Liste wirklich löschen?</string>
+    <string name="deleteItemConfirmation">Möchtest du dieses Item wirklich löschen: </string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="cancel">Abbrechen</string>
@@ -123,7 +125,6 @@
     <string name="householdIDPreference">householdID</string>
     <string name="recentShoppingListNamePreference">recentShoppingListName</string>
     <string name="personIDPreference">personID</string>
-    <string name="personNamePreference">personName</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

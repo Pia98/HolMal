@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="item"
+        android:text=""
         app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
         app:layout_constraintTop_toTopOf="@+id/whatInfo" />
 
@@ -47,7 +47,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Wie viel:"
+        android:text="@string/amount"
         app:layout_constraintStart_toStartOf="@+id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/itemEditName" />
 
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Anzahl"
+        android:text=""
         app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
         app:layout_constraintTop_toTopOf="@+id/textView4" />
 
@@ -71,19 +71,10 @@
         app:layout_constraintTop_toTopOf="@+id/textView4" />
 
     <TextView
-        android:id="@+id/itemUrgent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/urgent"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@id/itemClose"
-        app:layout_constraintEnd_toStartOf="@id/rightMargin" />
-
-    <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bemerkung:"
+        android:text="@string/info"
         app:layout_constraintStart_toStartOf="@+id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/itemEditAmount" />
 
@@ -92,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Info"
+        android:text=""
         app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
         app:layout_constraintTop_toTopOf="@+id/textView5" />
 
@@ -110,7 +101,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Wer bringts mit:"
+        android:text="@string/who"
         app:layout_constraintStart_toStartOf="@+id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/itemEditDescription" />
 
@@ -119,14 +110,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="bringt Lars mit"
+        android:text=""
         app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
         app:layout_constraintTop_toTopOf="@+id/textView2" />
 
     <Spinner
         android:id="@+id/itemEditTask"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
         android:spinnerMode="dropdown"
@@ -134,32 +125,52 @@
         app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
         app:layout_constraintTop_toTopOf="@+id/textView2" />
 
+    <TextView
+        android:id="@+id/itemUrgent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/urgent"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+    <CheckBox
+        android:id="@+id/itemUrgentCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/urgent"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
     <Button
         android:id="@+id/itemComplete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/colorPrimary"
         android:text="fertig"
         app:layout_constraintEnd_toStartOf="@+id/itemEdit"
-        app:layout_constraintTop_toBottomOf="@+id/itemEditTask" />
+        app:layout_constraintTop_toBottomOf="@+id/itemUrgent" />
 
     <Button
         android:id="@+id/itemEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/colorPrimary"
         android:text="bearbeiten"
         app:layout_constraintEnd_toStartOf="@id/itemDelete"
-        app:layout_constraintTop_toBottomOf="@+id/itemEditTask" />
+        app:layout_constraintTop_toBottomOf="@+id/itemUrgent" />
 
     <Button
         android:id="@+id/itemDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="löschen"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"
-        app:layout_constraintTop_toBottomOf="@+id/itemEditTask" />
+        app:layout_constraintTop_toBottomOf="@+id/itemUrgent" />
 
     <!-- Guidelines -->
 
@@ -217,7 +228,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.87" />
 
     <android.support.constraint.Guideline
         android:id="@+id/quarterLineTop"
