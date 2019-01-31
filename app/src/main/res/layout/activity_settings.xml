@@ -84,23 +84,23 @@
                     <TextView
                         android:id="@+id/householdName"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/text_margin"
+                        android:layout_height="20dp"
                         android:background="@android:color/transparent"
-                        android:text="@+id/householdName"
-                        app:layout_constraintTop_toBottomOf="@id/householdNameTitle" />
+                        android:text="testetstetststfwedgshfik"
+                        card_view:layout_constraintTop_toBottomOf="@id/householdNameTitle" />
 
                     <TextView
                         android:id="@+id/IdTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginEnd="8dp"
                         android:background="@android:color/transparent"
                         android:text="@string/id"
                         android:textSize="16sp"
-                        app:layout_constraintTop_toBottomOf="@id/editHouseholdName"
-                        card_view:layout_constraintStart_toStartOf="parent" />
+                        card_view:layout_constraintEnd_toEndOf="parent"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        tools:layout_editor_absoluteY="32dp" />
 
                     <TextView
                         android:id="@+id/thisHouseholdId"
