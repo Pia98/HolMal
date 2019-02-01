@@ -215,6 +215,7 @@ public class ItemInformationActivity extends AppCompatActivity {
         Boolean newUrgent = itemUrgentCheck.isChecked();
         //TODO checking if person in household exits
 
+        // TODO waere hier die Abfrage .isEmpty() nicht sinnvoller?
         if(newName != null){
             FireBaseHandling.getInstance().editItemName(newName, itemId);
         }

@@ -87,7 +87,7 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        setTitle(R.string.shoppingLists);
+        setTitle(R.string.shoppingList);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
