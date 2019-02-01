@@ -47,7 +47,7 @@
 
     <!--text sizes-->
     <dimen name="textSizeSmall">12sp</dimen> <!-- login, kleine rote Schrift -->
-    <dimen name="textSizeHeading">24sp</dimen> <!-- Ueberschriften in Spezialschrift -->
+    <dimen name="textSizeHeading">26sp</dimen> <!-- Ueberschriften in Spezialschrift -->
     <dimen name="textSizeBig">20sp</dimen> <!-- bei Itemdarstellung Bezeichnung -->
     <dimen name="textSizeMedium">14sp</dimen> <!-- bei Itemdarstellung andere Schrift -->
     <dimen name="textSizeMediumBig">17sp</dimen><!-- bei bsp ItemInfo (Was, Wie viel etc) textSizeBig zu groß -->
