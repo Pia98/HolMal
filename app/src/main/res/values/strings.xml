@@ -77,6 +77,7 @@
     <string name="leave">Haushalt verlassen</string> <!-- ausziehen -->
     <string name="edit">Bearbeiten</string>
     <string name="colourDescription">Die Farbe der Person</string>
+    <string name="delete">Löschen</string>
 
     <string name="leaveConfirmation">Möchtest du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
     <string name="moveinConfirmation">Möchtest du diesem Haushalt wirklich beitreten? </string>
@@ -84,8 +85,6 @@
     <string name="deleteItemConfirmation">Möchtest du dieses Item wirklich löschen? </string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
-    <!--info-->
-    <string name="whatInfo">Was:</string>
 
 
     <!-- Errors -->
