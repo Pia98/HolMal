@@ -21,7 +21,7 @@
     <Button
         android:id="@+id/createHousehold"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/buttonHeight"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
@@ -34,7 +34,7 @@
     <Button
         android:id="@+id/moveIn"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/buttonHeight"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -46,8 +46,8 @@
 
     <Button
         android:id="@+id/logoutButton"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
+        android:layout_width="@dimen/finishWidth"
+        android:layout_height="@dimen/buttonHeight"
         android:text="@string/logout"
         app:layout_constraintBottom_toTopOf="@id/bottomMargin"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"

@@ -3,6 +3,7 @@ package com.holmal.app.holmal;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import butterknife.OnClick;
 public class ItemInformationActivity extends AppCompatActivity {
     private static final String TAG = ItemInformationActivity.class.getName();
 
+    //---------- info tests -------------------
     @BindView(R.id.itemName)
     TextView itemNameText;
 
@@ -49,15 +51,14 @@ public class ItemInformationActivity extends AppCompatActivity {
     @BindView(R.id.itemTask)
     TextView itemTaskText;
 
-    @BindView(R.id.itemUrgent)
-    TextView itemUrgentText;
-
+    //----------- item edit buttons --------------------------
     @BindView(R.id.itemComplete)
     Button itemComplete;
 
     @BindView(R.id.itemEdit)
     Button itemEdit;
 
+    //---------- item edit texts ----------------------
     @BindView(R.id.itemEditName)
     EditText itemEditName;
 
@@ -73,11 +74,17 @@ public class ItemInformationActivity extends AppCompatActivity {
     @BindView(R.id.itemUrgentCheck)
     CheckBox itemUrgentCheck;
 
+    //---------------- view groups -------------------------
+    @BindView(R.id.editItem)
+    ConstraintLayout editItem;
+
+    @BindView(R.id.infoItem)
+    ConstraintLayout infoItem;
+
     HashMap<String, Person> joiningPerson = new HashMap<>();
     ArrayList<String> personenNamen = new ArrayList<>();
     ArrayAdapter<String> adapter;
 
-    HashMap<String, Item> item = new HashMap<>();
     Item thisItem;
     String itemId;
 
@@ -90,20 +97,15 @@ public class ItemInformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_information);
         ButterKnife.bind(this);
 
+        editItem.setVisibility(View.INVISIBLE);
         itemComplete.setVisibility(View.INVISIBLE);
-        itemEditName.setVisibility(View.INVISIBLE);
-        itemEditAmount.setVisibility(View.INVISIBLE);
-        itemEditDescription.setVisibility(View.INVISIBLE);
-        itemEditTask.setVisibility(View.INVISIBLE);
-        itemUrgentCheck.setVisibility(View.INVISIBLE);
+        itemUrgentCheck.setClickable(false);
 
         Bundle extras = getIntent().getExtras();
         itemId = extras.getString("itemId");
 
         PreferencesAccess preferencesAccess = new PreferencesAccess();
         householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
-
-        personenNamen.add(" - - - ");
 
         startPersonListener();
 
@@ -129,14 +131,14 @@ public class ItemInformationActivity extends AppCompatActivity {
                     itemDescriptionText.setText(itemDescription);
                     if (!itemTask.isEmpty()) {
                         String personName = joiningPerson.get(itemTask).getPersonName();
-                        itemTaskText.setText(String.format(getString(R.string.brings), personName));
+                        itemTaskText.setText(personName);
                     } else {
                         itemTaskText.setText(itemTask);
                     }
                     if (itemUrgent) {
-                        itemUrgentText.setVisibility(View.VISIBLE);
+                        itemUrgentCheck.setChecked(true);
                     } else {
-                        itemUrgentText.setVisibility(View.INVISIBLE);
+                        itemUrgentCheck.setChecked(false);
                     }
                 }
             }
@@ -154,6 +156,8 @@ public class ItemInformationActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.i(TAG, "listener in onCreate...");
                 joiningPerson.clear();
+                personenNamen.clear();
+                personenNamen.add(" - - - ");
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Log.i(TAG, "alle Personen durchgehen");
                     String id = child.getKey();
@@ -185,27 +189,32 @@ public class ItemInformationActivity extends AppCompatActivity {
 
     @OnClick(R.id.itemEdit)
     public void editItem(){
+        editItem.setVisibility(View.VISIBLE);
+        infoItem.setVisibility(View.INVISIBLE);
         itemComplete.setVisibility(View.VISIBLE);
         itemEdit.setVisibility(View.INVISIBLE);
-        itemEditName.setVisibility(View.VISIBLE);
+
         itemEditName.setText(itemNameText.getText().toString());
-        itemNameText.setVisibility(View.INVISIBLE);
-        itemEditAmount.setVisibility(View.VISIBLE);
         itemEditAmount.setText(itemAmountText.getText().toString());
-        itemAmountText.setVisibility(View.INVISIBLE);
-        itemEditDescription.setVisibility(View.VISIBLE);
         itemEditDescription.setText(itemDescriptionText.getText().toString());
         itemDescriptionText.setVisibility(View.INVISIBLE);
-        itemEditTask.setVisibility(View.VISIBLE);
-        itemTaskText.setVisibility(View.INVISIBLE);
-        itemUrgentCheck.setVisibility(View.VISIBLE);
-        itemUrgentCheck.setChecked(itemUrgent);
-        itemUrgentText.setVisibility(View.INVISIBLE);
+        itemUrgentCheck.setClickable(true);
+
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, personenNamen);
         itemEditTask.setAdapter(adapter);
+        for(int i=0; i<personenNamen.size(); i++){
+            if(personenNamen.get(i) == itemTaskText.getText().toString()){
+                itemEditTask.setSelection(i);
+                break;
+            }
+        }
     }
 
+    /**
+     * editing of an item complete button
+     * checks if a parameter is different than before, than edits it on the database
+     */
     @OnClick(R.id.itemComplete)
     public void editComplete(){
         String newName = itemEditName.getText().toString();
@@ -213,19 +222,17 @@ public class ItemInformationActivity extends AppCompatActivity {
         String newDescription = itemEditDescription.getText().toString();
         String newPersonTask = itemEditTask.getSelectedItem().toString();
         Boolean newUrgent = itemUrgentCheck.isChecked();
-        //TODO checking if person in household exits
 
-        // TODO waere hier die Abfrage .isEmpty() nicht sinnvoller?
-        if(newName != null){
+        if(newName != itemNameText.getText().toString()){
             FireBaseHandling.getInstance().editItemName(newName, itemId);
         }
-        if(newAmount != null){
+        if(newAmount != itemAmountText.getText().toString()){
             FireBaseHandling.getInstance().editItemAmount(newAmount, itemId);
         }
-        if(newDescription != null){
+        if(newDescription != itemDescriptionText.getText().toString()){
             FireBaseHandling.getInstance().editItemDescription(newDescription, itemId);
         }
-        if(newPersonTask != " - - - "){
+        if(newPersonTask != itemTaskText.getText().toString()){
             Iterator iterator = joiningPerson.entrySet().iterator();
             String personID = null;
             while (iterator.hasNext()) {
@@ -245,20 +252,12 @@ public class ItemInformationActivity extends AppCompatActivity {
             FireBaseHandling.getInstance().editItemUrgent(newUrgent, itemId);
         }
 
+        infoItem.setVisibility(View.VISIBLE);
+        editItem.setVisibility(View.INVISIBLE);
+        itemUrgentCheck.setClickable(false);
         itemComplete.setVisibility(View.INVISIBLE);
         itemEdit.setVisibility(View.VISIBLE);
-        itemEditName.setVisibility(View.INVISIBLE);
-        itemNameText.setVisibility(View.VISIBLE);
-        itemEditAmount.setVisibility(View.INVISIBLE);
-        itemAmountText.setVisibility(View.VISIBLE);
-        itemEditDescription.setVisibility(View.INVISIBLE);
-        itemDescriptionText.setVisibility(View.VISIBLE);
-        itemEditTask.setVisibility(View.INVISIBLE);
-        itemTaskText.setVisibility(View.VISIBLE);
-        itemUrgentCheck.setVisibility(View.INVISIBLE);
-        if(newUrgent){
-            itemUrgentText.setVisibility(View.VISIBLE);
-        }
+
     }
 
     @OnClick(R.id.itemDelete)

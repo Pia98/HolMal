@@ -57,8 +57,7 @@
     <string name="addItem">Item zu Einkaufsliste hinzufügen</string>
 
     <!-- itemInformation -->
-    <!-- TODO same as who?! which one should we take?-->
-    <string name="brings">bringt %s mit</string>
+    <string name="itemInformationHeading">Informationen</string>
 
     <string name="favorites">Favoriten</string>
 
