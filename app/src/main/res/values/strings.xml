@@ -114,6 +114,9 @@
     <string name="ErrorItemTaken">In dieser Liste existiert bereits ein Item mit dieser Bezeichnung</string>
     <string name="ErrorItemsPersonTask">Leider ist etwas schief gegangen: Die Person konnte nicht gespeichert werden</string>
 
+    <string name="ErrorListDoesntExistAnymore">Deine zuletzt geöffnete Liste existiert leider nicht mehr</string>
+    <string name="ErrorNoRecentShoppingList">Du hast keine zuletzt geöffnete Liste gespeichert</string>
+
     <string name="defaultShoppingList">Einkaufsliste 1</string>
     
     <string-array name="spinner">
