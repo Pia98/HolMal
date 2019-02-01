@@ -81,10 +81,10 @@
     <string name="edit">Bearbeiten</string>
 
     <!-- TODO welche Möglichkeit nehmen wir? ":" oder "?", sollte einheitlich sein!-->
-    <string name="leaveConfirmation">Möchtest Du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
-    <string name="moveinConfirmation">Möchtest Du diesem Haushalt wirklich beitreten: </string>
+    <string name="leaveConfirmation">Möchtest du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
+    <string name="moveinConfirmation">Möchtest du diesem Haushalt wirklich beitreten? </string>
     <string name="deleteListConfirmation">Möchtest du diese Liste wirklich löschen?</string>
-    <string name="deleteItemConfirmation">Möchtest du dieses Item wirklich löschen: </string>
+    <string name="deleteItemConfirmation">Möchtest du dieses Item wirklich löschen? </string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <!--info-->
@@ -106,7 +106,7 @@
     <string name="ErrorChooseHousehold">Wähle einen Haushalt</string>
     <string name="ErrorFindHousehold">Haushalt konnte nicht gefunden werden</string>
     <string name="ErrorEnterHouseholdName">Wähle einen Namen für den Haushalt</string>
-    <string name="ErrorEnterItem">Gebe eine Bezeichnung an</string>
+    <string name="ErrorEnterItem">Gib eine Bezeichnung an</string>
     <string name="ErrorEnterShoppingListName">Gib eine Bezeichnung ein</string>
     <string name="ErrorListNameTaken">Es existiert bereits eine Liste mit diesem Namen</string>
     <string name="ErrorItemTaken">In dieser Liste existiert bereits ein Item mit dieser Bezeichnung</string>

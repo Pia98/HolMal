@@ -157,12 +157,13 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
                         R.string.yes,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                //TODO: Debug: wurde statt löschen auf create geleitet
                                 //delete items from the pressed list
-                                HashMap<String, String> itemsToDelete = listAtPosition.getItemsOfThisList();
-                                String[] keys = itemsToDelete.keySet().toArray(new String[itemsToDelete.size()]);
-                                for (int i = 0; i < itemsToDelete.size(); i++) {
-                                    FireBaseHandling.getInstance().deleteItem(itemsToDelete.get(keys[i]));
+                                if(listAtPosition.getItemsOfThisList()!= null) {
+                                    HashMap<String, String> itemsToDelete = listAtPosition.getItemsOfThisList();
+                                        String[] keys = itemsToDelete.keySet().toArray(new String[itemsToDelete.size()]);
+                                        for (int i = 0; i < itemsToDelete.size(); i++) {
+                                            FireBaseHandling.getInstance().deleteItem(itemsToDelete.get(keys[i]));
+                                        }
                                 }
                                 //delete shoppingList itself
                                 FireBaseHandling.getInstance().deleteShoppingList(listsID);
