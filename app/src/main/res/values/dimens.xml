@@ -51,5 +51,8 @@
     <dimen name="textSizeBig">20sp</dimen> <!-- bei Itemdarstellung Bezeichnung -->
     <dimen name="textSizeMedium">14sp</dimen> <!-- bei Itemdarstellung andere Schrift -->
 
+    <!--button sizes -->
+    <dimen name="buttonHeight">60dp</dimen>
+    <dimen name="finishWidth">100dp</dimen>
 
 </resources>
