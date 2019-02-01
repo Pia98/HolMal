@@ -165,6 +165,12 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
                                             FireBaseHandling.getInstance().deleteItem(itemsToDelete.get(keys[i]));
                                         }
                                 }
+                                // set preference null if shoppingList to delete was recent
+                                PreferencesAccess preferencesAccess = new PreferencesAccess();
+                                String recentShoppingList = preferencesAccess.readPreferences(context, context.getString(R.string.recentShoppingListNamePreference));
+                                if(recentShoppingList.equals(listAtPosition.getListName())){
+                                    preferencesAccess.storePreferences(context, context.getString(R.string.recentShoppingListNamePreference), null);
+                                }
                                 //delete shoppingList itself
                                 FireBaseHandling.getInstance().deleteShoppingList(listAtPositionKey);
                             }
