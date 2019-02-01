@@ -165,7 +165,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
                                     FireBaseHandling.getInstance().deleteItem(itemsToDelete.get(keys[i]));
                                 }
                                 //delete shoppingList itself
-                                FireBaseHandling.getInstance().deleteShoppingList(listAtPositionKey);
+                                FireBaseHandling.getInstance().deleteShoppingList(listsID);
                             }
                         });
                 builder.setNegativeButton(
