@@ -46,10 +46,10 @@
     <dimen name="householdMemberListX">200dp</dimen>
 
     <!--text sizes-->
-    <dimen name="textSizeSmall">12sp</dimen>
-    <dimen name="textSizeHeading">24sp</dimen>
-    <dimen name="textSizeBig">20sp</dimen>
-    <dimen name="textSizeMedium">14sp</dimen>
+    <dimen name="textSizeSmall">12sp</dimen> <!-- login, kleine rote Schrift -->
+    <dimen name="textSizeHeading">24sp</dimen> <!-- Ueberschriften in Spezialschrift -->
+    <dimen name="textSizeBig">20sp</dimen> <!-- bei Itemdarstellung Bezeichnung -->
+    <dimen name="textSizeMedium">14sp</dimen> <!-- bei Itemdarstellung andere Schrift -->
 
 
 </resources>
