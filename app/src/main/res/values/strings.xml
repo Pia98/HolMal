@@ -39,7 +39,7 @@
     <string name="myJobs">Meine Aufträge</string>
     <string name="alreadyAssigned">Dieses Item ist bereits vergeben</string>
 
-    <!-- TODO besseren Text ueberlegen [S:ich finde den text ok]-->
+    <!-- TODO besseren Text ueberlegen [S:ich finde den text ok] [M: ich fands nur komisch, weil folgendem beitreten als: Maier, 123... und dann kommt erst die Eingabe]-->
     <string name="moveInHouseholdAs">Folgendem Haushalt beitreten als:</string>
 
     <!-- CreateItem -->
@@ -53,10 +53,6 @@
     <string name="saveAsFavorite">als Favorit speichern</string>
     <string name="add">Hinzufügen</string>
     <string name="addItem">Item zu Einkaufsliste hinzufügen</string>
-
-    <!-- itemInformation -->
-    <!-- TODO same as who?! which one should we take? [S:das hier weg]-->
-    <string name="brings">bringt %s mit</string>
 
     <string name="favorites">Favoriten</string>
 
@@ -82,7 +78,6 @@
     <string name="edit">Bearbeiten</string>
     <string name="colourDescription">Die Farbe der Person</string>
 
-    <!-- TODO welche Möglichkeit nehmen wir? ":" oder "?", sollte einheitlich sein!-->
     <string name="leaveConfirmation">Möchtest du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
     <string name="moveinConfirmation">Möchtest du diesem Haushalt wirklich beitreten? </string>
     <string name="deleteListConfirmation">Möchtest du diese Liste wirklich löschen?</string>

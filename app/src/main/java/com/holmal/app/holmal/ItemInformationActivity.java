@@ -129,7 +129,7 @@ public class ItemInformationActivity extends AppCompatActivity {
                     itemDescriptionText.setText(itemDescription);
                     if (!itemTask.isEmpty()) {
                         String personName = joiningPerson.get(itemTask).getPersonName();
-                        itemTaskText.setText(String.format(getString(R.string.brings), personName));
+                        itemTaskText.setText(personName);
                     } else {
                         itemTaskText.setText(itemTask);
                     }
