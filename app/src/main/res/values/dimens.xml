@@ -50,6 +50,11 @@
     <!--nav_header-->
     <dimen name="menuTextDistance">15dp</dimen>
 
+    <!--create_shopping_list-->
+    <dimen name="createListNameMargin">85dp</dimen>
+    <dimen name="createListCategoryMargin">60dp</dimen>
+    <dimen name="createListSpinnerMargin">30dp</dimen>
+
     <!--activity_settings-->
     <dimen name="householdMemberListX">200dp</dimen>
 
