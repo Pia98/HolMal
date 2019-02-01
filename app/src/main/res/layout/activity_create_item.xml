@@ -127,13 +127,14 @@
 
     <Button
         android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/addListWidth"
+        android:layout_height="@dimen/buttonHeight"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="@dimen/big_margin"
         android:text="@string/add"
         app:layout_constraintBottom_toTopOf="@id/bottomMargin"
-        app:layout_constraintEnd_toStartOf="@id/rightMargin" />
+        app:layout_constraintEnd_toStartOf="@id/rightMargin"
+        android:background="@color/colorPrimary"/>
 
 
     <!-- Guidelines -->

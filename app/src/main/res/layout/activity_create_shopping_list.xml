@@ -73,13 +73,14 @@
 
     <Button
         android:id="@+id/createShoppingList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/finishWidth"
+        android:layout_height="@dimen/buttonHeight"
         android:text="@string/create"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="@dimen/big_margin"
         app:layout_constraintBottom_toTopOf="@id/bottomMargin"
-        app:layout_constraintEnd_toStartOf="@id/rightMargin" />
+        app:layout_constraintEnd_toStartOf="@id/rightMargin"
+        android:background="@color/colorPrimary"/>
 
     <!-- Guidelines -->
 

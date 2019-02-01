@@ -64,8 +64,8 @@
     <!-- corresponds to button 3 in paper prototype-->
     <Button
         android:id="@+id/createHouseholdDone"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
+        android:layout_width="@dimen/finishWidth"
+        android:layout_height="@dimen/buttonHeight"
         android:backgroundTint="@color/colorPrimary"
         android:text="@string/done"
         app:layout_constraintBottom_toTopOf="@+id/bottomMargin"
