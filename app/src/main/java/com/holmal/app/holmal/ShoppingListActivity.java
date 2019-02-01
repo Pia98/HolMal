@@ -311,16 +311,17 @@ public class ShoppingListActivity extends AppCompatActivity {
     private void startShoppingListListener(final boolean open) {
         recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
         if (recentShoppingListName != null) {
-            // TODO check if recentShoppingList exists in household
-            setTitle(recentShoppingListName);
             FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Log.i(TAG, "started listener on shoppingList");
+                    boolean exists = false;
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         String id = child.getKey();
                         ShoppingList value = child.getValue(ShoppingList.class);
                         if (value.getIdBelongingTo().equals(householdId) && value.getListName().equals(recentShoppingListName)) {
+                            exists = true;
+                            setTitle(recentShoppingListName);
                             Log.i(TAG, "FOUND!");
                             currentShoppingList = value;
                             shoppingListId = id;
@@ -341,6 +342,11 @@ public class ShoppingListActivity extends AppCompatActivity {
                             }
                             break;
                         }
+                    }
+                    if(!exists){
+                        preferences.storePreferences(ShoppingListActivity.this, getString(R.string.recentShoppingListNamePreference), null);
+                        Intent intent = new Intent(ShoppingListActivity.this, AllShoppingListsActivity.class);
+                        startActivity(intent);
                     }
                 }
 
