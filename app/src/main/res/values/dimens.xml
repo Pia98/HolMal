@@ -70,6 +70,6 @@
     <!--button sizes -->
     <dimen name="buttonHeight">60dp</dimen>
     <dimen name="finishWidth">100dp</dimen>
-    <dimen name="addListWidth">110dp</dimen>
+    <dimen name="addItemWidth">110dp</dimen>
 
 </resources>

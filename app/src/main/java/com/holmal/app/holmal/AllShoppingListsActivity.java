@@ -197,18 +197,14 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
+
                 listsOfThisHousehold.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Listen durchgehen");
                     String id = child.getKey();
                     ShoppingList value = child.getValue(ShoppingList.class);
-                    Log.i(TAG, "ShoppingList: " + value);
                     if (value.getIdBelongingTo().equals(householdId)) {
-                        Log.i(TAG, "Liste gehört zu diesem Haushalt.");
                         listsOfThisHousehold.put(id, value);
                     }
-                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
 
                 // start itemListener when shoppingListListener is ready and set adapter when bot are ready
@@ -232,15 +228,11 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
                 itemsOfThisHousehold.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Listen durchgehen");
                     String id = child.getKey();
                     Item value = child.getValue(Item.class);
-                    Log.i(TAG, "Item: " + value);
                     itemsOfThisHousehold.put(id, value);
-                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + itemsOfThisHousehold);
                 }
 
                 //fill with lists with an adapter

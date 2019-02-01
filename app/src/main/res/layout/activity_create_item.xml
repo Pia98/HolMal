@@ -127,7 +127,7 @@
 
     <Button
         android:id="@+id/add"
-        android:layout_width="@dimen/addListWidth"
+        android:layout_width="@dimen/addItemWidth"
         android:layout_height="@dimen/buttonHeight"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="@dimen/big_margin"
