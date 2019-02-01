@@ -42,6 +42,9 @@
     <dimen name="loadingCircleHight">190dp</dimen>
     <dimen name="loadingCircleMarginTop">24dp</dimen>
 
+    <!--nav_header-->
+    <dimen name="menuTextDistance">15dp</dimen>
+
     <!--activity_settings-->
     <dimen name="householdMemberListX">200dp</dimen>
 
