@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -349,7 +350,7 @@ public class ShoppingListActivity extends AppCompatActivity {
             });
         } else {
             Log.i(TAG, "no recentShoppingListName found!");
-            // TODO maybe toast that something went wrong
+            Toast.makeText(getApplicationContext(), "No recent shopping list found!", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, AllShoppingListsActivity.class);
             startActivity(intent);
 

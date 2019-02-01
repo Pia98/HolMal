@@ -34,6 +34,11 @@
     <dimen name ="listAmountHight">20dp</dimen>
     <dimen name ="widthHalfScreen">150dp</dimen>
 
+    <!--single_household_member_settings-->
+    <dimen name="paddingHouseholdMember">6dip</dimen>
+    <dimen name="colourMarginStart">5dp</dimen>
+    <dimen name="memberNameMargin">50dp</dimen>
+
     <!--activity_all_shopping_lists-->
     <dimen name="ListsButtonPositionY">450dp</dimen>
 

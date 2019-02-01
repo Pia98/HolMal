@@ -79,6 +79,7 @@
     <string name="members">Mitglieder</string>
     <string name="leave">Haushalt verlassen</string> <!-- ausziehen -->
     <string name="edit">Bearbeiten</string>
+    <string name="colourDescription">Die Farbe der Person</string>
 
     <!-- TODO welche Möglichkeit nehmen wir? ":" oder "?", sollte einheitlich sein!-->
     <string name="leaveConfirmation">Möchtest Du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->

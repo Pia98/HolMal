@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="6dip"
+    android:padding="@dimen/paddingHouseholdMember"
     >
 
     <ImageView
@@ -13,15 +13,15 @@
         android:layout_height="30dp"
         android:id="@+id/personColour"
         android:src="@drawable/ic_square_settings"
-        android:layout_marginLeft="10px"/>
-    <!--TODO add hardcoded amounts to dimens-->
+        android:layout_marginStart="@dimen/colourMarginStart"
+        android:contentDescription="@string/colourDescription" />
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/personName"
-        android:layout_marginLeft="100px"
+        android:layout_marginStart="@dimen/memberNameMargin"
         android:text="@+id/itemName"
-        android:textSize="40px"
         />
 </RelativeLayout>
