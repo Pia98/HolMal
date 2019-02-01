@@ -157,6 +157,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
                         R.string.yes,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+
                                 //delete items from the pressed list
                                 if(listAtPosition.getItemsOfThisList()!= null) {
                                     HashMap<String, String> itemsToDelete = listAtPosition.getItemsOfThisList();

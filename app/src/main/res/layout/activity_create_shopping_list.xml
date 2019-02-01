@@ -24,6 +24,7 @@
         android:fontFamily="@font/amatic_sc_bold"
         android:text="@string/createShoppingListHeader"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/close" />
 
@@ -31,6 +32,7 @@
         android:id="@+id/shoppingListName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
         android:text="@string/shoppingListName"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/createShoppingListHeader" />
@@ -39,8 +41,10 @@
         android:id="@+id/shoppingListNameInput"
         android:layout_width="@dimen/noWidth"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/text_margin"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toStartOf="@+id/thirdLineBottom"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/shoppingListName" />
 
@@ -48,6 +52,7 @@
         android:id="@+id/shoppingListCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:text="@string/category"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/shoppingListNameInput" />
@@ -56,12 +61,14 @@
         android:id="@+id/shoppingListCategoryDropDown"
         android:layout_width="@dimen/noWidth"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="@dimen/text_margin"
+        android:entries="@array/spinner"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toStartOf="@+id/thirdLineBottom"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/shoppingListCategory"
-        android:entries="@array/spinner"/>
+        app:layout_constraintTop_toBottomOf="@id/shoppingListCategory" />
 
     <Button
         android:id="@+id/createShoppingList"
@@ -78,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.03" />
+        app:layout_constraintGuide_begin="43dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/topMargin"
