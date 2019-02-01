@@ -310,6 +310,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     private void startShoppingListListener(final boolean open) {
         recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
         if (recentShoppingListName != null) {
+            // TODO check if recentShoppingList exists in household
             setTitle(recentShoppingListName);
             FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
                 @Override
