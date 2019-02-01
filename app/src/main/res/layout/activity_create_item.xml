@@ -15,6 +15,7 @@
         android:background="@color/colorBackground"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"
         app:layout_constraintTop_toBottomOf="@id/topMargin"
+        android:contentDescription="@string/closeDescription"
         />
 
     <TextView
@@ -22,23 +23,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/createElementText"
-        app:layout_constraintTop_toBottomOf="@id/cancelButton"
+        app:layout_constraintEnd_toStartOf="@id/rightMargin"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintEnd_toStartOf="@id/rightMargin"/>
+        app:layout_constraintTop_toBottomOf="@id/cancelButton" />
 
     <TextView
         android:id="@+id/what"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/createListNameMargin"
         android:text="@string/what"
-        app:layout_constraintTop_toBottomOf="@id/createItemHeader"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/createItemHeader" />
 
     <EditText
         android:id="@+id/whatInput"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/noWidth"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/text_margin"
         android:inputType="text"
         app:layout_constraintEnd_toStartOf="@+id/thirdLineBottom"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
@@ -60,14 +63,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/amount"
+        android:layout_marginTop="@dimen/text_margin"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/whatInput"/>
 
     <EditText
         android:id="@+id/amountInput"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/noWidth"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/text_margin"
         app:layout_constraintEnd_toStartOf="@+id/thirdLineBottom"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/amount" />
@@ -77,14 +81,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/info"
+        android:layout_marginTop="@dimen/text_margin"
         app:layout_constraintTop_toBottomOf="@id/amountInput"
         app:layout_constraintStart_toEndOf="@id/leftMargin"/>
 
     <EditText
         android:id="@+id/infoInput"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/noWidth"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/text_margin"
         app:layout_constraintEnd_toStartOf="@+id/thirdLineBottom"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/info" />
@@ -93,9 +98,22 @@
         android:id="@+id/urgentChecked"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/urgent"
+        android:layout_marginTop="@dimen/text_margin"
         app:layout_constraintTop_toBottomOf="@id/infoInput"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"/>
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        />
+
+    <TextView
+        android:id="@+id/urgentText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/text_margin"
+        android:layout_marginTop="@dimen/urgentMargin"
+        android:text="@string/urgent"
+        app:layout_constraintStart_toEndOf="@+id/urgentChecked"
+        app:layout_constraintTop_toBottomOf="@id/infoInput" />
 
     <!-- not used in our first version -->
     <CheckBox
@@ -123,7 +141,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.03" />
+        app:layout_constraintGuide_percent="0.11" />
 
     <android.support.constraint.Guideline
         android:id="@+id/topMargin"
@@ -200,7 +218,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.66666" />
+        app:layout_constraintGuide_percent="0.75" />
 
     <android.support.constraint.Guideline
         android:id="@+id/thirdLineLeft"

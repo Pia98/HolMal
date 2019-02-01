@@ -55,6 +55,9 @@
     <dimen name="createListCategoryMargin">60dp</dimen>
     <dimen name="createListSpinnerMargin">30dp</dimen>
 
+    <!--create_item-->
+    <dimen name="urgentMargin">13dp</dimen>
+
     <!--activity_settings-->
     <dimen name="householdMemberListX">200dp</dimen>
 

@@ -73,6 +73,7 @@
     <string name="shoppingListName">Bezeichnung</string>
     <string name="category">Kategorie</string>
     <string name="create">erstellen</string>
+    <string name="closeDescription">Abbrechen-Button</string>
 
     <!-- settings -->
     <string name="settings">Einstellungen</string>
