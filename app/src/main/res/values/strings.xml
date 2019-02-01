@@ -39,7 +39,7 @@
     <string name="myJobs">Meine Aufträge</string>
     <string name="alreadyAssigned">Dieses Item ist bereits vergeben</string>
 
-    <!-- TODO besseren Text ueberlegen -->
+    <!-- TODO besseren Text ueberlegen [S:ich finde den text ok]-->
     <string name="moveInHouseholdAs">Folgendem Haushalt beitreten als:</string>
 
     <!-- CreateItem -->
@@ -55,7 +55,7 @@
     <string name="addItem">Item zu Einkaufsliste hinzufügen</string>
 
     <!-- itemInformation -->
-    <!-- TODO same as who?! which one should we take?-->
+    <!-- TODO same as who?! which one should we take? [S:das hier weg]-->
     <string name="brings">bringt %s mit</string>
 
     <string name="favorites">Favoriten</string>
@@ -140,6 +140,4 @@
     <string name="recentShoppingListNamePreference">recentShoppingListName</string>
     <string name="personIDPreference">personID</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

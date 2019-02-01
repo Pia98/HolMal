@@ -76,6 +76,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/create"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/big_margin"
         app:layout_constraintBottom_toTopOf="@id/bottomMargin"
         app:layout_constraintEnd_toStartOf="@id/rightMargin" />
 
