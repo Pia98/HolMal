@@ -58,6 +58,7 @@
 
     <!-- itemInformation -->
     <string name="itemInformationHeading">Informationen</string>
+    <string name="delete">Löschen</string>
 
     <string name="favorites">Favoriten</string>
 

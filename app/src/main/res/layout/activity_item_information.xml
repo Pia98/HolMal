@@ -193,7 +193,7 @@
         android:layout_height="@dimen/buttonHeight"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="fertig"
+        android:text="@string/done"
         app:layout_constraintBottom_toTopOf="@+id/bottomMargin"
         app:layout_constraintEnd_toStartOf="@+id/itemEdit" />
 
@@ -204,7 +204,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="bearbeiten"
+        android:text="@string/edit"
         app:layout_constraintBottom_toTopOf="@+id/bottomMargin"
         app:layout_constraintEnd_toStartOf="@id/itemDelete" />
 
@@ -213,7 +213,7 @@
         android:layout_width="@dimen/finishWidth"
         android:layout_height="@dimen/buttonHeight"
         android:layout_marginBottom="8dp"
-        android:text="löschen"
+        android:text="@string/delete"
         app:layout_constraintBottom_toTopOf="@+id/bottomMargin"
         app:layout_constraintEnd_toStartOf="@id/rightMargin" />
 

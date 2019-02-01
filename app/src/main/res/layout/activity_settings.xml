@@ -65,7 +65,7 @@
                         android:layout_marginTop="@dimen/text_margin"
                         android:background="@android:color/transparent"
                         android:text="@string/household"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/textSizeMediumBig"
                         app:layout_constraintTop_toTopOf="parent"
                         card_view:layout_constraintStart_toStartOf="parent" />
 
@@ -85,8 +85,11 @@
                         android:id="@+id/householdName"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
                         android:background="@android:color/transparent"
-                        android:text="testetstetststfwedgshfik"
+                        android:text=""
+                        card_view:layout_constraintStart_toStartOf="parent"
                         card_view:layout_constraintTop_toBottomOf="@id/householdNameTitle" />
 
                     <TextView
@@ -94,19 +97,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="16dp"
                         android:background="@android:color/transparent"
                         android:text="@string/id"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/textSizeMediumBig"
                         card_view:layout_constraintStart_toStartOf="parent"
-                        card_view:layout_constraintTop_toBottomOf="@+id/householdName"/>
+                        card_view:layout_constraintTop_toBottomOf="@+id/householdName" />
 
                     <TextView
                         android:id="@+id/thisHouseholdId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
                         android:background="@android:color/transparent"
-                        app:layout_constraintTop_toBottomOf="@id/IdTitle" />
+                        app:layout_constraintTop_toBottomOf="@id/IdTitle"
+                        card_view:layout_constraintStart_toStartOf="parent" />
 
                     <ImageButton
                         android:id="@+id/copyHouseholdId"
@@ -124,10 +130,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="@dimen/text_margin"
+                        android:layout_marginTop="16dp"
                         android:background="@android:color/transparent"
                         android:text="@string/members"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/textSizeMediumBig"
                         app:layout_constraintTop_toBottomOf="@id/thisHouseholdId"
                         card_view:layout_constraintStart_toStartOf="parent" />
 
@@ -178,7 +184,7 @@
                         android:layout_marginTop="8dp"
                         android:background="@android:color/transparent"
                         android:text="@string/edit"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/textSizeMediumBig"
                         card_view:layout_constraintStart_toStartOf="parent"
                         card_view:layout_constraintTop_toTopOf="parent" />
 
