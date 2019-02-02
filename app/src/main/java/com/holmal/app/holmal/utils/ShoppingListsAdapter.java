@@ -157,6 +157,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
                         R.string.yes,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+
                                 //delete items from the pressed list
                                 if(listAtPosition.getItemsOfThisList()!= null) {
                                     HashMap<String, String> itemsToDelete = listAtPosition.getItemsOfThisList();
@@ -164,6 +165,15 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
                                         for (int i = 0; i < itemsToDelete.size(); i++) {
                                             FireBaseHandling.getInstance().deleteItem(itemsToDelete.get(keys[i]));
                                         }
+                                }
+                                // set preference null if shoppingList to delete was recent
+                                PreferencesAccess preferencesAccess = new PreferencesAccess();
+                                String recentShoppingList = preferencesAccess.readPreferences(context, context.getString(R.string.recentShoppingListNamePreference));
+                                if(recentShoppingList != null){
+                                    if(recentShoppingList.equals(listAtPosition.getListName())){
+                                        Log.i("ShoppingListAdapter", "set recent shoppingList null");
+                                        preferencesAccess.storePreferences(context, context.getString(R.string.recentShoppingListNamePreference), null);
+                                    }
                                 }
                                 //delete shoppingList itself
                                 FireBaseHandling.getInstance().deleteShoppingList(listsID);

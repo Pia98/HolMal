@@ -119,15 +119,11 @@ public class SettingsActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
                 itemsOfThisHousehold.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Listen durchgehen");
                     String id = child.getKey();
                     Item value = child.getValue(Item.class);
-                    Log.i(TAG, "Item: " + value);
                     itemsOfThisHousehold.put(id, value);
-                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + itemsOfThisHousehold);
                 }
             }
 
@@ -148,19 +144,13 @@ public class SettingsActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
                 listsOfThisHousehold.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Listen durchgehen");
                     String id = child.getKey();
                     ShoppingList value = child.getValue(ShoppingList.class);
-                    Log.i(TAG, "ShoppingList: " + value);
                     if (value.getIdBelongingTo().equals(householdId)) {
-                        Log.i(TAG, "Liste gehört zu diesem Haushalt.");
                         listsOfThisHousehold.put(id, value);
                     }
-
-                    Log.i(TAG, "listsOfThisHousehold in for Schleife bei listener: " + listsOfThisHousehold);
                 }
             }
 
@@ -181,19 +171,13 @@ public class SettingsActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
                 joiningPerson.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Personen durchgehen");
                     String id = child.getKey();
                     Person value = child.getValue(Person.class);
-                    Log.i(TAG, "Person: " + value + "householdId: " + householdId);
                     if (value.getIdBelongingTo().equals(householdId)) {
-                        Log.i(TAG, "Person gehört zu diesem Haushalt (householdId: " + householdId + ")");
                         joiningPerson.put(id, value);
                     }
-
-                    Log.i(TAG, "joiningPerson in for Schleife bei listener: " + joiningPerson);
                 }
                 SettingsAdapter adapter = new SettingsAdapter(SettingsActivity.this, joiningPerson);
                 ListView list = findViewById(R.id.listOfHouseholdMembers);

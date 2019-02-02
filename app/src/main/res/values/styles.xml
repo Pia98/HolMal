@@ -20,6 +20,8 @@
         <item name="android:background">@color/colorPrimary</item>
     </style>
     <style name="blueTabsBar" parent="@style/Widget.AppCompat.ActionBar.TabBar">
+        <item name="tabIndicatorColor">@color/colorPersonLightBlue</item>
+        <item name="tabIndicatorHeight">3dp</item>
         <item name="android:background">@color/colorTabs</item>
         <item name="tabSelectedTextColor">@color/colorBackground</item>
     </style>

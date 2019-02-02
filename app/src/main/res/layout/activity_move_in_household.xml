@@ -18,7 +18,6 @@
         android:id="@+id/householdNameFromIDAsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Maier"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/moveInHouseholdHeading" />
 
@@ -26,7 +25,7 @@
         android:id="@+id/householdIDAsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="123456789"
+
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/householdNameFromIDAsText" />
 
@@ -41,11 +40,12 @@
     <!-- corresponds to button 5 in paper prototype-->
     <Button
         android:id="@+id/moveInDone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/finishWidth"
+        android:layout_height="@dimen/buttonHeight"
         android:text="@string/done"
         app:layout_constraintBottom_toTopOf="@id/bottomMargin"
-        app:layout_constraintEnd_toStartOf="@id/rightMargin" />
+        app:layout_constraintEnd_toStartOf="@id/rightMargin"
+        android:background="@color/colorPrimary" />
 
     <!-- Guidelines -->
 

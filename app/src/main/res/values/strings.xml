@@ -41,7 +41,7 @@
     <string name="myJobs">Meine Aufträge</string>
     <string name="alreadyAssigned">Dieses Item ist bereits vergeben</string>
 
-    <!-- TODO besseren Text ueberlegen -->
+    <!-- TODO besseren Text ueberlegen [S:ich finde den text ok] [M: ich fands nur komisch, weil folgendem beitreten als: Maier, 123... und dann kommt erst die Eingabe]-->
     <string name="moveInHouseholdAs">Folgendem Haushalt beitreten als:</string>
 
     <!-- CreateItem -->
@@ -75,22 +75,21 @@
     <string name="shoppingListName">Bezeichnung</string>
     <string name="category">Kategorie</string>
     <string name="create">erstellen</string>
+    <string name="closeDescription">Abbrechen-Button</string>
 
     <!-- settings -->
     <string name="settings">Einstellungen</string>
     <string name="members">Mitglieder</string>
     <string name="leave">Haushalt verlassen</string> <!-- ausziehen -->
     <string name="edit">Bearbeiten</string>
+    <string name="colourDescription">Die Farbe der Person</string>
 
-    <!-- TODO welche Möglichkeit nehmen wir? ":" oder "?", sollte einheitlich sein!-->
     <string name="leaveConfirmation">Möchtest du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
     <string name="moveinConfirmation">Möchtest du diesem Haushalt wirklich beitreten? </string>
     <string name="deleteListConfirmation">Möchtest du diese Liste wirklich löschen?</string>
     <string name="deleteItemConfirmation">Möchtest du dieses Item wirklich löschen? </string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
-    <!--info-->
-    <string name="whatInfo">Was:</string>
 
 
     <!-- Errors -->
@@ -113,6 +112,9 @@
     <string name="ErrorListNameTaken">Es existiert bereits eine Liste mit diesem Namen</string>
     <string name="ErrorItemTaken">In dieser Liste existiert bereits ein Item mit dieser Bezeichnung</string>
     <string name="ErrorItemsPersonTask">Leider ist etwas schief gegangen: Die Person konnte nicht gespeichert werden</string>
+
+    <string name="ErrorListDoesntExistAnymore">Deine zuletzt geöffnete Liste existiert leider nicht mehr</string>
+    <string name="ErrorNoRecentShoppingList">Du hast keine zuletzt geöffnete Liste gespeichert</string>
 
     <string name="defaultShoppingList">Einkaufsliste 1</string>
     
@@ -140,6 +142,4 @@
     <string name="recentShoppingListNamePreference">recentShoppingListName</string>
     <string name="personIDPreference">personID</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

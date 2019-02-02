@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -133,7 +134,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         //tab layout for open and done items
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -143,7 +144,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                 if (tab.getPosition() == 0) {
                     // Listener to get all open items that are in the list
                     startShoppingListListener(true);
-                    
                 }
                 // items done
                 else {
@@ -162,6 +162,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
             }
         });
+
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -309,16 +310,20 @@ public class ShoppingListActivity extends AppCompatActivity {
      */
     private void startShoppingListListener(final boolean open) {
         recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
+        Log.i(TAG, "recentShoppingList: " + recentShoppingListName);
         if (recentShoppingListName != null) {
-            setTitle(recentShoppingListName);
             FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Log.i(TAG, "started listener on shoppingList");
+                    boolean exists = false;
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         String id = child.getKey();
                         ShoppingList value = child.getValue(ShoppingList.class);
                         if (value.getIdBelongingTo().equals(householdId) && value.getListName().equals(recentShoppingListName)) {
+                            exists = true;
+                            Log.i(TAG, "exists true");
+                            setTitle(recentShoppingListName);
                             Log.i(TAG, "FOUND!");
                             currentShoppingList = value;
                             shoppingListId = id;
@@ -340,6 +345,13 @@ public class ShoppingListActivity extends AppCompatActivity {
                             break;
                         }
                     }
+                    if(!exists){
+                        Log.i(TAG, "doesn't exist");
+                        preferences.storePreferences(ShoppingListActivity.this, getString(R.string.recentShoppingListNamePreference), null);
+                        Toast.makeText(getApplicationContext(), R.string.ErrorListDoesntExistAnymore, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(ShoppingListActivity.this, AllShoppingListsActivity.class);
+                        startActivity(intent);
+                    }
                 }
 
                 @Override
@@ -349,7 +361,7 @@ public class ShoppingListActivity extends AppCompatActivity {
             });
         } else {
             Log.i(TAG, "no recentShoppingListName found!");
-            // TODO maybe toast that something went wrong
+            Toast.makeText(getApplicationContext(), R.string.ErrorNoRecentShoppingList, Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, AllShoppingListsActivity.class);
             startActivity(intent);
 

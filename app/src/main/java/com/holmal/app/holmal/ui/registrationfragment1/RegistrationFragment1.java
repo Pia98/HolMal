@@ -1,6 +1,5 @@
 package com.holmal.app.holmal.ui.registrationfragment1;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -28,7 +27,7 @@ public class RegistrationFragment1 extends Fragment {
         return new RegistrationFragment1();
     }
 
-    @BindView(R.id.householtNameFromInput)
+    @BindView(R.id.householdNameFromInput)
     TextView inputHousehold;
 
     @BindView(R.id.generatedID)
