@@ -134,7 +134,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         //tab layout for open and done items
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -144,7 +144,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                 if (tab.getPosition() == 0) {
                     // Listener to get all open items that are in the list
                     startShoppingListListener(true);
-                    
                 }
                 // items done
                 else {
@@ -163,6 +162,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
             }
         });
+
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
