@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -61,6 +62,9 @@ public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.editHouseholdNameDone)
     ImageButton editHouseholdNameDone;
 
+    @BindView(R.id.settingsEditAble)
+    CardView settingsEditable;
+
     String householdId;
     private DrawerLayout mDrawerLayout;
 
@@ -86,6 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         editHouseholdNameText.setVisibility(View.INVISIBLE);
         editHouseholdNameDone.setVisibility(View.INVISIBLE);
+        settingsEditable.setVisibility(View.INVISIBLE);
 
         householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
 
@@ -346,6 +351,7 @@ public class SettingsActivity extends AppCompatActivity {
     public void editHouseholdNameClicked(){
         editHouseholdNameText.setVisibility(View.VISIBLE);
         editHouseholdNameDone.setVisibility(View.VISIBLE);
+        settingsEditable.setVisibility(View.VISIBLE);
     }
 
     /**

@@ -31,6 +31,8 @@
     <string name="openItemsTabs">offen</string>
     <string name="doneItemsTabs">erledigt</string>
 
+    <string name="household">Haushalt</string>
+
     <!-- personal input -->
     <string name="username">Benutzername</string>
     <string name="color">Farbe</string>
@@ -54,6 +56,10 @@
     <string name="add">Hinzufügen</string>
     <string name="addItem">Item zu Einkaufsliste hinzufügen</string>
 
+    <!-- itemInformation -->
+    <string name="itemInformationHeading">Informationen</string>
+    <string name="delete">Löschen</string>
+
     <string name="favorites">Favoriten</string>
 
     <string name="shoppingList">Einkaufszettel</string>
@@ -75,7 +81,6 @@
     <string name="leave">Haushalt verlassen</string> <!-- ausziehen -->
     <string name="edit">Bearbeiten</string>
     <string name="colourDescription">Die Farbe der Person</string>
-    <string name="delete">Löschen</string>
 
     <string name="leaveConfirmation">Möchtest du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
     <string name="moveinConfirmation">Möchtest du diesem Haushalt wirklich beitreten? </string>
