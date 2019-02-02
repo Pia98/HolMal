@@ -67,6 +67,7 @@
         app:layout_constraintStart_toStartOf="@+id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/descriptionInfo" />
 
+
     <CheckBox
         android:id="@+id/itemUrgentCheck"
         android:layout_width="wrap_content"

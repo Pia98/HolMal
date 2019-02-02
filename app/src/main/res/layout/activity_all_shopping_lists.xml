@@ -20,6 +20,7 @@
         <!-- Using a guideline here seems not to work -->
 
         <android.support.constraint.ConstraintLayout
+            android:theme="@style/ToolbarTheme"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintStart_toEndOf="@+id/leftMargin">
@@ -55,7 +56,7 @@
                 android:layout_marginEnd="@dimen/big_margin"
                 android:layout_marginBottom="@dimen/big_margin"
                 android:background="@android:color/transparent"
-                android:contentDescription="@string/addShoppingList"
+                android:contentDescription="@string/createShoppingListHeader"
                 android:src="@drawable/ic_add_circle"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />

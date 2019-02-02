@@ -16,6 +16,11 @@
         <item name="android:editTextColor">@color/colorFont</item>
     </style>
 
+    <style name="ToolbarTheme" parent="@style/AppTheme">
+        <item name="android:fontFamily">@font/amatic_sc_bold</item>
+        <item name="android:textSize">@dimen/textSizeHeading</item>
+    </style>
+
     <style name="blueActionBar" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <item name="android:background">@color/colorPrimary</item>
     </style>

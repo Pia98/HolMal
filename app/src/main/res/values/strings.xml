@@ -69,9 +69,7 @@
     <string name="openItems">Offene Items: </string>
 
     <!-- create ShoppingList -->
-    <!-- TODO addShoppingList und createShoppingListHeader angleichen!-->
-    <string name="addShoppingList">Neue Einkaufsliste erstellen</string>
-    <string name="createShoppingListHeader">Neuen Einkaufszettel erstellen:</string>
+    <string name="createShoppingListHeader">Neuen Einkaufszettel erstellen</string>
     <string name="shoppingListName">Bezeichnung</string>
     <string name="category">Kategorie</string>
     <string name="create">erstellen</string>

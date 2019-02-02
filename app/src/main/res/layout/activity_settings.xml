@@ -18,7 +18,8 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            android:theme="@style/ToolbarTheme">
 
             <!-- corresponds to button 9 in paper prototype-->
             <android.support.v7.widget.Toolbar
@@ -34,7 +35,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/amatic_sc_bold"
                 android:text="@string/settings"
-                app:layout_constraintStart_toEndOf="@id/menu" />
+                app:layout_constraintStart_toEndOf="@id/menu"
+                />
 
 
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
