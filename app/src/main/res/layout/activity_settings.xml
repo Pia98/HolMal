@@ -37,7 +37,12 @@
                 android:text="@string/settings"
                 app:layout_constraintStart_toEndOf="@id/menu"
                 />
+        </android.support.constraint.ConstraintLayout>
 
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/toolbarHight">
 
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/settingsHousehold"
@@ -51,7 +56,7 @@
                 card_view:cardUseCompatPadding="true"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/menu">
+                card_view:layout_constraintTop_toTopOf="parent">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -150,7 +155,9 @@
                             android:id="@+id/listOfHouseholdMembers"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
                             android:background="@android:color/transparent"
+                            card_view:layout_constraintBottom_toBottomOf="parent"
                             card_view:layout_constraintEnd_toEndOf="parent"
                             card_view:layout_constraintStart_toStartOf="parent"></ListView>
                     </android.support.constraint.ConstraintLayout>
@@ -208,10 +215,135 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="16dp"
-                        android:background="@color/colorListsBackground"
+                        android:inputType="none"
                         card_view:layout_constraintEnd_toEndOf="parent"
                         card_view:layout_constraintStart_toStartOf="parent"
                         card_view:layout_constraintTop_toBottomOf="@+id/householdNameEditTitle" />
+
+                    <TextView
+                        android:id="@+id/nameEditTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@android:color/transparent"
+                        android:text="@string/username"
+                        android:textSize="16sp"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toBottomOf="@+id/editHouseholdNameText" />
+
+                    <EditText
+                        android:id="@+id/editNameText"
+                        android:layout_width="@dimen/noWidth"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:inputType="none"
+                        card_view:layout_constraintEnd_toEndOf="parent"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toBottomOf="@+id/nameEditTitle" />
+
+                    <TextView
+                        android:id="@+id/farbeEditTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@android:color/transparent"
+                        android:text="@string/color"
+                        android:textSize="16sp"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toBottomOf="@+id/editNameText" />
+
+                    <com.holmal.app.holmal.ui.registrationfragment1.RadioGridGroup
+                        android:id="@+id/colorChoice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toBottomOf="@+id/farbeEditTitle">
+
+                        <TableRow>
+
+                            <RadioButton
+                                android:id="@+id/color1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/colorPersonLightGreen" />
+
+                            <RadioButton
+                                android:id="@+id/color2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/colorPersonGreen" />
+
+                            <RadioButton
+                                android:id="@+id/color3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/colorPersonBlue" />
+
+                            <RadioButton
+                                android:id="@+id/color4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/colorPersonLightBlue" />
+                        </TableRow>
+
+                        <TableRow>
+
+                            <RadioButton
+                                android:id="@+id/color5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_row="1"
+                                android:layout_column="0"
+                                android:background="@color/colorPersonOrange" />
+
+                            <RadioButton
+                                android:id="@+id/color6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/colorPersonRed" />
+
+                            <RadioButton
+                                android:id="@+id/color7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/colorPersonPink" />
+
+                            <RadioButton
+                                android:id="@+id/color8"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/colorPersonPurple" />
+                        </TableRow>
+
+                    </com.holmal.app.holmal.ui.registrationfragment1.RadioGridGroup>
+
+                    <TextView
+                        android:id="@+id/emailEditTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@android:color/transparent"
+                        android:text="@string/username"
+                        android:textSize="16sp"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toBottomOf="@+id/colorChoice" />
+
+                    <EditText
+                        android:id="@+id/editEmailText"
+                        android:layout_width="@dimen/noWidth"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:inputType="textEmailAddress"
+                        card_view:layout_constraintEnd_toEndOf="parent"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toBottomOf="@+id/emailEditTitle" />
 
                     <ImageButton
                         android:id="@+id/editHouseholdNameDone"
