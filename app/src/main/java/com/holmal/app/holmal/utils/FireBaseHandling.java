@@ -139,6 +139,10 @@ public class FireBaseHandling {
         reference.child(householdRubric + "/" + householdId + "/householdName").setValue(newName);
     }
 
+    public void editPersonName(String newName, String personId){
+        reference.child(personRubric + "/" + personId + "/personName").setValue(newName);
+    }
+
     /**
      * Edits the name of an item on the database
      *

@@ -64,9 +64,6 @@ public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.editNameText)
     EditText editNameText;
 
-    @BindView(R.id.editEmailText)
-    EditText editEmailText;
-
     @BindView(R.id.colorChoice)
     RadioGridGroup colorChoice;
 
@@ -83,6 +80,7 @@ public class SettingsActivity extends AppCompatActivity {
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
     private HashMap<String, Item> itemsOfThisHousehold = new HashMap<>();
     private Person myPerson = new Person();
+    private String myPersonId;
 
     PreferencesAccess preferencesAccess = new PreferencesAccess();
 
@@ -189,6 +187,7 @@ public class SettingsActivity extends AppCompatActivity {
                         joiningPerson.put(id, value);
                         if(id.equals(preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.personIDPreference)))){
                             myPerson = value;
+                            myPersonId = id;
                         }
                     }
                 }
@@ -365,7 +364,6 @@ public class SettingsActivity extends AppCompatActivity {
     public void editHouseholdNameClicked(){
         settingsEditable.setVisibility(View.VISIBLE);
         editNameText.setText(myPerson.getPersonName());
-        editEmailText.setText(myPerson.getEmail());
 
     }
 
@@ -375,15 +373,45 @@ public class SettingsActivity extends AppCompatActivity {
      */
     @OnClick(R.id.editHouseholdNameDone)
     public void setEditDone(){
-        String newName = editHouseholdNameText.getText().toString();
-        String id = householdIdText.getText().toString();
+        final String householdId = householdIdText.getText().toString();
 
-        if(!newName.isEmpty()){
-            FireBaseHandling.getInstance().editHousholdName(newName, id);
+        final String newHouseholdName = editHouseholdNameText.getText().toString();
+        final String newPersonName = editNameText.getText().toString();
+        int newColor = colorChoice.getCheckedRadioButtonId();
 
-        }else{
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String message = getString(R.string.editSettingsConfirmation) + "\n";
+        if(!newHouseholdName.isEmpty() && (newHouseholdName != householdNameText.getText().toString())) {
+            message = message + getString(R.string.householdName) + ": " + newHouseholdName + "\n";
         }
+        if(!newPersonName.isEmpty() &&(newPersonName != myPerson.getPersonName())){
+            message = message + getString(R.string.username) + ": " + newPersonName + "\n";
+        }
+        builder.setMessage(message);
+        builder.setCancelable(true);
+        builder.setPositiveButton(
+                R.string.yes,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        if(!newHouseholdName.isEmpty() && (newHouseholdName != householdNameText.getText().toString())) {
+                            FireBaseHandling.getInstance().editHousholdName(newHouseholdName, householdId);
+                        }
+                        if(!newPersonName.isEmpty() &&(newPersonName != myPerson.getPersonName())){
+                            FireBaseHandling.getInstance().editPersonName(newPersonName, myPersonId);
+                        }
+                    }
+                });
+        builder.setNegativeButton(
+                R.string.no,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**

@@ -262,8 +262,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
                         card_view:layout_constraintStart_toStartOf="parent"
-                        card_view:layout_constraintTop_toBottomOf="@+id/farbeEditTitle">
+                        card_view:layout_constraintTop_toBottomOf="@+id/farbeEditTitle"
+                        card_view:layout_constraintBottom_toBottomOf="parent">
 
                         <TableRow>
 
@@ -322,29 +324,6 @@
                         </TableRow>
 
                     </com.holmal.app.holmal.ui.registrationfragment1.RadioGridGroup>
-
-                    <TextView
-                        android:id="@+id/emailEditTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@android:color/transparent"
-                        android:text="@string/username"
-                        android:textSize="16sp"
-                        card_view:layout_constraintStart_toStartOf="parent"
-                        card_view:layout_constraintTop_toBottomOf="@+id/colorChoice" />
-
-                    <EditText
-                        android:id="@+id/editEmailText"
-                        android:layout_width="@dimen/noWidth"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:inputType="textEmailAddress"
-                        card_view:layout_constraintEnd_toEndOf="parent"
-                        card_view:layout_constraintStart_toStartOf="parent"
-                        card_view:layout_constraintTop_toBottomOf="@+id/emailEditTitle" />
 
                     <ImageButton
                         android:id="@+id/editHouseholdNameDone"

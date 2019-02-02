@@ -86,6 +86,7 @@
     <string name="moveinConfirmation">Möchtest du diesem Haushalt wirklich beitreten? </string>
     <string name="deleteListConfirmation">Möchtest du diese Liste wirklich löschen?</string>
     <string name="deleteItemConfirmation">Möchtest du dieses Item wirklich löschen? </string>
+    <string name="editSettingsConfirmation">Möchtest du wirklich diese Änderungen vornehmen?</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
 
