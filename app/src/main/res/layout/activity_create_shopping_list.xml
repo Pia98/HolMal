@@ -23,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/amatic_sc_bold"
+        android:textSize="@dimen/textSizeBig"
         android:text="@string/createShoppingListHeader"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"
         app:layout_constraintHorizontal_bias="0.0"
