@@ -27,7 +27,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/cancelButton"
-        android:textSize="@dimen/textSizeBig"
+        android:textSize="@dimen/textSizeHeading"
         android:fontFamily="@font/amatic_sc_bold"/>
 
     <TextView
@@ -36,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/createListNameMargin"
         android:text="@string/what"
+        android:textSize="@dimen/textSizeBig"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/createItemHeader" />
 
@@ -65,6 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/amount"
+        android:textSize="@dimen/textSizeBig"
         android:layout_marginTop="@dimen/text_margin"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/whatInput"/>
@@ -83,6 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/info"
+        android:textSize="@dimen/textSizeBig"
         android:layout_marginTop="@dimen/text_margin"
         app:layout_constraintTop_toBottomOf="@id/amountInput"
         app:layout_constraintStart_toEndOf="@id/leftMargin"/>
@@ -114,6 +117,7 @@
         android:layout_marginStart="@dimen/text_margin"
         android:layout_marginTop="@dimen/urgentMargin"
         android:text="@string/urgent"
+        android:textSize="@dimen/textSizeBig"
         app:layout_constraintStart_toEndOf="@+id/urgentChecked"
         app:layout_constraintTop_toBottomOf="@id/infoInput" />
 
