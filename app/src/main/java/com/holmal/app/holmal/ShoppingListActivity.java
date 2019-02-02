@@ -310,16 +310,20 @@ public class ShoppingListActivity extends AppCompatActivity {
      */
     private void startShoppingListListener(final boolean open) {
         recentShoppingListName = preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference));
+        Log.i(TAG, "recentShoppingList: " + recentShoppingListName);
         if (recentShoppingListName != null) {
-            setTitle(recentShoppingListName);
             FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Log.i(TAG, "started listener on shoppingList");
+                    boolean exists = false;
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         String id = child.getKey();
                         ShoppingList value = child.getValue(ShoppingList.class);
                         if (value.getIdBelongingTo().equals(householdId) && value.getListName().equals(recentShoppingListName)) {
+                            exists = true;
+                            Log.i(TAG, "exists true");
+                            setTitle(recentShoppingListName);
                             Log.i(TAG, "FOUND!");
                             currentShoppingList = value;
                             shoppingListId = id;
@@ -341,6 +345,13 @@ public class ShoppingListActivity extends AppCompatActivity {
                             break;
                         }
                     }
+                    if(!exists){
+                        Log.i(TAG, "doesn't exist");
+                        preferences.storePreferences(ShoppingListActivity.this, getString(R.string.recentShoppingListNamePreference), null);
+                        Toast.makeText(getApplicationContext(), R.string.ErrorListDoesntExistAnymore, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(ShoppingListActivity.this, AllShoppingListsActivity.class);
+                        startActivity(intent);
+                    }
                 }
 
                 @Override
@@ -350,7 +361,7 @@ public class ShoppingListActivity extends AppCompatActivity {
             });
         } else {
             Log.i(TAG, "no recentShoppingListName found!");
-            Toast.makeText(getApplicationContext(), "No recent shopping list found!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.ErrorNoRecentShoppingList, Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, AllShoppingListsActivity.class);
             startActivity(intent);
 
