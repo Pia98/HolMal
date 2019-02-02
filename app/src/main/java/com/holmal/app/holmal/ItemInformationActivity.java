@@ -223,16 +223,16 @@ public class ItemInformationActivity extends AppCompatActivity {
         String newPersonTask = itemEditTask.getSelectedItem().toString();
         Boolean newUrgent = itemUrgentCheck.isChecked();
 
-        if((newName != itemNameText.getText().toString())&& !newName.isEmpty()){
+        if((!newName.equals(itemNameText.getText().toString()))&& !newName.isEmpty()){
             FireBaseHandling.getInstance().editItemName(newName, itemId);
         }
-        if(newAmount != itemAmountText.getText().toString()){
+        if(!newAmount.equals(itemAmountText.getText().toString())){
             FireBaseHandling.getInstance().editItemAmount(newAmount, itemId);
         }
-        if(newDescription != itemDescriptionText.getText().toString()){
+        if(!newDescription.equals(itemDescriptionText.getText().toString())){
             FireBaseHandling.getInstance().editItemDescription(newDescription, itemId);
         }
-        if(newPersonTask != itemTaskText.getText().toString()){
+        if(!newPersonTask.equals(itemTaskText.getText().toString())){
             Iterator iterator = joiningPerson.entrySet().iterator();
             String personID = null;
             while (iterator.hasNext()) {

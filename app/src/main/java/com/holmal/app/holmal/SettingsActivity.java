@@ -22,6 +22,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,6 +38,9 @@ import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.SettingsAdapter;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -377,14 +382,14 @@ public class SettingsActivity extends AppCompatActivity {
 
         final String newHouseholdName = editHouseholdNameText.getText().toString();
         final String newPersonName = editNameText.getText().toString();
-        int newColor = colorChoice.getCheckedRadioButtonId();
+        final int newColor = colorChoice.getCheckedRadioButtonId();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String message = getString(R.string.editSettingsConfirmation) + "\n";
-        if(!newHouseholdName.isEmpty() && (newHouseholdName != householdNameText.getText().toString())) {
+        if(!newHouseholdName.isEmpty() && (!newHouseholdName.equals(householdNameText.getText().toString()))) {
             message = message + getString(R.string.householdName) + ": " + newHouseholdName + "\n";
         }
-        if(!newPersonName.isEmpty() &&(newPersonName != myPerson.getPersonName())){
+        if(!newPersonName.isEmpty() &&(!newPersonName.equals(myPerson.getPersonName()))){
             message = message + getString(R.string.username) + ": " + newPersonName + "\n";
         }
         builder.setMessage(message);
@@ -394,12 +399,20 @@ public class SettingsActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        if(!newHouseholdName.isEmpty() && (newHouseholdName != householdNameText.getText().toString())) {
+                        if(!newHouseholdName.isEmpty() && (!newHouseholdName.equals(householdNameText.getText().toString()))) {
                             FireBaseHandling.getInstance().editHousholdName(newHouseholdName, householdId);
                         }
-                        if(!newPersonName.isEmpty() &&(newPersonName != myPerson.getPersonName())){
+                        if(!newPersonName.isEmpty() &&(!newPersonName.equals(myPerson.getPersonName()))){
                             FireBaseHandling.getInstance().editPersonName(newPersonName, myPersonId);
                         }
+                        if(newColor != -1){
+                            boolean checked = checkColourTaken(newColor);
+                            if(checked){
+                                FireBaseHandling.getInstance().editPersonFarbe(newColor, myPersonId);
+                            }
+                        }
+
+                        settingsEditable.setVisibility(View.INVISIBLE);
                     }
                 });
         builder.setNegativeButton(
@@ -509,5 +522,19 @@ public class SettingsActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
         
+    }
+
+    private boolean checkColourTaken(int chosenColour){
+        Iterator iterator = joiningPerson.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            Person person = (Person) entry.getValue();
+            if (chosenColour == person.getColor()) {
+                Toast.makeText(getApplicationContext(), R.string.ErrorColorTaken, Toast.LENGTH_LONG).show();
+                return false;
+            }
+        }
+        return true;
     }
 }

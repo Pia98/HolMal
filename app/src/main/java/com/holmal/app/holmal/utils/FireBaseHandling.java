@@ -139,8 +139,22 @@ public class FireBaseHandling {
         reference.child(householdRubric + "/" + householdId + "/householdName").setValue(newName);
     }
 
+    /**
+     * Edits the name of a person
+     * @param newName
+     * @param personId
+     */
     public void editPersonName(String newName, String personId){
         reference.child(personRubric + "/" + personId + "/personName").setValue(newName);
+    }
+
+    /**
+     * edits the color of a person
+     * @param newColour
+     * @param personId
+     */
+    public void editPersonFarbe(int newColour, String personId){
+        reference.child(personRubric + "/" + personId + "/color").setValue(newColour);
     }
 
     /**
