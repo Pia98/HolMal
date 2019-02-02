@@ -39,14 +39,15 @@
                 />
         </android.support.constraint.ConstraintLayout>
 
-        <android.support.constraint.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/toolbarHight">
+            android:layout_marginTop="@dimen/toolbarHight"
+            android:orientation="vertical">
 
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/settingsHousehold"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
@@ -166,7 +167,7 @@
 
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/settingsEditAble"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
@@ -261,8 +262,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
                         card_view:layout_constraintStart_toStartOf="parent"
-                        card_view:layout_constraintTop_toBottomOf="@+id/farbeEditTitle">
+                        card_view:layout_constraintTop_toBottomOf="@+id/farbeEditTitle"
+                        card_view:layout_constraintBottom_toBottomOf="parent">
 
                         <TableRow>
 
@@ -322,29 +325,6 @@
 
                     </com.holmal.app.holmal.ui.registrationfragment1.RadioGridGroup>
 
-                    <TextView
-                        android:id="@+id/emailEditTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@android:color/transparent"
-                        android:text="@string/username"
-                        android:textSize="16sp"
-                        card_view:layout_constraintStart_toStartOf="parent"
-                        card_view:layout_constraintTop_toBottomOf="@+id/colorChoice" />
-
-                    <EditText
-                        android:id="@+id/editEmailText"
-                        android:layout_width="@dimen/noWidth"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:inputType="textEmailAddress"
-                        card_view:layout_constraintEnd_toEndOf="parent"
-                        card_view:layout_constraintStart_toStartOf="parent"
-                        card_view:layout_constraintTop_toBottomOf="@+id/emailEditTitle" />
-
                     <ImageButton
                         android:id="@+id/editHouseholdNameDone"
                         android:layout_width="wrap_content"
@@ -361,7 +341,7 @@
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constraintLayout2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/settingsEditAble">
@@ -370,11 +350,12 @@
                     android:id="@+id/leaveHousehold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/leave" />
+                    android:text="@string/leave"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
 
             </android.support.constraint.ConstraintLayout>
-        </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
     </android.widget.FrameLayout>
 
     <!-- Guidelines__________________________________________________________________ -->

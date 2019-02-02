@@ -22,6 +22,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,10 +33,14 @@ import com.holmal.app.holmal.model.Household;
 import com.holmal.app.holmal.model.Item;
 import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
+import com.holmal.app.holmal.ui.registrationfragment1.RadioGridGroup;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.SettingsAdapter;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -56,11 +62,18 @@ public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.thisHouseholdId)
     TextView householdIdText;
 
+    //----------- editing stuff
     @BindView(R.id.editHouseholdNameText)
     EditText editHouseholdNameText;
 
+    @BindView(R.id.editNameText)
+    EditText editNameText;
+
+    @BindView(R.id.colorChoice)
+    RadioGridGroup colorChoice;
+
     @BindView(R.id.editHouseholdNameDone)
-    ImageButton editHouseholdNameDone;
+    ImageButton editDone;
 
     @BindView(R.id.settingsEditAble)
     CardView settingsEditable;
@@ -71,6 +84,8 @@ public class SettingsActivity extends AppCompatActivity {
     private HashMap<String, Person> joiningPerson = new HashMap<>();
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
     private HashMap<String, Item> itemsOfThisHousehold = new HashMap<>();
+    private Person myPerson = new Person();
+    private String myPersonId;
 
     PreferencesAccess preferencesAccess = new PreferencesAccess();
 
@@ -88,8 +103,6 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
 
-        editHouseholdNameText.setVisibility(View.INVISIBLE);
-        editHouseholdNameDone.setVisibility(View.INVISIBLE);
         settingsEditable.setVisibility(View.INVISIBLE);
 
         householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
@@ -177,6 +190,10 @@ public class SettingsActivity extends AppCompatActivity {
                     Person value = child.getValue(Person.class);
                     if (value.getIdBelongingTo().equals(householdId)) {
                         joiningPerson.put(id, value);
+                        if(id.equals(preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.personIDPreference)))){
+                            myPerson = value;
+                            myPersonId = id;
+                        }
                     }
                 }
                 SettingsAdapter adapter = new SettingsAdapter(SettingsActivity.this, joiningPerson);
@@ -200,6 +217,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Household thisHousehold = dataSnapshot.getValue(Household.class);
                 householdNameText.setText(thisHousehold.getHouseholdName());
+                editHouseholdNameText.setText(thisHousehold.getHouseholdName());
                 householdIdText.setText(dataSnapshot.getKey());
             }
 
@@ -349,9 +367,9 @@ public class SettingsActivity extends AppCompatActivity {
      */
     @OnClick(R.id.editHouseholdName)
     public void editHouseholdNameClicked(){
-        editHouseholdNameText.setVisibility(View.VISIBLE);
-        editHouseholdNameDone.setVisibility(View.VISIBLE);
         settingsEditable.setVisibility(View.VISIBLE);
+        editNameText.setText(myPerson.getPersonName());
+
     }
 
     /**
@@ -359,18 +377,54 @@ public class SettingsActivity extends AppCompatActivity {
      * Changes are saved and displayed and the edit text is set invisible again.
      */
     @OnClick(R.id.editHouseholdNameDone)
-    public void setEditHouseholdNameDone(){
-        String newName = editHouseholdNameText.getText().toString();
-        String id = householdIdText.getText().toString();
-        if(!newName.isEmpty()){
-            FireBaseHandling.getInstance().editHousholdName(newName, id);
-            editHouseholdNameText.setVisibility(View.INVISIBLE);
-            editHouseholdNameDone.setVisibility(View.INVISIBLE);
-            householdNameText.setText(newName);
-        }else{
-            editHouseholdNameText.setVisibility(View.INVISIBLE);
-            editHouseholdNameDone.setVisibility(View.INVISIBLE);
+    public void setEditDone(){
+        final String householdId = householdIdText.getText().toString();
+
+        final String newHouseholdName = editHouseholdNameText.getText().toString();
+        final String newPersonName = editNameText.getText().toString();
+        final int newColor = colorChoice.getCheckedRadioButtonId();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String message = getString(R.string.editSettingsConfirmation) + "\n";
+        if(!newHouseholdName.isEmpty() && (!newHouseholdName.equals(householdNameText.getText().toString()))) {
+            message = message + getString(R.string.householdName) + ": " + newHouseholdName + "\n";
         }
+        if(!newPersonName.isEmpty() &&(!newPersonName.equals(myPerson.getPersonName()))){
+            message = message + getString(R.string.username) + ": " + newPersonName + "\n";
+        }
+        builder.setMessage(message);
+        builder.setCancelable(true);
+        builder.setPositiveButton(
+                R.string.yes,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        if(!newHouseholdName.isEmpty() && (!newHouseholdName.equals(householdNameText.getText().toString()))) {
+                            FireBaseHandling.getInstance().editHousholdName(newHouseholdName, householdId);
+                        }
+                        if(!newPersonName.isEmpty() &&(!newPersonName.equals(myPerson.getPersonName()))){
+                            FireBaseHandling.getInstance().editPersonName(newPersonName, myPersonId);
+                        }
+                        if(newColor != -1){
+                            boolean checked = checkColourTaken(newColor);
+                            if(checked){
+                                FireBaseHandling.getInstance().editPersonFarbe(newColor, myPersonId);
+                            }
+                        }
+
+                        settingsEditable.setVisibility(View.INVISIBLE);
+                    }
+                });
+        builder.setNegativeButton(
+                R.string.no,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**
@@ -468,5 +522,19 @@ public class SettingsActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
         
+    }
+
+    private boolean checkColourTaken(int chosenColour){
+        Iterator iterator = joiningPerson.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            Person person = (Person) entry.getValue();
+            if (chosenColour == person.getColor()) {
+                Toast.makeText(getApplicationContext(), R.string.ErrorColorTaken, Toast.LENGTH_LONG).show();
+                return false;
+            }
+        }
+        return true;
     }
 }

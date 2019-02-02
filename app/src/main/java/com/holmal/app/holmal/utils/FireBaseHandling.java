@@ -140,6 +140,24 @@ public class FireBaseHandling {
     }
 
     /**
+     * Edits the name of a person
+     * @param newName
+     * @param personId
+     */
+    public void editPersonName(String newName, String personId){
+        reference.child(personRubric + "/" + personId + "/personName").setValue(newName);
+    }
+
+    /**
+     * edits the color of a person
+     * @param newColour
+     * @param personId
+     */
+    public void editPersonFarbe(int newColour, String personId){
+        reference.child(personRubric + "/" + personId + "/color").setValue(newColour);
+    }
+
+    /**
      * Edits the name of an item on the database
      *
      * @param newName The new name of the item
