@@ -223,7 +223,7 @@ public class ItemInformationActivity extends AppCompatActivity {
         String newPersonTask = itemEditTask.getSelectedItem().toString();
         Boolean newUrgent = itemUrgentCheck.isChecked();
 
-        if(newName != itemNameText.getText().toString()){
+        if((newName != itemNameText.getText().toString())&& !newName.isEmpty()){
             FireBaseHandling.getInstance().editItemName(newName, itemId);
         }
         if(newAmount != itemAmountText.getText().toString()){
