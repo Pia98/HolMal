@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toEndOf="@+id/leftMargin"
+        android:theme="@style/ToolbarTheme"
         >
 
         <!-- corresponds to button 9 in paper prototype-->

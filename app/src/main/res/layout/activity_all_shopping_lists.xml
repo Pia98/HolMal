@@ -20,6 +20,7 @@
         <!-- Using a guideline here seems not to work -->
 
         <android.support.constraint.ConstraintLayout
+            android:theme="@style/ToolbarTheme"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintStart_toEndOf="@+id/leftMargin">

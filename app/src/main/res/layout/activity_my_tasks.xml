@@ -22,7 +22,8 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:fitsSystemWindows="true"
-                android:id="@+id/appBar_layout">
+                android:id="@+id/appBar_layout"
+                android:theme="@style/ToolbarTheme">
 
                 <!-- corresponds to button 9 in paper prototype-->
                 <android.support.v7.widget.Toolbar
