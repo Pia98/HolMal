@@ -104,7 +104,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
 
-        settingsEditable.setVisibility(View.INVISIBLE);
+        settingsEditable.setVisibility(View.GONE);
 
         householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
 
@@ -426,7 +426,7 @@ public class SettingsActivity extends AppCompatActivity {
                             }
                         }
 
-                        settingsEditable.setVisibility(View.INVISIBLE);
+                        settingsEditable.setVisibility(View.GONE);
                     }
                 });
         builder.setNegativeButton(
@@ -434,7 +434,7 @@ public class SettingsActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
-                        settingsEditable.setVisibility(View.INVISIBLE);
+                        settingsEditable.setVisibility(View.GONE);
                     }
                 });
 
