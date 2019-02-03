@@ -28,8 +28,9 @@
         <activity android:name=".AllShoppingListsActivity" />
         <activity android:name=".CreateShoppingListActivity" />
         <activity android:name=".MyTasksActivity" />
-        <activity android:name=".SettingsActivity"></activity>
-        <activity android:name=".ItemInformationActivity"></activity>
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".ItemInformationActivity" />
+        <activity android:name=".EditAccountActivity"></activity>
     </application>
 
 </manifest>
