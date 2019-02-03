@@ -354,8 +354,8 @@
                 <!-- corresponds to button 15 in paper prototype-->
                 <Button
                     android:id="@+id/leaveHousehold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/bigButtonWidth"
+                    android:layout_height="@dimen/buttonHeight"
                     android:text="@string/leave"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
