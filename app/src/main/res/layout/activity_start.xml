@@ -9,9 +9,9 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="246dp"
-        android:layout_height="190dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="@dimen/loadingCircleWidth"
+        android:layout_height="@dimen/loadingCircleHight"
+        android:layout_marginTop="@dimen/loadingCircleMarginTop"
         android:src="@drawable/logo_hol_mal"
         app:layout_constraintEnd_toStartOf="@+id/rightMargin"
         app:layout_constraintStart_toEndOf="@+id/leftMargin"
@@ -20,11 +20,11 @@
     <!-- corresponds to button 1 in paper prototype-->
     <Button
         android:id="@+id/createHousehold"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/noWidth"
         android:layout_height="@dimen/buttonHeight"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginEnd="@dimen/fab_margin"
         android:text="@string/createHousehold"
         app:layout_constraintEnd_toStartOf="@+id/rightMargin"
         app:layout_constraintStart_toStartOf="@+id/leftMargin"
@@ -33,11 +33,11 @@
     <!-- corresponds to button 2 in paper prototype-->
     <Button
         android:id="@+id/moveIn"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/noWidth"
         android:layout_height="@dimen/buttonHeight"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_marginEnd="@dimen/fab_margin"
         android:backgroundTint="@color/colorPrimary"
         android:text="@string/moveIn"
         app:layout_constraintEnd_toStartOf="@+id/rightMargin"
