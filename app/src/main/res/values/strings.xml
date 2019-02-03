@@ -14,7 +14,7 @@
     <string name="moveIn">in bestehenden Haushalt einziehen</string>
 
     <!-- RegistrationFragment1 (after create) -->
-    <string name="householdName">Name des Haushalts</string>
+    <string name="householdName">Name des Haushalts:</string>
     <string name="id">ID:</string>
     <string name="done">Fertig</string> <!-- alternativ: bei haushalt erstellen: bauen?, bei beitreten: einziehen? -->
     <string name="copy">kopieren</string>

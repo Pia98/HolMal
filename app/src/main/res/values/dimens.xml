@@ -40,10 +40,15 @@
     <dimen name="separationLine">2dp</dimen>
 
     <!--single_shopping_list-->
-    <!--combined hight: 100dp-->
     <dimen name ="listNameHight">40dp</dimen>
     <dimen name ="listAmountHight">20dp</dimen>
     <dimen name ="widthHalfScreen">150dp</dimen>
+    <dimen name="cardWidth">180dp</dimen>
+    <dimen name="cardHight">100dp</dimen>
+    <dimen name="cardRadius">4dp</dimen>
+    <dimen name="cardElevation">2dp</dimen>
+    <dimen name="listNameMarginTop">10dp</dimen>
+    <dimen name="listAmountMargin">60dp</dimen>
 
     <!--single_household_member_settings-->
     <dimen name="paddingHouseholdMember">6dip</dimen>
@@ -60,7 +65,7 @@
     <dimen name="loadingCircleMarginTop">24dp</dimen>
 
     <!--nav_header-->
-    <dimen name="menuTextDistance">5dp</dimen>
+    <dimen name="menuTextDistance">2dp</dimen>
 
     <!--create_shopping_list-->
     <dimen name="createListNameMargin">85dp</dimen>
