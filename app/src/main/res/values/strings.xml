@@ -41,8 +41,7 @@
     <string name="myJobs">Meine Aufträge</string>
     <string name="alreadyAssigned">Dieses Item ist bereits vergeben</string>
 
-    <!-- TODO besseren Text ueberlegen [S:ich finde den text ok] [M: ich fands nur komisch, weil folgendem beitreten als: Maier, 123... und dann kommt erst die Eingabe]-->
-    <string name="moveInHouseholdAs">Folgendem Haushalt beitreten als:</string>
+    <string name="moveInHouseholdAs">Haushalt beitreten</string>
 
     <!-- CreateItem -->
     <string name="createElementText">Neues Element auf die Liste schreiben</string>

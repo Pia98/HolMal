@@ -14,6 +14,9 @@
 
     <!--registrationFragment2-->
     <dimen name="householdIDInputHight">44dp</dimen>
+    <!--personal input-->
+    <dimen name="userNameInputHight">47dp</dimen>
+    <dimen name="colorMargin">20dp</dimen>
 
     <!--item information-->
     <dimen name="infoTopMargin">35dp</dimen>

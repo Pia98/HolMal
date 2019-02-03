@@ -7,29 +7,30 @@
     tools:context=".PersonalInputFragment">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
+        android:id="@+id/usernameInputLayout"
+        android:layout_width="@dimen/noWidth"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/text_margin"
         android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@+id/rightMargin"
         app:layout_constraintStart_toStartOf="@+id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        >
 
         <TextView
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/username"
-            android:textSize="18sp"
+            android:textSize="@dimen/textSizeBig"
+            android:layout_marginTop="@dimen/text_margin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/userNameInput"
-            android:layout_width="0dp"
-            android:layout_height="47dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="@dimen/noWidth"
+            android:layout_height="@dimen/userNameInputHight"
+            android:layout_marginTop="@dimen/text_margin"
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,25 +38,26 @@
     </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/colorInputLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/colorMargin"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="@+id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/usernameInputLayout">
 
         <TextView
             android:id="@+id/color"
-            android:layout_width="75dp"
-            android:layout_height="37dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/color"
-            android:textSize="18sp" />
+            android:textSize="@dimen/textSizeBig" />
 
         <com.holmal.app.holmal.ui.registrationfragment1.RadioGridGroup
             android:id="@+id/colorChoice"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fab_margin">
 
             <TableRow>
 
@@ -138,7 +140,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.97" />
+        app:layout_constraintGuide_percent="0.75" />
 
     <android.support.constraint.Guideline
         android:id="@+id/bottomMargin"
