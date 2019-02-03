@@ -103,7 +103,7 @@
     <Button
         android:id="@+id/loginButton"
         android:layout_width="@dimen/noWidth"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/buttonHeight"
         android:layout_marginStart="@dimen/text_margin"
         android:layout_marginTop="@dimen/medium_top_margin"
         android:layout_marginEnd="@dimen/text_margin"
@@ -117,7 +117,7 @@
     <Button
         android:id="@+id/registrationButton"
         android:layout_width="@dimen/noWidth"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/buttonHeight"
         android:layout_marginStart="@dimen/text_margin"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="@dimen/text_margin"

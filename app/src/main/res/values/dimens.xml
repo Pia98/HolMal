@@ -72,6 +72,7 @@
     <dimen name="textSizeBig">18sp</dimen> <!-- bei Itemdarstellung Bezeichnung -->
     <dimen name="textSizeMedium">14sp</dimen> <!-- bei Itemdarstellung andere Schrift -->
     <dimen name="textSizeMediumBig">18sp</dimen><!-- bei bsp ItemInfo (Was, Wie viel etc) textSizeBig zu groß -->
+    <dimen name="textSizeHeadingSmall">24sp</dimen>
 
     <!--button sizes -->
     <dimen name="buttonHeight">60dp</dimen>
