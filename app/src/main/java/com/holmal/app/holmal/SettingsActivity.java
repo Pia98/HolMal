@@ -417,7 +417,10 @@ public class SettingsActivity extends AppCompatActivity {
                             FireBaseHandling.getInstance().editHousholdName(newHouseholdName, householdId);
                         }
                         if(!newPersonName.isEmpty() &&(!newPersonName.equals(myPerson.getPersonName()))){
-                            FireBaseHandling.getInstance().editPersonName(newPersonName, myPersonId);
+                            boolean checked = checkNameTaken(newPersonName);
+                            if(checked) {
+                                FireBaseHandling.getInstance().editPersonName(newPersonName, myPersonId);
+                            }
                         }
                         if(newColor != -1){
                             boolean checked = checkColourTaken(newColor);
@@ -547,6 +550,20 @@ public class SettingsActivity extends AppCompatActivity {
             Person person = (Person) entry.getValue();
             if (chosenColour == person.getColor()) {
                 Toast.makeText(getApplicationContext(), R.string.ErrorColorTaken, Toast.LENGTH_LONG).show();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkNameTaken(String name){
+        Iterator iterator = joiningPerson.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            Person person = (Person) entry.getValue();
+            if (name.equals(person.getPersonName())) {
+                Toast.makeText(getApplicationContext(), R.string.ErrorNameTaken, Toast.LENGTH_LONG).show();
                 return false;
             }
         }
