@@ -18,7 +18,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.holmal.app.holmal.utils.FireBaseHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 
@@ -47,6 +46,11 @@ public class EditAccountActivity extends AppCompatActivity {
     @BindView(R.id.editEmailText)
     EditText editEmailText;
 
+    @BindView(R.id.editNeuesPasswortText)
+    EditText editNeuesPasswort;
+
+    @BindView(R.id.editNeuesWdhPasswortText)
+    EditText editNeuesPasswortWdh;
 
     FirebaseAuth fireAuth;
     FirebaseUser user;
@@ -156,9 +160,46 @@ public class EditAccountActivity extends AppCompatActivity {
      */
     @OnClick(R.id.passwortComplete)
     public void editPasswort(){
+        final String newPassword = editNeuesPasswort.getText().toString();
+        final String newPasswordWdh = editNeuesPasswortWdh.getText().toString();
+
+        boolean checked = isPasswordValid(newPassword, newPasswordWdh);
+
+        if(checked){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            String message = getString(R.string.editPasswordConfirmation);
+            builder.setMessage(message);
+            builder.setCancelable(true);
+            builder.setPositiveButton(
+                    R.string.yes,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            fireAuth.getCurrentUser().updatePassword(newPassword);
+
+                            Intent intent = new Intent(EditAccountActivity.this, SettingsActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+            builder.setNegativeButton(
+                    R.string.no,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
 
     }
 
+    /**
+     * checks if the inserted email is valid
+     * @param email
+     * @return
+     */
     private boolean isEmailValid(String email){
         if(email.isEmpty()){
             Toast.makeText(getApplicationContext(), getString(R.string.ErrorNoEmail), Toast.LENGTH_SHORT).show();
@@ -167,5 +208,29 @@ public class EditAccountActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), getString(R.string.ErrorNewEmail), Toast.LENGTH_SHORT).show();
             return false;
         }else return true;
+    }
+
+    /**
+     * checks if the new password is valid
+     * @param password
+     * @param passwordWdh
+     * @return
+     */
+    private boolean isPasswordValid(String password, String passwordWdh){
+        if (password.isEmpty()) {
+            Toast.makeText(getApplicationContext(), getString(R.string.ErrorNoPassword), Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (password.length() < 6) {
+            Toast.makeText(getApplicationContext(), getString(R.string.ErrorLoginShortPW), Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (passwordWdh.isEmpty()) {
+            Toast.makeText(getApplicationContext(), getString(R.string.ErrorLoginRepeatPW), Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (!(passwordWdh.equals(password))) {
+            Toast.makeText(getApplicationContext(), getString(R.string.ErrorLoginCheckPW), Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
     }
 }
