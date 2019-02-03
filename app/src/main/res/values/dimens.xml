@@ -12,6 +12,9 @@
     <dimen name="text_margin">8dp</dimen>
     <dimen name="noWidth">0dp</dimen>
 
+    <!--registrationFragment2-->
+    <dimen name="householdIDInputHight">44dp</dimen>
+
     <!--item information-->
     <dimen name="infoTopMargin">35dp</dimen>
     <dimen name="infoEditItemAmount">48dp</dimen>
@@ -19,8 +22,8 @@
     <dimen name="itemInfosTop">3dp</dimen>
 
     <!--activity_shopping_list-->
-<dimen name="toolbarHight">56dp</dimen>
-<dimen name="tabsUtoolbarHight">105dp</dimen>
+    <dimen name="toolbarHight">56dp</dimen>
+    <dimen name="tabsUtoolbarHight">105dp</dimen>
 
     <!--single_item_layout-->
     <dimen name="itemHight">80dp</dimen>

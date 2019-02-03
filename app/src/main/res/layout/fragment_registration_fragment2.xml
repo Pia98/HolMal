@@ -11,33 +11,37 @@
         android:id="@+id/moveInWithID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/text_margin"
+        android:layout_marginTop="@dimen/text_margin"
         android:text="@string/moveInWithID"
         android:textSize="@dimen/textSizeBig"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toTopOf="@+id/quarterLineTop" />
+        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        app:layout_constraintTop_toTopOf="@+id/topMargin" />
 
     <EditText
         android:id="@+id/idInput"
-        android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="@dimen/noWidth"
+        android:layout_height="@dimen/householdIDInputHight"
+        android:layout_marginStart="@dimen/text_margin"
+        android:layout_marginEnd="@dimen/text_margin"
         app:layout_constraintEnd_toStartOf="@+id/quarterLineRigth"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toTopOf="@+id/thirdLineLeft" />
+        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        app:layout_constraintTop_toTopOf="@+id/quarterLineTop" />
 
     <!-- corresponds to button 6 in paper prototype-->
     <Button
         android:id="@+id/idInputDone"
-        android:text="@string/done"
         android:layout_width="@dimen/finishWidth"
         android:layout_height="@dimen/buttonHeight"
+        android:layout_marginTop="@dimen/text_margin"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="@dimen/big_margin"
         android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toStartOf="@id/rightMargin"
+        android:text="@string/done"
         app:layout_constraintBottom_toTopOf="@id/bottomMargin"
-        app:layout_constraintTop_toBottomOf="@id/idInput"/>
+        app:layout_constraintEnd_toStartOf="@id/rightMargin"
+        app:layout_constraintTop_toTopOf="@+id/thirdLineRight" />
 
 
     <!-- Guidelines -->
