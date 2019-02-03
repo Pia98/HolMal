@@ -92,19 +92,15 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
         FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "listener in onCreate...");
                 joiningPerson.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Personen durchgehen");
                     String id = child.getKey();
                     Person value = child.getValue(Person.class);
                     Log.i(TAG, "Person: " + value);
                     if (value.getIdBelongingTo().equals(householdId)) {
-                        Log.i(TAG, "Person gehört zu diesem Haushalt.");
+                        Log.i(TAG, "Person belongs to this household: " + householdId);
                         joiningPerson.add(value);
                     }
-
-                    Log.i(TAG, "joiningPerson in for Schleife bei listener: " + joiningPerson);
                 }
             }
 
@@ -158,7 +154,7 @@ public class MoveInHouseholdActivity extends AppCompatActivity implements Person
      * @return if input is valid
      */
     private boolean checkUserName(ArrayList<Person> personList) {
-        Log.i(TAG, "uebergebene Liste (sollte vom Listener befuellt worden sein): " + personList);
+        Log.i(TAG, "PersonList: " + personList);
         EditText userName = (EditText) findViewById(R.id.userNameInput);
         userNameString = userName.getText().toString();
         if (!userNameString.isEmpty()) {

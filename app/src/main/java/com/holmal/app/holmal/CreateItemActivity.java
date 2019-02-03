@@ -132,7 +132,7 @@ public class CreateItemActivity extends AppCompatActivity {
     /**
      * Method that handles the press of the favourites button.
      * Leads you to favourites activity where you can choose an item from your favourites to add to the list.
-     * //TODO remove this or not? S: no because only invisible not deleted
+     * //TODO remove this or not? S: no because only invisible not deleted; M: no
      */
     @OnClick(R.id.fromFavorites)
     public void fromFavoritesButtonClicked() {

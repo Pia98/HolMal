@@ -148,7 +148,7 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                         }
                         //Logout
                         else if (menuItem.getItemId() == R.id.logout) {
-                            Log.i("TAG", "Logout button clicked");
+                            Log.i(TAG, "Logout button clicked");
                             //delete preferences
                             preferencesAccess.storePreferences(AllShoppingListsActivity.this, getString(R.string.householdIDPreference), null);
                             preferencesAccess.storePreferences(AllShoppingListsActivity.this, getString(R.string.personIDPreference), null);
@@ -236,7 +236,7 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                 }
 
                 //fill with lists with an adapter
-                Log.i("FürSvenja", "itemsOfHousehold" + +itemsOfThisHousehold.size() + itemsOfThisHousehold.toString());
+                Log.i(TAG, "itemsOfHousehold" + +itemsOfThisHousehold.size() + itemsOfThisHousehold.toString());
                 ShoppingListsAdapter adapter = new ShoppingListsAdapter(AllShoppingListsActivity.this, listsOfThisHousehold, itemsOfThisHousehold);
                 listsView.setAdapter(adapter);
             }

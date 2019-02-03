@@ -117,7 +117,7 @@ public class CreateShoppingListActivity extends AppCompatActivity {
      * @return if the shoppingList name is already taken
      */
     private boolean checkListNameTaken(HashMap<String, ShoppingList> shoppingLists) {
-        Log.i("CreateShoppingList", "Liste: " + shoppingLists);
+        Log.i(TAG, "List: " + shoppingLists);
 
         for (int i = 0; i < shoppingLists.size(); i++) {
             String[] keys = shoppingLists.keySet().toArray(new String[shoppingLists.size()]);
@@ -131,7 +131,7 @@ public class CreateShoppingListActivity extends AppCompatActivity {
                         name, shoppingListNameString));
             }
         }
-        Log.i("CrateShoppingList", "all right");
+        Log.i(TAG, "all right");
         return true;
     }
 }

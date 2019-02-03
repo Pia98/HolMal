@@ -97,13 +97,11 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         FirebaseDatabase.getInstance().getReference().child("household").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "household listener in onCreate: LoginActivity");
                 haushalte.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Haushalte durchgehen");
                     String id = child.getKey();
                     Household value = child.getValue(Household.class);
-                    Log.i(TAG, "Haushalt: " + value.getHouseholdName());
+                    Log.i(TAG, "Household: " + value.getHouseholdName());
                     haushalte.put(id, value);
                 }
             }
@@ -122,10 +120,8 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
         FirebaseDatabase.getInstance().getReference().child("person").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "person listener in onCreate: LoginActivity");
                 personen.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Personen durchgehen");
                     String id = child.getKey();
                     Person value = child.getValue(Person.class);
                     Log.i(TAG, "Person: " + value);
@@ -206,12 +202,12 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Log.i(LoginActivity.class.getName(), "Login successful");
+                        Log.i(TAG, "Login successful");
                         finish();
                     } else {
                         progressBar.setVisibility(View.INVISIBLE);
                         errorMessage2.setText(R.string.ErrorLoginFailed);
-                        Log.e(LoginActivity.class.getName(), "Login failed");
+                        Log.e(TAG, "Login failed");
                     }
                 }
             });
@@ -234,12 +230,12 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.i(LoginActivity.class.getName(), "Registration successful");
+                            Log.i(TAG, "Registration successful");
                         } else {
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                 errorMessage1.setText(R.string.ErrorLoginAlreadyExists);
                             }
-                            Log.e(LoginActivity.class.getName(), "Registration failed: " + task.getException().getMessage());
+                            Log.e(TAG, "Registration failed: " + task.getException().getMessage());
                             progressBar.setVisibility(View.INVISIBLE);
                         }
                     }

@@ -170,7 +170,7 @@ public class MyTasksActivity extends AppCompatActivity {
                         }
                         //Logout
                         else if (menuItem.getItemId() == R.id.logout) {
-                            Log.i("TAG", "Logout button clicked");
+                            Log.i(TAG, "Logout button clicked");
                             //delete preferences
                             PreferencesAccess preferencesAccess = new PreferencesAccess();
                             preferencesAccess.storePreferences(MyTasksActivity.this, getString(R.string.householdIDPreference), null);

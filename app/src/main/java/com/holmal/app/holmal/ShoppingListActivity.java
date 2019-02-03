@@ -315,7 +315,6 @@ public class ShoppingListActivity extends AppCompatActivity {
             FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Log.i(TAG, "started listener on shoppingList");
                     boolean exists = false;
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         String id = child.getKey();

@@ -75,7 +75,7 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
             Log.i(TAG, "householdID: " + householdId);
 
 
-            Log.i(TAG, "store person: name - " + userNameString + ", color - " + chosenColorId + ", email - " + currentEmail);
+            Log.i(TAG, String.format("store person: name - %s, color - %d, email - %s", userNameString, chosenColorId, currentEmail));
 
             Intent intent = new Intent(this, RegistrationActivity.class);
             // RegistrationFragment1 has to be drawn
