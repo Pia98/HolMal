@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/text_margin"
         android:text="@string/what"
-        android:textSize="@dimen/textSizeMediumBig"
+        android:textSize="@dimen/textSizeBig"
         app:layout_constraintStart_toStartOf="@+id/leftMargin"
         app:layout_constraintTop_toTopOf="@+id/quarterLineTop" />
 
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/big_margin"
         android:text="@string/amount"
-        android:textSize="@dimen/textSizeMediumBig"
+        android:textSize="@dimen/textSizeBig"
         app:layout_constraintStart_toStartOf="@+id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/whatInfo" />
 
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/big_margin"
         android:text="@string/info"
-        android:textSize="@dimen/textSizeMediumBig"
+        android:textSize="@dimen/textSizeBig"
         app:layout_constraintStart_toStartOf="@+id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/howmuchInfo" />
 
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/big_margin"
         android:text="@string/who"
-        android:textSize="@dimen/textSizeMediumBig"
+        android:textSize="@dimen/textSizeBig"
         app:layout_constraintStart_toStartOf="@+id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/descriptionInfo" />
 
@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/text_margin"
         android:text="@string/urgent"
-        android:textSize="@dimen/textSizeMediumBig"
+        android:textSize="@dimen/textSizeBig"
         app:layout_constraintStart_toStartOf="@+id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/editItem" />
 

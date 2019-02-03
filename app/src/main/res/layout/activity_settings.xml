@@ -46,7 +46,7 @@
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <android.support.constraint.ConstraintLayout
@@ -63,7 +63,7 @@
                         android:layout_marginTop="16dp"
                         android:background="@android:color/transparent"
                         android:text="@string/household"
-                        android:textSize="@dimen/textSizeMediumBig"
+                        android:textSize="@dimen/textSizeBig"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -98,7 +98,7 @@
                         android:layout_marginTop="16dp"
                         android:background="@android:color/transparent"
                         android:text="@string/id"
-                        android:textSize="@dimen/textSizeMediumBig"
+                        android:textSize="@dimen/textSizeBig"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/householdName" />
 
@@ -131,7 +131,7 @@
                         android:layout_marginTop="16dp"
                         android:background="@android:color/transparent"
                         android:text="@string/members"
-                        android:textSize="@dimen/textSizeMediumBig"
+                        android:textSize="@dimen/textSizeBig"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/personEmail" />
 
@@ -165,7 +165,7 @@
                         android:layout_marginTop="16dp"
                         android:background="@android:color/transparent"
                         android:text="@string/email"
-                        android:textSize="@dimen/textSizeMediumBig"
+                        android:textSize="@dimen/textSizeBig"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/thisHouseholdId" />
 
@@ -200,7 +200,7 @@
                         android:layout_marginTop="16dp"
                         android:background="@android:color/transparent"
                         android:text="@string/edit"
-                        android:textSize="@dimen/textSizeMediumBig"
+                        android:textSize="@dimen/textSizeBig"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -365,7 +365,7 @@
                         android:layout_marginBottom="16dp"
                         android:background="@android:color/transparent"
                         android:text="@string/editEmailPassword"
-                        android:textSize="@dimen/textSizeMediumBig"
+                        android:textSize="@dimen/textSizeBig"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/breakLine" />

@@ -46,10 +46,10 @@ public class EditAccountActivity extends AppCompatActivity {
     @BindView(R.id.editEmailText)
     EditText editEmailText;
 
-    @BindView(R.id.editNeuesPasswortText)
+    @BindView(R.id.editNewPasswordText)
     EditText editNeuesPasswort;
 
-    @BindView(R.id.editNeuesWdhPasswortText)
+    @BindView(R.id.editNewPasswordRepetition)
     EditText editNeuesPasswortWdh;
 
     FirebaseAuth fireAuth;
@@ -158,7 +158,7 @@ public class EditAccountActivity extends AppCompatActivity {
      *   - checks if new password is valid
      *   - saves new password in authentication
      */
-    @OnClick(R.id.passwortComplete)
+    @OnClick(R.id.passwordComplete)
     public void editPasswort(){
         final String newPassword = editNeuesPasswort.getText().toString();
         final String newPasswordWdh = editNeuesPasswortWdh.getText().toString();

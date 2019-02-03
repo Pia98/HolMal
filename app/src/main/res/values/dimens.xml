@@ -84,7 +84,7 @@
     <dimen name="textSizeHeading">28sp</dimen> <!-- Ueberschriften in Spezialschrift -->
     <dimen name="textSizeBig">18sp</dimen> <!-- bei Itemdarstellung Bezeichnung -->
     <dimen name="textSizeMedium">14sp</dimen> <!-- bei Itemdarstellung andere Schrift -->
-    <dimen name="textSizeMediumBig">18sp</dimen><!-- bei bsp ItemInfo (Was, Wie viel etc) textSizeBig zu groß -->
+    <dimen name="textSizeMediumBig">16sp</dimen><!-- bei edit account -->
     <dimen name="textSizeHeadingSmall">24sp</dimen>
 
     <!--button sizes -->
