@@ -455,6 +455,11 @@ public class SettingsActivity extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(), "test worked", Toast.LENGTH_SHORT).show();
 
+        Intent intent = new Intent(this, EditAccountActivity.class);
+        startActivity(intent);
+        finish();
+
+
        /* if(!newEmail.isEmpty() && !newEmail.equals(myPerson.getEmail())){
             firebaseAuth.signInWithEmailAndPassword().updateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
