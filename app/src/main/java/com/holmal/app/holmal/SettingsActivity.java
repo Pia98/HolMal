@@ -14,7 +14,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -80,7 +79,7 @@ public class SettingsActivity extends AppCompatActivity {
     ImageButton editDone;
 
     @BindView(R.id.settingsEditAble)
-    CardView settingsEditable;
+    ConstraintLayout settingsEditable;
 
     String householdId;
     private DrawerLayout mDrawerLayout;
