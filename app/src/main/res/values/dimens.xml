@@ -54,6 +54,7 @@
     <dimen name="paddingHouseholdMember">6dip</dimen>
     <dimen name="colourMarginStart">5dp</dimen>
     <dimen name="memberNameMargin">50dp</dimen>
+    <dimen name="minHeightOfList">100dp</dimen>
 
     <!--activity_all_shopping_lists-->
     <dimen name="ListsButtonPositionY">450dp</dimen>
