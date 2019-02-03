@@ -39,6 +39,9 @@ public class EditAccountActivity extends AppCompatActivity {
     @BindView(R.id.oldPasswordText)
     EditText oldPasswordText;
 
+    @BindView(R.id.editEmailText)
+    EditText editEmailText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,20 +65,22 @@ public class EditAccountActivity extends AppCompatActivity {
         FirebaseAuth fireAuth = FirebaseAuth.getInstance();
         FirebaseUser user = fireAuth.getCurrentUser();
 
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(user.getEmail(), password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Log.i(TAG, "Login successful");
-                    editOldPassword.setVisibility(View.GONE);
-                    editAccount.setVisibility(View.VISIBLE);
-                    further.setVisibility(View.GONE);
-                } else {
-                    Log.e(TAG, "Login failed");
-                    Toast.makeText(getApplicationContext(), getString(R.string.ErrorLoginPasswordWrong), Toast.LENGTH_SHORT).show();
+        if(!password.isEmpty()){
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(user.getEmail(), password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Log.i(TAG, "Login successful");
+                        editOldPassword.setVisibility(View.GONE);
+                        editAccount.setVisibility(View.VISIBLE);
+                        further.setVisibility(View.GONE);
+                    } else {
+                        Log.e(TAG, "Login failed");
+                        Toast.makeText(getApplicationContext(), getString(R.string.ErrorLoginCheckPW), Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+        }else Toast.makeText(getApplicationContext(), getString(R.string.ErrorLoginCheckPW), Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -97,6 +102,7 @@ public class EditAccountActivity extends AppCompatActivity {
      */
     @OnClick(R.id.emailComplete)
     public void editEmail(){
+        String newEmail = editEmailText.getText().toString();
 
     }
 

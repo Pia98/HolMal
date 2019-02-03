@@ -100,7 +100,6 @@
 
     <!-- Errors -->
     <string name="ErrorLoginFailed">Login fehlgeschlagen: Bitte überprüfe deine Email und dein Passwort</string>
-    <string name="ErrorLoginPasswordWrong">Leider ist das Passwort nicht richtig</string>
     <string name="ErrorLoginAlreadyExists">Es existiert bereits ein User mit dieser Emailadresse</string>
     <string name="ErrorLoginNotEntered">Bitte gib deine Emailadresse und dein Passwort an</string>
     <string name="ErrorLoginShortPW">Das Passwort muss min. 6 Zeichen lang sein</string>
