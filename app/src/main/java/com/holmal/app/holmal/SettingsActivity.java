@@ -23,11 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -75,9 +71,6 @@ public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.editNameText)
     EditText editNameText;
 
-    @BindView(R.id.editEmailText)
-    EditText editEmailText;
-
     @BindView(R.id.colorChoice)
     RadioGridGroup colorChoice;
 
@@ -86,9 +79,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     @BindView(R.id.settingsEditAble)
     ConstraintLayout settingsEditable;
-
-    @BindView(R.id.accountEditAble)
-    ConstraintLayout accountEditable;
 
     String householdId;
     private DrawerLayout mDrawerLayout;
@@ -116,7 +106,6 @@ public class SettingsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         settingsEditable.setVisibility(View.GONE);
-        accountEditable.setVisibility(View.GONE);
 
         householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
 
@@ -395,9 +384,7 @@ public class SettingsActivity extends AppCompatActivity {
     @OnClick(R.id.editHouseholdName)
     public void editHouseholdNameClicked(){
         settingsEditable.setVisibility(View.VISIBLE);
-        accountEditable.setVisibility(View.VISIBLE);
         editNameText.setText(myPerson.getPersonName());
-        editEmailText.setText(myPerson.getEmail());
     }
 
     /**
@@ -463,13 +450,13 @@ public class SettingsActivity extends AppCompatActivity {
      * Button that indicates that the user is done changing the account settings
      * Changes are saved and displayed and the edit section is set gone again.
      */
-    @OnClick(R.id.editAccountDone)
+    @OnClick(R.id.accountEditAble)
     public void editAccount(){
-        String newEmail = editEmailText.getText().toString();
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-        if(!newEmail.isEmpty() && !newEmail.equals(myPerson.getEmail())){
-           /* firebaseAuth.signInWithEmailAndPassword().updateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
+        Toast.makeText(getApplicationContext(), "test worked", Toast.LENGTH_SHORT).show();
+
+       /* if(!newEmail.isEmpty() && !newEmail.equals(myPerson.getEmail())){
+            firebaseAuth.signInWithEmailAndPassword().updateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
@@ -481,8 +468,8 @@ public class SettingsActivity extends AppCompatActivity {
                         Log.e(LoginActivity.class.getName(), "Registration failed: " + task.getException().getMessage());
                     }
                 }
-            });*/
-        }
+            });
+        }*/
     }
 
     /**
