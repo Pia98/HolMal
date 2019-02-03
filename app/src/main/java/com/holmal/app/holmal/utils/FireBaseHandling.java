@@ -158,6 +158,15 @@ public class FireBaseHandling {
     }
 
     /**
+     * edits the email of a person
+     * @param newEmail
+     * @param personId
+     */
+    public void editPersonEmail(String newEmail, String personId){
+        reference.child(personRubric + "/" + personId + "/email").setValue(newEmail);
+    }
+
+    /**
      * Edits the name of an item on the database
      *
      * @param newName The new name of the item

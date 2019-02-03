@@ -94,6 +94,7 @@
     <string name="deleteListConfirmation">Möchtest du diese Liste wirklich löschen?</string>
     <string name="deleteItemConfirmation">Möchtest du dieses Item wirklich löschen? </string>
     <string name="editSettingsConfirmation">Möchtest du wirklich diese Änderungen vornehmen?</string>
+    <string name="editEmailConfirmation">Möchtest du wirkich deine Email-Adresse ändern? \nNeue Email-Adresse: </string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
 
@@ -105,6 +106,8 @@
     <string name="ErrorLoginShortPW">Das Passwort muss min. 6 Zeichen lang sein</string>
     <string name="ErrorLoginRepeatPW">Bitte wiederhole dein Passwort</string>
     <string name="ErrorLoginCheckPW">Bitte überprüfe dein Passwort</string>
+    <string name="ErrorNoEmail">Bitte gib eine Email-Adresse an</string>
+    <string name="ErrorNewEmail">Bitte gib eine neue Email-Adresse an</string>
 
     <string name="ErrorEnterName">Gib einen Namen ein</string>
     <string name="ErrorChoseColor">Wähle eine Farbe</string>

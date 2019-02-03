@@ -1,8 +1,10 @@
 package com.holmal.app.holmal;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +18,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.PreferencesAccess;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +48,12 @@ public class EditAccountActivity extends AppCompatActivity {
     EditText editEmailText;
 
 
+    FirebaseAuth fireAuth;
+    FirebaseUser user;
+    String password;
+
+    PreferencesAccess preferencesAccess = new PreferencesAccess();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +61,9 @@ public class EditAccountActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         editAccount.setVisibility(View.GONE);
+
+        fireAuth = FirebaseAuth.getInstance();
+        user = fireAuth.getCurrentUser();
     }
 
     /**
@@ -60,13 +74,10 @@ public class EditAccountActivity extends AppCompatActivity {
      */
     @OnClick(R.id.passwortFurther)
     public void further(){
-        String password = oldPasswordText.getText().toString();
-
-        FirebaseAuth fireAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = fireAuth.getCurrentUser();
+        password = oldPasswordText.getText().toString();
 
         if(!password.isEmpty()){
-            FirebaseAuth.getInstance().signInWithEmailAndPassword(user.getEmail(), password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            fireAuth.signInWithEmailAndPassword(user.getEmail(), password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
@@ -74,6 +85,7 @@ public class EditAccountActivity extends AppCompatActivity {
                         editOldPassword.setVisibility(View.GONE);
                         editAccount.setVisibility(View.VISIBLE);
                         further.setVisibility(View.GONE);
+                        editEmailText.setText(user.getEmail());
                     } else {
                         Log.e(TAG, "Login failed");
                         Toast.makeText(getApplicationContext(), getString(R.string.ErrorLoginCheckPW), Toast.LENGTH_SHORT).show();
@@ -102,8 +114,38 @@ public class EditAccountActivity extends AppCompatActivity {
      */
     @OnClick(R.id.emailComplete)
     public void editEmail(){
-        String newEmail = editEmailText.getText().toString();
+        final String newEmail = editEmailText.getText().toString();
+        boolean checked = isEmailValid(newEmail);
+        final String personID = preferencesAccess.readPreferences(this, getString(R.string.personIDPreference));
 
+        if(checked){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            String message = getString(R.string.editEmailConfirmation) + newEmail;
+            builder.setMessage(message);
+            builder.setCancelable(true);
+            builder.setPositiveButton(
+                    R.string.yes,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            fireAuth.getCurrentUser().updateEmail(newEmail);
+                            FireBaseHandling.getInstance().editPersonEmail(newEmail, personID);
+
+                            Intent intent = new Intent(EditAccountActivity.this, SettingsActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+            builder.setNegativeButton(
+                    R.string.no,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 
     /**
@@ -115,5 +157,15 @@ public class EditAccountActivity extends AppCompatActivity {
     @OnClick(R.id.passwortComplete)
     public void editPasswort(){
 
+    }
+
+    private boolean isEmailValid(String email){
+        if(email.isEmpty()){
+            Toast.makeText(getApplicationContext(), getString(R.string.ErrorNoEmail), Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(email.equals(user.getEmail())){
+            Toast.makeText(getApplicationContext(), getString(R.string.ErrorNewEmail), Toast.LENGTH_SHORT).show();
+            return false;
+        }else return true;
     }
 }
