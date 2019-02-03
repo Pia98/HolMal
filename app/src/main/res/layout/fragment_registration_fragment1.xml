@@ -19,8 +19,7 @@
             android:id="@+id/householdnameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/householdName"
-            android:textSize="@dimen/textSizeBig"/>
+            android:text="@string/householdName" />
 
         <TextView
             android:id="@+id/householdNameFromInput"
@@ -47,7 +46,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/text_margin"
-            android:textSize="@dimen/textSizeBig"
             android:text="@string/id"
             app:layout_constraintStart_toStartOf="parent" />
 
