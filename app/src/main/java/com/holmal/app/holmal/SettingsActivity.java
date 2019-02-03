@@ -394,7 +394,7 @@ public class SettingsActivity extends AppCompatActivity {
         settingsEditable.setVisibility(View.VISIBLE);
         accountEditable.setVisibility(View.VISIBLE);
         editNameText.setText(myPerson.getPersonName());
-
+        editEmailText.setText(myPerson.getEmail());
     }
 
     /**
@@ -461,7 +461,7 @@ public class SettingsActivity extends AppCompatActivity {
      * Changes are saved and displayed and the edit section is set gone again.
      */
     @OnClick(R.id.editAccountDone)
-    private void editAccount(){
+    public void editAccount(){
 
     }
 
