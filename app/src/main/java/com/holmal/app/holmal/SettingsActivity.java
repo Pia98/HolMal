@@ -63,6 +63,9 @@ public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.thisHouseholdId)
     TextView householdIdText;
 
+    @BindView(R.id.personEmail)
+    TextView personEmail;
+
     //----------- editing stuff
     @BindView(R.id.editHouseholdNameText)
     EditText editHouseholdNameText;
@@ -194,6 +197,7 @@ public class SettingsActivity extends AppCompatActivity {
                         if(id.equals(preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.personIDPreference)))){
                             myPerson = value;
                             myPersonId = id;
+                            personEmail.setText(value.getEmail());
                         }
                     }
                 }
