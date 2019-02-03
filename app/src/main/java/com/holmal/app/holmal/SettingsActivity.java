@@ -72,6 +72,9 @@ public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.editNameText)
     EditText editNameText;
 
+    @BindView(R.id.editEmailText)
+    EditText editEmailText;
+
     @BindView(R.id.colorChoice)
     RadioGridGroup colorChoice;
 
@@ -80,6 +83,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     @BindView(R.id.settingsEditAble)
     ConstraintLayout settingsEditable;
+
+    @BindView(R.id.accountEditAble)
+    ConstraintLayout accountEditable;
 
     String householdId;
     private DrawerLayout mDrawerLayout;
@@ -107,6 +113,7 @@ public class SettingsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         settingsEditable.setVisibility(View.GONE);
+        accountEditable.setVisibility(View.GONE);
 
         householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
 
@@ -385,6 +392,7 @@ public class SettingsActivity extends AppCompatActivity {
     @OnClick(R.id.editHouseholdName)
     public void editHouseholdNameClicked(){
         settingsEditable.setVisibility(View.VISIBLE);
+        accountEditable.setVisibility(View.VISIBLE);
         editNameText.setText(myPerson.getPersonName());
 
     }
@@ -446,6 +454,15 @@ public class SettingsActivity extends AppCompatActivity {
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    /**
+     * Button that indicates that the user is done changing the account settings
+     * Changes are saved and displayed and the edit section is set gone again.
+     */
+    @OnClick(R.id.editAccountDone)
+    private void editAccount(){
+
     }
 
     /**

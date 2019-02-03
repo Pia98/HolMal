@@ -52,9 +52,8 @@
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/settingsHousehold"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:theme="@style/whiteConstraintlAyout"
-                    app:layout_constraintStart_toEndOf="@+id/leftMargin">
+                    android:layout_height="wrap_content"
+                    android:theme="@style/whiteConstraintlAyout">
 
                     <TextView
                         android:id="@+id/householdNameTitle"
@@ -184,15 +183,14 @@
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/settingsEditAble"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:theme="@style/whiteConstraintlAyout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/settingsHousehold">
+                    android:layout_height="wrap_content"
+                    android:theme="@style/whiteConstraintlAyout">
 
                     <View
+                        android:id="@+id/view"
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
-                        android:background="@color/colorAccentSilver"/>
+                        android:background="@color/colorAccentSilver" />
 
                     <TextView
                         android:id="@+id/settingsEdit"
@@ -270,8 +268,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/farbeEditTitle">
 
@@ -344,6 +340,70 @@
                         android:src="@drawable/ic_check_black_24dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/accountEditAble"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:theme="@style/whiteConstraintlAyout">
+
+                    <View
+                        android:id="@+id/breakLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/colorAccentSilver"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/accountEdit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@android:color/transparent"
+                        android:text="@string/editAccoount"
+                        android:textSize="@dimen/textSizeMediumBig"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/breakLine" />
+
+                    <TextView
+                        android:id="@+id/emailEditTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@android:color/transparent"
+                        android:text="@string/email"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/accountEdit" />
+
+                    <EditText
+                        android:id="@+id/editEmailText"
+                        android:layout_width="@dimen/noWidth"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:inputType="none"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/emailEditTitle" />
+
+                    <ImageButton
+                        android:id="@+id/editAccountDone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/edit"
+                        android:src="@drawable/ic_check_black_24dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/breakLine" />
+
                 </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout

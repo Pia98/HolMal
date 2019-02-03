@@ -79,6 +79,7 @@
     <string name="members">Mitglieder</string>
     <string name="leave">Haushalt verlassen</string> <!-- ausziehen -->
     <string name="edit">Bearbeiten</string>
+    <string name="editAccoount">Kontoeinstellungen</string>
     <string name="colourDescription">Die Farbe der Person</string>
 
     <string name="leaveConfirmation">Möchtest du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
