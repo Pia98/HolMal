@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditAccountActivity">
+
     <ImageButton
-        android:id="@+id/itemClose"
+        android:id="@+id/accountEditClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_close"
@@ -25,7 +26,7 @@
         android:textSize="@dimen/textSizeHeading"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/itemClose" />
+        app:layout_constraintTop_toBottomOf="@id/accountEditClose" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/editOldPasswordSection"
