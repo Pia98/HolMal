@@ -8,12 +8,12 @@
     tools:context=".ui.registrationfragment1.RegistrationFragment1">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraint1"
+        android:id="@+id/constraintHouseholdName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toTopOf="@+id/quarterLineTop">
+        android:layout_marginStart="@dimen/text_margin"
+        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        app:layout_constraintTop_toTopOf="@+id/topMargin">
 
         <TextView
             android:id="@+id/householdnameLabel"
@@ -25,25 +25,27 @@
             android:id="@+id/householdNameFromInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/text_margin"
             android:text="@+id/householdNameFromInput"
             app:layout_constraintStart_toEndOf="@id/householdnameLabel" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraint2"
-        android:layout_width="0dp"
+        android:id="@+id/constraintHouseholdId"
+        android:layout_width="@dimen/noWidth"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@+id/rightMargin"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/constraint1">
+        app:layout_constraintTop_toBottomOf="@id/constraintHouseholdName"
+        app:layout_constraintStart_toStartOf="@+id/quarterLineLeft"
+        >
 
         <TextView
             android:id="@+id/ID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/text_margin"
             android:text="@string/id"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -52,46 +54,48 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@+id/generatedID"
-            app:layout_constraintStart_toEndOf="@id/ID" />
+            android:layout_marginStart="@dimen/text_margin"
+            app:layout_constraintStart_toEndOf="@id/ID"
+            />
 
         <ImageButton
             android:id="@+id/copy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="@dimen/text_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:background="@color/colorBackground"
             android:contentDescription="@string/copyContentDescription"
             android:src="@drawable/ic_content_copy_black_24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ID"
             app:layout_constraintStart_toEndOf="@+id/generatedID"
-            tools:layout_editor_absoluteY="0dp" />
+            />
     </android.support.constraint.ConstraintLayout>
 
     <!-- corresponds to button 4 in paper prototype-->
     <Button
         android:id="@+id/invite"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/noWidth"
         android:layout_height="@dimen/buttonHeight"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
         android:text="@string/invite"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/constraint2" />
+        app:layout_constraintTop_toTopOf="@+id/thirdLineLeft" />
 
     <!-- corresponds to button 5 in paper prototype-->
     <Button
         android:id="@+id/registrationCreateDone"
-        android:text="@string/done"
-        app:layout_constraintTop_toBottomOf="@id/invite"
         android:layout_width="@dimen/finishWidth"
         android:layout_height="@dimen/buttonHeight"
+        android:layout_marginTop="@dimen/big_margin"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="@dimen/big_margin"
         android:background="@color/colorPrimary"
+        android:text="@string/done"
+        app:layout_constraintBottom_toTopOf="@id/bottomMargin"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"
-        app:layout_constraintBottom_toTopOf="@id/bottomMargin"/>
+        app:layout_constraintTop_toTopOf="@+id/thirdLineRight" />
 
 
     <!-- Guidelines -->
