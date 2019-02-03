@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -199,6 +200,19 @@ public class SettingsActivity extends AppCompatActivity {
                 SettingsAdapter adapter = new SettingsAdapter(SettingsActivity.this, joiningPerson);
                 ListView list = findViewById(R.id.listOfHouseholdMembers);
                 list.setAdapter(adapter);
+                int height = 0;
+
+                int items = adapter.getCount();
+                for(int i = 0; i <items; i ++){
+                    View childView = adapter.getView(i,null, list);
+                    childView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+                    height += childView.getMeasuredHeight();
+                }
+                Log.i(TAG, "Height of List: " + height);
+                ConstraintLayout.LayoutParams listParams = (ConstraintLayout.LayoutParams) list.getLayoutParams();
+                listParams.height = height;
+                list.setLayoutParams(listParams);
             }
 
             @Override
@@ -420,6 +434,7 @@ public class SettingsActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
+                        settingsEditable.setVisibility(View.INVISIBLE);
                     }
                 });
 
