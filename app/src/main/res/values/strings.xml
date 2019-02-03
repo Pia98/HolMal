@@ -7,7 +7,7 @@
     <string name="registration">Registrieren</string>
     <string name="email">E-Mail Adresse</string>
     <string name="passwort">Passwort</string>
-    <string name="passwortWdh">Passwort wdh.</string>
+    <string name="passwortWdh">Passwort wiederholen</string>
 
     <!-- startActivity -->
     <string name="createHousehold">neuen Haushalt erstellen</string> <!-- alrenativ: Haus bauen? -->
@@ -79,7 +79,11 @@
     <string name="members">Mitglieder</string>
     <string name="leave">Haushalt verlassen</string> <!-- ausziehen -->
     <string name="edit">Bearbeiten</string>
+    <string name="editAccoount">Kontoeinstellungen</string>
     <string name="colourDescription">Die Farbe der Person</string>
+    <string name="oldPasswort">Bitte gib dein altes Passwort ein, um deine Email-Adresse und dein Passwort ändern zu können</string>
+    <string name="newPasswort">Neues Passwort</string>
+    <string name="newPasswortWdh">Neues Passwort wiederholen</string>
 
     <string name="leaveConfirmation">Möchtest du den Haushalt wirklich verlassen?</string> <!-- TODO hier noch den Namen vom Haushalt evtl rein nehmen -->
     <string name="moveinConfirmation">Möchtest du diesem Haushalt wirklich beitreten? </string>
