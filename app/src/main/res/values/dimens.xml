@@ -89,6 +89,7 @@
 
     <!--button sizes -->
     <dimen name="buttonHeight">60dp</dimen>
+    <dimen name="bigButtonWidth">200dp</dimen>
     <dimen name="finishWidth">100dp</dimen>
     <dimen name="addItemWidth">110dp</dimen>
 
