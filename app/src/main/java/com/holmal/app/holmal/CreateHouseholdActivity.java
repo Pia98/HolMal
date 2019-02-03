@@ -21,6 +21,9 @@ import com.holmal.app.holmal.utils.PreferencesAccess;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * Create a new household and also a new person for this household
+ */
 public class CreateHouseholdActivity extends AppCompatActivity implements PersonalInputFragment.OnFragmentInteractionListener {
 
     private static final String TAG = CreateHouseholdActivity.class.getName();
@@ -38,6 +41,12 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
 
     FirebaseAuth fireAuth;
 
+    /**
+     * Method that initialises the class and its important features.
+     * It establishes the connection to its xml file (activity_create_household).
+     *
+     * @param savedInstanceState Bundle object that contains a saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +61,9 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
         fireAuth = FirebaseAuth.getInstance();
     }
 
+    /**
+     * Button to move on
+     */
     @OnClick(R.id.createHouseholdDone)
     public void createHouseholdDoneClick() {
         if (validate()) {
@@ -87,6 +99,11 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
         }
     }
 
+    /**
+     * Validate all inputs
+     *
+     * @return if all inputs are correct
+     */
     private boolean validate() {
         EditText userName = (EditText) findViewById(R.id.userNameInput);
         EditText householdName = (EditText) findViewById(R.id.householdNameInput);
@@ -104,6 +121,12 @@ public class CreateHouseholdActivity extends AppCompatActivity implements Person
     }
 
     // Method that checks if a colour button has been chosen. Users must choose a colour before entering a household.
+
+    /**
+     * Check if a colour button has been chosen
+     *
+     * @return if a colour is chosen
+     */
     private boolean checkColours() {
 
         RadioGridGroup colourChooser = findViewById(R.id.colorChoice);
