@@ -24,7 +24,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -462,7 +465,24 @@ public class SettingsActivity extends AppCompatActivity {
      */
     @OnClick(R.id.editAccountDone)
     public void editAccount(){
+        String newEmail = editEmailText.getText().toString();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
+        if(!newEmail.isEmpty() && !newEmail.equals(myPerson.getEmail())){
+           /* firebaseAuth.signInWithEmailAndPassword().updateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Log.i(LoginActivity.class.getName(), "EmailUpdate successful");
+                    } else {
+                        if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                            Toast.makeText(getApplicationContext(), getString(R.string.ErrorLoginAlreadyExists), Toast.LENGTH_SHORT).show();
+                        }
+                        Log.e(LoginActivity.class.getName(), "Registration failed: " + task.getException().getMessage());
+                    }
+                }
+            });*/
+        }
     }
 
     /**

@@ -345,7 +345,7 @@
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/accountEditAble"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="1000dp"
                     android:layout_marginTop="8dp"
                     android:theme="@style/whiteConstraintlAyout">
 
@@ -370,6 +370,29 @@
                         app:layout_constraintTop_toBottomOf="@+id/breakLine" />
 
                     <TextView
+                        android:id="@+id/passwortTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@android:color/transparent"
+                        android:text="@string/oldPasswort"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/accountEdit" />
+
+                    <EditText
+                        android:id="@+id/oldPasswordText"
+                        android:layout_width="@dimen/noWidth"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:inputType="textPassword"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/passwortTitle" />
+
+                    <TextView
                         android:id="@+id/emailEditTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -379,7 +402,7 @@
                         android:text="@string/email"
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/accountEdit" />
+                        app:layout_constraintTop_toBottomOf="@+id/oldPasswordText" />
 
                     <EditText
                         android:id="@+id/editEmailText"
@@ -391,6 +414,52 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/emailEditTitle" />
+
+                    <TextView
+                        android:id="@+id/neuesPasswortTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@android:color/transparent"
+                        android:text="@string/newPasswort"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editEmailText" />
+
+                    <EditText
+                        android:id="@+id/editNeuesPasswortText"
+                        android:layout_width="@dimen/noWidth"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:inputType="none"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/neuesPasswortTitle" />
+
+                    <TextView
+                        android:id="@+id/neuesPasswortWdhTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@android:color/transparent"
+                        android:text="@string/newPasswortWdh"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editNeuesPasswortText" />
+
+                    <EditText
+                        android:id="@+id/editNeuesWdhPasswortText"
+                        android:layout_width="@dimen/noWidth"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:inputType="none"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/neuesPasswortWdhTitle" />
 
                     <ImageButton
                         android:id="@+id/editAccountDone"
