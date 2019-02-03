@@ -84,6 +84,7 @@
 
     <!-- edit account -->
     <string name="editAccoount">Kontoeinstellungen</string>
+    <string name="buttonFurther">Weiter</string>
     <string name="oldPasswort">Bitte gib dein altes Passwort ein, um deine Email-Adresse und dein Passwort ändern zu können</string>
     <string name="newPasswort">Neues Passwort</string>
     <string name="newPasswortWdh">Neues Passwort wiederholen</string>
