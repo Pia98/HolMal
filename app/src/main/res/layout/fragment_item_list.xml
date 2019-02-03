@@ -7,8 +7,8 @@
     android:name="com.holmal.app.holmal.ListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_marginLeft="@dimen/fab_margin"
+    android:layout_marginRight="@dimen/fab_margin"
     tools:context=".ListFragment"
     tools:listitem="@layout/fragment_item" />
 
