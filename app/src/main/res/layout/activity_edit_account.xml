@@ -32,7 +32,9 @@
         android:id="@+id/editOldPasswordSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editAccountHeading">
 
         <TextView
@@ -86,7 +88,7 @@
             android:id="@+id/editEmailText"
             android:layout_width="@dimen/noWidth"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
