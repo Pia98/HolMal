@@ -157,7 +157,7 @@ public class ItemInformationActivity extends AppCompatActivity {
                 Log.i(TAG, "listener in onCreate...");
                 joiningPerson.clear();
                 personenNamen.clear();
-                personenNamen.add(" - - - ");
+                personenNamen.add(getString(R.string.spinnerNothing));
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Log.i(TAG, "alle Personen durchgehen");
                     String id = child.getKey();
@@ -234,7 +234,7 @@ public class ItemInformationActivity extends AppCompatActivity {
             FireBaseHandling.getInstance().editItemDescription(newDescription, itemId);
         }
         if(!newPersonTask.equals(itemTaskText.getText().toString())){
-            if(newPersonTask.equals(" - - - ")){
+            if(newPersonTask.equals(getString(R.string.spinnerNothing))){
                 FireBaseHandling.getInstance().editItemPersonTask("", itemId);
             }else{
             Iterator iterator = joiningPerson.entrySet().iterator();

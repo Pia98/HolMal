@@ -129,8 +129,9 @@
 
     <string name="defaultShoppingList">Einkaufsliste 1</string>
 
+    <string name="spinnerNothing"> - - - </string>
     <string-array name="spinner">
-        <item></item>
+        <item> - - - </item>
         <item>Apotheke</item>
         <item>Bäcker</item>
         <item>Baumarkt</item>
