@@ -58,6 +58,13 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
+                    <View
+                        android:id="@+id/breakLine0"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dividerHeightSmall"
+                        android:background="@color/colorAccentSilver"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <android.support.constraint.Guideline
                         android:id="@+id/informationStart"
                         android:layout_width="wrap_content"
@@ -389,6 +396,13 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/breakLine" />
+
+                    <View
+                        android:id="@+id/breakLine2"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dividerHeightSmall"
+                        android:background="@color/colorAccentSilver"
+                        app:layout_constraintBottom_toBottomOf="parent" />
 
                 </android.support.constraint.ConstraintLayout>
 

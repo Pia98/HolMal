@@ -3,7 +3,7 @@
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorBackgroundDarker"
+    android:background="@color/colorListsBackground"
     android:layout_marginTop="@dimen/itemInfosTop"
     android:layout_marginStart="@dimen/itemInfosTop"
     android:textSize="@dimen/textSizeMediumBig"
