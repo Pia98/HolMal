@@ -61,9 +61,6 @@ public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.thisHouseholdId)
     TextView householdIdText;
 
-    @BindView(R.id.personEmail)
-    TextView personEmail;
-
     //----------- editing stuff
     @BindView(R.id.editHouseholdNameText)
     EditText editHouseholdNameText;
@@ -195,7 +192,6 @@ public class SettingsActivity extends AppCompatActivity {
                         if(id.equals(preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.personIDPreference)))){
                             myPerson = value;
                             myPersonId = id;
-                            personEmail.setText(value.getEmail());
                         }
                     }
                 }
@@ -459,22 +455,6 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
 
-
-       /* if(!newEmail.isEmpty() && !newEmail.equals(myPerson.getEmail())){
-            firebaseAuth.signInWithEmailAndPassword().updateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Log.i(LoginActivity.class.getName(), "EmailUpdate successful");
-                    } else {
-                        if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                            Toast.makeText(getApplicationContext(), getString(R.string.ErrorLoginAlreadyExists), Toast.LENGTH_SHORT).show();
-                        }
-                        Log.e(LoginActivity.class.getName(), "Registration failed: " + task.getException().getMessage());
-                    }
-                }
-            });
-        }*/
     }
 
     /**
@@ -485,6 +465,23 @@ public class SettingsActivity extends AppCompatActivity {
         ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clipData = ClipData.newPlainText("Hol Mal household id", householdId);
         clipboardManager.setPrimaryClip(clipData);
+    }
+
+    /**
+     * Tries to send an invitation for the household in this app
+     */
+    @OnClick(R.id.inviteToHousehold)
+    public void inviteToApp() {
+        try {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Hol Mal");
+            String message = getString(R.string.inviteExplanation) + " " + householdId + "https://play.google.com/store/apps/details?id=" + this.getPackageName();
+            intent.putExtra(Intent.EXTRA_TEXT, message);
+            startActivity(Intent.createChooser(intent, "Share via"));
+        } catch (Exception e) {
+            Log.i("Exception", "Invite failed " + e.toString());
+        }
     }
 
     /**
@@ -505,8 +502,6 @@ public class SettingsActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        Intent intentout = new Intent(SettingsActivity.this, StartActivity.class);
-
                         //remove member from household
                         PreferencesAccess preferencesAccess = new PreferencesAccess();
                         String householdID = preferencesAccess.readPreferences(SettingsActivity.this, getString(R.string.householdIDPreference));
@@ -521,14 +516,16 @@ public class SettingsActivity extends AppCompatActivity {
                                 String[] keys = listsOfThisHousehold.keySet().toArray(new String[listsOfThisHousehold.size()]);
                                 ShoppingList shoppingList = listsOfThisHousehold.get(keys[i]);
                                 //list of items (id) that belong to household
-                                HashMap<String, String> itemsToDelete = shoppingList.getItemsOfThisList();
-                                //iterates over all items
-                                String[] allItemsKeys = itemsOfThisHousehold.keySet().toArray(new String[itemsOfThisHousehold.size()]);
-                                String[] itemDeleteKeys = itemsToDelete.keySet().toArray(new String[itemsToDelete.size()]);
-                                for (int j = 0; j < itemsOfThisHousehold.size(); j++) {
-                                    for (int k = 0; k < itemsToDelete.size(); k++) {
-                                        if (allItemsKeys[j].equals(itemsToDelete.get(itemDeleteKeys[k]))) {
-                                            FireBaseHandling.getInstance().deleteItem(allItemsKeys[j]);
+                                if(shoppingList.getItemsOfThisList() != null) {
+                                    HashMap<String, String> itemsToDelete = shoppingList.getItemsOfThisList();
+                                    //iterates over all items
+                                    String[] allItemsKeys = itemsOfThisHousehold.keySet().toArray(new String[itemsOfThisHousehold.size()]);
+                                    String[] itemDeleteKeys = itemsToDelete.keySet().toArray(new String[itemsToDelete.size()]);
+                                    for (int j = 0; j < itemsOfThisHousehold.size(); j++) {
+                                        for (int k = 0; k < itemsToDelete.size(); k++) {
+                                            if (allItemsKeys[j].equals(itemsToDelete.get(itemDeleteKeys[k]))) {
+                                                FireBaseHandling.getInstance().deleteItem(allItemsKeys[j]);
+                                            }
                                         }
                                     }
                                 }
@@ -557,8 +554,9 @@ public class SettingsActivity extends AppCompatActivity {
                         //delete person
                         FireBaseHandling.getInstance().deletePerson(personID);
 
+                        Intent intentout = new Intent(SettingsActivity.this, StartActivity.class);
                         startActivity(intentout);
-                       finish();
+                        finish();
                     }
                 });
         builder.setNegativeButton(
