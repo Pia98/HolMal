@@ -61,18 +61,29 @@
         app:layout_constraintStart_toEndOf="@id/leftMargin"
         app:layout_constraintTop_toBottomOf="@id/shoppingListNameInput" />
 
-    <Spinner
-        android:id="@+id/shoppingListCategoryDropDown"
+    <RelativeLayout
         android:layout_width="@dimen/noWidth"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/spinnerHight"
         android:layout_marginTop="@dimen/createListSpinnerMargin"
         android:layout_marginEnd="@dimen/text_margin"
-        android:entries="@array/spinner"
-        android:spinnerMode="dropdown"
+        android:background="@layout/spinner_border"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/thirdLineBottom"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/shoppingListCategory" />
+        app:layout_constraintTop_toBottomOf="@id/shoppingListCategory">
+
+        <Spinner
+            android:id="@+id/shoppingListCategoryDropDown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/nav_header_vertical_spacing"
+            android:gravity="center"
+            android:spinnerMode="dropdown" />
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/createShoppingList"

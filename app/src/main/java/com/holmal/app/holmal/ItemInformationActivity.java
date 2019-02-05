@@ -201,7 +201,8 @@ public class ItemInformationActivity extends AppCompatActivity {
         itemUrgentCheck.setClickable(true);
 
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, personenNamen);
+        adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, personenNamen);
+        adapter.setDropDownViewResource(R.layout.spinner_item_dropdown);
         itemEditTask.setAdapter(adapter);
         for(int i=0; i<personenNamen.size(); i++){
             if(personenNamen.get(i) == itemTaskText.getText().toString()){
@@ -233,12 +234,15 @@ public class ItemInformationActivity extends AppCompatActivity {
             FireBaseHandling.getInstance().editItemDescription(newDescription, itemId);
         }
         if(!newPersonTask.equals(itemTaskText.getText().toString())){
+            if(newPersonTask.equals(" - - - ")){
+                FireBaseHandling.getInstance().editItemPersonTask("", itemId);
+            }else{
             Iterator iterator = joiningPerson.entrySet().iterator();
             String personID = null;
             while (iterator.hasNext()) {
                 Map.Entry entry = (Map.Entry) iterator.next();
                 Person person = (Person) entry.getValue();
-                if(person.getPersonName() == newPersonTask){
+                if(person.getPersonName().equals(newPersonTask)){
                     personID = entry.getKey().toString();
                 }
             }
@@ -246,7 +250,7 @@ public class ItemInformationActivity extends AppCompatActivity {
                 FireBaseHandling.getInstance().editItemPersonTask(personID, itemId);
             }else{
                 Toast.makeText(getApplicationContext(), getString(R.string.ErrorItemsPersonTask), Toast.LENGTH_SHORT);
-            }
+            }}
         }
         if(itemUrgent != newUrgent){
             FireBaseHandling.getInstance().editItemUrgent(newUrgent, itemId);
