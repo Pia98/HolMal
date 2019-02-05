@@ -20,11 +20,12 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/fragmentContainerRegistration"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/noWidth"
         android:layout_marginTop="@dimen/loadingCircleMarginTop"
-        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/rightMargin"
-        app:layout_constraintTop_toBottomOf="@id/logo"/>
+        app:layout_constraintStart_toEndOf="@id/leftMargin"
+        app:layout_constraintTop_toBottomOf="@id/logo" />
 
     <!-- Guidelines -->
 

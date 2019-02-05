@@ -54,6 +54,7 @@
         android:layout_marginStart="@dimen/itemUrgencyMargin"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/assignedTo"
         android:src="@drawable/ic_urgent" />
 
     <ImageView
