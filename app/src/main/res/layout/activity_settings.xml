@@ -53,7 +53,10 @@
                     android:id="@+id/settingsHousehold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:theme="@style/whiteConstraintlAyout">
+                    android:layout_marginTop="@dimen/paddingSettings"
+                    android:theme="@style/whiteConstraintlAyout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <android.support.constraint.Guideline
                         android:id="@+id/informationStart"
@@ -78,8 +81,8 @@
                         android:id="@+id/editHouseholdName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="@dimen/paddingSettings"
+                        android:layout_marginEnd="@dimen/paddingSettings"
                         android:background="@android:color/transparent"
                         android:contentDescription="@string/edit"
                         android:src="@drawable/ic_edit_black_24dp"
@@ -89,20 +92,19 @@
                     <TextView
                         android:id="@+id/householdName"
                         android:layout_width="wrap_content"
-                        android:layout_height="20dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/noWidth"
-                        android:layout_marginTop="8dp"
                         android:background="@android:color/transparent"
                         android:text=""
-                        app:layout_constraintStart_toEndOf="@+id/informationStart"
-                        app:layout_constraintTop_toTopOf="@+id/householdNameTitle" />
+                        app:layout_constraintBottom_toBottomOf="@+id/householdNameTitle"
+                        app:layout_constraintStart_toEndOf="@+id/informationStart" />
 
                     <TextView
                         android:id="@+id/IdTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/paddingSettings"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="@dimen/paddingSettings"
                         android:background="@android:color/transparent"
                         android:text="@string/id"
                         android:textSize="@dimen/textSizeBig"
@@ -113,29 +115,27 @@
                         android:id="@+id/thisHouseholdId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:background="@android:color/transparent"
-                        app:layout_constraintStart_toEndOf="@+id/informationStart"
-                        app:layout_constraintTop_toTopOf="@+id/IdTitle" />
+                        app:layout_constraintBottom_toBottomOf="@+id/IdTitle"
+                        app:layout_constraintStart_toEndOf="@+id/informationStart" />
 
                     <ImageButton
                         android:id="@+id/copyHouseholdId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:layout_marginTop="8dp"
                         android:background="@android:color/transparent"
                         android:contentDescription="@string/copyContentDescription"
                         android:src="@drawable/ic_content_copy_black_24dp"
-                        app:layout_constraintStart_toEndOf="@id/thisHouseholdId"
-                        app:layout_constraintTop_toTopOf="@+id/IdTitle" />
+                        app:layout_constraintBottom_toBottomOf="@+id/IdTitle"
+                        app:layout_constraintStart_toEndOf="@id/thisHouseholdId" />
 
                     <Button
                         android:id="@+id/inviteToHousehold"
                         android:layout_width="@dimen/bigButtonWidth"
                         android:layout_height="@dimen/buttonHeight"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="@dimen/text_margin"
                         android:backgroundTint="@color/colorPrimary"
                         android:text="@string/invite"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -145,7 +145,7 @@
                         android:id="@+id/breakLine1"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dividerHeight"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/text_margin"
                         android:background="@color/colorAccentSilver"
                         app:layout_constraintTop_toBottomOf="@+id/inviteToHousehold" />
 
@@ -153,8 +153,8 @@
                         android:id="@+id/householdMembersTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="@dimen/paddingSettings"
+                        android:layout_marginTop="@dimen/paddingSettings"
                         android:background="@android:color/transparent"
                         android:text="@string/members"
                         android:textSize="@dimen/textSizeBig"
@@ -165,15 +165,18 @@
                         android:id="@+id/listOfMembersConstraint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/text_margin"
+                        android:layout_marginStart="@dimen/paddingSettings"
                         android:theme="@style/whiteConstraintlAyout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/householdMembersTitle">
 
                         <ListView
                             android:id="@+id/listOfHouseholdMembers"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginBottom="@dimen/text_margin"
                             android:background="@android:color/transparent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -199,8 +202,8 @@
                         android:id="@+id/settingsEdit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="@dimen/paddingSettings"
+                        android:layout_marginTop="@dimen/paddingSettings"
                         android:background="@android:color/transparent"
                         android:text="@string/edit"
                         android:textSize="@dimen/textSizeBig"
@@ -211,11 +214,11 @@
                         android:id="@+id/householdNameEditTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="@dimen/paddingSettings"
+                        android:layout_marginTop="@dimen/text_margin"
                         android:background="@android:color/transparent"
                         android:text="@string/household"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/textSizeMediumBig"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/settingsEdit" />
 
@@ -223,7 +226,7 @@
                         android:id="@+id/editHouseholdNameText"
                         android:layout_width="@dimen/noWidth"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="@dimen/paddingSettings"
                         android:layout_marginEnd="16dp"
                         android:inputType="none"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -234,11 +237,11 @@
                         android:id="@+id/nameEditTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="@dimen/paddingSettings"
+                        android:layout_marginTop="@dimen/text_margin"
                         android:background="@android:color/transparent"
                         android:text="@string/username"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/textSizeMediumBig"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/editHouseholdNameText" />
 
@@ -246,8 +249,8 @@
                         android:id="@+id/editNameText"
                         android:layout_width="@dimen/noWidth"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="@dimen/paddingSettings"
+                        android:layout_marginEnd="@dimen/paddingSettings"
                         android:inputType="none"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -257,11 +260,11 @@
                         android:id="@+id/farbeEditTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="@dimen/paddingSettings"
+                        android:layout_marginTop="@dimen/text_margin"
                         android:background="@android:color/transparent"
                         android:text="@string/color"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/textSizeMediumBig"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/editNameText" />
 
@@ -269,9 +272,9 @@
                         android:id="@+id/colorChoice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="@dimen/paddingSettings"
+                        android:layout_marginTop="@dimen/text_margin"
+                        android:layout_marginBottom="@dimen/text_margin"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/farbeEditTitle">
@@ -338,8 +341,8 @@
                         android:id="@+id/editHouseholdNameDone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="@dimen/paddingSettings"
+                        android:layout_marginEnd="@dimen/paddingSettings"
                         android:background="@android:color/transparent"
                         android:contentDescription="@string/edit"
                         android:src="@drawable/ic_check_black_24dp"
@@ -363,9 +366,9 @@
                         android:id="@+id/accountEdit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginStart="@dimen/paddingSettings"
+                        android:layout_marginTop="@dimen/paddingSettings"
+                        android:layout_marginBottom="@dimen/paddingSettings"
                         android:background="@android:color/transparent"
                         android:text="@string/editEmailPassword"
                         android:textSize="@dimen/textSizeBig"
@@ -377,9 +380,9 @@
                         android:id="@+id/editAccountDone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="@dimen/paddingSettings"
+                        android:layout_marginEnd="@dimen/paddingSettings"
+                        android:layout_marginBottom="@dimen/paddingSettings"
                         android:background="@android:color/transparent"
                         android:contentDescription="@string/edit"
                         android:src="@drawable/ic_chevron_right_black_24dp"
@@ -393,13 +396,13 @@
                 android:id="@+id/constraintLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="@dimen/text_margin">
                 <!-- corresponds to button 15 in paper prototype-->
                 <Button
                     android:id="@+id/leaveHousehold"
                     android:layout_width="@dimen/bigButtonWidth"
                     android:layout_height="@dimen/buttonHeight"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="@dimen/text_margin"
                     android:text="@string/leave"
                     app:layout_constraintEnd_toEndOf="parent" />
 
