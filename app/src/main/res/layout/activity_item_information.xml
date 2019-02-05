@@ -193,7 +193,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="@dimen/nav_header_vertical_spacing"
                 android:gravity="center"
                 android:spinnerMode="dropdown" />
 

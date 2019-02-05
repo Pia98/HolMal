@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.holmal.app.holmal.utils.PreferencesAccess;
 
 import java.util.HashMap;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -28,6 +30,9 @@ public class CreateShoppingListActivity extends AppCompatActivity {
     private static final String TAG = CreateShoppingListActivity.class.getName();
 
     private HashMap<String, ShoppingList> listsOfThisHousehold = new HashMap<>();
+
+    @BindView(R.id.shoppingListCategoryDropDown)
+    Spinner category;
 
     String shoppingListNameString;
     String shoppingListCategoryString;
@@ -43,6 +48,10 @@ public class CreateShoppingListActivity extends AppCompatActivity {
         householdId = preferences.readPreferences(this, getString(R.string.householdIDPreference));
 
         startShoppingListListener();
+
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, getResources().getStringArray(R.array.spinner));
+        adapter.setDropDownViewResource(R.layout.spinner_item_dropdown);
+        category.setAdapter(adapter);
     }
 
     private void startShoppingListListener() {
@@ -98,7 +107,6 @@ public class CreateShoppingListActivity extends AppCompatActivity {
     private boolean validate() {
         EditText shoppingList = (EditText) findViewById(R.id.shoppingListNameInput);
         shoppingListNameString = shoppingList.getText().toString();
-        Spinner category = (Spinner) findViewById(R.id.shoppingListCategoryDropDown);
         shoppingListCategoryString = category.getSelectedItem().toString();
 
         if (!shoppingListNameString.isEmpty()) {
