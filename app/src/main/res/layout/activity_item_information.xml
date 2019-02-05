@@ -137,7 +137,7 @@
         android:layout_marginStart="@dimen/text_margin"
         android:layout_marginTop="@dimen/itemInfosTop"
         android:layout_marginEnd="@dimen/text_margin"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/thirdLineTop"
@@ -175,17 +175,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/itemEditAmount" />
 
-        <Spinner
-            android:id="@+id/itemEditTask"
+        <RelativeLayout
             android:layout_width="@dimen/noWidth"
             android:layout_height="@dimen/spinnerHight"
-            android:layout_marginStart="@dimen/fab_margin"
-            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginStart="@dimen/text_margin"
+            android:layout_marginTop="@dimen/paddingSettings"
             android:layout_marginEnd="@dimen/text_margin"
-            android:spinnerMode="dropdown"
+            android:background="@layout/spinner_border"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemEditDescription" />
+            app:layout_constraintTop_toBottomOf="@+id/itemEditDescription">
+
+            <Spinner
+                android:id="@+id/itemEditTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:spinnerMode="dropdown" />
+
+
+        </RelativeLayout>
 
     </android.support.constraint.ConstraintLayout>
 
