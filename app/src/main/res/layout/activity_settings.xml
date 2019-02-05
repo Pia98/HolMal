@@ -130,7 +130,7 @@
                         android:id="@+id/copyHouseholdId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
+                        android:layout_marginStart="@dimen/medium_top_margin"
                         android:background="@android:color/transparent"
                         android:contentDescription="@string/copyContentDescription"
                         android:src="@drawable/ic_content_copy_black_24dp"
@@ -141,17 +141,19 @@
                         android:id="@+id/inviteToHousehold"
                         android:layout_width="@dimen/bigButtonWidth"
                         android:layout_height="@dimen/buttonHeight"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginStart="@dimen/text_margin"
+                        android:layout_marginTop="@dimen/medium_top_margin"
                         android:layout_marginEnd="@dimen/text_margin"
                         android:backgroundTint="@color/colorPrimary"
                         android:text="@string/invite"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/thisHouseholdId" />
 
                     <View
                         android:id="@+id/breakLine1"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dividerHeight"
+                        android:layout_height="@dimen/dividerHeightSmall"
                         android:layout_marginTop="@dimen/text_margin"
                         android:background="@color/colorAccentSilver"
                         app:layout_constraintTop_toBottomOf="@+id/inviteToHousehold" />
@@ -191,18 +193,26 @@
                             app:layout_constraintTop_toTopOf="parent"></ListView>
                     </android.support.constraint.ConstraintLayout>
 
+                    <View
+                        android:id="@+id/breakLine3"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dividerHeightSmall"
+                        android:background="@color/colorAccentSilver"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/settingsEditAble"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/paddingSettings"
                     android:theme="@style/whiteConstraintlAyout">
 
                     <View
                         android:id="@+id/view"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dividerHeight"
+                        android:layout_height="@dimen/dividerHeightSmall"
                         android:background="@color/colorAccentSilver" />
 
                     <TextView
@@ -234,7 +244,7 @@
                         android:layout_width="@dimen/noWidth"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/paddingSettings"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginEnd="@dimen/paddingSettings"
                         android:inputType="none"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -355,18 +365,26 @@
                         android:src="@drawable/ic_check_black_24dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/breakLine5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dividerHeightSmall"
+                        android:background="@color/colorAccentSilver"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/accountEditAble"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/paddingSettings"
                     android:theme="@style/whiteConstraintlAyout">
 
                     <View
-                        android:id="@+id/breakLine"
+                        android:id="@+id/breakLine4"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dividerHeight"
+                        android:layout_height="@dimen/dividerHeightSmall"
                         android:background="@color/colorAccentSilver" />
 
                     <TextView
@@ -381,7 +399,7 @@
                         android:textSize="@dimen/textSizeBig"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/breakLine" />
+                        app:layout_constraintTop_toBottomOf="@+id/breakLine4" />
 
                     <ImageButton
                         android:id="@+id/editAccountDone"
@@ -416,9 +434,11 @@
                     android:id="@+id/leaveHousehold"
                     android:layout_width="@dimen/bigButtonWidth"
                     android:layout_height="@dimen/buttonHeight"
+                    android:layout_marginStart="@dimen/text_margin"
                     android:layout_marginEnd="@dimen/text_margin"
                     android:text="@string/leave"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
 
             </android.support.constraint.ConstraintLayout>
