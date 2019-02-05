@@ -78,6 +78,7 @@
     <!--activity_settings-->
     <dimen name="householdMemberListX">200dp</dimen>
     <dimen name="dividerHeight">8dp</dimen>
+    <dimen name="paddingSettings">16dp</dimen>
 
     <!--text sizes-->
     <dimen name="textSizeSmall">12sp</dimen> <!-- login, kleine rote Schrift -->
