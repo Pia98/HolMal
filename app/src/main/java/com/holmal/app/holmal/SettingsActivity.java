@@ -5,10 +5,12 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -34,6 +36,7 @@ import com.holmal.app.holmal.model.Person;
 import com.holmal.app.holmal.model.ShoppingList;
 import com.holmal.app.holmal.ui.registrationfragment1.RadioGridGroup;
 import com.holmal.app.holmal.utils.FireBaseHandling;
+import com.holmal.app.holmal.utils.FragmentHandling;
 import com.holmal.app.holmal.utils.PreferencesAccess;
 import com.holmal.app.holmal.utils.SettingsAdapter;
 import java.util.HashMap;
@@ -51,7 +54,7 @@ import butterknife.OnClick;
  * leave the household for good.
  * Is accessed via the menu. Uses the activity_settings layout and the SettingsAdapter.
  */
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity implements PersonalInputFragment.OnFragmentInteractionListener{
 
     private static final String TAG = SettingsActivity.class.getName();
 
@@ -65,11 +68,11 @@ public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.editHouseholdNameText)
     EditText editHouseholdNameText;
 
-    @BindView(R.id.editNameText)
-    EditText editNameText;
+    //@BindView(R.id.editNameText)
+    //EditText editNameText;
 
-    @BindView(R.id.colorChoice)
-    RadioGridGroup colorChoice;
+    //@BindView(R.id.colorChoice)
+    //RadioGridGroup colorChoice;
 
     @BindView(R.id.editHouseholdNameDone)
     ImageButton editDone;
@@ -87,6 +90,8 @@ public class SettingsActivity extends AppCompatActivity {
     private String myPersonId;
 
     PreferencesAccess preferencesAccess = new PreferencesAccess();
+    FragmentHandling fragmentHandling = new FragmentHandling();
+    Fragment currentFragment;
 
 
     /**
@@ -120,6 +125,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         //menu that appears from the left
         menu();
+
+        fragmentHandling.putFragment(
+                currentFragment,
+                PersonalInputFragment.newInstance(),
+                getSupportFragmentManager(),
+                R.id.fragmentContainerSettings);
     }
 
     /**
@@ -380,7 +391,8 @@ public class SettingsActivity extends AppCompatActivity {
     @OnClick(R.id.editHouseholdName)
     public void editHouseholdNameClicked(){
         settingsEditable.setVisibility(View.VISIBLE);
-        editNameText.setText(myPerson.getPersonName());
+        EditText userName = (EditText) findViewById(R.id.userNameInput);
+        userName.setText(myPerson.getPersonName());
     }
 
     /**
@@ -392,8 +404,10 @@ public class SettingsActivity extends AppCompatActivity {
         final String householdId = householdIdText.getText().toString();
 
         final String newHouseholdName = editHouseholdNameText.getText().toString();
-        final String newPersonName = editNameText.getText().toString();
-        final int newColor = colorChoice.getCheckedRadioButtonId();
+        EditText userName = (EditText) findViewById(R.id.userNameInput);
+        RadioGridGroup colourChooser = findViewById(R.id.colorChoice);
+        final String newPersonName = userName.getText().toString();
+        final int newColor = colourChooser.getCheckedRadioButtonId();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String message = getString(R.string.editSettingsConfirmation) + "\n";
@@ -413,7 +427,7 @@ public class SettingsActivity extends AppCompatActivity {
                         if(!newHouseholdName.isEmpty() && (!newHouseholdName.equals(householdNameText.getText().toString()))) {
                             FireBaseHandling.getInstance().editHousholdName(newHouseholdName, householdId);
                         }
-                        if(!newPersonName.isEmpty() &&(!newPersonName.equals(myPerson.getPersonName()))){
+                       if(!newPersonName.isEmpty() &&(!newPersonName.equals(myPerson.getPersonName()))){
                             boolean checked = checkNameTaken(newPersonName);
                             if(checked) {
                                 FireBaseHandling.getInstance().editPersonName(newPersonName, myPersonId);
@@ -598,5 +612,10 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
