@@ -131,12 +131,21 @@ public class EditAccountActivity extends AppCompatActivity {
                     R.string.yes,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            fireAuth.getCurrentUser().updateEmail(newEmail);
-                            FireBaseHandling.getInstance().editPersonEmail(newEmail, personID);
-
-                            Intent intent = new Intent(EditAccountActivity.this, SettingsActivity.class);
-                            startActivity(intent);
-                            finish();
+                            fireAuth.getCurrentUser().updateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.i(TAG, "Update Email successful");
+                                        FireBaseHandling.getInstance().editPersonEmail(newEmail, personID);
+                                        Intent intent = new Intent(EditAccountActivity.this, SettingsActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        Log.e(TAG, "Login failed");
+                                        Toast.makeText(getApplicationContext(), getString(R.string.ErrorLoginAlreadyExists), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                         }
                     });
             builder.setNegativeButton(
