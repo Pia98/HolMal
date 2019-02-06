@@ -4,25 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/transparent"
     tools:context=".PersonalInputFragment">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/usernameInputLayout"
         android:layout_width="@dimen/noWidth"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/text_margin"
+        android:layout_marginEnd="8dp"
+        android:background="@android:color/transparent"
         android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@+id/rightMargin"
-        app:layout_constraintStart_toStartOf="@+id/leftMargin"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/leftMargin">
 
         <TextView
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_margin"
+            android:background="@android:color/transparent"
             android:text="@string/username"
             android:textSize="@dimen/textSizeBig"
-            android:layout_marginTop="@dimen/text_margin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,6 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/colorMargin"
         android:orientation="vertical"
+        android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="@+id/leftMargin"
         app:layout_constraintTop_toBottomOf="@+id/usernameInputLayout">
 
@@ -50,6 +53,7 @@
             android:id="@+id/color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:text="@string/color"
             android:textSize="@dimen/textSizeBig" />
 
