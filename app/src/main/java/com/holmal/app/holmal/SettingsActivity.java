@@ -462,13 +462,9 @@ public class SettingsActivity extends AppCompatActivity implements PersonalInput
      */
     @OnClick(R.id.accountEditAble)
     public void editAccount(){
-
-        Toast.makeText(getApplicationContext(), "test worked", Toast.LENGTH_SHORT).show();
-
         Intent intent = new Intent(this, EditAccountActivity.class);
         startActivity(intent);
         finish();
-
     }
 
     /**
