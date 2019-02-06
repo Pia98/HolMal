@@ -49,6 +49,7 @@ public class AllShoppingListsActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutmanager;
     private RecyclerView listsView;
     private String householdId;
+    private String personId;
     PreferencesAccess preferencesAccess = new PreferencesAccess();
 
 
@@ -68,6 +69,7 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         listsView.setLayoutManager(layoutmanager);
 
         householdId = preferencesAccess.readPreferences(this, getString(R.string.householdIDPreference));
+        personId = preferencesAccess.readPreferences(this, getString(R.string.personIDPreference));
 
         //menu that appears from the left
         menu();
@@ -97,6 +99,7 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         final TextView navUserName = headerView.findViewById(R.id.nav_user_name);
         final TextView navHousehold = headerView.findViewById(R.id.nav_household);
         String personId = preferencesAccess.readPreferences(this, getString(R.string.personIDPreference));
+        if(personId != null){
         FirebaseDatabase.getInstance().getReference().child("person").child(personId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -108,8 +111,14 @@ public class AllShoppingListsActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });}
+        else {
+            Intent intent = new Intent(this, StartActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
+        if(householdId != null){
         FirebaseDatabase.getInstance().getReference().child("household").child(householdId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -121,7 +130,12 @@ public class AllShoppingListsActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });}
+        else{
+            Intent intent = new Intent(this, StartActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
 
         navigationView.setNavigationItemSelectedListener(

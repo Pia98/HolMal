@@ -486,7 +486,7 @@ public class SettingsActivity extends AppCompatActivity implements PersonalInput
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_SUBJECT, "Hol Mal");
-            String message = getString(R.string.inviteExplanation) + " " + householdId + "https://play.google.com/store/apps/details?id=" + this.getPackageName();
+            String message = getString(R.string.inviteExplanation) + " " + householdId + getString(R.string.appStore) + this.getPackageName();
             intent.putExtra(Intent.EXTRA_TEXT, message);
             startActivity(Intent.createChooser(intent, "Share via"));
         } catch (Exception e) {
@@ -511,6 +511,9 @@ public class SettingsActivity extends AppCompatActivity implements PersonalInput
                 R.string.yes,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        Intent intentout = new Intent(SettingsActivity.this, StartActivity.class);
+                        startActivity(intentout);
+
 
                         //remove member from household
                         PreferencesAccess preferencesAccess = new PreferencesAccess();
@@ -564,8 +567,9 @@ public class SettingsActivity extends AppCompatActivity implements PersonalInput
                         //delete person
                         FireBaseHandling.getInstance().deletePerson(personID);
 
-                        Intent intentout = new Intent(SettingsActivity.this, StartActivity.class);
-                        startActivity(intentout);
+                        //Intent intentout = new Intent(SettingsActivity.this, StartActivity.class);
+                        //startActivity(intentout);
+                        Log.i(TAG, "start new intent...");
                         finish();
                     }
                 });

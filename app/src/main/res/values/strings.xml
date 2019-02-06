@@ -153,5 +153,7 @@
     <string name="householdIDPreference">householdID</string>
     <string name="recentShoppingListNamePreference">recentShoppingListName</string>
     <string name="personIDPreference">personID</string>
+    
+    <string name="appStore">https://play.google.com/store/apps/details?id=</string>
 
 </resources>

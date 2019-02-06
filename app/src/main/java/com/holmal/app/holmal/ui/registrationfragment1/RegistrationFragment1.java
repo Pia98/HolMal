@@ -78,7 +78,7 @@ public class RegistrationFragment1 extends Fragment {
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_SUBJECT, "Hol Mal");
             String householdId = this.getArguments().getString("householdId");
-            String message = getString(R.string.inviteExplanation) + " " + householdId + "https://play.google.com/store/apps/details?id=" + getActivity().getPackageName();
+            String message = getString(R.string.inviteExplanation) + " " + householdId + getString(R.string.appStore) + getActivity().getPackageName();
             intent.putExtra(Intent.EXTRA_TEXT, message);
             startActivity(Intent.createChooser(intent, "Share via"));
         } catch (Exception e) {

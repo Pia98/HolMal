@@ -22,8 +22,6 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         ButterKnife.bind(this);
-
-        Log.e(TAG, "opened onCreate method");
     }
 
     /**
