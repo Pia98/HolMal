@@ -144,7 +144,7 @@
                         android:layout_marginStart="@dimen/text_margin"
                         android:layout_marginTop="@dimen/medium_top_margin"
                         android:layout_marginEnd="@dimen/text_margin"
-                        android:backgroundTint="@color/colorPrimary"
+                        android:backgroundTint="@color/colorAccentSilver"
                         android:text="@string/invite"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
