@@ -54,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/paddingSettings"
-                    android:theme="@style/whiteConstraintlAyout"
+                    android:theme="@style/whiteConstraintLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
@@ -176,7 +176,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/text_margin"
                         android:layout_marginStart="@dimen/paddingSettings"
-                        android:theme="@style/whiteConstraintlAyout"
+                        android:theme="@style/whiteConstraintLayout"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/householdMembersTitle">
@@ -207,7 +207,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/paddingSettings"
-                    android:theme="@style/whiteConstraintlAyout">
+                    android:theme="@style/whiteConstraintLayout">
 
                     <View
                         android:id="@+id/view"
@@ -286,7 +286,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/paddingSettings"
-                    android:theme="@style/whiteConstraintlAyout">
+                    android:theme="@style/whiteConstraintLayout">
 
                     <View
                         android:id="@+id/breakLine4"

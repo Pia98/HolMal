@@ -30,7 +30,7 @@
         <item name="android:background">@color/colorTabs</item>
         <item name="tabSelectedTextColor">@color/colorBackground</item>
     </style>
-    <style name="whiteConstraintlAyout" parent="@style/ThemeOverlay.AppCompat">
+    <style name="whiteConstraintLayout" parent="@style/ThemeOverlay.AppCompat">
         <item name="android:background">@color/colorListsBackground</item>
     </style>
 </resources>
