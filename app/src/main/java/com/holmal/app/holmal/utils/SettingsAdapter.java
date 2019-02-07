@@ -2,7 +2,6 @@ package com.holmal.app.holmal.utils;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +44,6 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
      */
     @Override
     public int getCount() {
-        Log.i("personInHousehold", "count: " + personInHousehold);
         if (personInHousehold.size() == 0) {
             return 0;
         } else {
@@ -83,7 +81,6 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
         TextView name = (TextView) rowView.findViewById(R.id.personName);
 
         Person person = personInHousehold.get(keys[position]);
-        Log.i("personInHousehold", "person: " + person);
 
         if (person.getColor() == R.id.color1) {
             colour.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPersonLightGreen));

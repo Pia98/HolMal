@@ -95,13 +95,10 @@ public class RegistrationFragment2 extends Fragment {
         FirebaseDatabase.getInstance().getReference().child("household").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "household listener in onCreate: LoginActivity");
                 haushalte.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.i(TAG, "alle Haushalte durchgehen");
                     String id = child.getKey();
                     Household value = child.getValue(Household.class);
-                    Log.i(TAG, "Haushalt: " + value.getHouseholdName());
                     haushalte.put(id, value);
                 }
             }
