@@ -555,7 +555,7 @@ public class SettingsActivity extends AppCompatActivity implements PersonalInput
                             for (int i = 0; i<itemsOfThisHousehold.size(); i++){
                                 String[] allItemsKeys = itemsOfThisHousehold.keySet().toArray(new String[itemsOfThisHousehold.size()]);
                                 if(personID.equals(itemsOfThisHousehold.get(allItemsKeys[i]).getItsTask())){
-                                    itemsOfThisHousehold.get(allItemsKeys[i]).setItsTask("");
+                                    FirebaseDatabase.getInstance().getReference().child("item").child(allItemsKeys[i]).child("itsTask").setValue("");
                                 }
                             }
                         }

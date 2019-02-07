@@ -99,39 +99,39 @@ public class AllShoppingListsActivity extends AppCompatActivity {
         final TextView navUserName = headerView.findViewById(R.id.nav_user_name);
         final TextView navHousehold = headerView.findViewById(R.id.nav_household);
         String personId = preferencesAccess.readPreferences(this, getString(R.string.personIDPreference));
-        if(personId != null){
-        FirebaseDatabase.getInstance().getReference().child("person").child(personId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Person thisPerson = dataSnapshot.getValue(Person.class);
-                navUserName.setText(thisPerson.getPersonName());
-            }
+        if (personId != null) {
+            FirebaseDatabase.getInstance().getReference().child("person").child(personId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Person thisPerson = dataSnapshot.getValue(Person.class);
+                    navUserName.setText(thisPerson.getPersonName());
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });}
-        else {
+                }
+            });
+        } else {
             Intent intent = new Intent(this, StartActivity.class);
             startActivity(intent);
             finish();
         }
 
-        if(householdId != null){
-        FirebaseDatabase.getInstance().getReference().child("household").child(householdId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Household thisHousehold = dataSnapshot.getValue(Household.class);
-                navHousehold.setText(thisHousehold.getHouseholdName());
-            }
+        if (householdId != null) {
+            FirebaseDatabase.getInstance().getReference().child("household").child(householdId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Household thisHousehold = dataSnapshot.getValue(Household.class);
+                    navHousehold.setText(thisHousehold.getHouseholdName());
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });}
-        else{
+                }
+            });
+        } else {
             Intent intent = new Intent(this, StartActivity.class);
             startActivity(intent);
             finish();
