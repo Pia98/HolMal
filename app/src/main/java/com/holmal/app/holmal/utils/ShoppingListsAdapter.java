@@ -25,6 +25,8 @@ import java.util.HashMap;
  */
 public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdapter.ListsViewHolder> {
 
+    private static final String TAG = ShoppingListsAdapter.class.getName();
+
     private Context context;
     private HashMap<String, ShoppingList> shoppinglists;
     private String[] listKeys;
@@ -95,7 +97,6 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
         final ShoppingList listAtPosition = shoppinglists.get(listKeys[i]);
         final String listsID = listKeys[i];
         listAtPositionKey = listKeys[i];
-        Log.i("FürSvenja", "keysShoppingLists" + listAtPositionKey);
 
         //only shows first letters of the name
         String listName = listAtPosition.getListName();
@@ -137,7 +138,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
         listsViewHolder.gridView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("FürSvenja", "clicked list -> open list");
+                Log.i(TAG, "clicked list -> open list");
                 PreferencesAccess preferencesAccess = new PreferencesAccess();
                 preferencesAccess.storePreferences(context, context.getString(R.string.recentShoppingListNamePreference), listAtPosition.getListName());
                 Intent intent = new Intent(context, ShoppingListActivity.class);
@@ -171,7 +172,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
                                 String recentShoppingList = preferencesAccess.readPreferences(context, context.getString(R.string.recentShoppingListNamePreference));
                                 if(recentShoppingList != null){
                                     if(recentShoppingList.equals(listAtPosition.getListName())){
-                                        Log.i("ShoppingListAdapter", "set recent shoppingList null");
+                                        Log.i(TAG, "set recent shoppingList null");
                                         preferencesAccess.storePreferences(context, context.getString(R.string.recentShoppingListNamePreference), null);
                                     }
                                 }

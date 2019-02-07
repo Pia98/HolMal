@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.holmal.app.holmal.AllShoppingListsActivity;
 import com.holmal.app.holmal.R;
 import com.holmal.app.holmal.ShoppingListActivity;
 
@@ -22,6 +23,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class RegistrationFragment1 extends Fragment {
+
+    private static final String TAG = RegistrationFragment1.class.getName();
 
     public static RegistrationFragment1 newInstance() {
         return new RegistrationFragment1();
@@ -76,13 +79,13 @@ public class RegistrationFragment1 extends Fragment {
         try {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_SUBJECT, "Hol Mal");
+            intent.putExtra(Intent.EXTRA_SUBJECT, R.string.app_name);
             String householdId = this.getArguments().getString("householdId");
             String message = getString(R.string.inviteExplanation) + " " + householdId + getString(R.string.appStore) + getActivity().getPackageName();
             intent.putExtra(Intent.EXTRA_TEXT, message);
             startActivity(Intent.createChooser(intent, "Share via"));
         } catch (Exception e) {
-            Log.i("Exception", "Invite failed " + e.toString());
+            Log.i(TAG, "Invitation failed " + e.toString());
         }
     }
 

@@ -30,6 +30,8 @@ import java.util.HashMap;
  * The items adapter is set in {@link com.holmal.app.holmal.ShoppingListActivity}.
  */
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder> {
+    private static final String TAG = ItemsAdapter.class.getName();
+
 
     private Context context;
     private HashMap<String, Item> items;
@@ -167,7 +169,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         itemsViewHolder.rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("FürSvenja", "clicked item -> open info");
+                Log.i(TAG, "clicked item -> open info");
                 Intent intent = new Intent(context, ItemInformationActivity.class);
                 intent.putExtra("itemId", itemKeys[position]);
                 v.getContext().startActivity(intent);
@@ -177,7 +179,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         itemsViewHolder.rowView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Log.i("FürSvenja", "assign person");
+                Log.i(TAG, "assign person");
                 PreferencesAccess preferencesAccess = new PreferencesAccess();
                 String ownPersonID = preferencesAccess.readPreferences(context, "personID");
                 if (itemAtPosition.getItsTask().isEmpty()) {
@@ -199,10 +201,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     FirebaseDatabase.getInstance().getReference().child("item").child(itemKeys[position]).child("done").setValue(true);
-                    Log.i("ItemsAdapter", "done isChecked -> " + itemAtPosition.getItemName() + ": done should be set 'true'");
                 } else {
                     FirebaseDatabase.getInstance().getReference().child("item").child(itemKeys[position]).child("done").setValue(false);
-                    Log.i("ItemsAdapter", "done isChecked -> " + itemAtPosition.getItemName() + ": done should be set 'false'");
                 }
             }
         });
