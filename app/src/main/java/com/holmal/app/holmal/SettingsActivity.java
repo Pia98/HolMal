@@ -485,8 +485,8 @@ public class SettingsActivity extends AppCompatActivity implements PersonalInput
         try {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_SUBJECT, R.string.app_name);
-            String message = getString(R.string.inviteExplanation) + " " + householdId + getString(R.string.appStore) + this.getPackageName();
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+            String message = getString(R.string.inviteExplanation) + "" + householdId;
             intent.putExtra(Intent.EXTRA_TEXT, message);
             startActivity(Intent.createChooser(intent, "Share via"));
         } catch (Exception e) {

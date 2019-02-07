@@ -79,9 +79,9 @@ public class RegistrationFragment1 extends Fragment {
         try {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_SUBJECT, R.string.app_name);
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
             String householdId = this.getArguments().getString("householdId");
-            String message = getString(R.string.inviteExplanation) + " " + householdId + getString(R.string.appStore) + getActivity().getPackageName();
+            String message = getString(R.string.inviteExplanation) + "" + householdId;
             intent.putExtra(Intent.EXTRA_TEXT, message);
             startActivity(Intent.createChooser(intent, "Share via"));
         } catch (Exception e) {
