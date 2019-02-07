@@ -250,7 +250,6 @@ public class AllShoppingListsActivity extends AppCompatActivity {
                 }
 
                 //fill with lists with an adapter
-                Log.i(TAG, "itemsOfHousehold" + +itemsOfThisHousehold.size() + itemsOfThisHousehold.toString());
                 ShoppingListsAdapter adapter = new ShoppingListsAdapter(AllShoppingListsActivity.this, listsOfThisHousehold, itemsOfThisHousehold);
                 listsView.setAdapter(adapter);
             }

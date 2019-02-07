@@ -243,12 +243,10 @@ public class ShoppingListActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "done item listener in onCreate...");
                 doneItemsOfTheList.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     String id = child.getKey();
                     Item value = child.getValue(Item.class);
-                    Log.i(TAG, "item: " + value);
                     for (int i = 0; i < itemIds.size(); i++) {
                         if (id.equals(itemIds.get(i)) && value.isDone()) {
                             doneItemsOfTheList.put(id, value);
@@ -277,12 +275,10 @@ public class ShoppingListActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "open item listener in onCreate...");
                 openItemsOfTheList.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     String id = child.getKey();
                     Item value = child.getValue(Item.class);
-                    Log.i(TAG, "item: " + value);
                     for (int i = 0; i < itemIds.size(); i++) {
                         if (id.equals(itemIds.get(i)) && !value.isDone()) {
                             openItemsOfTheList.put(id, value);
@@ -315,12 +311,12 @@ public class ShoppingListActivity extends AppCompatActivity {
             FirebaseDatabase.getInstance().getReference().child("shoppingList").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    boolean exists = false;
+                    //boolean exists = false;
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         String id = child.getKey();
                         ShoppingList value = child.getValue(ShoppingList.class);
                         if (value.getIdBelongingTo().equals(householdId) && value.getListName().equals(recentShoppingListName)) {
-                            exists = true;
+                            //exists = true;
                             Log.i(TAG, "exists true");
                             setTitle(recentShoppingListName);
                             Log.i(TAG, "FOUND!");
@@ -344,13 +340,13 @@ public class ShoppingListActivity extends AppCompatActivity {
                             break;
                         }
                     }
-                    if(!exists){
-                        Log.i(TAG, "doesn't exist");
+                    /*if(!exists){
+                        Log.i(TAG, "ShoppingList doesn't exist");
                         preferences.storePreferences(ShoppingListActivity.this, getString(R.string.recentShoppingListNamePreference), null);
-                        Toast.makeText(getApplicationContext(), R.string.ErrorListDoesntExistAnymore, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), R.string.ErrorListDoesntExistAnymore, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ShoppingListActivity.this, AllShoppingListsActivity.class);
                         startActivity(intent);
-                    }
+                    }*/
                 }
 
                 @Override

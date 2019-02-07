@@ -75,12 +75,10 @@ public class CreateItemActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("item").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG, "item listener in onCreate...");
                 itemsOfTheList.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     String id = child.getKey();
                     Item value = child.getValue(Item.class);
-                    Log.i(TAG, "item: " + value);
                     for (int i = 0; i < itemIds.size(); i++) {
                         if (id.equals(itemIds.get(i))) {
                             itemsOfTheList.put(id, value);
@@ -101,11 +99,9 @@ public class CreateItemActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 itemIds.clear();
-                Log.i(TAG, "list listener in onCreate...");
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     String id = child.getKey();
                     String value = (String) child.getValue();
-                    Log.i(TAG, "id: " + value);
                     itemIds.add(value);
                 }
             }
@@ -207,9 +203,6 @@ public class CreateItemActivity extends AppCompatActivity {
                 Log.i(TAG, "name already taken");
                 Toast.makeText(getApplicationContext(), R.string.ErrorItemTaken, Toast.LENGTH_LONG).show();
                 return false;
-            } else {
-                Log.i(TAG, String.format("item names: '%s', '%s' (entered item name)",
-                        name, itemName));
             }
         }
         Log.i(TAG, "all right");

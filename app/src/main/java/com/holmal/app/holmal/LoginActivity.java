@@ -152,11 +152,11 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuth.Aut
             if (householdID != null) {
 
                 Intent intent;
-                if (preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference)) != null) {
+                /*if (preferences.readPreferences(this, getString(R.string.recentShoppingListNamePreference)) != null) {
                     intent = new Intent(this, ShoppingListActivity.class);
-                } else {
+                } else {*/
                     intent = new Intent(this, AllShoppingListsActivity.class);
-                }
+                //}
                 startActivity(intent);
                 finish();
             } else {
