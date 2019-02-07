@@ -104,8 +104,10 @@ public class SettingsAdapter extends ArrayAdapter<Person> {
 
         PreferencesAccess preferencesAccess = new PreferencesAccess();
         String ownPersonID = preferencesAccess.readPreferences(context, "personID");
-        if (person.getPersonName().equals(personInHousehold.get(ownPersonID).getPersonName())) {
-            name.append(" (du)");
+        if(ownPersonID != null) {
+            if (person.getPersonName().equals(personInHousehold.get(ownPersonID).getPersonName())) {
+                name.append(" (du)");
+            }
         }
 
         return rowView;
